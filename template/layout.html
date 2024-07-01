@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="it" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+
+    <title>{{ title }}</title>
+
+    <base href="{{ base_path }}" />
+
+    <meta name="description" content="{{ description }}" />
+    <meta name="keywords" content="{{ keywords }}" />
+    <meta name="author" content="Ricette Gustose" />
+
+    <link rel="stylesheet" href="styles/style.css" media="screen" />
+
+    <link rel="shortcut icon" type="image/png" href="assets/favicon/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="javascript/script.js"></script>
+</head>
+
+<body>
+    <header>
+        <a href="{{ page_path }}#content" class="helper">Vai al contenuto</a>
+
+        <nav id="logoLink" aria-label="Torna alla Home">
+            <a href="/" aria-label="Ricette Gustose">
+                <div>Ricette Gustose</div>
+            </a>
+        </nav>
+        <nav id="menu" aria-label="Barra di navigazione">
+            <ul>
+                {{ menu }}
+            </ul>
+        </nav>
+
+        <nav id="breadcrumbs" aria-label="Percorso">{{ breadcrumbs }}</nav>
+    </header>
+    <main id="content">
+        <!-- {{ general-message }} -->
+        {{ content }}
+    </main>
+
+    <footer lang="en" id="pageFooter">Ricette Gustose Software - All rights reserved.</footer>
+
+</body>
+
+</html>
