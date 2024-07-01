@@ -1,0 +1,35 @@
+version: "3.7"
+
+services:
+  webserver:
+    image: php:8.1-apache
+
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+      - ./apache/conf:/etc/apache2/sites-available
+      - ./config/php.ini:/usr/local/etc/php/php.ini
+    depends_on:
+      - phpmyadmin
+    command: bash -c "docker-php-ext-install mysqli && a2enmod rewrite && apache2-foreground"
+
+  db:
+    image: mariadb:10.6
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./volumes/mysql_data:/var/lib/mysql
+      - ./init-scripts:/docker-entrypoint-initdb.d # Mount the init-scripts directory
+    command: --init-file /docker-entrypoint-initdb.d/init.sql # Specify the initialization script
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      - PMA_ARBITRARY=1
+    depends_on:
+      - db
