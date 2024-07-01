@@ -20,6 +20,11 @@ class Html
         exit;
     }
 
+    // TODO: check circular reference
+    // protected function takeOffCircularReference($path)
+    // might work with something like
+    // $content = str_replace('path', '#', $content);
+
     public function render($path)
     {
         $content = $this->getContent('layout');

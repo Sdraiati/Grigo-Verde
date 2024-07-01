@@ -51,5 +51,5 @@ abstract class Endpoint
         return BASE_URL . $this->path === $path && $this->method === $method;
     }
 
-    abstract public function handle($path, $method);
+    abstract public function handle();
 }

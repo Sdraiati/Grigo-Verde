@@ -11,7 +11,7 @@ class Test extends Endpoint
         parent::__construct('test', 'GET');
     }
 
-    public function handle($path, $method)
+    public function handle()
     {
         $tests = [
             new TestItem('Test 1', function () {
