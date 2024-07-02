@@ -1,8 +1,9 @@
 <?php
 
+$project_root = dirname(__FILE__, 2);
 include_once 'endpoint.php';
-include_once 'html/testHtml.php';
-include_once 'html/testItem.php';
+include_once $project_root . '/page/testPage.php';
+include_once $project_root . '/test/export.php';
 
 class Test extends Endpoint
 {
@@ -13,19 +14,10 @@ class Test extends Endpoint
 
     public function handle()
     {
-        $tests = [
-            new TestItem('Test 1', function () {
-                return true;
-            }),
-            new TestItem('Test 2', function () {
-                return false;
-            }),
-            new TestItem('Test 3', function () {
-                return true;
-            })
-        ];
+        global $tests;
 
-        $testHtml = new TestHtml($tests);
+        $testHtml = new TestPage();
+        $testHtml->addTests($tests);
         echo $testHtml->render('');
     }
 }

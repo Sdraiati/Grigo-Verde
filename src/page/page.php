@@ -1,9 +1,9 @@
 <?php
 
-$project_root = dirname(__FILE__, 3);
+$project_root = dirname(__FILE__, 2);
 include_once $project_root . '/global_values.php';
 
-class Html
+class Page
 {
     protected function getContent($path)
     {
