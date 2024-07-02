@@ -1,0 +1,107 @@
+/* style.css */
+
+/* Reset some default styles */
+body, h1, p, ul, ol, table {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-collapse: collapse;
+}
+
+/* Base font settings */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Header styles */
+header {
+    margin-bottom: 20px;
+}
+
+header a.helper {
+    position: absolute;
+    top: -1000px;
+    left: -1000px;
+}
+
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+header #logoLink div {
+    font-size: 1.5em;
+}
+
+header #menu ul {
+    display: flex;
+    gap: 10px;
+}
+
+header #breadcrumbs ol {
+    display: flex;
+    gap: 5px;
+}
+
+header #breadcrumbs li {
+    color: #666;
+}
+
+header #breadcrumbs li::after {
+    content: ">";
+    margin-left: 5px;
+}
+
+header #breadcrumbs li:last-child::after {
+    content: "";
+    margin-left: 0;
+}
+
+/* Main content styles */
+main {
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+table th, table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table .passed {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+table .failed {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Footer styles */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-top: 1px solid #ddd;
+}
+

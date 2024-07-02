@@ -38,6 +38,13 @@ class TestPage extends Page
     public function __construct()
     {
         $this->testItems = [];
+        parent::setTitle('Test');
+        parent::setNav([
+            'Home' => '',
+        ]);
+        parent::setBreadcrumb([
+            'Home' => '',
+        ]);
     }
 
     public function addTest($test_name, $test_fn)
@@ -54,9 +61,9 @@ class TestPage extends Page
         return $this;
     }
 
-    public function render($_)
+    public function render()
     {
-        $content = parent::render('test');
+        $content = parent::render();
         $content = str_replace("{{ content }}", $this->getContent('test_page'), $content);
         $tests = '';
         foreach ($this->testItems as $testItem) {

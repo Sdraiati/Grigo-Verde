@@ -17,6 +17,7 @@ class Test extends Endpoint
         global $tests;
 
         $testHtml = new TestPage();
+        $testHtml->setPath('test');
         $testHtml->addTests($tests);
         echo $testHtml->render('');
     }
