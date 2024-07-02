@@ -11,5 +11,5 @@
     RewriteRule ^(.+\/)?([^\/]+)\.(png|jpg|jpeg|gif|svg)$ assets/img/$2.$3 [L]
 
    # If the above condition is not met, redirect to index.php
-	RewriteRule ^ index.php [L]
+	RewriteRule ^ src/index.php [L]
 </IfModule>
