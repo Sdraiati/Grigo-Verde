@@ -38,16 +38,10 @@
 
 /* --------- TYPOGRAPHY --------- */
 
-* {
+*:not(html) {
     background-color: var(--backgroundColor);
     color: var(--textColor);
-    padding: 0;
-    margin: 0;
     box-sizing: border-box;
-    -o-transition: box-shadow 0.5s;
-    -moz-transition: box-shadow 0.5s;
-    -webkit-transition: box-shadow 0.5s;
-    transition: box-shadow 0.5s;
     line-height: calc(1.5 * var(--textSize));
     max-width: 1200px;
     font-family: Arial, sans-serif;
@@ -66,10 +60,6 @@ h2 {
 }
 
 /* --------- HEADER --------- */
-
-header {
-    margin-bottom: 2rem;
-}
 
 header a {
     color: var(--primaryColor);
@@ -126,20 +116,21 @@ header #breadcrumbs li:last-child::after {
 body {
     margin: 0 auto;
     color: var(--textColor);
+    min-height: 100vh;
+    padding: 1rem;
 }
 
 /* --------- MAIN --------- */
 
 main {
-    margin: 0 auto;
-    margin-bottom: 20px;
+    padding: 0 1rem;
 }
 
 main img {
     max-width: 100%;
     height: auto;
     display: block;
-    margin: 2rem 0;
+    margin: 1rem 0;
 }
 
 main p {
@@ -148,6 +139,23 @@ main p {
 
 /* --------- FOOTER --------- */
 
+#back-to-top {
+    display: none;
+}
+
+#back-to-top a {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    background-color: var(--primaryColor);
+    color: var(--backgroundColor);
+    padding: 1rem;
+    border-radius: 50%;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 footer {
     text-align: center;
     padding: 1rem;
@@ -155,29 +163,146 @@ footer {
     color: var(--backgroundColor);
 }
 
+/* --------- BIGGEST BREAKPOINT --------- */
+
+@media screen and (min-width: 1200px) {
+    #back-to-top a {
+        display: none;
+    }
+}
+
 /* --------- ABOUT US PAGE --------- */
 
-#scelta-progetto {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-gap: 1rem;
-    align-items: center;
-}
+@media screen and (min-width: 1024px) {
+    #scelta-progetto {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        align-items: center;
+        grid-gap: 0 3rem;
+        grid-template-areas: 
+            "title img"
+            "text img"
+            "sign img";
+        margin-bottom: 3rem;
+    }
 
-#scelta-progetto h2 {
-    grid-column: 1 / -1;
-}
+    #scelta-progetto h2 {
+        grid-area: title;
+    }
 
-#scelta-progetto .signature {
-    grid-column: 1 / -1;
-    text-align: right;
-    font-style: italic;
-}
+    #scelta-progetto p {
+        grid-area: text;
+        margin-bottom: 0;
+    }
 
+    #scelta-progetto .signature {
+        grid-area: sign;
+        text-align: right;
+        font-style: italic;
+    }
 
-#scelta-progetto img {
-    max-width: 100%;
-    height: auto;
+    #scelta-progetto img {
+        max-width: 100%;
+        grid-area: img;
+    }
+
+    #griglia-planimetria {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 3rem;
+        align-items: center;
+        grid-template-areas: 
+            "img section1"
+            "img section2";
+    }
+
+    #grid-planimetria section:nth-child(1) {
+        grid-area: section1;
+    }
+
+    #grid-planimetria section:nth-child(2) {
+        grid-area: section2;
+    }
+
+    #griglia-planimetria img {
+        grid-area: img;
+        height: auto;
+    }
+
+    #aule-verdi {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-gap: 0 3rem;
+        align-items: center;
+        grid-template-areas: 
+            "title img1"
+            "p1 img1"
+            "p2 img2"
+            "p3 img2"
+            "img3 img3";
+    }
+
+    #aule-verdi h2 {
+        grid-area: title;
+    }
+
+    #aule-verdi p:nth-of-type(1): {
+        grid-area: p1;
+    }
+
+    #aule-verdi p:nth-of-type(2): {
+        grid-area: p2;
+    }
+
+    #aule-verdi p:nth-of-type(3): {
+        grid-area: p3;
+    }
+
+    #aule-verdi img:nth-of-type(1) {
+        grid-area: img1;
+    }
+
+    #aule-verdi img:nth-of-type(2) {
+        grid-area: img2;
+    }
+
+    #aule-verdi img:nth-type(3) {
+        grid-area: img3;
+        margin: 0 auto;
+    }
+
+    #arte-natura {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 0 3rem;
+        align-items: center;
+        grid-template-areas: 
+            "title title"
+            "p1 img"
+            "p2 img"
+            "p3 img";
+    }
+
+    #arte-natura h2 {
+        grid-area: title;
+    }
+
+    #arte-natura p:nth-of-type(1): {
+        grid-area: p1;
+    }
+
+    #arte-natura p:nth-of-type(2): {
+        grid-area: p2;
+    }
+
+    #arte-natura p:nth-of-type(3): {
+        grid-area: p3;
+    }
+
+    #arte-natura img {
+        grid-area: img;
+        max-width: 100%;
+    }
 }
 
 /* --------- TEST PAGE --------- */
