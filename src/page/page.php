@@ -71,7 +71,7 @@ class Page
     {
         $content = $this->getContent('layout');
         $content = str_replace('{{ base_path }}', BASE_URL, $content);
-        $content = str_replace('{{ title }}', $this->title . '- Ricette Gustose', $content);
+        $content = str_replace('{{ title }}', $this->title . '- Grigo Verde', $content);
         $content = str_replace('{{ description }}', 'This is a description', $content);
         $content = str_replace('{{ keywords }}', implode(', ', $this->keywords), $content);
         $content = str_replace('{{ page_path }}', $this->path, $content);
