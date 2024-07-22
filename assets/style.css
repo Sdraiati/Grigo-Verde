@@ -163,11 +163,47 @@ footer {
     color: var(--backgroundColor);
 }
 
+/* --------- MOBILE BREAKPOINT --------- */
+
+@media screen and (max-width: 767px) {
+    :root {
+        --textSize: 1rem;
+        --heading1Size: 2rem;
+        --heading2Size: 1.5rem;
+    }
+}
+
+/* --------- TABLET BREAKPOINT --------- */
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    :root {
+        --textSize: 1.1rem;
+        --heading1Size: 2.5rem;
+        --heading2Size: 2rem;
+    }
+}
+
+/* --------- TABLET BREAKPOINT --------- */
+
+@media screen and (min-width: 1024px) and (max-width: 1200px) {
+    :root {
+        --textSize: 1.3rem;
+        --heading1Size: 3rem;
+        --heading2Size: 2.5rem;
+    }
+}
+
 /* --------- BIGGEST BREAKPOINT --------- */
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1201px) {
     #back-to-top a {
         display: none;
+    }
+
+    :root {
+        --textSize: 1.5rem;
+        --heading1Size: 3.5rem;
+        --heading2Size: 3rem;
     }
 }
 
@@ -206,25 +242,45 @@ footer {
         grid-area: img;
     }
 
-    #griglia-planimetria {
+    #progetto {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-gap: 3rem;
+        grid-gap: 0 3rem;
         align-items: center;
         grid-template-areas: 
-            "img section1"
-            "img section2";
+            "img title"
+            "img p1"
+            "img p2"
+            "img ul"
+            "img p3"
+            "img p4";
     }
 
-    #grid-planimetria section:nth-child(1) {
-        grid-area: section1;
+    #progetto h2 {
+        grid-area: title;
     }
 
-    #grid-planimetria section:nth-child(2) {
-        grid-area: section2;
+    #progetto p:nth-of-type(1) {
+        grid-area: p1;
     }
 
-    #griglia-planimetria img {
+    #progetto p:nth-of-type(2) {
+        grid-area: p2;
+    }
+
+    #progetto p:nth-of-type(3) {
+        grid-area: p3;
+    }
+
+    #progetto p:nth-of-type(4) {
+        grid-area: p4;
+    }
+
+    #progetto ul {
+        grid-area: ul;
+    }
+
+    #progetto img {
         grid-area: img;
         height: auto;
     }

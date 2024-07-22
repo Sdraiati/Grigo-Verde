@@ -18,6 +18,7 @@ class HomePage extends Page
     {
         $content = parent::render();
         $content = str_replace("{{ content }}", $this->getContent('home'), $content);
+        $content = str_replace("href=\"/\"", "href=\"#\"", $content);
         return $content;
     }
 }
