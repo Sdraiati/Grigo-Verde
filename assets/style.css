@@ -209,6 +209,12 @@ footer {
 
 /* --------- ABOUT US PAGE --------- */
 
+.signature {
+    text-align: right;
+    font-style: italic;
+}
+
+
 @media screen and (min-width: 1024px) {
     #scelta-progetto {
         display: grid;
@@ -230,11 +236,8 @@ footer {
         grid-area: text;
         margin-bottom: 0;
     }
-
     #scelta-progetto .signature {
         grid-area: sign;
-        text-align: right;
-        font-style: italic;
     }
 
     #scelta-progetto img {
