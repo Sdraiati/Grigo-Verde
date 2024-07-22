@@ -7,7 +7,7 @@ CREATE TABLE UTENTE (
     Password varchar(256) NOT NULL,
     Nome VARCHAR(100) NOT NULL,
     Cognome VARCHAR(100) NOT NULL,
-    Ruolo VARCHAR(50) NOT NULL
+    Ruolo ENUM('Amministratore', 'Docente') NOT NULL
 );
 
 CREATE TABLE SPAZIO (
@@ -22,19 +22,18 @@ CREATE TABLE PRENOTAZIONE (
     Id INT AUTO_INCREMENT PRIMARY KEY,
     Data DATETIME NOT NULL,
     Username VARCHAR(50) NOT NULL REFERENCES UTENTE(Username),
-    Posizione_spazio INT NOT NULL REFERENCES UTENTE(Posizione)
+    Spazio INT NOT NULL REFERENCES SPAZIO(Posizione)
 );
 
 CREATE TABLE IMMAGINE (
-    Id INT AUTO_INCREMENT PRIMARY KEY,
-    Dato LONGBLOB NOT NULL,
+    Spazio INT AUTO_INCREMENT PRIMARY KEY REFERENCES SPAZIO(Posizione) ON DELETE CASCADE,
+    Byte LONGBLOB NOT NULL,
     Alt VARCHAR(100) DEFAULT "",
     Mime_type VARCHAR(30) NOT NULL,
-    Posizione_spazio INT NOT NULL
 );
 
 CREATE TABLE DISPONIBILITA (
-    Posizione_spazio INT NOT NULL,
+    Spazio INT NOT NULL REFERENCES SPAZIO(Posizione),
     Mese ENUM('Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'),
     Giorno_settimana ENUM('Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato', 'Domenica'),
     Orario_apertura TIME,
