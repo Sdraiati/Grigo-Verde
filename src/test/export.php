@@ -1,9 +1,9 @@
 <?php
 
+require_once 'test_immagine.php';
+
 $tests = [
-    'Test 1' => function () {
-        return true;
-    },
+    'Immagine Nuova' => test_nuovo_immagine(),
     'Test 2' => function () {
         return false;
     },

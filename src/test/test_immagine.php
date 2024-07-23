@@ -1,10 +1,11 @@
 <?php
-require_once 'database.php';
-require_once 'immagine.php';
+
+$project_root = dirname(__FILE__, 2);
+require_once $project_root . '/model/database.php';
+require_once $project_root . '/model/immagine.php';
 
 
 $immagine = new Immagine();
-
 
 $dato = file_get_contents('image.png');
 $alt = 'Esempio di immagine';
@@ -12,11 +13,14 @@ $mime_type = 'image/png';
 $posizione_spazio = 1;
 
 
-echo "Test creazione immagine:\n";
-if ($immagine->nuovo($dato, $alt, $mime_type, $posizione_spazio)) {
-    echo "Immagine creata con successo.\n";
-} else {
-    echo "Errore nella creazione dell'immagine.\n";
+function test_nuovo_immagine()
+{
+    global $immagine, $dato, $alt, $mime_type, $posizione_spazio;
+    if ($immagine->nuovo($dato, $alt, $mime_type, $posizione_spazio)) {
+        return True;
+    } else {
+        return False;
+    }
 }
 
 
@@ -37,4 +41,3 @@ if ($immagine->elimina(1)) {
 } else {
     echo "Errore nell'eliminazione dell'immagine.\n";
 }
-

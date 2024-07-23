@@ -5,6 +5,8 @@ class Immagine extends Model
 {
     private $table = "IMMAGINE";
 
+    public function __construct() {}
+
     public function nuovo($dato, $alt, $mime_type, $posizione_spazio)
     {
         $query = "INSERT INTO " . $this->table . " (Dato, Alt, Mime_type, Posizione_spazio) VALUES (?, ?, ?, ?)";
@@ -42,4 +44,3 @@ class Immagine extends Model
         return $this->exec($query, $params);
     }
 }
-
