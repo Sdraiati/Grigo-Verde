@@ -3,7 +3,7 @@ require_once 'database.php';
 require_once 'spazio.php';
 
 
-$spazio = new Spazio(Database::getInstance());
+$spazio = new Spazio();
 
 echo "Test creazione spazio:\n";
 if ($spazio->nuovo(1, 'Sala Conferenze', 'Una grande sala per conferenze', 'Conferenza', 20)) {

@@ -3,7 +3,7 @@ require_once 'database.php';
 require_once 'immagine.php';
 
 
-$immagine = new Immagine(Database::getInstance());
+$immagine = new Immagine();
 
 
 $dato = file_get_contents('image.png');
@@ -37,3 +37,4 @@ if ($immagine->elimina(1)) {
 } else {
     echo "Errore nell'eliminazione dell'immagine.\n";
 }
+

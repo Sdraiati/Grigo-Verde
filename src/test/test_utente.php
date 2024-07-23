@@ -2,7 +2,7 @@
 require_once 'utente.php';
 require_once 'database.php';
 
-$utente = new Utente(Database::getInstance());
+$utente = new Utente();
 
 if ($utente->nuovo('mario_rossi', 'Mario', 'Rossi', 'Admin', 'password123')) {
     echo "Utente creato con successo!";
