@@ -1,29 +1,34 @@
 <?php
-require_once 'database.php';
-require_once 'spazio.php';
+$project_root = dirname(__FILE__, 2);
+require_once $project_root . '/model/database.php';
+require_once $project_root . '/model/spazio.php';
 
 
 $spazio = new Spazio();
 
-echo "Test creazione spazio:\n";
-if ($spazio->nuovo(1, 'Sala Conferenze', 'Una grande sala per conferenze', 'Conferenza', 20)) {
-    echo "Spazio creato con successo.\n";
-} else {
-    echo "Errore nella creazione dello spazio.\n";
+function nuovo_spazio() {
+    global $spazio;
+    if ($spazio->nuovo(1, 'Sala Conferenze', 'Una grande sala per conferenze', 'Conferenza', 20)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
-
-echo "\nTest modifica spazio:\n";
-if ($spazio->modifica(1, 'Sala Riunioni', 'Una sala per riunioni', 'Riunione', 15)) {
-    echo "Spazio modificato con successo.\n";
-} else {
-    echo "Errore nella modifica dello spazio.\n";
+function modifica_spazio() {
+    global $spazio;
+    if ($spazio->modifica(1, 'Sala Riunioni', 'Una sala per riunioni', 'Riunione', 15)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
-
-echo "\nTest eliminazione spazio:\n";
-if ($spazio->elimina(1)) {
-    echo "Spazio eliminato con successo.\n";
-} else {
-    echo "Errore nell'eliminazione dello spazio.\n";
+function elimina_spazio() {
+    global $spazio;
+    if ($spazio->elimina(1)) {
+        return true;
+    } else {
+        return false;
+    }
 }

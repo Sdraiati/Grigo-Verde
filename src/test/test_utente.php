@@ -1,25 +1,33 @@
 <?php
-require_once 'utente.php';
-require_once 'database.php';
+$project_root = dirname(__FILE__, 2);
+require_once $project_root . '/model/database.php';
+require_once $project_root . '/model/utente.php';
 
 $utente = new Utente();
 
-if ($utente->nuovo('mario_rossi', 'Mario', 'Rossi', 'Admin', 'password123')) {
-    echo "Utente creato con successo!";
-} else {
-    echo "Errore nella creazione dell'utente.";
+function nuovo_utente() {
+    global $utente;
+    if ($utente->nuovo('mario_rossi', 'Mario', 'Rossi', 'Admin', 'password123')) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
-// Modifica un utente esistente
-if ($utente->modifica('mario_rossi', 'Mario', 'Bianchi', 'User', 'newpassword123')) {
-    echo "Utente modificato con successo!";
-} else {
-    echo "Errore nella modifica dell'utente.";
+function modifica_utente() {
+    global $utente;
+    if ($utente->modifica('mario_rossi', 'Mario', 'Bianchi', 'User', 'newpassword123')) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
-// Elimina un utente
-if ($utente->elimina('mario_rossi')) {
-    echo "Utente eliminato con successo!";
-} else {
-    echo "Errore nell'eliminazione dell'utente.";
+function elimina_utente() {
+    global $utente;
+    if ($utente->elimina('mario_rossi')) {
+        return true;
+    } else {
+        return false;
+    }
 }
