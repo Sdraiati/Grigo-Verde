@@ -2,6 +2,7 @@
 
 $project_root = dirname(__FILE__, 2);
 require_once $project_root . '/global_values.php';
+
 class Database
 {
     public $conn;

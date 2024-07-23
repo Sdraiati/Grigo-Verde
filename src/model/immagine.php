@@ -10,11 +10,11 @@ class Immagine extends Model
         parent::__construct();
     }
 
-    public function nuovo($dato, $alt, $mime_type, $posizione_spazio)
+    public function nuovo($img, $alt, $mime_type, $posizione_spazio)
     {
-        $query = "INSERT INTO " . $this->table . " (Dato, Alt, Mime_type, Posizione_spazio) VALUES (?, ?, ?, ?)";
+        $query = "INSERT INTO " . $this->table . " (Byte, Alt, Mime_type, Spazio) VALUES (?, ?, ?, ?)";
         $params = [
-            ['type' => 'b', 'value' => $dato],  // 'b' for blob
+            ['type' => 'b', 'value' => $img],  // 'b' for blob
             ['type' => 's', 'value' => $alt],
             ['type' => 's', 'value' => $mime_type],
             ['type' => 'i', 'value' => $posizione_spazio]
@@ -23,11 +23,11 @@ class Immagine extends Model
         return $this->exec($query, $params);
     }
 
-    public function modifica($id, $dato, $alt, $mime_type, $posizione_spazio)
+    public function modifica($id, $img, $alt, $mime_type, $posizione_spazio)
     {
-        $query = "UPDATE " . $this->table . " SET Dato = ?, Alt = ?, Mime_type = ?, Posizione_spazio = ? WHERE Id = ?";
+        $query = "UPDATE " . $this->table . " SET Byte = ?, Alt = ?, Mime_type = ?, Spazio = ? WHERE Id = ?";
         $params = [
-            ['type' => 'b', 'value' => $dato],  // 'b' for blob
+            ['type' => 'b', 'value' => $img],  // 'b' for blob
             ['type' => 's', 'value' => $alt],
             ['type' => 's', 'value' => $mime_type],
             ['type' => 'i', 'value' => $posizione_spazio],

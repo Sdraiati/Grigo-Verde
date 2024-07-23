@@ -3,11 +3,13 @@
 require_once 'test_immagine.php';
 
 $tests = [
-    'Immagine Nuova' => test_nuovo_immagine(),
-    'Test 2' => function () {
-        return false;
+    'Immagine Nuova' => function () {
+        return test_nuova_immagine();
     },
-    'Test 3' => function () {
-        return true;
+    'Immagine Modifica' => function () {
+        return test_modifica_immagine();
+    },
+    'Immagine Elimina' => function () {
+        return test_elimina_immagine();
     },
 ];
