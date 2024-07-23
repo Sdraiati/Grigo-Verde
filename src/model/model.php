@@ -5,9 +5,9 @@ abstract class Model
 {
     private Database $db;
 
-    protected function __construct(Database $db)
+    protected function __construct()
     {
-        $this->db = $db;
+        $this->db = Database::getInstance();
     }
 
     protected function exec($query, $params)
