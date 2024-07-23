@@ -5,7 +5,10 @@ class Immagine extends Model
 {
     private $table = "IMMAGINE";
 
-    public function __construct() {}
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     public function nuovo($dato, $alt, $mime_type, $posizione_spazio)
     {

@@ -5,6 +5,11 @@ class Utente extends Model
 {
     private $table = "UTENTE";
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function nuovo($username, $nome, $cognome, $ruolo, $password)
     {
         $query = "INSERT INTO " . $this->table . " (Username, Nome, Cognome, Ruolo, Password) VALUES (?, ?, ?, ?, ?)";
@@ -45,4 +50,3 @@ class Utente extends Model
         return $this->exec($query, $params);
     }
 }
-

@@ -4,6 +4,11 @@ require_once 'model.php';
 class Spazio extends Model
 {
     private $table = "SPAZIO";
+    
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     public function nuovo($posizione, $nome, $descrizione, $tipo, $n_tavoli)
     {
