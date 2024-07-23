@@ -7,7 +7,7 @@ require_once $project_root . '/model/immagine.php';
 
 $immagine = new Immagine();
 
-$dato = file_get_contents('image.png');
+$dato = file_get_contents('test/image.png');
 $alt = 'Esempio di immagine';
 $mime_type = 'image/png';
 $posizione_spazio = 1;
@@ -26,7 +26,7 @@ function test_nuova_immagine()
 function test_modifica_immagine()
 {
     global $immagine, $posizione_spazio;
-    $new_dato = file_get_contents('new_image.png');
+    $new_dato = file_get_contents('test/new_image.png');
     $new_alt = 'Nuovo esempio di immagine';
     $new_mime_type = 'image/png';
     if ($immagine->modifica(1, $new_dato, $new_alt, $new_mime_type, $posizione_spazio)) {
