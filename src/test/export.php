@@ -5,6 +5,12 @@ require_once 'test_spazio.php';
 require_once 'test_utente.php';
 
 $tests = [
+    'Nuovo Spazio' => function () {
+        return nuovo_spazio();
+    },
+    'Modifica Spazio' => function () {
+        return modifica_spazio();
+    },
     'Immagine Nuova' => function () {
         return test_nuova_immagine();
     },
@@ -14,6 +20,9 @@ $tests = [
     'Immagine Elimina' => function () {
         return test_elimina_immagine();
     },
+    'Elimina Spazio' => function () {
+        return elimina_spazio();
+    },
     'Nuovo Utente' => function () {
         return nuovo_utente();
     },
@@ -22,14 +31,5 @@ $tests = [
     },
     'Elimina Utente' => function () {
         return elimina_utente();
-    },
-    'Nuovo Spazio' => function () {
-        return nuovo_spazio();
-    },
-    'Modifica Spazio' => function () {
-        return modifica_spazio();
-    },
-    'Elimina Spazio' => function () {
-        return elimina_spazio();
     },
 ];

@@ -19,7 +19,6 @@ class Immagine extends Model
             ['type' => 's', 'value' => $mime_type],
             ['type' => 'i', 'value' => $posizione_spazio]
         ];
-
         return $this->exec($query, $params);
     }
 
