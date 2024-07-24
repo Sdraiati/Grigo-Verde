@@ -49,4 +49,14 @@ class Utente extends Model
 
         return $this->exec($query, $params);
     }
+
+    public function prendi($username)
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE Username = ?";
+        $params = [
+            ['type' => 's', 'value' => $username]
+        ];
+
+        return $this->get($query, $params);
+    }
 }

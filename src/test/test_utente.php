@@ -5,29 +5,32 @@ require_once $project_root . '/model/utente.php';
 
 $utente = new Utente();
 
-function nuovo_utente() {
+function nuovo_utente()
+{
     global $utente;
-    if ($utente->nuovo('mario_rossi', 'Mario', 'Rossi', 'Amministratore', 'password123')) {
-        return true;
-    } else {
-        return false;
-    }
+    return $utente->nuovo('mario_rossi', 'Mario', 'Rossi', 'Amministratore', 'password123');
 }
 
-function modifica_utente() {
+function modifica_utente()
+{
     global $utente;
-    if ($utente->modifica('mario_rossi', 'Mario', 'Bianchi', 'Docente', 'newpassword123')) {
-        return true;
-    } else {
-        return false;
-    }
+    return $utente->modifica('mario_rossi', 'Mario', 'Bianchi', 'Docente', 'newpassword123');
 }
 
-function elimina_utente() {
+function elimina_utente()
+{
     global $utente;
-    if ($utente->elimina('mario_rossi')) {
-        return true;
-    } else {
-        return false;
+    return $utente->elimina('mario_rossi');
+}
+
+function prendi_utente()
+{
+    global $utente;
+    $utente->nuovo('mario_rossi', 'Mario', 'Rossi', 'Amministratore', 'password123');
+    $mario = $utente->prendi('mario_rossi');
+    if (!$mario || $mario['Nome'] != 'Mario' || $mario['Cognome'] != 'Rossi' || $mario['Ruolo'] != 'Amministratore' || !password_verify('password123', $mario['Password'])) {
+        return False;
     }
+    $utente->elimina('mario_rossi');
+    return True;
 }

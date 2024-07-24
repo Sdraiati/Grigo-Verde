@@ -4,7 +4,7 @@ require_once 'model.php';
 class Spazio extends Model
 {
     private $table = "SPAZIO";
-    
+
     public function __construct()
     {
         parent::__construct();
@@ -47,5 +47,14 @@ class Spazio extends Model
 
         return $this->exec($query, $params);
     }
-}
 
+    public function prendi($posizione)
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE Posizione = ?";
+        $params = [
+            ['type' => 'i', 'value' => $posizione]
+        ];
+
+        return $this->get($query, $params);
+    }
+}

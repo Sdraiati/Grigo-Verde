@@ -10,14 +10,14 @@ class Immagine extends Model
         parent::__construct();
     }
 
-    public function nuovo($img, $alt, $mime_type, $posizione_spazio)
+    public function nuovo($img, $alt, $mime_type, $spazio)
     {
         $query = "INSERT INTO " . $this->table . " (Byte, Alt, Mime_type, Spazio) VALUES (?, ?, ?, ?)";
         $params = [
             ['type' => 'b', 'value' => $img],  // 'b' for blob
             ['type' => 's', 'value' => $alt],
             ['type' => 's', 'value' => $mime_type],
-            ['type' => 'i', 'value' => $posizione_spazio]
+            ['type' => 'i', 'value' => $spazio]
         ];
         return $this->exec($query, $params);
     }
@@ -44,5 +44,16 @@ class Immagine extends Model
         ];
 
         return $this->exec($query, $params);
+    }
+
+    public function prendi($id)
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE Spazio = ?";
+        $params = [
+            ['type' => 'i', 'value' => $id]
+        ];
+
+        $res = $this->get($query, $params);
+        return $res;
     }
 }
