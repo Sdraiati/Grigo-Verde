@@ -8,18 +8,24 @@ $utente = new Utente();
 function nuovo_utente()
 {
     global $utente;
-    return $utente->nuovo('mario_rossi', 'Mario', 'Rossi', 'Amministratore', 'password123');
+    $res = $utente->nuovo('mario_rossi', 'Mario', 'Rossi', 'Amministratore', 'password123');
+    $utente->elimina('mario_rossi');
+    return $res;
 }
 
 function modifica_utente()
 {
     global $utente;
-    return $utente->modifica('mario_rossi', 'Mario', 'Bianchi', 'Docente', 'newpassword123');
+    $utente->nuovo('mario_rossi', 'Mario', 'Rossi', 'Amministratore', 'password123');
+    $res = $utente->modifica('mario_rossi', 'Mario', 'Bianchi', 'Docente', 'newpassword123');
+    $utente->elimina('mario_rossi');
+    return $res;
 }
 
 function elimina_utente()
 {
     global $utente;
+    $utente->nuovo('mario_rossi', 'Mario', 'Rossi', 'Amministratore', 'password123');
     return $utente->elimina('mario_rossi');
 }
 

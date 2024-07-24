@@ -7,9 +7,7 @@ class AboutUsPage extends Page
     public function __construct()
     {
         parent::setTitle('About Us');
-        parent::setNav([
-            'Home' => '',
-        ]);
+        parent::setNav([]);
         parent::setBreadcrumb([
             'Home' => '',
         ]);

@@ -5,9 +5,6 @@ require_once 'test_spazio.php';
 require_once 'test_utente.php';
 
 $tests = [
-    'Immagine Nuova' => function () {
-        return nuova_immagine();
-    },
     'Nuovo Spazio' => function () {
         return nuovo_spazio();
     },
@@ -19,6 +16,9 @@ $tests = [
     },
     'Prendi Spazio' => function () {
         return prendi_spazio();
+    },
+    'Immagine Nuova' => function () {
+        return nuova_immagine();
     },
     'Immagine Modifica' => function () {
         return modifica_immagine();

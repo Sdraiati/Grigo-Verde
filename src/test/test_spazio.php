@@ -9,18 +9,24 @@ $spazio = new Spazio();
 function nuovo_spazio()
 {
     global $spazio;
-    return $spazio->nuovo(1, 'Sala Conferenze', 'Una grande sala per conferenze', 'Conferenza', 20);
+    $res = $spazio->nuovo(1, 'Sala Conferenze', 'Una grande sala per conferenze', 'Conferenza', 20);
+    $spazio->elimina(1);
+    return $res;
 }
 
 function modifica_spazio()
 {
     global $spazio;
-    return $spazio->modifica(1, 'Sala Riunioni', 'Una sala per riunioni', 'Riunione', 15);
+    $spazio->nuovo(1, 'Sala Conferenze', 'Una grande sala per conferenze', 'Conferenza', 20);
+    $res = $spazio->modifica(1, 'Sala Riunioni', 'Una sala per riunioni', 'Riunione', 15);
+    $spazio->elimina(1);
+    return $res;
 }
 
 function elimina_spazio()
 {
     global $spazio;
+    $spazio->nuovo(1, 'Sala Conferenze', 'Una grande sala per conferenze', 'Conferenza', 20);
     return $spazio->elimina(1);
 }
 

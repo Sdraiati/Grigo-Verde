@@ -22,25 +22,24 @@ class Immagine extends Model
         return $this->exec($query, $params);
     }
 
-    public function modifica($id, $img, $alt, $mime_type, $posizione_spazio)
+    public function modifica($spazio, $img, $alt, $mime_type)
     {
-        $query = "UPDATE " . $this->table . " SET Byte = ?, Alt = ?, Mime_type = ?, Spazio = ? WHERE Id = ?";
+        $query = "UPDATE " . $this->table . " SET Byte = ?, Alt = ?, Mime_type = ? WHERE Spazio = ?";
         $params = [
             ['type' => 'b', 'value' => $img],  // 'b' for blob
             ['type' => 's', 'value' => $alt],
             ['type' => 's', 'value' => $mime_type],
-            ['type' => 'i', 'value' => $posizione_spazio],
-            ['type' => 'i', 'value' => $id]
+            ['type' => 'i', 'value' => $spazio],
         ];
 
         return $this->exec($query, $params);
     }
 
-    public function elimina($id)
+    public function elimina($spazio)
     {
-        $query = "DELETE FROM " . $this->table . " WHERE Id = ?";
+        $query = "DELETE FROM " . $this->table . " WHERE Spazio = ?";
         $params = [
-            ['type' => 'i', 'value' => $id]
+            ['type' => 'i', 'value' => $spazio]
         ];
 
         return $this->exec($query, $params);
