@@ -1,13 +1,11 @@
 <?php
 include_once 'page.php';
-
+$project_root = dirname(__FILE__, 2);
+include_once 'controller/login.php';
 class loginPage extends Page
 {
-    public $username = '';
-    public $password = '';
-    public $error = '';
-
-    public function __construct()
+    private Login $login;
+    public function __construct(Login $login)
     {
         parent::setTitle('Login');
         parent::setNav([
@@ -16,31 +14,26 @@ class loginPage extends Page
         parent::setBreadcrumb([
             'Home' => '',
         ]);
+
+        $this->login = $login;
     }
 
     public function render()
     {
         $content = parent::render();
         $content = str_replace("{{ content }}", $this->getContent('login'), $content);
-        if($this->username != '')
+        if($this->login->username != '')
         {
-            $content = str_replace("{{ username }}", $this->username, $content);
-            $content = str_replace("{{ password }}", $this->password, $content);
-            $content = str_replace("<!-- {{ error }} -->", parent::error($this->error), $content);
+            $content = str_replace("{{ username }}", $this->login->username, $content);
+            $content = str_replace("{{ password }}", $this->login->password, $content);
+            $content = str_replace("{{ error }}", parent::error($this->login->error), $content);
         }
         else
         {
             $content = str_replace("{{ username }}", '', $content);
             $content = str_replace("{{ password }}", '', $content);
-            $content = str_replace("<!-- {{ error }} -->", '', $content);
+            $content = str_replace("{{ error }}", '', $content);
         }
         return $content;
-    }
-
-    public function precompila($username, $password, $error)
-    {
-        $this->username = $username;
-        $this->password = $password;
-        $this->error = $error;
     }
 }
