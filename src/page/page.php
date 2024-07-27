@@ -85,4 +85,9 @@ class Page
 
         return $content;
     }
+
+    public function error($message)
+    {
+        return '<div class="errore"><p>' . $message . '</p><div>';
+    }
 }
