@@ -64,7 +64,7 @@ class Disponibilita extends Model
 
     public function prendi($spazio)
     {
-        $query = "SELECT * FROM " . $this->table . " WHERE Spazio = ? AND CURDATE() <= NOW()";
+        $query = "SELECT * FROM " . $this->table . " WHERE Spazio = ?";
         $params = [
             ['type' => 'i', 'value' => $spazio]
         ];
