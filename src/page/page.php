@@ -81,7 +81,6 @@ class Page
 
         $breadcrumb = new Breadcrumb($this->breadcrumb, $this->title);
         $content = str_replace('{{ breadcrumbs }}', $breadcrumb->render(), $content);
-        $content = str_replace("{{ error }}", '', $content);
         $content = $this->takeOffCircularReference($content);
 
         return $content;

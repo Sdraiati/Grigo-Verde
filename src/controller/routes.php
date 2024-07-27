@@ -12,7 +12,7 @@ include_once 'controller/login.php';
 $about_us = new AboutUsPage();
 $homepage = new HomePage();
 $login = new Login();
-$loginPage = new LoginPage($login);
+$loginPage = new LoginPage();
 
 $router = new Router();
 

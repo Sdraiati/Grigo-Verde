@@ -5,7 +5,6 @@ class Login extends Endpoint
 {
     public string $username = '';
     public string $password = '';
-    public string $error = '';
     public function __construct()
     {
         parent::__construct('login', 'POST');
@@ -19,7 +18,8 @@ class Login extends Endpoint
         if (empty($username) || empty($password)) {
             return false;
         }
-
+        $this->username = $username;
+        $this->password = $password;
         return true;
     }
 
@@ -36,25 +36,15 @@ class Login extends Endpoint
 
         if(!$this->validate())
         {
-            $this->precompila($this->post('username'), $this->post('password'), 'Inserire username e password');
-            header("Location: /login");
-            exit();
+            $page = new LoginPage($this->username, $this->password, "Inserire username e password");
+            echo $page->render();
         }
         else if (Autenticazione::login($username, $password)) {
             echo "Pagina utente";
             //header("Location: /");
-            exit();
         } else {
-            $this->precompila($username, $password, 'Username o password errati');
-            header("Location: /login");
-            exit();
+            $page = new LoginPage($this->username, $this->password, "Username o password errati");
+            echo $page->render();
         }
-    }
-
-    public function precompila($username, $password, $error) : void
-    {
-        $this->username = $username;
-        $this->password = $password;
-        $this->error = $error;
     }
 }
