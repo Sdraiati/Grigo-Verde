@@ -3,6 +3,8 @@
 require_once 'test_immagine.php';
 require_once 'test_spazio.php';
 require_once 'test_utente.php';
+require_once 'test_prenotazione.php';
+require_once 'test_disponibilità.php';
 
 $tests = [
     'Nuovo Spazio' => function () {
@@ -41,4 +43,38 @@ $tests = [
     'Prendi Utente' => function () {
         return prendi_utente();
     },
+    'New Reservation' => function () {
+        return nuovo_prenotazione();
+    },
+    'Modify Reservation' => function () {
+        return modifica_prenotazione();
+    },
+    'Delete Reservation' => function () {
+        return elimina_prenotazione();
+    },
+    'Fetch Reservation' => function () {
+        return prendi_prenotazione();
+    },
+    'Fetch Weekly Reservations' => function () {
+        return prendi_per_settimana_prenotazione();
+    },
+    'Nuovo Disponibilità' => function () {
+        return nuovo_disponibilita();
+    },
+    'Modifica Disponibilità' => function () {
+        return modifica_disponibilita();
+    },
+    'Elimina Disponibilità' => function () {
+        return elimina_disponibilita();
+    },
+    'Prendi Disponibilità' => function () {
+        return prendi_disponibilita();
+    },
+    'Prendi per Giorno Disponibilità' => function () {
+        return prendi_per_giorno_disponibilita();
+    }
 ];
+
+
+/*
+*/

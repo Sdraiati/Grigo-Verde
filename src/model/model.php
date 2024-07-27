@@ -17,7 +17,7 @@ abstract class Model
         if ($stmt === false) {
             return false;
         }
-
+        
         try {
             $stmt->execute();
             return true;
