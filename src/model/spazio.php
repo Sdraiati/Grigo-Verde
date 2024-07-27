@@ -57,4 +57,10 @@ class Spazio extends Model
 
         return $this->get($query, $params);
     }
+
+    public function prendi_tutti()
+    {
+        $query = "SELECT * FROM " . $this->table;
+        return $this->get_all($query, []);
+    }
 }

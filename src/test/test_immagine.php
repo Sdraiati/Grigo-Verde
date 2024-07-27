@@ -11,7 +11,7 @@ $immagine = new Immagine();
 $dato = file_get_contents('test/image.png');
 $alt = 'Esempio di immagine';
 $mime_type = 'image/png';
-$posizione_spazio = 1;
+$posizione_spazio = 1000;
 
 
 function nuova_immagine()
@@ -56,12 +56,12 @@ function prendi_immagine()
     global $immagine, $dato, $alt, $mime_type, $posizione_spazio, $spazio;
     $spazio->nuovo($posizione_spazio, 'Sala Conferenze', 'Una grande sala per conferenze', 'Conferenza', 20);
     $immagine->nuovo($dato, $alt, $mime_type, $posizione_spazio);
-    $img = $immagine->prendi(1);
+    $img = $immagine->prendi($posizione_spazio);
 
     if (!$img || $img['Alt'] != $alt || $img['Mime_type'] != $mime_type || $img['Spazio'] != $posizione_spazio) {
         return False;
     }
 
-    $spazio->elimina(1);
+    $spazio->elimina($posizione_spazio);
     return True;
 }

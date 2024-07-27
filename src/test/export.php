@@ -17,6 +17,9 @@ $tests = [
     'Prendi Spazio' => function () {
         return prendi_spazio();
     },
+    'Prendi Tutti Spazio' => function () {
+        return prendi_tutti_spazio();
+    },
     'Immagine Nuova' => function () {
         return nuova_immagine();
     },
