@@ -7,6 +7,7 @@ class HomePage extends Page
     public $title = 'Home';
     public $nav = [
         'About us' => 'about_us',
+        'Login' => 'login'
     ];
     public $breadcrumb = [];
     public $keywords = ["Grigo verde", "aule verdi", "Liceo Scientifico", "M. Grigoletti", "scuola superiore", "Pordenone", "prenotazione", "area ping pong"];

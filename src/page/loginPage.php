@@ -10,9 +10,7 @@ class loginPage extends Page
     public function __construct(string $username="", string $password="", string $error="")
     {
         parent::setTitle('Login');
-        parent::setNav([
-            'Home' => '',
-        ]);
+        parent::setNav([]);
         parent::setBreadcrumb([
             'Home' => '',
         ]);
