@@ -67,3 +67,18 @@ function test_getLoggedUser() : bool
     Autenticazione::logout();
     return $pass;
 }
+
+function test_is_amministratore() : bool
+{
+    session_reset();
+    $username = 'user';
+    $password = 'user';
+
+    Autenticazione::login($username, $password);
+    $pass = false;
+    if (Autenticazione::is_amministratore()) {
+        $pass = true;
+    }
+    Autenticazione::logout();
+    return $pass;
+}

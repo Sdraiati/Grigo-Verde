@@ -59,6 +59,9 @@ $tests = [
     'Prendi utente loggato' => function () {
         return test_getLoggedUser();
     },
+    'È amministratore' => function () {
+        return test_is_amministratore();
+    },
     'New Reservation' => function () {
         return nuovo_prenotazione();
     },

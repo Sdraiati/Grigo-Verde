@@ -35,4 +35,20 @@ class Autenticazione
     {
         return $_SESSION['username'];
     }
+
+    public static function is_amministratore() : bool
+    {
+        $db = Database::getInstance();
+        $sql = "SELECT * FROM UTENTE WHERE RUOLO = 'amministratore' AND username = ?";
+        $params = [
+            ['type' => 's', 'value' => self::getLoggedUser()],
+        ];
+        $stmt = $db->bindParams($sql, $params);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        if ($result) {
+            return true;
+        }
+        return false;
+    }
 }
