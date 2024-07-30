@@ -20,11 +20,14 @@ class Autenticazione
         }
         return false;
     }
-    public static function logout()
+    public static function logout() : void
     {
+        if(!session_id()) {
+            session_start();
+        }
         session_destroy();
     }
-    public static function isLogged()
+    public static function isLogged() : bool
     {
         return isset($_SESSION['username']);
     }

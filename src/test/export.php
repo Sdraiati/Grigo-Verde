@@ -3,6 +3,7 @@
 require_once 'test_immagine.php';
 require_once 'test_spazio.php';
 require_once 'test_utente.php';
+require_once 'test_login.php';
 require_once 'test_prenotazione.php';
 require_once 'test_disponibilità.php';
 
@@ -46,6 +47,18 @@ $tests = [
     'Prendi Utente' => function () {
         return prendi_utente();
     },
+    'Effettua Login' => function () {
+        return test_login();
+    },
+    'Effettua Logout' => function () {
+        return test_logout();
+    },
+    'Controlla se loggato' => function () {
+        return test_isLogged();
+    },
+    'Prendi utente loggato' => function () {
+        return test_getLoggedUser();
+    },
     'New Reservation' => function () {
         return nuovo_prenotazione();
     },
@@ -77,7 +90,3 @@ $tests = [
         return prendi_per_giorno_disponibilita();
     }
 ];
-
-
-/*
-*/
