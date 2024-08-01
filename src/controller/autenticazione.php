@@ -20,16 +20,35 @@ class Autenticazione
         }
         return false;
     }
-    public static function logout()
+    public static function logout() : void
     {
+        if(!session_id()) {
+            session_start();
+        }
         session_destroy();
     }
-    public static function isLogged()
+    public static function isLogged() : bool
     {
         return isset($_SESSION['username']);
     }
     public static function getLoggedUser()
     {
         return $_SESSION['username'];
+    }
+
+    public static function is_amministratore() : bool
+    {
+        $db = Database::getInstance();
+        $sql = "SELECT * FROM UTENTE WHERE RUOLO = 'amministratore' AND username = ?";
+        $params = [
+            ['type' => 's', 'value' => self::getLoggedUser()],
+        ];
+        $stmt = $db->bindParams($sql, $params);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        if ($result) {
+            return true;
+        }
+        return false;
     }
 }
