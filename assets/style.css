@@ -49,11 +49,18 @@
 
 /* --------- TYPOGRAPHY --------- */
 
-*:not(html) {
+* {
     box-sizing: border-box;
     line-height: calc(1.5 * var(--textSize));
-    max-width: 1200px;
     font-family: Arial, sans-serif;
+}
+
+html {
+    padding: 0;
+}
+
+*:not(html, body, footer) {
+    max-width: 1200px;
 }
 
 h1 {
@@ -69,6 +76,10 @@ h2 {
 }
 
 /* --------- HEADER --------- */
+
+header {
+    margin: 0 auto;
+}
 
 header a {
     color: var(--primaryColor);
@@ -88,34 +99,38 @@ header a {
     color: var(--primaryColor);
 }
 
-header a.helper {
+.helper {
     position: absolute;
-    top: -1000px;
-    left: -1000px;
+    top: -40px;
+    left: 0px;
 }
 
-header #menu ul {
+.helper:focus {
+    top: 0px;
+}
+
+#menu ul {
     display: flex;
     gap: 1rem;
     list-style: none;
 }
 
-header #breadcrumbs ol {
+#breadcrumbs ol {
     display: flex;
     gap: 0.5rem;
 }
 
-header #breadcrumbs li {
+#breadcrumbs li {
     color: var(--primaryColor);
     list-style: none;
 }
 
-header #breadcrumbs li::after {
+#breadcrumbs li::after {
     content: ">";
     margin-left: 5px;
 }
 
-header #breadcrumbs li:last-child::after {
+#breadcrumbs li:last-child::after {
     content: "";
     margin-left: 0;
 }
@@ -124,15 +139,15 @@ header #breadcrumbs li:last-child::after {
 
 body {
     background-color: var(--backgroundColor);
-    margin: 0 auto;
     color: var(--textColor);
     min-height: 100vh;
-    padding: 1rem;
+    margin: 0;
 }
 
 /* --------- MAIN --------- */
 
 main {
+    margin: 0 auto;
     min-height: 100vh;
     padding: 0 1rem;
 }
@@ -172,6 +187,7 @@ footer {
     padding: 1rem;
     background-color: var(--primaryColor);
     color: var(--backgroundColor);
+    margin: 1rem 0 0 0;
 }
 
 /* --------- MOBILE BREAKPOINT --------- */
@@ -254,49 +270,6 @@ footer {
     #scelta-progetto img {
         max-width: 100%;
         grid-area: img;
-    }
-
-    #progetto {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 0 3rem;
-        align-items: center;
-        grid-template-areas: 
-            "img title"
-            "img p1"
-            "img p2"
-            "img ul"
-            "img p3"
-            "img p4";
-    }
-
-    #progetto h2 {
-        grid-area: title;
-    }
-
-    #progetto p:nth-of-type(1) {
-        grid-area: p1;
-    }
-
-    #progetto p:nth-of-type(2) {
-        grid-area: p2;
-    }
-
-    #progetto p:nth-of-type(3) {
-        grid-area: p3;
-    }
-
-    #progetto p:nth-of-type(4) {
-        grid-area: p4;
-    }
-
-    #progetto ul {
-        grid-area: ul;
-    }
-
-    #progetto img {
-        grid-area: img;
-        height: auto;
     }
 
     #aule-verdi {
