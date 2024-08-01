@@ -2,15 +2,6 @@
 #           General            #
 ##############################*/
 
-:root {
-    --errorMessageColor: #721c24;
-    --errorMessageBackground: #f8d7da;
-    --errorMessageBorderColor: #f5c6cb;
-
-    --successMessageColor: #155624;
-    --successMessageBackground: #d4edda;
-    --successMessageBorderColor: #c3e6cb;
-}
 
 /* --------- COLORS --------- */
 
@@ -21,10 +12,21 @@
     --secondaryColor: #73dec1;
     /* --linkColor: #0000EE; */
     --linkColor: #B6C9BB;
-    --visitedLinkColor: #795CB2 ;
+    --visitedLinkColor: #795CB2;
+
+    --errorMessageColor: #721c24;
 }
 
 /*
+:root {
+    --errorMessageBackground: #f8d7da;
+    --errorMessageBorderColor: #f5c6cb;
+
+    --successMessageColor: #155624;
+    --successMessageBackground: #d4edda;
+    --successMessageBorderColor: #c3e6cb;
+}
+
 @media (prefers-color-scheme: light) {
     :root {
         --textColor: #333333;
@@ -369,4 +371,8 @@ table .passed {
 table .failed {
     background-color: #f8d7da;
     color: #721c24;
+}
+
+#error-message {
+    color: #f00;
 }
