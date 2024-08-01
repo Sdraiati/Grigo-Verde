@@ -43,3 +43,5 @@ CREATE TABLE DISPONIBILITA (
     Orario_chiusura TIME,
     FOREIGN KEY (Spazio) REFERENCES SPAZIO(Posizione)
 );
+
+INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('user', 'user', 'user', 'user', 'Amministratore');
