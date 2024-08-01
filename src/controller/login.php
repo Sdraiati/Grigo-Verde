@@ -18,14 +18,15 @@ class Login extends Endpoint
         if (empty($username) || empty($password)) {
             return false;
         }
+
         $this->username = $username;
         $this->password = $password;
         return true;
     }
 
-    private function sanitizeInput($input)
+    public function containSpace($input) : bool
     {
-        return htmlspecialchars(strip_tags(trim($input)), ENT_QUOTES, 'UTF-8');
+        return str_contains($input, ' ');
     }
 
 
@@ -39,7 +40,11 @@ class Login extends Endpoint
             $page = new LoginPage($this->username, $this->password, "Inserire username e password");
             echo $page->render();
         }
-        else if (Autenticazione::login($username, $password)) {
+        elseif ($this->containSpace($username) || $this->containSpace($password)) {
+            $page = new LoginPage($this->username, $this->password, "Username e password non possono contenere spazi");
+            echo $page->render();
+        }
+        elseif (Autenticazione::login($username, $password)) {
             echo "Pagina utente";
             //header("Location: /");
         } else {
