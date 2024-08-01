@@ -58,6 +58,16 @@ class Spazio extends Model
         return $this->get($query, $params);
     }
 
+    public function prendi_per_nome($nome) : array | null
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE Nome = ?";
+        $params = [
+            ['type' => 's', 'value' => $nome]
+        ];
+
+        return $this->get($query, $params);
+    }
+
     public function prendi_tutti()
     {
         $query = "SELECT * FROM " . $this->table;
