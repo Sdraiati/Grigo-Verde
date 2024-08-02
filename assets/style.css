@@ -14,7 +14,9 @@
     --linkColor: #B6C9BB;
     --visitedLinkColor: #795CB2;
 
-    --errorMessageColor: #721c24;
+    --errorMessageColor: red;
+
+    --shadow: 0 0 0.4rem 0.01rem var(--secondaryColor);
 }
 
 /*
@@ -202,6 +204,7 @@ footer {
         --textSize: 1rem;
         --heading1Size: 2rem;
         --heading2Size: 1.5rem;
+        --shortContent: 100%;
     }
 }
 
@@ -212,6 +215,7 @@ footer {
         --textSize: 1.1rem;
         --heading1Size: 2.5rem;
         --heading2Size: 2rem;
+        --shortContent: 50%;
     }
 }
 
@@ -222,6 +226,7 @@ footer {
         --textSize: 1.3rem;
         --heading1Size: 3rem;
         --heading2Size: 2.5rem;
+        --shortContent: 33%;
     }
 }
 
@@ -236,6 +241,7 @@ footer {
         --textSize: 1.5rem;
         --heading1Size: 3.5rem;
         --heading2Size: 3rem;
+        --shortContent: 25%;
     }
 }
 
@@ -381,7 +387,9 @@ table .failed {
 form {
     padding: 1.5rem;
     border-radius: 0.4rem;
-    width: 100%;
+    box-shadow: var(--shadow);
+    width: var(--shortContent);
+    margin: 0 auto;
 }
 
 fieldset {
@@ -407,7 +415,6 @@ input[type="password"] {
     margin-bottom: 1rem;
     border: 0.1rem solid var(--primaryColor);
     border-radius: 0.4rem;
-    background-color: var(--secondaryColor);
 }
 
 input[type="checkbox"] {
@@ -438,5 +445,4 @@ input[type="submit"]:hover {
 #error-message {
     text-align: center;
     color: var(--errorMessageColor);
-    margin-top: 1rem;
 }
