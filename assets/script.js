@@ -56,7 +56,7 @@ function validateString(element, str, min=Number.MIN_SAFE_INTEGER, max=Number.MA
     }
     if(str.length > max) {
         if (show_char_number) {
-            insertErrorMessage(element,"Il campo deve contenere al massimo " + max + " caratteri.");
+            insertErrorMessage(element,"Il campo può contenere al massimo " + max + " caratteri.");
         }
         return false;
     }
@@ -82,9 +82,6 @@ function validateLogin() {
     let username = document.getElementsByName("username")[0].value;
     let password = document.getElementsByName("password")[0].value;
 
-    let username_element = document.getElementsByName("username")[0];
-    let password_element = document.getElementsByName("password")[0];
-
     let fieldset_element = document.getElementsByTagName("fieldset")[0];
 
     let isUsernameValid = validateString(fieldset_element, username, 4, 50);
@@ -96,4 +93,46 @@ function validateLogin() {
     }
 
     return isUsernameValid && isPasswordValid;
+}
+
+function validateNewSpace() {
+    let posizione = document.getElementsByName("posizione")[0].value;
+    let nome = document.getElementsByName("nome")[0].value;
+    let descrizione = document.getElementsByName("descrizione")[0].value;
+    let tipo = document.getElementsByName("tipo")[0].value;
+    let n_tavoli = document.getElementsByName("n_tavoli")[0].value;
+
+    let fieldset_element = document.getElementsByTagName("fieldset")[0];
+
+    removeErrorDivs();
+
+    if (posizione < 0 || !Number.isInteger(parseInt(posizione))) {
+        console.log(posizione);
+        insertErrorMessage(fieldset_element, "La posizione deve essere un numero intero positivo.");
+        return false;
+    }
+
+    if (tipo !== "Aula verde" && tipo !== "Spazio ricreativo") {
+        insertErrorMessage(fieldset_element, "Il tipo deve essere Amministratore o Docente.");
+        return false;
+    }
+
+    if (n_tavoli < 0 || !Number.isInteger(parseInt(n_tavoli))) {
+        if (n_tavoli === "") {
+            n_tavoli = 0;
+            return true;
+        }
+        insertErrorMessage(fieldset_element, "Il numero di tavoli deve essere un numero intero positivo.");
+        return false;
+    }
+
+    let limit = 65534;
+    if (descrizione.length > limit) {
+        insertErrorMessage(fieldset_element, "La descrizione non può contenere più di " + limit + " caratteri.");
+        return false;
+    }
+    console.log("Nome" . nome);
+    let isNomeValid = validateString(fieldset_element, nome, 2, 70, true);
+
+    return isNomeValid;
 }
