@@ -51,16 +51,64 @@
     }
 }
 
+/* --------- MOBILE BREAKPOINT --------- */
+
+@media screen and (max-width: 767px) {
+    :root {
+        --textSize: 1rem;
+        --heading1Size: 2rem;
+        --heading2Size: 1.5rem;
+        --shortContent: 100%;
+        --content: 100%;
+    }
+}
+
+/* --------- TABLET BREAKPOINT --------- */
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    :root {
+        --textSize: 1.1rem;
+        --heading1Size: 2.5rem;
+        --heading2Size: 2rem;
+        --shortContent: 55%;
+        --content: 90%;
+    }
+}
+
+/* --------- LAPTOP BREAKPOINT --------- */
+
+@media screen and (min-width: 1024px) and (max-width: 1200px) {
+    :root {
+        --textSize: 1.3rem;
+        --heading1Size: 3rem;
+        --heading2Size: 2.5rem;
+        --shortContent: 42%;
+        --content: 80%;
+    }
+}
+
+/* --------- BIG SCREEN BREAKPOINT --------- */
+
+@media screen and (min-width: 1201px) {
+    #back-to-top a {
+        display: none;
+    }
+
+    :root {
+        --textSize: 1.5rem;
+        --heading1Size: 3.5rem;
+        --heading2Size: 3rem;
+        --shortContent: 36%;
+        --content: 70%;
+    }
+}
+
 /* --------- TYPOGRAPHY --------- */
 
 * {
     box-sizing: border-box;
     line-height: calc(1.5 * var(--textSize));
     font-family: Arial, sans-serif;
-}
-
-html {
-    padding: 0;
 }
 
 *:not(html, body, footer) {
@@ -157,6 +205,7 @@ main {
     margin: 0 auto;
     min-height: 100vh;
     padding: 0 1rem;
+    width: var(--content);
 }
 
 main img {
@@ -168,6 +217,10 @@ main img {
 
 main p {
     margin-bottom: 1.5rem;
+}
+
+.short-content {
+    width: var(--shortContent);
 }
 
 /* --------- FOOTER --------- */
@@ -197,52 +250,71 @@ footer {
     margin: 1rem 0 0 0;
 }
 
-/* --------- MOBILE BREAKPOINT --------- */
+/* --------- FORMS --------- */
 
-@media screen and (max-width: 767px) {
-    :root {
-        --textSize: 1rem;
-        --heading1Size: 2rem;
-        --heading2Size: 1.5rem;
-        --shortContent: 100%;
-    }
+form {
+    padding: 1.5rem;
+    border-radius: 0.4rem;
+    box-shadow: var(--shadow);
+    margin: 0 auto;
 }
 
-/* --------- TABLET BREAKPOINT --------- */
-
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-    :root {
-        --textSize: 1.1rem;
-        --heading1Size: 2.5rem;
-        --heading2Size: 2rem;
-        --shortContent: 50%;
-    }
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
 }
 
-/* --------- LAPTOP BREAKPOINT --------- */
-
-@media screen and (min-width: 1024px) and (max-width: 1200px) {
-    :root {
-        --textSize: 1.3rem;
-        --heading1Size: 3rem;
-        --heading2Size: 2.5rem;
-        --shortContent: 33%;
-    }
+legend {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
 }
 
-/* --------- BIG SCREEN BREAKPOINT --------- */
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
 
-@media screen and (min-width: 1201px) {
-    #back-to-top a {
-        display: none;
-    }
+input[type="text"],
+input[type="number"],
+textarea,
+select,
+input[type="password"] {
+    width: 98%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 0.1rem solid var(--primaryColor);
+    border-radius: 0.4rem;
+}
 
-    :root {
-        --textSize: 1.5rem;
-        --heading1Size: 3.5rem;
-        --heading2Size: 3rem;
-        --shortContent: 25%;
-    }
+input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+input[type="submit"] {
+    width: 98%;
+    padding: 1rem;
+    background-color: var(--primaryColor);
+    color: var(--backgroundColor);
+    border: none;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    font-size: 1.1em;
+}
+
+input[type="submit"]:hover {
+    background-color: var(--primaryColor);
+}
+
+#mostra-password + label {
+    display: inline-block;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+#error-message {
+    text-align: center;
+    color: var(--errorMessageColor);
 }
 
 /* --------- ABOUT US PAGE --------- */
@@ -380,69 +452,4 @@ table .passed {
 table .failed {
     background-color: #f8d7da;
     color: #721c24;
-}
-
-/* --------- FORMS --------- */
-
-form {
-    padding: 1.5rem;
-    border-radius: 0.4rem;
-    box-shadow: var(--shadow);
-    width: var(--shortContent);
-    margin: 0 auto;
-}
-
-fieldset {
-    border: none;
-    padding: 0;
-    margin: 0;
-}
-
-legend {
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-}
-
-label {
-    display: block;
-    margin-bottom: 0.5rem;
-}
-
-input[type="text"],
-input[type="password"] {
-    width: 98%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: 0.1rem solid var(--primaryColor);
-    border-radius: 0.4rem;
-}
-
-input[type="checkbox"] {
-    margin-right: 0.5rem;
-}
-
-input[type="submit"] {
-    width: 98%;
-    padding: 1rem;
-    background-color: var(--primaryColor);
-    color: var(--backgroundColor);
-    border: none;
-    border-radius: 0.4rem;
-    cursor: pointer;
-    font-size: 1.1em;
-}
-
-input[type="submit"]:hover {
-    background-color: var(--primaryColor);
-}
-
-#mostra-password + label {
-    display: inline-block;
-    margin-bottom: 1rem;
-    cursor: pointer;
-}
-
-#error-message {
-    text-align: center;
-    color: var(--errorMessageColor);
 }

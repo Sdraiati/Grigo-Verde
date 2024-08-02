@@ -44,4 +44,5 @@ CREATE TABLE DISPONIBILITA (
     FOREIGN KEY (Spazio) REFERENCES SPAZIO(Posizione)
 );
 
-INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('user', 'user', 'user', 'user', 'Amministratore');
+INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('user', 'user', 'user', 'user', 'Docente');
+INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('admin', 'admin', 'admin', 'admin', 'Amministratore');

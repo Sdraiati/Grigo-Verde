@@ -10,14 +10,13 @@ class newSpacePage extends Page
     private string $tipo = '';
     private int $n_tavoli = 0;
     private string $error = '';
-    public function __construct(int $posizione = -1, string $nome = "", string $descrizione = '', string $tipo= "", int $n_tavoli = 0, string $error = '')
+    public function __construct(int $posizione = -1, string $nome = "", string $descrizione = '', string $tipo = "", int $n_tavoli = 0, string $error = '')
     {
         parent::setTitle('Nuovo Spazio');
         parent::setNav([]);
         parent::setBreadcrumb([
-            'Home' => 'home',
-            'Spazi' => 'spaces',
-            'Nuovo Spazio' => 'new_space',
+            'Home' => '',
+            'Spazi' => 'spazi',
         ]);
 
         $this->posizione = $posizione;
@@ -39,7 +38,6 @@ class newSpacePage extends Page
             if ($this->tipo === 'Aula verde') {
                 $content = str_replace("{{ selectedVerde }}", 'selected', $content);
                 $content = str_replace("{{ selectedRicreativo }}", '', $content);
-
             } elseif ($this->tipo === 'Spazio ricreativo') {
                 $content = str_replace("{{ selectedRicreativo }}", 'selected', $content);
                 $content = str_replace("{{ selectedVerde }}", '', $content);
@@ -60,3 +58,4 @@ class newSpacePage extends Page
         return $content;
     }
 }
+

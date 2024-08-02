@@ -25,5 +25,6 @@ $router->add(new StaticPage('about_us', $about_us));
 $router->add(new StaticPage('', $homepage));
 $router->add(new StaticPage('login', $loginPage));
 $router->add($login);
-$router->add(new StaticPage('new_space', $newSpacePage));
+$router->add(new StaticPage('spazi/nuovo', $newSpacePage));
 $router->add($newSpace);
+
