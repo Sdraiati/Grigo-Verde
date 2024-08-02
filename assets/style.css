@@ -69,12 +69,15 @@ h1 {
     line-height: calc(1.5 * var(--heading1Size));
     color: var(--primaryColor);
     margin-bottom: 1rem;
+    text-align: center;
+    font-size: var(--heading1Size);
 }
 
 h2 {
     line-height: calc(1.5 * var(--heading2Size));
     color: var(--primaryColor);
     margin-bottom: 1rem;
+    font-size: var(--heading2Size);
 }
 
 /* --------- HEADER --------- */
@@ -129,7 +132,7 @@ header a {
 
 #breadcrumbs li::after {
     content: ">";
-    margin-left: 5px;
+    margin-left: 0.4rem;
 }
 
 #breadcrumbs li:last-child::after {
@@ -354,13 +357,13 @@ footer {
 
 table {
     width: 100%;
-    border: 1px solid #ddd;
+    border: 0.1rem solid #ddd;
 }
 
 table th, table td {
-    padding: 8px;
+    padding: 0.8rem;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 0.1rem solid #ddd;
 }
 
 table .passed {
@@ -373,6 +376,67 @@ table .failed {
     color: #721c24;
 }
 
+/* --------- FORMS --------- */
+
+form {
+    padding: 1.5rem;
+    border-radius: 0.4rem;
+    width: 100%;
+}
+
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+legend {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 98%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 0.1rem solid var(--primaryColor);
+    border-radius: 0.4rem;
+    background-color: var(--secondaryColor);
+}
+
+input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+input[type="submit"] {
+    width: 98%;
+    padding: 1rem;
+    background-color: var(--primaryColor);
+    color: var(--backgroundColor);
+    border: none;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    font-size: 1.1em;
+}
+
+input[type="submit"]:hover {
+    background-color: var(--primaryColor);
+}
+
+#mostra-password + label {
+    display: inline-block;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
 #error-message {
-    color: #f00;
+    text-align: center;
+    color: var(--errorMessageColor);
+    margin-top: 1rem;
 }

@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function(_) {
         }
     }
 })
+
 function toggleView(name = "password") {
     let elements = document.getElementsByName(name);
     for (let i = 0; i < elements.length; i++) {
