@@ -10,9 +10,9 @@
             required autocomplete="current-password">
         <input id="mostra-password" type="checkbox" onclick="toggleView()">
         <label for="mostra-password">Mostra <span lang="en">Password</span></label>
-        <div id="error-message">
-            <span> {{ error }} </span>
-        </div>
-        <input type="submit" value="Accedi">
     </fieldset>
+    {{ error }}
+    <div>
+        <input type="submit" value="Accedi">
+    </div>
 </form>

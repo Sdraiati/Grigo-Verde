@@ -323,9 +323,10 @@ input[type="submit"]:hover {
     cursor: pointer;
 }
 
-#error-message {
+.errore {
     text-align: center;
     color: var(--errorMessageColor);
+    margin-top: 1rem;
 }
 
 /* --------- ABOUT US PAGE --------- */
