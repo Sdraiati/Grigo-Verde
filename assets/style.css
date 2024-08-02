@@ -130,16 +130,23 @@ h2 {
     font-size: var(--heading2Size);
 }
 
+a {
+    color: var(--backgroundColor);
+    background-color: var(--primaryColor);
+    decoration: underline;
+    padding: 0.2rem;
+    border-radius: 0.4rem;
+}
+
+a:visited {
+    color: var(--primaryColor);
+    background-color: var(--backgroundColor);
+}
+
 /* --------- HEADER --------- */
 
 header {
     margin: 0 auto;
-}
-
-header a {
-    color: var(--primaryColor);
-    text-decoration: none;
-    font-weight: bold;
 }
 
 #logoLink img {
@@ -151,12 +158,16 @@ header a {
     display: flex;
     align-items: center;
     padding: 1rem 0;
+    text-decoration: none;
     color: var(--primaryColor);
+    background-color: var(--backgroundColor);
+    font-weight: bold;
+
 }
 
 .helper {
     position: absolute;
-    top: -40px;
+    top: -999px;
     left: 0px;
 }
 
@@ -444,12 +455,16 @@ table th, table td {
     border-bottom: 0.1rem solid #ddd;
 }
 
-table .passed {
+.passed {
     background-color: #d4edda;
     color: #155724;
 }
 
-table .failed {
+.failed {
     background-color: #f8d7da;
     color: #721c24;
+}
+
+#tabella-test {
+    display: none;
 }
