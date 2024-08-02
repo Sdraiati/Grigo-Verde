@@ -10,12 +10,7 @@
     --backgroundColor: #FFFFFF;
     --primaryColor: #335833;
     --secondaryColor: #73dec1;
-    /* --linkColor: #0000EE; */
-    --linkColor: #B6C9BB;
-    --visitedLinkColor: #795CB2;
-
     --errorMessageColor: red;
-
     --shadow: 0 0 0.4rem 0.01rem var(--secondaryColor);
 }
 
@@ -90,10 +85,6 @@
 /* --------- BIG SCREEN BREAKPOINT --------- */
 
 @media screen and (min-width: 1201px) {
-    #back-to-top a {
-        display: none;
-    }
-
     :root {
         --textSize: 1.5rem;
         --heading1Size: 3.5rem;
@@ -134,7 +125,7 @@ a {
     color: var(--backgroundColor);
     background-color: var(--primaryColor);
     decoration: underline;
-    padding: 0.2rem;
+    padding: 0.3rem;
     border-radius: 0.4rem;
 }
 
@@ -238,12 +229,13 @@ main p {
 
 #back-to-top {
     display: none;
-}
-
-#back-to-top a {
+    line-height: 1rem;
     position: fixed;
     bottom: 1rem;
     right: 1rem;
+}
+
+#back-to-top a {
     background-color: var(--primaryColor);
     color: var(--backgroundColor);
     padding: 1rem;
@@ -251,6 +243,7 @@ main p {
     cursor: pointer;
     text-decoration: none;
     font-weight: bold;
+    border: 0.1rem solid var(--backgroundColor);
 }
 
 footer {
@@ -258,7 +251,7 @@ footer {
     padding: 1rem;
     background-color: var(--primaryColor);
     color: var(--backgroundColor);
-    margin: 1rem 0 0 0;
+    margin: 3rem 0 0 0;
 }
 
 /* --------- FORMS --------- */
@@ -311,6 +304,7 @@ input[type="submit"] {
     border-radius: 0.4rem;
     cursor: pointer;
     font-size: 1.1em;
+    box-shadow: var(--shadow);
 }
 
 input[type="submit"]:hover {
