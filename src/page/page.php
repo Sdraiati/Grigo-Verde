@@ -88,6 +88,6 @@ class Page
 
     public function error($message)
     {
-        return '<div class="errore"><p>' . $message . '</p><div>';
+        return '<div class="errore"><p>' . $message . '</p></div>';
     }
 }
