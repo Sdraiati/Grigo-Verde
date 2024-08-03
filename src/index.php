@@ -9,8 +9,10 @@ if ($logged) {
     $_SESSION["LogIn"] = $_COOKIE["LogIn"];
 }
 
-if ($router->match($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD'])) {
-    $router->handle($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
+$uri = strtok($_SERVER['REQUEST_URI'], '?');
+
+if ($router->match($uri, $_SERVER['REQUEST_METHOD'])) {
+    $router->handle($uri, $_SERVER['REQUEST_METHOD']);
 } else {
     // TODO: define a 404 page
     echo '404';

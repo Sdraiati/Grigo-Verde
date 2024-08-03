@@ -10,6 +10,8 @@ include_once 'page/loginPage.php';
 include_once 'controller/login.php';
 include_once 'page/newSpacePage.php';
 include_once 'controller/new_space.php';
+include_once 'page/dettaglioSpazioPage.php';
+include_once 'controller/dettaglioSpazio.php';
 
 $about_us = new AboutUsPage();
 $homepage = new HomePage();
@@ -17,6 +19,8 @@ $login = new Login();
 $loginPage = new LoginPage();
 $newSpacePage = new NewSpacePage();
 $newSpace = new NewSpace();
+$dettaglioSpazioPage = new DettaglioSpazioPage();
+$dettaglioSpazio = new DettaglioSpazio();
 
 $router = new Router();
 
@@ -27,3 +31,5 @@ $router->add(new StaticPage('login', $loginPage));
 $router->add($login);
 $router->add(new StaticPage('spazi/nuovo', $newSpacePage));
 $router->add($newSpace);
+//$router->add(new StaticPage('spazi/spazio', $dettaglioSpazioPage));
+$router->add($dettaglioSpazio);
