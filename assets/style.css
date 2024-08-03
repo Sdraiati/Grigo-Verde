@@ -5,44 +5,25 @@
 
 /* --------- COLORS --------- */
 
-:root {
-    --textColor: #333333;
-    --backgroundColor: #FFFFFF;
-    --primaryColor: #335833;
-    --secondaryColor: #73dec1;
-    --errorMessageColor: red;
-    --shadow: 0 0 0.4rem 0.01rem var(--secondaryColor);
-}
-
-/*
-:root {
-    --errorMessageBackground: #f8d7da;
-    --errorMessageBorderColor: #f5c6cb;
-
-    --successMessageColor: #155624;
-    --successMessageBackground: #d4edda;
-    --successMessageBorderColor: #c3e6cb;
-}
-
 @media (prefers-color-scheme: light) {
     :root {
         --textColor: #333333;
         --backgroundColor: #FFFFFF;
-        --primaryColor: #1D4E4A;
+        --primaryColor: #335833;
         --secondaryColor: #73dec1;
-        --linkColor: #0000EE;
-        --visitedLinkColor: #795CB2 ;
+        --errorMessageColor: red;
+        --shadow: 0 0 0.4rem 0.01rem var(--secondaryColor);
     }
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --textColor: #333333;
-        --backgroundColor: #FFFFFF;
-        --primaryColor: #1D4E4A;
-        --secondaryColor: #73dec1;
-        --linkColor: #0000EE;
-        --visitedLinkColor: #795CB2 ;
+        --textColor: #FFFFFF;
+        --backgroundColor: #333333;
+        --primaryColor: #73dec1;
+        --secondaryColor: #335833;
+        --errorMessageColor: red;
+        --shadow: 0 0 0.4rem 0.01rem var(--secondaryColor);
     }
 }
 
@@ -124,7 +105,6 @@ h2 {
 a {
     color: var(--backgroundColor);
     background-color: var(--primaryColor);
-    decoration: underline;
     padding: 0.3rem;
     border-radius: 0.4rem;
 }
@@ -277,6 +257,11 @@ legend {
 label {
     display: block;
     margin-bottom: 0.5rem;
+}
+
+input {
+    background-color: var(--backgroundColor);
+    color: var(--textColor);
 }
 
 input[type="text"],

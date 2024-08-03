@@ -61,7 +61,7 @@ class Prenotazione extends Model
     {
         $endDate = date('Y-m-d H:i:s', strtotime($day . ' +1 week'));
 
-        $query = "SELECT * FROM " . $this->table . " WHERE Spazio = ? AND Data >= ? AND Data < ?";
+        $query = "SELECT * FROM " . $this->table . " WHERE Spazio = ? AND DataFine >= ? AND DataInizio < ?";
         $params = [
             ['type' => 'i', 'value' => $spazio],
             ['type' => 's', 'value' => $day],
@@ -71,4 +71,3 @@ class Prenotazione extends Model
         return $this->get_all($query, $params);
     }
 }
-
