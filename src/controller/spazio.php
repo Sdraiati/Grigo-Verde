@@ -7,7 +7,7 @@ include_once $project_root . '/page/visualizzazioneSpaziPage.php';
 class SpazioEndpoint extends Endpoint {
 
     public function __construct() {
-        parent::__construct('spazio', 'POST');
+        parent::__construct('spazio', 'GET');
     }
 
     public function handle() {
