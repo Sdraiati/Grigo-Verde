@@ -8,10 +8,12 @@ include_once 'page/aboutUsPage.php';
 include_once 'page/homePage.php';
 include_once 'page/loginPage.php';
 include_once 'controller/login.php';
+include_once 'controller/spazio.php';
 
 $about_us = new AboutUsPage();
 $homepage = new HomePage();
 $login = new Login();
+$spazio_endpoint = new SpazioEndpoint();
 $loginPage = new LoginPage();
 
 $router = new Router();
@@ -21,3 +23,4 @@ $router->add(new StaticPage('about_us', $about_us));
 $router->add(new StaticPage('', $homepage));
 $router->add(new StaticPage('login', $loginPage));
 $router->add($login);
+$router->add($spazio_endpoint);
