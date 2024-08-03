@@ -94,7 +94,7 @@ class VisualizzazioneSpaziPage extends Page
         
         // in base ad items costruire {{ content }}
         $intestazione_pagina = $this->getContent('visualizzazione_spazi_page'); 
-        $lista_spazi = '';
+        $lista_spazi = 'lista degli spazi'; // questo cambia in base ad items.
         $intestazione_pagina = str_replace("{{ lista }}", $lista_spazi , $intestazione_pagina);
 
         // contenuto che varia in base agli spazi.
