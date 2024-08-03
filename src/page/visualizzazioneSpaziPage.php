@@ -35,8 +35,9 @@ class VisualizzazioneSpaziPage extends Page
 
         // query da modificare in quanto gestisce solamente il tipo.
         $query = "SELECT * FROM SPAZIO 
-        JOIN PRENOTAZIONE ON SPAZIO.Posizione = PRENOTAZIONE.Spazio 
-        WHERE Tipo = ? AND NOT data = ?";
+        JOIN PRENOTAZIONE ON SPAZIO.Posizione = PRENOTAZIONE.Spazio
+        JOIN DISPONIBILITA ON SPAZIO.Posizione = DISPONIBILITA.Spazio
+        WHERE SPAZIO.Tipo = ? AND NOT PRENOTAZIONE.data = ?";
         
         if ($tipo == "") {
             // regex
@@ -49,7 +50,6 @@ class VisualizzazioneSpaziPage extends Page
             ['type' => 's', 'value' => $tipo],
             ['type' => 's', 'value' => $data]
         ];
-        return $this->get_all($query, []);
     }
 
     public function __construct(string $tipo = "", string $data = "") {
