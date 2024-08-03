@@ -18,7 +18,11 @@ class SpazioEndpoint extends Endpoint {
         // $content->render();
         // echo $content;
 
-        $param = $_POST['tipo'];
-        echo $param;
+    }
+
+    public function match($path, $method): bool
+    {
+        $path = explode('?', $path)[0];
+        return parent::match($path, $method);
     }
 }
