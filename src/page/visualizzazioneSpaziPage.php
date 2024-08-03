@@ -29,7 +29,10 @@ class VisualizzazioneSpaziPage extends Page
 
     private function filtra_spazi($tipo, $data) {
 
-        $query = "SELECT * FROM SPAZIO WHERE Tipo = ?";
+        // query da modificare in quanto gestisce solamente il tipo.
+        $query = "SELECT * FROM SPAZIO 
+        JOIN PRENOTAZIONE ON SPAZIO.Posizione = PRENOTAZIONE.Spazio 
+        WHERE Tipo = ? AND NOT data = ?";
         
         if ($tipo == "") {
             // regex
