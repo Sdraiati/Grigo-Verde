@@ -2,15 +2,6 @@
 #           General            #
 ##############################*/
 
-:root {
-    --errorMessageColor: #721c24;
-    --errorMessageBackground: #f8d7da;
-    --errorMessageBorderColor: #f5c6cb;
-
-    --successMessageColor: #155624;
-    --successMessageBackground: #d4edda;
-    --successMessageBorderColor: #c3e6cb;
-}
 
 /* --------- COLORS --------- */
 
@@ -19,12 +10,20 @@
     --backgroundColor: #FFFFFF;
     --primaryColor: #335833;
     --secondaryColor: #73dec1;
-    /* --linkColor: #0000EE; */
-    --linkColor: #B6C9BB;
-    --visitedLinkColor: #795CB2 ;
+    --errorMessageColor: red;
+    --shadow: 0 0 0.4rem 0.01rem var(--secondaryColor);
 }
 
 /*
+:root {
+    --errorMessageBackground: #f8d7da;
+    --errorMessageBorderColor: #f5c6cb;
+
+    --successMessageColor: #155624;
+    --successMessageBackground: #d4edda;
+    --successMessageBorderColor: #c3e6cb;
+}
+
 @media (prefers-color-scheme: light) {
     :root {
         --textColor: #333333;
@@ -47,33 +46,98 @@
     }
 }
 
+/* --------- MOBILE BREAKPOINT --------- */
+
+@media screen and (max-width: 767px) {
+    :root {
+        --textSize: 1rem;
+        --heading1Size: 2rem;
+        --heading2Size: 1.5rem;
+        --shortContent: 100%;
+        --content: 100%;
+    }
+}
+
+/* --------- TABLET BREAKPOINT --------- */
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    :root {
+        --textSize: 1.1rem;
+        --heading1Size: 2.5rem;
+        --heading2Size: 2rem;
+        --shortContent: 55%;
+        --content: 90%;
+    }
+}
+
+/* --------- LAPTOP BREAKPOINT --------- */
+
+@media screen and (min-width: 1024px) and (max-width: 1200px) {
+    :root {
+        --textSize: 1.3rem;
+        --heading1Size: 3rem;
+        --heading2Size: 2.5rem;
+        --shortContent: 42%;
+        --content: 80%;
+    }
+}
+
+/* --------- BIG SCREEN BREAKPOINT --------- */
+
+@media screen and (min-width: 1201px) {
+    :root {
+        --textSize: 1.5rem;
+        --heading1Size: 3.5rem;
+        --heading2Size: 3rem;
+        --shortContent: 36%;
+        --content: 70%;
+    }
+}
+
 /* --------- TYPOGRAPHY --------- */
 
-*:not(html) {
+* {
     box-sizing: border-box;
     line-height: calc(1.5 * var(--textSize));
-    max-width: 1200px;
     font-family: Arial, sans-serif;
+}
+
+*:not(html, body, footer) {
+    max-width: 1200px;
 }
 
 h1 {
     line-height: calc(1.5 * var(--heading1Size));
     color: var(--primaryColor);
     margin-bottom: 1rem;
+    text-align: center;
+    font-size: var(--heading1Size);
 }
 
 h2 {
     line-height: calc(1.5 * var(--heading2Size));
     color: var(--primaryColor);
     margin-bottom: 1rem;
+    font-size: var(--heading2Size);
+}
+
+a {
+    color: var(--backgroundColor);
+    background-color: var(--primaryColor);
+    decoration: underline;
+    padding: 0.3rem;
+    border-radius: 0.4rem;
+}
+
+a:visited {
+    color: var(--primaryColor);
+    background-color: var(--backgroundColor);
 }
 
 /* --------- HEADER --------- */
 
-header a {
-    color: var(--primaryColor);
-    text-decoration: none;
-    font-weight: bold;
+header {
+    margin: 0 auto;
 }
 
 #logoLink img {
@@ -85,37 +149,45 @@ header a {
     display: flex;
     align-items: center;
     padding: 1rem 0;
+    text-decoration: none;
     color: var(--primaryColor);
+    background-color: var(--backgroundColor);
+    font-weight: bold;
+
 }
 
-header a.helper {
+.helper {
     position: absolute;
-    top: -1000px;
-    left: -1000px;
+    top: -999px;
+    left: 0px;
 }
 
-header #menu ul {
+.helper:focus {
+    top: 0px;
+}
+
+#menu ul {
     display: flex;
     gap: 1rem;
     list-style: none;
 }
 
-header #breadcrumbs ol {
+#breadcrumbs ol {
     display: flex;
     gap: 0.5rem;
 }
 
-header #breadcrumbs li {
+#breadcrumbs li {
     color: var(--primaryColor);
     list-style: none;
 }
 
-header #breadcrumbs li::after {
+#breadcrumbs li::after {
     content: ">";
-    margin-left: 5px;
+    margin-left: 0.4rem;
 }
 
-header #breadcrumbs li:last-child::after {
+#breadcrumbs li:last-child::after {
     content: "";
     margin-left: 0;
 }
@@ -124,17 +196,18 @@ header #breadcrumbs li:last-child::after {
 
 body {
     background-color: var(--backgroundColor);
-    margin: 0 auto;
     color: var(--textColor);
     min-height: 100vh;
-    padding: 1rem;
+    margin: 0;
 }
 
 /* --------- MAIN --------- */
 
 main {
+    margin: 0 auto;
     min-height: 100vh;
     padding: 0 1rem;
+    width: var(--content);
 }
 
 main img {
@@ -148,16 +221,21 @@ main p {
     margin-bottom: 1.5rem;
 }
 
+.short-content {
+    width: var(--shortContent);
+}
+
 /* --------- FOOTER --------- */
 
 #back-to-top {
     display: none;
-}
-
-#back-to-top a {
+    line-height: 1rem;
     position: fixed;
     bottom: 1rem;
     right: 1rem;
+}
+
+#back-to-top a {
     background-color: var(--primaryColor);
     color: var(--backgroundColor);
     padding: 1rem;
@@ -165,6 +243,7 @@ main p {
     cursor: pointer;
     text-decoration: none;
     font-weight: bold;
+    border: 0.1rem solid var(--backgroundColor);
 }
 
 footer {
@@ -172,50 +251,76 @@ footer {
     padding: 1rem;
     background-color: var(--primaryColor);
     color: var(--backgroundColor);
+    margin: 3rem 0 0 0;
 }
 
-/* --------- MOBILE BREAKPOINT --------- */
+/* --------- FORMS --------- */
 
-@media screen and (max-width: 767px) {
-    :root {
-        --textSize: 1rem;
-        --heading1Size: 2rem;
-        --heading2Size: 1.5rem;
-    }
+form {
+    padding: 1.5rem;
+    border-radius: 0.4rem;
+    box-shadow: var(--shadow);
+    margin: 0 auto;
 }
 
-/* --------- TABLET BREAKPOINT --------- */
-
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-    :root {
-        --textSize: 1.1rem;
-        --heading1Size: 2.5rem;
-        --heading2Size: 2rem;
-    }
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
 }
 
-/* --------- LAPTOP BREAKPOINT --------- */
-
-@media screen and (min-width: 1024px) and (max-width: 1200px) {
-    :root {
-        --textSize: 1.3rem;
-        --heading1Size: 3rem;
-        --heading2Size: 2.5rem;
-    }
+legend {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
 }
 
-/* --------- BIG SCREEN BREAKPOINT --------- */
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
 
-@media screen and (min-width: 1201px) {
-    #back-to-top a {
-        display: none;
-    }
+input[type="text"],
+input[type="number"],
+textarea,
+select,
+input[type="password"] {
+    width: 98%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 0.1rem solid var(--primaryColor);
+    border-radius: 0.4rem;
+}
 
-    :root {
-        --textSize: 1.5rem;
-        --heading1Size: 3.5rem;
-        --heading2Size: 3rem;
-    }
+input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+input[type="submit"] {
+    width: 98%;
+    padding: 1rem;
+    background-color: var(--primaryColor);
+    color: var(--backgroundColor);
+    border: none;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    font-size: 1.1em;
+    box-shadow: var(--shadow);
+}
+
+input[type="submit"]:hover {
+    background-color: var(--primaryColor);
+}
+
+#mostra-password + label {
+    display: inline-block;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+.errore {
+    text-align: center;
+    color: var(--errorMessageColor);
+    margin-top: 1rem;
 }
 
 /* --------- ABOUT US PAGE --------- */
@@ -254,49 +359,6 @@ footer {
     #scelta-progetto img {
         max-width: 100%;
         grid-area: img;
-    }
-
-    #progetto {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 0 3rem;
-        align-items: center;
-        grid-template-areas: 
-            "img title"
-            "img p1"
-            "img p2"
-            "img ul"
-            "img p3"
-            "img p4";
-    }
-
-    #progetto h2 {
-        grid-area: title;
-    }
-
-    #progetto p:nth-of-type(1) {
-        grid-area: p1;
-    }
-
-    #progetto p:nth-of-type(2) {
-        grid-area: p2;
-    }
-
-    #progetto p:nth-of-type(3) {
-        grid-area: p3;
-    }
-
-    #progetto p:nth-of-type(4) {
-        grid-area: p4;
-    }
-
-    #progetto ul {
-        grid-area: ul;
-    }
-
-    #progetto img {
-        grid-area: img;
-        height: auto;
     }
 
     #aule-verdi {
@@ -379,21 +441,25 @@ footer {
 
 table {
     width: 100%;
-    border: 1px solid #ddd;
+    border: 0.1rem solid #ddd;
 }
 
 table th, table td {
-    padding: 8px;
+    padding: 0.8rem;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 0.1rem solid #ddd;
 }
 
-table .passed {
+.passed {
     background-color: #d4edda;
     color: #155724;
 }
 
-table .failed {
+.failed {
     background-color: #f8d7da;
     color: #721c24;
+}
+
+#tabella-test {
+    display: none;
 }

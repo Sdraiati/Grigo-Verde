@@ -52,4 +52,9 @@ abstract class Endpoint
     }
 
     abstract public function handle();
+
+    public static function sanitizeInput($input) : string
+    {
+        return htmlspecialchars(strip_tags(trim($input)), ENT_QUOTES, 'UTF-8');
+    }
 }

@@ -39,9 +39,7 @@ class TestPage extends Page
     {
         $this->testItems = [];
         parent::setTitle('Test');
-        parent::setNav([
-            'Home' => '',
-        ]);
+        parent::setNav([]);
         parent::setBreadcrumb([
             'Home' => '',
         ]);

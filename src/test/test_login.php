@@ -68,11 +68,11 @@ function test_getLoggedUser() : bool
     return $pass;
 }
 
-function test_is_amministratore() : bool
+function test_is_amministratore(): bool
 {
     session_reset();
-    $username = 'user';
-    $password = 'user';
+    $username = 'admin';
+    $password = 'admin';
 
     Autenticazione::login($username, $password);
     $pass = false;

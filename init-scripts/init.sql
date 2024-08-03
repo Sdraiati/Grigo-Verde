@@ -12,7 +12,7 @@ CREATE TABLE UTENTE (
 
 CREATE TABLE SPAZIO (
     Posizione INT PRIMARY KEY,
-    Nome VARCHAR(100) NOT NULL,
+    Nome VARCHAR(100) NOT NULL UNIQUE,
     Descrizione TEXT,
     Tipo VARCHAR(50) NOT NULL,
     N_tavoli INT DEFAULT 0
@@ -23,6 +23,7 @@ CREATE TABLE PRENOTAZIONE (
     Data DATETIME NOT NULL,
     Username VARCHAR(50) NOT NULL,
     Spazio INT NOT NULL,
+    Descrizione TEXT,
     FOREIGN KEY (Username) REFERENCES UTENTE(Username),
     FOREIGN KEY (Spazio) REFERENCES SPAZIO(Posizione)
 );
@@ -43,3 +44,6 @@ CREATE TABLE DISPONIBILITA (
     Orario_chiusura TIME,
     FOREIGN KEY (Spazio) REFERENCES SPAZIO(Posizione)
 );
+
+INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('user', 'user', 'user', 'user', 'Docente');
+INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('admin', 'admin', 'admin', 'admin', 'Amministratore');

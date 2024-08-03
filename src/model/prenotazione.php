@@ -10,25 +10,27 @@ class Prenotazione extends Model
         parent::__construct();
     }
 
-    public function nuovo($data, $username, $spazio)
+    public function nuovo($data, $username, $spazio, $descrizione)
     {
-        $query = "INSERT INTO " . $this->table . " (Data, Username, Spazio) VALUES (?, ?, ?)";
+        $query = "INSERT INTO " . $this->table . " (Data, Username, Spazio, Descrizione) VALUES (?, ?, ?, ?)";
         $params = [
             ['type' => 's', 'value' => $data],
             ['type' => 's', 'value' => $username],
-            ['type' => 'i', 'value' => $spazio]
+            ['type' => 'i', 'value' => $spazio],
+            ['type' => 's', 'value' => $descrizione]
         ];
 
         return $this->exec($query, $params);
     }
 
-    public function modifica($id, $data, $username, $spazio)
+    public function modifica($id, $data, $username, $spazio, $descrizione)
     {
-        $query = "UPDATE " . $this->table . " SET Data = ?, Username = ?, Spazio = ? WHERE Id = ?";
+        $query = "UPDATE " . $this->table . " SET Data = ?, Username = ?, Spazio = ?, Descrizione = ? WHERE Id = ?";
         $params = [
             ['type' => 's', 'value' => $data],
             ['type' => 's', 'value' => $username],
             ['type' => 'i', 'value' => $spazio],
+            ['type' => 's', 'value' => $descrizione],
             ['type' => 'i', 'value' => $id]
         ];
 
@@ -69,3 +71,4 @@ class Prenotazione extends Model
         return $this->get_all($query, $params);
     }
 }
+
