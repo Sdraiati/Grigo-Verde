@@ -1,5 +1,6 @@
 <?php
 
+include_once 'model/database.php';
 include_once 'page.php';
 include_once 'model/spazio.php';
 
@@ -37,7 +38,7 @@ class VisualizzazioneSpaziPage extends Page
         $query = "SELECT * FROM SPAZIO 
         JOIN PRENOTAZIONE ON SPAZIO.Posizione = PRENOTAZIONE.Spazio
         JOIN DISPONIBILITA ON SPAZIO.Posizione = DISPONIBILITA.Spazio
-        WHERE SPAZIO.Tipo = ? AND NOT PRENOTAZIONE.data = ?";
+        WHERE SPAZIO.Tipo = ? NOT PRENOTAZIONE.data = ?";
         
         if ($tipo == "") {
             // regex
@@ -50,6 +51,20 @@ class VisualizzazioneSpaziPage extends Page
             ['type' => 's', 'value' => $tipo],
             ['type' => 's', 'value' => $data]
         ];
+
+        // prendere un'istanza del db.
+        $db = Database::geInstance(); 
+        $stmt = $db->bindParams($query, $params);
+
+        if ($stmt === false) {
+            return false;
+        }
+        try {
+            $stmt->execute();
+            return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
     public function __construct(string $tipo = "", string $data = "") {
