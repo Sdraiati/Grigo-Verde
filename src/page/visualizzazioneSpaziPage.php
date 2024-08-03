@@ -15,8 +15,8 @@ class SpazioItem {
 
 class VisualizzazioneSpaziPage extends Page
 {
-    private string $tipo;
-    private $data;
+    private string $tipo = '';
+    private $data = '';
     public $title = 'VisualizzazioneSpazi';
     public $nav = [
         'About us' => 'about_us',
@@ -26,6 +26,24 @@ class VisualizzazioneSpaziPage extends Page
     ];
     public $keywords = ["Grigo verde", "aule verdi", "Liceo Scientifico", "M. Grigoletti", "scuola superiore", "Pordenone", "prenotazione", "area ping pong"];
     public $path = '/visualizzazione_spazi';
+
+    private function filtra_spazi($tipo, $data) {
+
+        $query = "SELECT * FROM SPAZIO WHERE Tipo = ?";
+        
+        if ($tipo == "") {
+            // regex
+            $tipo = ".*"
+        }
+        if ($data == "") {
+            $data = ".*"
+        }
+        $params = [
+            ['type' => 's', 'value' => $tipo],
+            ['type' => 's', 'value' => $data]
+        ];
+        return $this->get_all($query, []);
+    }
 
     public function __construct(string $tipo = "", string $data = "") {
         parent::setTitle('Viualizzazione Spazi');
@@ -49,11 +67,6 @@ class VisualizzazioneSpaziPage extends Page
 
     public function render() 
     {
-        // params è un array che contiene i filtri della ricerca
-        // nel caso in cui questi fossero nulli il page_path rimane invariato.
-        // in base al contenuto di questo array il page_path viene modificato in questo modo:
-        // /visualizzazione_spazi?param1=$params[0]&param2=$params[1] ...
-
         $content = parent::render();
         
         $model_spazio = new Spazio();

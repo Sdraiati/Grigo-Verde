@@ -11,13 +11,9 @@ class SpazioEndpoint extends Endpoint {
     }
 
     public function handle() {
-        
-        // caso in cui almeno uno degli input sia apposto
-       
-        // $content = new VisualizzazioneSpaziPage();
-        // $content->render();
-        // echo $content;
-
+        $page = new VisualizzazioneSpaziPage($_GET['tipo'], $_GET['data']);
+        $page->render();
+        echo $content;
     }
 
     public function match($path, $method): bool
