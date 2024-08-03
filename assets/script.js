@@ -95,6 +95,28 @@ function validateLogin() {
     return isUsernameValid && isPasswordValid;
 }
 
+function validateImage() {
+    //check if the uploaded image is larger than 1MB
+    let images = document.getElementsByClassName("image");
+    for (let i = 0; i < images.length; i++) {
+        if (images[i].files[0].size > 1048576) {
+            removeErrorDivs();
+            insertErrorMessage(images[i], "L'immagine non può superare 1MB.");
+            return false;
+        }
+    }
+    //for each image n with id image_n check there is a corresponding description with id img_description_n completed
+    let descriptions = document.getElementsByClassName("img_description");
+    for (let i = 0; i < descriptions.length; i++) {
+        if (descriptions[i].value === "") {
+            removeErrorDivs();
+            insertErrorMessage(descriptions[i], "Inserire una descrizione per l'immagine.");
+            return false;
+        }
+    }
+    return true;
+}
+
 function validateNewSpace() {
     let posizione = document.getElementsByName("posizione")[0].value;
     let nome = document.getElementsByName("nome")[0].value;
@@ -107,7 +129,6 @@ function validateNewSpace() {
     removeErrorDivs();
 
     if (posizione < 0 || !Number.isInteger(parseInt(posizione))) {
-        console.log(posizione);
         insertErrorMessage(fieldset_element, "La posizione deve essere un numero intero positivo.");
         return false;
     }
@@ -120,10 +141,11 @@ function validateNewSpace() {
     if (n_tavoli < 0 || !Number.isInteger(parseInt(n_tavoli))) {
         if (n_tavoli === "") {
             n_tavoli = 0;
-            return true;
         }
-        insertErrorMessage(fieldset_element, "Il numero di tavoli deve essere un numero intero positivo.");
-        return false;
+        else {
+            insertErrorMessage(fieldset_element, "Il numero di tavoli deve essere un numero intero positivo.");
+            return false;
+        }
     }
 
     let limit = 65534;
@@ -131,8 +153,76 @@ function validateNewSpace() {
         insertErrorMessage(fieldset_element, "La descrizione non può contenere più di " + limit + " caratteri.");
         return false;
     }
-    console.log("Nome" . nome);
-    let isNomeValid = validateString(fieldset_element, nome, 2, 70, true);
 
-    return isNomeValid;
+    let isNomeValid = validateString(fieldset_element, nome, 2, 70, true);
+    let isImageValid = validateImage();
+    return isNomeValid && isImageValid;
+}
+
+function removeImage(num) {
+    let image_div = document.getElementById(`image_div_${num}`);
+    image_div.remove();
+}
+
+let imgCount = 0;
+function addImage() {
+    //check if the image is already present
+    let images = document.getElementsByClassName("image");
+    if (images.length > 0) {
+        //check if the image is empty
+        if (images[0].value === "") {
+            removeErrorDivs();
+            insertErrorMessage(images[0], "Inserire un'immagine.");
+            return;
+        }
+    }
+    //check if the description is already present
+    let description = document.getElementsByClassName("img_description");
+    if (description.length > 0) {
+        //check if the description is empty
+        if (description[0].value === "") {
+            removeErrorDivs();
+            insertErrorMessage(description[0], "Inserire una descrizione per l'immagine.");
+            return;
+        }
+    }
+
+    let image_label = document.createElement("label");
+    image_label.htmlFor = `image_${imgCount}`;
+    image_label.innerHTML = "Carica un'immagine: ";
+    let image_input = document.createElement("input");
+    image_input.type = "file";
+    image_input.className = "image";
+    image_input.name = `image_${imgCount}`;
+    image_input.id = `image_${imgCount}`;
+    image_input.accept = "image/png, image/jpg, image/jpeg";
+
+    let description_label = document.createElement("label");
+    description_label.htmlFor = `img_description_${imgCount}`;
+    description_label.innerHTML = "Descrizione dell'immagine";
+    let description_input = document.createElement("input");
+    description_input.type = "text";
+    description_input.className = "img_description";
+    description_input.name = `img_description_${imgCount}`;
+    description_input.id = `img_description_${imgCount}`;
+    description_input.placeholder = "Descrizione dell'immagine";
+
+    let remove_button = document.createElement("input");
+    remove_button.type = "button";
+    remove_button.value = "Rimuovi";
+    let num = imgCount;
+    remove_button.onclick = function() { removeImage(num) };
+
+    let image_div = document.createElement("div");
+    image_div.appendChild(image_label);
+    image_div.appendChild(image_input);
+    image_div.appendChild(description_label);
+    image_div.appendChild(description_input);
+    image_div.appendChild(remove_button);
+
+    image_div.id = `image_div_${imgCount}`;
+    imgCount++;
+
+    let add_image_button = document.getElementById("add_img_button");
+    add_image.parentNode.insertBefore(image_div, add_image_button);
 }

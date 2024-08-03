@@ -1,6 +1,6 @@
 <div class="container">
     <h1>Nuovo Spazio</h1>
-    <form action="/new_space" method="post" onsubmit=" return validateNewSpace()">
+    <form action="/new_space" method="post" enctype="multipart/form-data" onsubmit="return validateNewSpace()">
         <fieldset>
             <legend>Informazioni sullo spazio</legend>
             <label for="posizione">Posizione:</label>
@@ -17,14 +17,13 @@
             <label for="n_tavoli">Numero di Tavoli:</label>
             <input type="number" id="n_tavoli" name="n_tavoli" value="{{ n_tavoli }}" min="0">
         </fieldset>
+        {{ error }}
+        <fieldset>
+            <legend id="add_image">Aggiungi immagini</legend>
+            <input type="button" id="add_img_button" value="Aggiungi immagine" onclick="return addImage()">
+        </fieldset>
         <div>
             <input type="submit" value="Crea Spazio">
         </div>
-        {{ error }}
-        <fieldset>
-            <legend>Aggiungi immagini</legend>
-            <label for="immagine">Immagine:</label>
-            <input type="file" id="immagine" name="immagine" accept="image/png, image/jpg image/jpeg">
-        </fieldset>
     </form>
 </div>
