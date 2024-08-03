@@ -9,7 +9,11 @@ class SpazioItem {
     // renderizza uno spazio
     // $params: array contenente i valori dei campi spazio
     public function render($values) {
+        $item "<li>"
+
+        // costruzione dell'item.
         
+        return $item
     }
 }
 
@@ -71,10 +75,11 @@ class VisualizzazioneSpaziPage extends Page
     public function render() 
     {
         $content = parent::render();
+        $items =  $this->filtra_spazi($tipo, $data); // questo è un array di SpazioItems che deve essere rimpiazzato a {{ content }}
         
-        $model_spazio = new Spazio();
-        $items =  $model_spazio->prendi_tutti(); // questo è un array di SpazioItems che deve essere rimpiazzato a {{ content }}
-        
+        // in base ad items costruire {{ content }}
+        $lista_spazi = '' 
+
         // contenuto che varia in base agli spazi.
         $content = str_replace("{{ content }}", $this->getContent('home'), $content);
         $content = str_replace("href=\"/\"", "href=\"#\"", $content);
