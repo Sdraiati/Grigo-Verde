@@ -10,11 +10,11 @@ class SpazioItem {
     // renderizza uno spazio
     // $params: array contenente i valori dei campi spazio
     public function render($values) {
-        $item "<li>"
+        $item = "<li>";
 
         // costruzione dell'item.
         
-        return $item
+        return $item;
     }
 }
 
@@ -42,10 +42,10 @@ class VisualizzazioneSpaziPage extends Page
         
         if ($tipo == "") {
             // regex
-            $tipo = ".*"
+            $tipo = ".*";
         }
         if ($data == "") {
-            $data = ".*"
+            $data = ".*";
         }
         $params = [
             ['type' => 's', 'value' => $tipo],
@@ -93,7 +93,7 @@ class VisualizzazioneSpaziPage extends Page
         $items =  $this->filtra_spazi($tipo, $data); // questo è un array di SpazioItems che deve essere rimpiazzato a {{ content }}
         
         // in base ad items costruire {{ content }}
-        $lista_spazi = '' 
+        $lista_spazi = '';
 
         // contenuto che varia in base agli spazi.
         $content = str_replace("{{ content }}", $this->getContent('home'), $content);
