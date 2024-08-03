@@ -200,7 +200,7 @@ function addImage() {
     // Crea l'elemento img per l'anteprima
     let image_preview = document.createElement("img");
     image_preview.id = `image_preview_${imgCount}`;
-    image_preview.style.maxWidth = "200px";
+    image_preview.style.maxWidth = "10vw";
     image_preview.style.display = "none";
 
     image_input.addEventListener("change", function(event) {
