@@ -38,7 +38,7 @@ class VisualizzazioneSpaziPage extends Page
         $query = "SELECT * FROM SPAZIO 
         JOIN PRENOTAZIONE ON SPAZIO.Posizione = PRENOTAZIONE.Spazio
         JOIN DISPONIBILITA ON SPAZIO.Posizione = DISPONIBILITA.Spazio
-        WHERE SPAZIO.Tipo = ? NOT PRENOTAZIONE.data = ?";
+        WHERE SPAZIO.Tipo = ? AND DISPONIBILITA.data = ? AND NOT PRENOTAZIONE.data = ?";
         
         if ($tipo == "") {
             // regex
@@ -49,6 +49,7 @@ class VisualizzazioneSpaziPage extends Page
         }
         $params = [
             ['type' => 's', 'value' => $tipo],
+            ['type' => 's', 'value' => $data],
             ['type' => 's', 'value' => $data]
         ];
 
