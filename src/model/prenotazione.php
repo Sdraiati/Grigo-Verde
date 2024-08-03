@@ -10,11 +10,12 @@ class Prenotazione extends Model
         parent::__construct();
     }
 
-    public function nuovo($data, $username, $spazio, $descrizione)
+    public function nuovo($dataInizio, $dataFine, $username, $spazio, $descrizione)
     {
-        $query = "INSERT INTO " . $this->table . " (Data, Username, Spazio, Descrizione) VALUES (?, ?, ?, ?)";
+        $query = "INSERT INTO " . $this->table . " (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES (?, ?, ?, ?, ?)";
         $params = [
-            ['type' => 's', 'value' => $data],
+            ['type' => 's', 'value' => $dataInizio],
+            ['type' => 's', 'value' => $dataFine],
             ['type' => 's', 'value' => $username],
             ['type' => 'i', 'value' => $spazio],
             ['type' => 's', 'value' => $descrizione]
@@ -23,11 +24,12 @@ class Prenotazione extends Model
         return $this->exec($query, $params);
     }
 
-    public function modifica($id, $data, $username, $spazio, $descrizione)
+    public function modifica($id, $dataInizio, $dataFine, $username, $spazio, $descrizione)
     {
-        $query = "UPDATE " . $this->table . " SET Data = ?, Username = ?, Spazio = ?, Descrizione = ? WHERE Id = ?";
+        $query = "UPDATE " . $this->table . " SET DataInizio = ?, DataFine = ?, Username = ?, Spazio = ?, Descrizione = ? WHERE Id = ?";
         $params = [
-            ['type' => 's', 'value' => $data],
+            ['type' => 's', 'value' => $dataInizio],
+            ['type' => 's', 'value' => $dataFine],
             ['type' => 's', 'value' => $username],
             ['type' => 'i', 'value' => $spazio],
             ['type' => 's', 'value' => $descrizione],
