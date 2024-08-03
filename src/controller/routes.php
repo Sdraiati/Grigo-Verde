@@ -27,4 +27,3 @@ $router->add(new StaticPage('login', $loginPage));
 $router->add($login);
 $router->add(new StaticPage('spazi/nuovo', $newSpacePage));
 $router->add($newSpace);
-
