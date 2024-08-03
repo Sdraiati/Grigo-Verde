@@ -90,10 +90,12 @@ class VisualizzazioneSpaziPage extends Page
     public function render() 
     {
         $content = parent::render();
-        $items =  $this->filtra_spazi($tipo, $data); // questo è un array di SpazioItems che deve essere rimpiazzato a {{ content }}
+        // $items =  $this->filtra_spazi($tipo, $data); // questo è un array di SpazioItems che deve essere rimpiazzato a {{ content }}
         
         // in base ad items costruire {{ content }}
+        $intestazione_pagina = $this->getContent('visualizzazione_spazi_page'); 
         $lista_spazi = '';
+        $intestazione_pagina = str_replace("{{ lista }}", $lista_spazi , $intestazione_pagina);
 
         // contenuto che varia in base agli spazi.
         $content = str_replace("{{ content }}", $this->getContent('home'), $content);
