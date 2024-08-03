@@ -197,6 +197,23 @@ function addImage() {
     image_input.id = `image_${imgCount}`;
     image_input.accept = "image/png, image/jpg, image/jpeg";
 
+    // Crea l'elemento img per l'anteprima
+    let image_preview = document.createElement("img");
+    image_preview.id = `image_preview_${imgCount}`;
+    image_preview.style.maxWidth = "200px";
+    image_preview.style.display = "none";
+
+    image_input.addEventListener("change", function(event) {
+        if (event.target.files && event.target.files[0]) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                image_preview.src = e.target.result;
+                image_preview.style.display = "block";
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    });
+
     let description_label = document.createElement("label");
     description_label.htmlFor = `img_description_${imgCount}`;
     description_label.innerHTML = "Descrizione dell'immagine";
@@ -216,6 +233,7 @@ function addImage() {
     let image_div = document.createElement("div");
     image_div.appendChild(image_label);
     image_div.appendChild(image_input);
+    image_div.appendChild(image_preview);
     image_div.appendChild(description_label);
     image_div.appendChild(description_input);
     image_div.appendChild(remove_button);
