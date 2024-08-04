@@ -1,14 +1,10 @@
 <?php
-
 session_start();
 
 include_once 'controller/routes.php';
+include_once 'controller/autenticazione.php';
 
-
-$logged = isset($_COOKIE["LogIn"]);
-if ($logged) {
-    $_SESSION["LogIn"] = $_COOKIE["LogIn"];
-}
+Autenticazione::session_by_cookie();
 
 $uri = strtok($_SERVER['REQUEST_URI'], '?');
 

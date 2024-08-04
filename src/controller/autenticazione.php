@@ -3,6 +3,17 @@ $project_root = dirname(__FILE__, 2);
 include_once $project_root . '/model/database.php';
 class Autenticazione
 {
+    public static function session_by_cookie() : void
+    {
+        if (!session_id()) {
+            session_start();
+        }
+        $logged = isset($_COOKIE["LogIn"]);
+        if ($logged) {
+            $_SESSION["username"] = $_COOKIE["LogIn"];
+            session_write_close();
+        }
+    }
     public static function login($username, $password) : bool
     {
         $db = Database::getInstance();
@@ -16,6 +27,8 @@ class Autenticazione
         $result = $stmt->fetch();
         if ($result) {
             $_SESSION['username'] = $username;
+            setcookie("LogIn", $username, time() + (86400 * 30), "/"); // Set a cookie for 30 days
+            session_write_close();
             return true;
         }
         return false;
