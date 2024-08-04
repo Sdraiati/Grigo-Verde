@@ -24,7 +24,7 @@ class loginPage extends Page
     {
         $content = parent::render();
         $content = str_replace("{{ content }}", $this->getContent('login'), $content);
-        if($this->username != '')
+        if($this->username != '' && $this->password != '' && $this->error != '')
         {
             $content = str_replace("{{ username }}", $this->username, $content);
             $content = str_replace("{{ password }}", $this->password, $content);
