@@ -1,8 +1,9 @@
 <?php
 
+session_start();
+
 include_once 'controller/routes.php';
 
-session_start();
 
 $logged = isset($_COOKIE["LogIn"]);
 if ($logged) {
@@ -17,4 +18,5 @@ if ($router->match($uri, $_SERVER['REQUEST_METHOD'])) {
     // TODO: define a 404 page
     echo '404';
     echo $_SERVER['REQUEST_URI'];
+    echo $_SESSION["LogIn"];
 }
