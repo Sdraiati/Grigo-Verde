@@ -3,11 +3,15 @@ $project_root = dirname(__FILE__, 2);
 include_once $project_root . '/model/database.php';
 class Autenticazione
 {
-    public static function session_by_cookie() : void
+    private static function ensureSessionStarted()
     {
-        if (!session_id()) {
+        if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
+    }
+    public static function session_by_cookie() : void
+    {
+        self::ensureSessionStarted();
         $logged = isset($_COOKIE["LogIn"]);
         if ($logged) {
             $_SESSION["username"] = $_COOKIE["LogIn"];
@@ -16,6 +20,7 @@ class Autenticazione
     }
     public static function login($username, $password) : bool
     {
+        self::ensureSessionStarted();
         $db = Database::getInstance();
         $sql = "SELECT password FROM UTENTE WHERE username = ? AND password = ?";
         $params = [
@@ -35,17 +40,25 @@ class Autenticazione
     }
     public static function logout() : void
     {
-        if(!session_id()) {
-            session_start();
-        }
+        self::ensureSessionStarted();
         session_destroy();
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httponly"]
+            );
+        }
+        $_SESSION = [];
     }
     public static function isLogged() : bool
     {
+        self::ensureSessionStarted();
         return isset($_SESSION['username']);
     }
     public static function getLoggedUser()
     {
+        self::ensureSessionStarted();
         return $_SESSION['username'];
     }
 

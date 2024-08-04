@@ -21,18 +21,26 @@ function test_login() : bool
 
 function test_logout() : bool
 {
-    session_reset();
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
     $username = 'user';
     $password = 'user';
 
-    Autenticazione::login($username, $password);
-    Autenticazione::logout();
-
-    $pass = false;
-    if (!isset($_SESSION['username'])) {
-        $pass = true;
+    $login_success = Autenticazione::login($username, $password);
+    if (!$login_success) {
+        return false;
     }
+
     Autenticazione::logout();
+    $pass = !isset($_SESSION['username']);
+
+    if (session_status() !== PHP_SESSION_NONE) {
+        session_destroy();
+        $_SESSION = array();
+    }
+
     return $pass;
 }
 
