@@ -1,7 +1,9 @@
 <?php
 include_once 'page.php';
+include_once 'loginPage.php';
 $project_root = dirname(__FILE__, 2);
 include_once 'controller/new_space.php';
+include_once 'model/utente.php';
 class newSpacePage extends Page
 {
     private int $posizione = -1;
@@ -29,6 +31,14 @@ class newSpacePage extends Page
 
     public function render()
     {
+        if (!Autenticazione::isLogged()) {
+            $page = new LoginPage("", "",
+                'Devi effettuare il login per accedere a questa pagina');
+            return $page->render();
+        }
+        if (!Autenticazione::is_amministratore()) {
+            return "Non hai i permessi per accedere a questa pagina"; //TODO: 403 forbidden page
+        }
         $content = parent::render();
         $content = str_replace("{{ content }}", $this->getContent('new_space'), $content);
         if ($this->posizione != -1) {
