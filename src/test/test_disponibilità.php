@@ -7,7 +7,8 @@ require_once $project_root . '/model/spazio.php';
 $disponibilita = new Disponibilita();
 $spazio = new Spazio();
 
-function nuovo_disponibilita() {
+function nuovo_disponibilita()
+{
     global $disponibilita, $spazio;
 
     $spazio->nuovo(1, 'Sala Conferenze', 'Una grande sala per conferenze', 'Conferenza', 20);
@@ -18,7 +19,8 @@ function nuovo_disponibilita() {
     return $res !== false;
 }
 
-function modifica_disponibilita() {
+function modifica_disponibilita()
+{
     global $disponibilita, $spazio;
 
     $spazio->nuovo(1, 'Sala Conferenze', 'Una grande sala per conferenze', 'Conferenza', 20);
@@ -33,7 +35,8 @@ function modifica_disponibilita() {
     return $res !== false;
 }
 
-function elimina_disponibilita() {
+function elimina_disponibilita()
+{
     global $disponibilita, $spazio;
 
     $spazio->nuovo(1, 'Sala Conferenze', 'Una grande sala per conferenze', 'Conferenza', 20);
@@ -46,30 +49,48 @@ function elimina_disponibilita() {
     return $result !== false;
 }
 
-function prendi_disponibilita() {
+function prendi_disponibilita()
+{
     global $disponibilita, $spazio;
 
     $spazio->nuovo(1, 'Sala Conferenze', 'Una grande sala per conferenze', 'Conferenza', 20);
     $disponibilita->nuovo(1, 'Gennaio', 'Lunedì', '09:00:00', '17:00:00');
 
     $disponibilitaList = $disponibilita->prendi(1);
-    
+
     $disponibilita->elimina(1, 'Gennaio', 'Lunedì');
     $spazio->elimina(1);
 
     return is_array($disponibilitaList) && count($disponibilitaList) > 0;
 }
 
-function prendi_per_giorno_disponibilita() {
+function prendi_per_giorno_disponibilita()
+{
     global $disponibilita, $spazio;
 
     $spazio->nuovo(1, 'Sala Conferenze', 'Una grande sala per conferenze', 'Conferenza', 20);
     $disponibilita->nuovo(1, 'Gennaio', 'Lunedì', '09:00:00', '17:00:00');
 
     $disponibilitaList = $disponibilita->prendi_per_giorno(1);
-    
+
     $disponibilita->elimina(1, 'Gennaio', 'Lunedì');
     $spazio->elimina(1);
 
     return is_array($disponibilitaList) && count($disponibilitaList) > 0;
+}
+
+function test_disponibilita_is_open()
+{
+    global $disponibilita, $spazio;
+    $spazio->nuovo(1, 'Sala Conferenze', 'Una grande sala per conferenze', 'Conferenza', 20);
+    $disponibilita->nuovo(1, 'Gennaio', 'Lunedì', '09:00:00', '17:00:00');
+
+    $result = $disponibilita->is_open(1, '2021-01-04', '10:00:00', '16:00:00');
+    $result = $result && !$disponibilita->is_open(1, '2021-01-04', '08:00:00', '16:00:00');
+    $result = $result && !$disponibilita->is_open(1, '2021-01-04', '10:00:00', '18:00:00');
+
+    $disponibilita->elimina(1, 'Gennaio', 'Lunedì');
+    $spazio->elimina(1);
+
+    return $result;
 }

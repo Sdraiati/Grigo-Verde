@@ -1,5 +1,6 @@
 <?php
 require_once 'model.php';
+require_once 'disponibilità.php';
 
 class Prenotazione extends Model
 {
@@ -78,5 +79,37 @@ class Prenotazione extends Model
         ];
 
         return $this->get_all($query, $params);
+    }
+
+    public function is_available($spazio, $begin_time, $end_time)
+    {
+        // check if there is no other booking in the same time
+        $query = "SELECT * FROM " . $this->table . " WHERE Spazio = ? AND ((DataInizio < ? AND DataFine > ?) OR (DataInizio < ? AND DataFine > ?))";
+        $params = [
+            ['type' => 'i', 'value' => $spazio],
+            ['type' => 's', 'value' => $begin_time],
+            ['type' => 's', 'value' => $begin_time],
+            ['type' => 's', 'value' => $end_time],
+            ['type' => 's', 'value' => $end_time]
+        ];
+
+        $res = $this->get_all($query, $params);
+        return count($res) == 0;
+    }
+
+    public function user_already_booked($username, $begin_time, $end_time)
+    {
+        // check if user has no other booking in the same time
+        $query = "SELECT * FROM " . $this->table . " WHERE Username = ? AND ((DataInizio < ? AND DataFine > ?) OR (DataInizio < ? AND DataFine > ?))";
+        $params = [
+            ['type' => 's', 'value' => $username],
+            ['type' => 's', 'value' => $begin_time],
+            ['type' => 's', 'value' => $begin_time],
+            ['type' => 's', 'value' => $end_time],
+            ['type' => 's', 'value' => $end_time]
+        ];
+
+        $res = $this->get_all($query, $params);
+        return count($res) == 0;
     }
 }

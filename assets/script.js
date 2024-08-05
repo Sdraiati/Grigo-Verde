@@ -162,6 +162,17 @@ function validateNewSpace() {
 function removeImage(num) {
     let image_div = document.getElementById(`image_div_${num}`);
     image_div.remove();
+    //if count is 1 we can add the button again
+    if (imgCount === 1) {
+        let add_image_button = document.createElement("input");
+        add_image_button.type = "button";
+        add_image_button.value = "Aggiungi immagine";
+        add_image_button.id = "add_img_button";
+        add_image_button.onclick = addImage;
+
+        let fieldset = document.getElementsByTagName("fieldset")[1];
+        fieldset.appendChild(add_image_button);
+    }
 }
 
 let imgCount = 0;
@@ -260,9 +271,23 @@ function addImage() {
     imgCount++;
 
     let add_image_button = document.getElementById("add_img_button");
-    add_image.parentNode.insertBefore(image_div, add_image_button);
+    if(add_image_button === null) {
+        console.log("nooo");
+    }
+    add_image_button.parentNode.insertBefore(image_div, add_image_button);
+    //TODO: teniamo una sola immagine quindi dopo l'aggiunta di una nuova immagine rimuoviamo il pulsante
+    if (imgCount === 1)
+        add_image_button.remove();
 }
 
+function refreshPreview() {
+    //remove all elements with id starting with image_preview_
+    let images = document.getElementsByClassName("image");
+    for (let i = 0; i < images.length; i++) {
+        let image_preview = document.getElementById(`image_preview_${i}`);
+        image_preview.remove();
+    }
+}
 function validatePrenotazione() {
     // Get the form elements
     var giorno = document.getElementById('giorno');

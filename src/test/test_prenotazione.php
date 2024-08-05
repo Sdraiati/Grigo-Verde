@@ -63,5 +63,44 @@ function prendi_per_settimana_prenotazione()
     $prenotazione->elimina('2024-08-12 14:00:00', '2024-08-12 16:00:01', 1);
     $utente->elimina('mario_rossi');
     $spazio->elimina(1);
+
     return count($reservations) > 1;
+}
+
+function test_prenotazione_is_available()
+{
+    global $prenotazione, $spazio, $utente;
+    $username = 'mario_rossdkai';
+    $space = 2000;
+    $utente->nuovo($username, 'Mario', 'Rossi', 'Amministratore', 'password123');
+    $spazio->nuovo($space, 'Sala Conferenze', 'Una grande sala per conferenze', 'Conferenza', 20);
+    $prenotazione->nuovo('2024-08-05 14:00:00', '2024-08-05 16:00:00', $username, $space, 'Conferenza');
+
+    $result = $prenotazione->is_available($space, '2024-08-05 13:00:00', '2024-08-05 14:00:00');
+    $result = $result && !$prenotazione->is_available($space, '2024-08-05 15:00:00', '2024-08-05 17:00:00');
+    $result = $result && !$prenotazione->is_available($space, '2024-08-05 13:00:00', '2024-08-05 14:00:01');
+
+    $prenotazione->elimina('2024-08-05 14:00:00', '2024-08-05 16:00:00', $username, $space);
+    $utente->elimina($username);
+    $spazio->elimina($space);
+    return $result;
+}
+
+function test_prenotazione_user_already_booked()
+{
+    global $prenotazione, $spazio, $utente;
+    $username = 'mario_rossdkai';
+    $space = 2000;
+    $utente->nuovo($username, 'Mario', 'Rossi', 'Amministratore', 'password123');
+    $spazio->nuovo($space, 'Sala Conferenze', 'Una grande sala per conferenze', 'Conferenza', 20);
+    $prenotazione->nuovo('2024-08-05 14:00:00', '2024-08-05 16:00:00', $username, $space, 'Conferenza');
+
+    $result = $prenotazione->user_already_booked($username, '2024-08-05 13:00:00', '2024-08-05 14:00:00');
+    $result = $result && !$prenotazione->user_already_booked($username, '2024-08-05 15:00:00', '2024-08-05 17:00:00');
+    $result = $result && !$prenotazione->user_already_booked($username, '2024-08-05 13:00:00', '2024-08-05 14:00:01');
+
+    $prenotazione->elimina('2024-08-05 14:00:00', '2024-08-05 16:00:00', $username, $space);
+    $utente->elimina($username);
+    $spazio->elimina($space);
+    return $result;
 }

@@ -8,7 +8,7 @@
 @media (prefers-color-scheme: light) {
     :root {
         --textColor: #333333;
-        --backgroundColor: #FFFFFF;
+        --backgroundColor: #ffffff;
         --primaryColor: #335833;
         --secondaryColor: #73dec1;
         --errorMessageColor: red;
@@ -249,8 +249,8 @@ form {
 
 fieldset {
     border: none;
-    padding: 0;
-    margin: 0;
+    padding: 1rem;
+    margin-bottom: 1rem;
 }
 
 legend {
@@ -260,7 +260,7 @@ legend {
 
 label {
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3rem;
 }
 
 input {
@@ -268,6 +268,8 @@ input {
     color: var(--textColor);
 }
 
+form input[type="date"],
+form input[type="time"],
 input[type="text"],
 input[type="number"],
 textarea,
@@ -278,6 +280,12 @@ input[type="password"] {
     margin-bottom: 1rem;
     border: 0.1rem solid var(--primaryColor);
     border-radius: 0.4rem;
+    background-color: var(--backgroundColor);
+    color: var(--textColor);
+}
+
+textarea {
+    height: 5rem;
 }
 
 input[type="checkbox"] {

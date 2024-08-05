@@ -71,4 +71,78 @@ class Disponibilita extends Model
 
         return $this->get_all($query, $params);
     }
+
+    public function is_open($spazio, $day, $begin_time, $end_time)
+    {
+        $aperture = $this->prendi_per_giorno($spazio);
+
+        $mese = get_month($day);
+        $giorno_settimana = get_weekday($day);
+        // return $begin_time;
+        foreach ($aperture as $apertura) {
+            if ($apertura['Mese'] == $mese && $apertura['Giorno_settimana'] == $giorno_settimana) {
+                $orario_apertura = $apertura['Orario_apertura'];
+                $orario_chiusura = $apertura['Orario_chiusura'];
+
+                if ($begin_time >= $orario_apertura && $end_time <= $orario_chiusura) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}
+
+function get_month($date)
+{
+    $date = new DateTime($date);
+    $month = intval($date->format('m'));
+    switch ($month) {
+        case 1:
+            return 'Gennaio';
+        case 2:
+            return 'Febbraio';
+        case 3:
+            return 'Marzo';
+        case 4:
+            return 'Aprile';
+        case 5:
+            return 'Maggio';
+        case 6:
+            return 'Giugno';
+        case 7:
+            return 'Luglio';
+        case 8:
+            return 'Agosto';
+        case 9:
+            return 'Settembre';
+        case 10:
+            return 'Ottobre';
+        case 11:
+            return 'Novembre';
+        case 12:
+            return 'Dicembre';
+    }
+}
+
+function get_weekday($date)
+{
+    $date = new DateTime($date);
+    $weekDay = $date->format('w');
+    switch ($weekDay) {
+        case 0:
+            return 'Domenica';
+        case 1:
+            return 'Lunedì';
+        case 2:
+            return 'Martedì';
+        case 3:
+            return 'Mercoledì';
+        case 4:
+            return 'Giovedì';
+        case 5:
+            return 'Venerdì';
+        case 6:
+            return 'Sabato';
+    }
 }
