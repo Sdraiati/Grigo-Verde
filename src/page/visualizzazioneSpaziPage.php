@@ -88,6 +88,16 @@ class VisualizzazioneSpaziPage extends Page
         return $content;
     }
 
+    private function debug() {
+        $debug_msg = "parametri utilizzati: ";  
+        if ($this->$tipo != "") {
+            $debug_msg = $debug_msg . " " . $tipo;
+        } 
+        if ($this->$data != "") {
+            $debug_msg = $debug_msg . " " . $tipo;
+        } 
+    }
+
     public function render() 
     {
         $content = parent::render();
