@@ -22,7 +22,6 @@ class SpazioEndpoint extends Endpoint {
         $page = new VisualizzazioneSpaziPage($tipo, $data);
         $content = $page->render();
         echo $content;
-        // echo "ciao mondo";
     }
 
     public function match($path, $method): bool

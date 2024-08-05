@@ -20,8 +20,8 @@ class SpazioItem {
 
 class VisualizzazioneSpaziPage extends Page
 {
-    private string $tipo = '';
-    private $data = '';
+    private string $tipo;
+    private string $data;
     public $title = 'VisualizzazioneSpazi';
     public $nav = [
         'About us' => 'about_us',
@@ -31,6 +31,17 @@ class VisualizzazioneSpaziPage extends Page
     ];
     public $keywords = ["Grigo verde", "aule verdi", "Liceo Scientifico", "M. Grigoletti", "scuola superiore", "Pordenone", "prenotazione", "area ping pong"];
     public $path = '/visualizzazione_spazi';
+
+    public function __construct(string $tipo = "", string $data = "") {
+        parent::setTitle('Viualizzazione Spazi');
+        parent::setNav([]);
+        parent::setBreadcrumb([
+            'Home' => '',
+        ]);
+
+        $this->tipo = $tipo;
+        $this->data = $data;
+    }
 
     private function filtra_spazi($tipo, $data) {
 
@@ -68,16 +79,7 @@ class VisualizzazioneSpaziPage extends Page
         }
     }
 
-    public function __construct(string $tipo = "", string $data = "") {
-        parent::setTitle('Viualizzazione Spazi');
-        parent::setNav([]);
-        parent::setBreadcrumb([
-            'Home' => '',
-        ]);
-
-        $this->$tipo = $tipo;
-        $this->$data = $data;
-    }
+    
 
     public function replace_content($content) {
         // $content = str_replace("{{ content }}", $this->getContent('home'), $content);
@@ -88,14 +90,19 @@ class VisualizzazioneSpaziPage extends Page
         return $content;
     }
 
+    public function getTipo() {
+        return $this->tipo;
+    }
+
     private function debug() {
         $debug_msg = "parametri utilizzati: ";  
-        if ($this->$tipo != "") {
-            $debug_msg = $debug_msg . " " . $tipo;
+        if ($this->tipo != "") {
+            $debug_msg = $debug_msg . " " . $this->tipo;
         } 
-        if ($this->$data != "") {
-            $debug_msg = $debug_msg . " " . $tipo;
+        if ($this->data != "") {
+            $debug_msg = $debug_msg . " " . $this->data;
         } 
+        return $debug_msg;
     }
 
     public function render() 
@@ -106,6 +113,7 @@ class VisualizzazioneSpaziPage extends Page
         // in base ad items costruire {{ content }}
         $intestazione_pagina = $this->getContent('visualizzazione_spazi_page'); 
         $lista_spazi = '{{ lista degli spazi }}'; // questo cambia in base ad items.
+        $lista_spazi = $lista_spazi . '<br>' . $this->debug();
         $intestazione_pagina = str_replace("{{ lista }}", $lista_spazi , $intestazione_pagina);
 
         // contenuto che varia in base agli spazi.
