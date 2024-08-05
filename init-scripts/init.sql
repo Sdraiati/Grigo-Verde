@@ -74,4 +74,4 @@ INSERT INTO DISPONIBILITA (Spazio, Mese, Giorno_settimana, Orario_apertura, Orar
 
 -- TABELLA PRENOTAZIONE 
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-10-20 08:00:00', '2024-10-20 13:00:00', 'user', 1, "prenotazione");
-INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-10-21 12:00:00', '2024-10-20 13:00:00', 'user', 1, "prenotazione");
+INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-10-20 13:00:00', '2024-10-20 14:00:00', 'user', 1, "prenotazione");

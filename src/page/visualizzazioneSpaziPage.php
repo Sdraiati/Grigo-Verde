@@ -49,7 +49,10 @@ class VisualizzazioneSpaziPage extends Page
         $query = "SELECT * FROM SPAZIO 
         JOIN PRENOTAZIONE ON SPAZIO.Posizione = PRENOTAZIONE.Spazio
         JOIN DISPONIBILITA ON SPAZIO.Posizione = DISPONIBILITA.Spazio
-        WHERE SPAZIO.Tipo = ? AND DISPONIBILITA.data = ? AND NOT PRENOTAZIONE.data = ?";
+        WHERE SPAZIO.Tipo = ? AND 
+        DISPONIBILITA.Mese = ? AND 
+        (PRENOTAZIONE.DataFine <= ? AND PRENOTAZIONE.DataInizio >= ?) AND 
+        (DISPONIBILITA.Orario_apertura >= ? AND DISPONIBILITA.Orario_chiusura <= ?)";
         
         if ($tipo == "") {
             // regex

@@ -1,5 +1,16 @@
 <h3> SPAZI DISPONIBILI </h3>
-<input type="radio" name="tipo" id="tipo">
+
+<form id="form_filtri" action="spazi" method="get">
+    <input type="radio" id="tipo_verde" name="tipo" value="verde">
+    <label for="tipo_verde">verde</label>
+    <input type="radio" id="tipo_blu" name="tipo" value="blu">
+    <label for="tipo_verde">blu</label>
+    <input type="datetime-local" name="data" id="orario_inizio"/>
+    <label for="orario_inizio">orario inizio </label>
+    <input type="datetime-local" name="data" id="orario_fine"/>
+    <label for="orario_inizio">orario fine </label>
+    <input type="submit">
+</form>
 
 <ul>
     {{ lista }}
