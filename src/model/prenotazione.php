@@ -32,15 +32,15 @@ class Prenotazione extends Model
         WHERE DataInizio = ? AND DataFine = ? AND Username = ? AND Spazio = ?";
 
         $params = [
-        ['type' => 's', 'value' => $dataInizio],
-        ['type' => 's', 'value' => $dataFine],
-        ['type' => 's', 'value' => $username],
-        ['type' => 'i', 'value' => $spazio],
-        ['type' => 's', 'value' => $descrizione],
-        ['type' => 's', 'value' => $dataInizioOld],
-        ['type' => 's', 'value' => $dataFineOld],
-        ['type' => 's', 'value' => $usernameOld],
-        ['type' => 'i', 'value' => $spazioOld]
+            ['type' => 's', 'value' => $dataInizio],
+            ['type' => 's', 'value' => $dataFine],
+            ['type' => 's', 'value' => $username],
+            ['type' => 'i', 'value' => $spazio],
+            ['type' => 's', 'value' => $descrizione],
+            ['type' => 's', 'value' => $dataInizioOld],
+            ['type' => 's', 'value' => $dataFineOld],
+            ['type' => 's', 'value' => $usernameOld],
+            ['type' => 'i', 'value' => $spazioOld]
         ];
 
         return $this->exec($query, $params);
