@@ -211,6 +211,14 @@ function addImage() {
                 image_preview.style.display = "block";
             };
             reader.readAsDataURL(event.target.files[0]);
+
+            // Rimuovi gli errori associati all'immagine
+            let error_divs = document.getElementsByClassName("errore");
+            for (let i = 0; i < error_divs.length; i++) {
+                if (error_divs[i].previousSibling === image_input) {
+                    error_divs[i].remove();
+                }
+            }
         }
     });
 
@@ -223,6 +231,16 @@ function addImage() {
     description_input.name = `img_description_${imgCount}`;
     description_input.id = `img_description_${imgCount}`;
     description_input.placeholder = "Descrizione dell'immagine";
+
+    description_input.addEventListener("input", function() {
+        // Rimuovi gli errori associati alla descrizione
+        let error_divs = document.getElementsByClassName("errore");
+        for (let i = 0; i < error_divs.length; i++) {
+            if (error_divs[i].previousSibling === description_input) {
+                error_divs[i].remove();
+            }
+        }
+    });
 
     let remove_button = document.createElement("input");
     remove_button.type = "button";
