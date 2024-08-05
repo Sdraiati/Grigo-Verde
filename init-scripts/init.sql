@@ -25,6 +25,7 @@ CREATE TABLE PRENOTAZIONE (
     Username VARCHAR(50) NOT NULL,
     Spazio INT NOT NULL,
     Descrizione TEXT,
+    UNIQUE(DataInizio, DataFine, Username, Spazio),
     FOREIGN KEY (Username) REFERENCES UTENTE(Username),
     FOREIGN KEY (Spazio) REFERENCES SPAZIO(Posizione)
 );
