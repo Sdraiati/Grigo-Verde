@@ -3,6 +3,7 @@ require_once 'endpoint.php';
 require_once 'autenticazione.php';
 $project_root = dirname(__FILE__, 2);
 require_once $project_root . '/model/prenotazione.php';
+require_once $project_root . '/model/disponibilità.php';
 
 class ReservationNew extends Endpoint
 {
@@ -15,6 +16,20 @@ class ReservationNew extends Endpoint
     public function __construct()
     {
         parent::__construct('dashboard/nuova-prenotazione', 'POST');
+    }
+
+    public function render_with_error($error)
+    {
+        $page = new PrenotazioneFormPage(
+            $this->giorno,
+            $this->dalle_ore,
+            $this->alle_ore,
+            $this->posizione,
+            $this->descrizione,
+            $error
+        );
+
+        echo $page->render();
     }
 
     public function validate(): bool
@@ -53,40 +68,39 @@ class ReservationNew extends Endpoint
 
 
         if (!$this->validate()) {
-            $page = new PrenotazioneFormPage(
-                $this->giorno,
-                $this->dalle_ore,
-                $this->alle_ore,
-                $this->posizione,
-                $this->descrizione,
-                "Inserire tutti i campi"
-            );
+            $this->render_with_error("Errore nella validazione dei dati");
+            return;
+        }
 
-            echo $page->render();
+        // Check if the space is open to the public
+        $disponibilita = new Disponibilita();
+        if (!$disponibilita->is_open($this->posizione, $this->giorno, $this->dalle_ore, $this->alle_ore)) {
+            $this->render_with_error("Lo spazio non è aperto nell'orario specificato");
+            return;
+        }
+
+        $data_inizio = $this->giorno . ' ' . $this->dalle_ore;
+        $data_fine = $this->giorno . ' ' . $this->alle_ore;
+
+        // Check if the space is available
+        $prenotazione = new Prenotazione();
+        if (!$prenotazione->is_available($this->post('spazio'), $this->giorno, $this->dalle_ore, $this->alle_ore)) {
+            $this->render_with_error("Lo spazio non è disponibile nell'orario specificato");
             return;
         }
 
         $username = Autenticazione::getLoggedUser();
-        $data_inizio = $this->giorno . ' ' . $this->dalle_ore;
-        $data_fine = $this->giorno . ' ' . $this->alle_ore;
 
-        $prenotazione = new Prenotazione();
-
-        /* TODO: controllare che lo spazio sia prenotabile nell'arco di tempo specificato */
+        // Check if the user has already booked something in the same time slot
+        if (!$prenotazione->user_already_booked($this->post('spazio'), $this->giorno, $this->dalle_ore, $this->alle_ore)) {
+            $this->render_with_error("Hai già prenotato un altro spazio nello stesso orario");
+            return;
+        }
 
         if ($prenotazione->nuovo($data_inizio, $data_fine, $username, $this->posizione, $this->descrizione)) {
             $this->redirect('dashboard');
         }
 
-        $page = new PrenotazioneFormPage(
-            $this->giorno,
-            $this->dalle_ore,
-            $this->alle_ore,
-            $this->posizione,
-            $this->descrizione,
-            "Errore nella creazione della prenotazione"
-        );
-
-        echo $page->render();
+        $this->render_with_error("Errore nella creazione della prenotazione");
     }
 }
