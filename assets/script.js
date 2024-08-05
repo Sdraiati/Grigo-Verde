@@ -41,7 +41,7 @@ function removeErrorDivs() {
     }
 }
 
-function validateString(element, str, min = Number.MIN_SAFE_INTEGER, max = Number.MAX_SAFE_INTEGER, show_char_number = false) {
+function validateString(element, str, min = Number.MIN_SAFE_INTEGER, max = Number.MAX_SAFE_INTEGER, show_char_number = false, spaces=false) {
     const specialCharPattern = /[{}\[\]|`¬¦!"£$%^&*<>:;#~_\-+=,@]/;
     if (str === '') {
         insertErrorMessage(element, "Il campo non può essere vuoto.");
@@ -61,7 +61,7 @@ function validateString(element, str, min = Number.MIN_SAFE_INTEGER, max = Numbe
         return false;
     }
     // se la stringa contiene uno spazio
-    if (str.includes(' ')) {
+    if (!spaces && str.includes(' ')) {
         if (show_char_number) {
             insertErrorMessage(element, "Il campo non può contenere spazi.");
         }
@@ -154,7 +154,7 @@ function validateNewSpace() {
         return false;
     }
 
-    let isNomeValid = validateString(fieldset_element, nome, 2, 70, true);
+    let isNomeValid = validateString(fieldset_element, nome, 2, 70, true, true);
     let isImageValid = validateImage();
     return isNomeValid && isImageValid;
 }
