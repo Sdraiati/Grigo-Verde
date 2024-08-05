@@ -14,15 +14,20 @@ abstract class Endpoint
         $this->method = $method;
     }
 
+    private static function sanitizeInput($input): string
+    {
+        return htmlspecialchars(strip_tags(trim($input)), ENT_QUOTES, 'UTF-8');
+    }
+
     protected function post($param)
     {
         $json = file_get_contents("php://input");
 
-        $data = json_decode($json, true);
+        $data = $this->sanitizeInput(json_decode($json, true));
         if ($data !== null && isset($data[$param])) {
             return $data[$param];
         } else if (isset($_POST[$param])) {
-            return $_POST[$param];
+            return $this->sanitizeInput($_POST[$param]);
         } else {
             // TODO: return a page with the error
             http_response_code(400);
@@ -34,11 +39,11 @@ abstract class Endpoint
     {
         $json = file_get_contents("php://input");
 
-        $data = json_decode($json, true);
+        $data = $this->sanitizeInput(json_decode($json, true));
         if ($data !== null && isset($data[$param])) {
             return $data[$param];
         } else if (isset($_GET[$param])) {
-            return $_GET[$param];
+            return $this->sanitizeInput($_GET[$param]);
         } else {
             // TODO: return a page with the error
             http_response_code(400);
@@ -52,9 +57,4 @@ abstract class Endpoint
     }
 
     abstract public function handle();
-
-    public static function sanitizeInput($input) : string
-    {
-        return htmlspecialchars(strip_tags(trim($input)), ENT_QUOTES, 'UTF-8');
-    }
 }
