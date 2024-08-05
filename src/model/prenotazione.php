@@ -24,26 +24,35 @@ class Prenotazione extends Model
         return $this->exec($query, $params);
     }
 
-    public function modifica($id, $dataInizio, $dataFine, $username, $spazio, $descrizione)
+    public function modifica($dataInizioOld, $dataFineOld, $usernameOld, $spazioOld, $dataInizio, $dataFine, $username, $spazio, $descrizione)
     {
-        $query = "UPDATE " . $this->table . " SET DataInizio = ?, DataFine = ?, Username = ?, Spazio = ?, Descrizione = ? WHERE Id = ?";
+        $query = "UPDATE " . $this->table . " 
+        SET DataInizio = ?, DataFine = ?, Username = ?, Spazio = ?, Descrizione = ? 
+        WHERE DataInizio = ? AND DataFine = ? AND Username = ? AND Spazio = ?";
+
         $params = [
-            ['type' => 's', 'value' => $dataInizio],
-            ['type' => 's', 'value' => $dataFine],
-            ['type' => 's', 'value' => $username],
-            ['type' => 'i', 'value' => $spazio],
-            ['type' => 's', 'value' => $descrizione],
-            ['type' => 'i', 'value' => $id]
+        ['type' => 's', 'value' => $dataInizio],
+        ['type' => 's', 'value' => $dataFine],
+        ['type' => 's', 'value' => $username],
+        ['type' => 'i', 'value' => $spazio],
+        ['type' => 's', 'value' => $descrizione],
+        ['type' => 's', 'value' => $dataInizioOld],
+        ['type' => 's', 'value' => $dataFineOld],
+        ['type' => 's', 'value' => $usernameOld],
+        ['type' => 'i', 'value' => $spazioOld]
         ];
 
         return $this->exec($query, $params);
     }
 
-    public function elimina($id)
+    public function elimina($dataInizio, $dataFine, $username, $spazio)
     {
-        $query = "DELETE FROM " . $this->table . " WHERE Id = ?";
+        $query = "DELETE FROM " . $this->table . " WHERE DataInizio = ? AND DataFine = ? AND Username = ? AND Spazio = ?";
         $params = [
-            ['type' => 'i', 'value' => $id]
+            ['type' => 's', 'value' => $dataInizio], // 's' per DATETIME
+            ['type' => 's', 'value' => $dataFine],   // 's' per DATETIME
+            ['type' => 's', 'value' => $username],    // 's' per VARCHAR
+            ['type' => 'i', 'value' => $spazio]       // 'i' per INT
         ];
 
         return $this->exec($query, $params);
