@@ -75,6 +75,7 @@ class VisualizzazioneSpaziPage extends Page
 
             $stmt->execute();
             $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            var_dump($result);
             $filtered = []; 
 
             if ($tipo != "" || $data_inizio != "" || $data_fine != "") {
@@ -125,10 +126,22 @@ class VisualizzazioneSpaziPage extends Page
 
         $intestazione_pagina = $this->getContent('visualizzazione_spazi_page'); 
 
-        // Fare sì che vi siano ancora i radio button checked nel caso di filtri di tipo
+        // Renderizzare i filtri se ce ne sono. 
         if ($this->tipo != "") {
             $checked = '<input type="radio" id="tipo_' . $this->tipo .  '" name="tipo" value="' . $this->tipo . '" checked>';
             $unchecked = '<input type="radio" id="tipo_' . $this->tipo . '" name="tipo" value="' . $this->tipo . '">';
+            $intestazione_pagina = str_replace($unchecked, $checked, $intestazione_pagina);
+        }
+
+        if ($this->data_inizio != "") {
+            $unchecked = '<input type="datetime-local" name="Data_inizio" id="Data_inizio" />';
+            $checked = '<input type="datetime-local" name="Data_inizio" id="Data_inizio" value="' . $this->data_inizio . '"/>';
+            $intestazione_pagina = str_replace($unchecked, $checked, $intestazione_pagina);
+        }
+
+        if ($this->data_fine != "") {
+            $unchecked = '<input type="datetime-local" name="Data_fine" id="Data_fine" />';
+            $checked = '<input type="datetime-local" name="Data_fine" id="Data_fine" value="' . $this->data_fine . '"/>';
             $intestazione_pagina = str_replace($unchecked, $checked, $intestazione_pagina);
         }
 
