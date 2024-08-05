@@ -7,13 +7,22 @@ include_once $project_root . '/page/visualizzazioneSpaziPage.php';
 class SpazioEndpoint extends Endpoint {
 
     public function __construct() {
-        parent::__construct('spazio', 'GET');
+        parent::__construct('spazi', 'GET');
     }
 
     public function handle() {
-        $page = new VisualizzazioneSpaziPage($_GET['tipo'], $_GET['data']);
-        $page->render();
+        $tipo = "";
+        $data = "";
+        if (isset($_GET['tipo'])) {
+            $tipo = $_GET['tipo'];
+        }
+        if (isset($_GET['data'])) {
+            $data = $_GET['data'];
+        }
+        $page = new VisualizzazioneSpaziPage($tipo, $data);
+        $content = $page->render();
         echo $content;
+        // echo "ciao mondo";
     }
 
     public function match($path, $method): bool
