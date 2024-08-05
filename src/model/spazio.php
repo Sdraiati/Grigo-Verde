@@ -10,6 +10,16 @@ class Spazio extends Model
         parent::__construct();
     }
 
+    public function exists($posizione) : bool
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE Posizione = ?";
+        $params = [
+            ['type' => 'i', 'value' => $posizione]
+        ];
+
+        return $this->get($query, $params) !== null;
+    }
+
     public function nuovo($posizione, $nome, $descrizione, $tipo, $n_tavoli)
     {
         $query = "INSERT INTO " . $this->table . " (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (?, ?, ?, ?, ?)";

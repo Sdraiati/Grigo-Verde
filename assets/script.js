@@ -41,36 +41,36 @@ function removeErrorDivs() {
     }
 }
 
-function validateString(element, str, min=Number.MIN_SAFE_INTEGER, max=Number.MAX_SAFE_INTEGER, show_char_number=false) {
+function validateString(element, str, min = Number.MIN_SAFE_INTEGER, max = Number.MAX_SAFE_INTEGER, show_char_number = false) {
     const specialCharPattern = /[{}\[\]|`¬¦!"£$%^&*<>:;#~_\-+=,@]/;
-    if(str === '') {
+    if (str === '') {
         insertErrorMessage(element, "Il campo non può essere vuoto.");
         return false;
     }
 
-    if(str.length < min) {
+    if (str.length < min) {
         if (show_char_number) {
-            insertErrorMessage(element,"Il campo deve contenere almeno " + min + " caratteri.");
+            insertErrorMessage(element, "Il campo deve contenere almeno " + min + " caratteri.");
         }
         return false;
     }
-    if(str.length > max) {
+    if (str.length > max) {
         if (show_char_number) {
-            insertErrorMessage(element,"Il campo può contenere al massimo " + max + " caratteri.");
+            insertErrorMessage(element, "Il campo può contenere al massimo " + max + " caratteri.");
         }
         return false;
     }
     // se la stringa contiene uno spazio
     if (str.includes(' ')) {
-        if(show_char_number) {
-            insertErrorMessage(element,"Il campo non può contenere spazi.");
+        if (show_char_number) {
+            insertErrorMessage(element, "Il campo non può contenere spazi.");
         }
         return false;
     }
 
     if (specialCharPattern.test(str)) {
-        if(show_char_number) {
-            insertErrorMessage(element,"Il campo non può contenere caratteri speciali.");
+        if (show_char_number) {
+            insertErrorMessage(element, "Il campo non può contenere caratteri speciali.");
         }
         return false;
     }
@@ -85,11 +85,11 @@ function validateLogin() {
     let fieldset_element = document.getElementsByTagName("fieldset")[0];
 
     let isUsernameValid = validateString(fieldset_element, username, 4, 50);
-    let isPasswordValid = validateString( fieldset_element, password,  4, 100);
+    let isPasswordValid = validateString(fieldset_element, password, 4, 100);
 
     removeErrorDivs();
     if (!isUsernameValid || !isPasswordValid) {
-        insertErrorMessage(fieldset_element,"Username o password non validi");
+        insertErrorMessage(fieldset_element, "Username o password non validi");
     }
 
     return isUsernameValid && isPasswordValid;
@@ -211,6 +211,14 @@ function addImage() {
                 image_preview.style.display = "block";
             };
             reader.readAsDataURL(event.target.files[0]);
+
+            // Rimuovi gli errori associati all'immagine
+            let error_divs = document.getElementsByClassName("errore");
+            for (let i = 0; i < error_divs.length; i++) {
+                if (error_divs[i].previousSibling === image_input) {
+                    error_divs[i].remove();
+                }
+            }
         }
     });
 
@@ -223,6 +231,16 @@ function addImage() {
     description_input.name = `img_description_${imgCount}`;
     description_input.id = `img_description_${imgCount}`;
     description_input.placeholder = "Descrizione dell'immagine";
+
+    description_input.addEventListener("input", function() {
+        // Rimuovi gli errori associati alla descrizione
+        let error_divs = document.getElementsByClassName("errore");
+        for (let i = 0; i < error_divs.length; i++) {
+            if (error_divs[i].previousSibling === description_input) {
+                error_divs[i].remove();
+            }
+        }
+    });
 
     let remove_button = document.createElement("input");
     remove_button.type = "button";
@@ -243,4 +261,37 @@ function addImage() {
 
     let add_image_button = document.getElementById("add_img_button");
     add_image.parentNode.insertBefore(image_div, add_image_button);
+}
+
+function validatePrenotazione() {
+    // Get the form elements
+    var giorno = document.getElementById('giorno');
+    var dalleOre = document.getElementById('dalle-ore');
+    var alleOre = document.getElementById('alle-ore');
+    var spazio = document.getElementById('spazio');
+    let fieldset_element = document.getElementsByTagName("fieldset")[0];
+
+    removeErrorDivs();
+
+    // Check if any required field is empty
+    if (!giorno || !dalleOre || !alleOre || !spazio) {
+        insertErrorMessage(fieldset_element, "Compilare tutti i campi obbligatori.");
+        return false;
+    }
+
+    // Check if the date is not sooner than today
+    var today = new Date();
+    today.setHours(0, 0, 0, 0); // Set to midnight to compare only the date part
+    var selectedDate = new Date(giorno.value);
+    if (selectedDate < today) {
+        insertErrorMessage(giorno, "La data non può essere precedente a oggi.");
+        return false;
+    }
+
+    if (dalleOre.value >= alleOre.value) {
+        insertErrorMessage(alleOre, "L'orario di fine deve essere successivo a quello di inizio.");
+        return false;
+    }
+
+    return true;
 }
