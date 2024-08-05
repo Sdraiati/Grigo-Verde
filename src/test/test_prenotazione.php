@@ -17,7 +17,7 @@ function nuovo_prenotazione()
     $user = $utente->prendi('mario_rossi');
     $space = $spazio->prendi_per_nome('Sala Conferenze');
     $res = $prenotazione->nuovo('2024-08-05 14:00:00', '2024-08-05 16:00:00', $user['Username'], $space['Posizione'], 'Conferenza');
-    $prenotazione->elimina('2024-08-05 14:00:00', '2024-08-05 16:00:00', $user['Username'], $space['Posizione']);
+    $prenotazione->elimina('2024-08-05 14:00:00', '2024-08-05 16:00:00', $space['Posizione']);
     return $res !== false;
 }
 
@@ -25,8 +25,8 @@ function modifica_prenotazione()
 {
     global $prenotazione;
     $prenotazione->nuovo('2024-08-05 14:00:00', '2024-08-05 16:00:00', 'mario_rossi', 1, 'Conferenza');
-    $res = $prenotazione->modifica('2024-08-05 14:00:00', '2024-08-05 16:00:00', 'mario_rossi', 1, '2024-08-06 15:00:00', '2024-08-06 17:00:00', 'mario_rossi', 1, 'Conferenza');
-    $prenotazione->elimina('2024-08-06 15:00:00', '2024-08-06 17:00:00', 'mario_rossi', 1);
+    $res = $prenotazione->modifica('2024-08-05 14:00:00', '2024-08-05 16:00:00', 1, '2024-08-06 15:00:00', '2024-08-06 17:00:00', 'mario_rossi', 1, 'Conferenza');
+    $prenotazione->elimina('2024-08-06 15:00:00', '2024-08-06 17:00:00', 1);
     return $res !== false;
 }
 
@@ -34,7 +34,7 @@ function elimina_prenotazione()
 {
     global $prenotazione;
     $prenotazione->nuovo('2024-08-05 14:00:00', '2024-08-05 16:00:00', 'mario_rossi', 1, 'Conferenza');
-    $result = $prenotazione->elimina('2024-08-05 14:00:00', '2024-08-05 16:00:00', 'mario_rossi', 1);
+    $result = $prenotazione->elimina('2024-08-05 14:00:00', '2024-08-05 16:00:00', 1);
     return $result !== false;
 }
 
@@ -44,10 +44,10 @@ function prendi_prenotazione()
     $prenotazione->nuovo('2024-08-05 14:00:00', '2024-08-05 16:00:00', 'mario_rossi', 1, 'Conferenza');
     $reservations = $prenotazione->prendi(1);
     if ($reservations && $reservations[0]['Username'] === 'mario_rossi') {
-        $prenotazione->elimina('2024-08-05 14:00:00', '2024-08-05 16:00:00', 'mario_rossi', 1); // Cleanup
+        $prenotazione->elimina('2024-08-05 14:00:00', '2024-08-05 16:00:00', 1); // Cleanup
         return true;
     }
-    $prenotazione->elimina('2024-08-05 14:00:00', '2024-08-05 16:00:00', 'mario_rossi', 1);
+    $prenotazione->elimina('2024-08-05 14:00:00', '2024-08-05 16:00:00', 1);
     return false;
 }
 
@@ -59,8 +59,8 @@ function prendi_per_settimana_prenotazione()
     $prenotazione->nuovo('2024-08-12 14:00:00', '2024-08-12 16:00:01', 'mario_rossi', 1, 'Conferenza');
 
     $reservations = $prenotazione->prendi_per_settimana(1, '2024-08-05 00:00:00');
-    $prenotazione->elimina('2024-08-10 14:00:00', '2024-08-10 16:00:00', 'mario_rossi', 1);
-    $prenotazione->elimina('2024-08-12 14:00:00', '2024-08-12 16:00:01', 'mario_rossi', 1);
+    $prenotazione->elimina('2024-08-10 14:00:00', '2024-08-10 16:00:00', 1);
+    $prenotazione->elimina('2024-08-12 14:00:00', '2024-08-12 16:00:01', 1);
     $utente->elimina('mario_rossi');
     $spazio->elimina(1);
     return count($reservations) > 1;
