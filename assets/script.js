@@ -293,5 +293,5 @@ function validatePrenotazione() {
         return false;
     }
 
-    return false;
+    return true;
 }

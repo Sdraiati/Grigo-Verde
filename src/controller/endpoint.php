@@ -23,9 +23,9 @@ abstract class Endpoint
     {
         $json = file_get_contents("php://input");
 
-        $data = $this->sanitizeInput(json_decode($json, true));
+        $data = json_decode($json, true);
         if ($data !== null && isset($data[$param])) {
-            return $data[$param];
+            return $this->sanitizeInput($data[$param]);
         } else if (isset($_POST[$param])) {
             return $this->sanitizeInput($_POST[$param]);
         } else {
@@ -39,9 +39,9 @@ abstract class Endpoint
     {
         $json = file_get_contents("php://input");
 
-        $data = $this->sanitizeInput(json_decode($json, true));
+        $data = json_decode($json, true);
         if ($data !== null && isset($data[$param])) {
-            return $data[$param];
+            return $this->sanitizeInput($data[$param]);
         } else if (isset($_GET[$param])) {
             return $this->sanitizeInput($_GET[$param]);
         } else {
@@ -49,6 +49,12 @@ abstract class Endpoint
             http_response_code(400);
             echo 'Error Missing parameter: ' . $param;
         }
+    }
+
+    protected function redirect($url)
+    {
+        header('Location: ' . BASE_URL . $url);
+        exit();
     }
 
     public function match($path, $method): bool
