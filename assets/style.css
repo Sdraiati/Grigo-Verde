@@ -22,7 +22,7 @@
         --backgroundColor: #333333;
         --primaryColor: #73dec1;
         --secondaryColor: #335833;
-        --errorMessageColor: red;
+        --errorMessageColor: #ffa0ff;
         --shadow: 0 0 0.4rem 0.01rem var(--secondaryColor);
     }
 }
@@ -112,6 +112,10 @@ a {
 a:visited {
     color: var(--primaryColor);
     background-color: var(--backgroundColor);
+}
+
+.hidden {
+    display: none;
 }
 
 /* --------- HEADER --------- */
