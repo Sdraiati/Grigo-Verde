@@ -14,7 +14,7 @@ class Immagine extends Model
     {
         $query = "INSERT INTO " . $this->table . " (Byte, Alt, Mime_type, Spazio) VALUES (?, ?, ?, ?)";
         $params = [
-            ['type' => 'b', 'value' => $img],  // 'b' for blob
+            ['type' => 's', 'value' => $img],  // 'b' for blob
             ['type' => 's', 'value' => $alt],
             ['type' => 's', 'value' => $mime_type],
             ['type' => 'i', 'value' => $spazio]
@@ -26,7 +26,7 @@ class Immagine extends Model
     {
         $query = "UPDATE " . $this->table . " SET Byte = ?, Alt = ?, Mime_type = ? WHERE Spazio = ?";
         $params = [
-            ['type' => 'b', 'value' => $img],  // 'b' for blob
+            ['type' => 's', 'value' => $img],
             ['type' => 's', 'value' => $alt],
             ['type' => 's', 'value' => $mime_type],
             ['type' => 'i', 'value' => $spazio],
@@ -54,5 +54,16 @@ class Immagine extends Model
 
         $res = $this->get($query, $params);
         return $res;
+    }
+
+    public function modifica_descrizione($spazio, $descrizione)
+    {
+        $query = "UPDATE " . $this->table . " SET Alt = ? WHERE Spazio = ?";
+        $params = [
+            ['type' => 's', 'value' => $descrizione],
+            ['type' => 'i', 'value' => $spazio]
+        ];
+
+        return $this->exec($query, $params);
     }
 }
