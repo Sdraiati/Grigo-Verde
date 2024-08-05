@@ -12,6 +12,7 @@ class Page
     private $path = '/';
     private $nav = [];
     private $breadcrumb = [];
+    private $breadcrumb_last = '';
 
     protected function getContent($path)
     {
@@ -53,9 +54,16 @@ class Page
         $this->nav = $nav;
     }
 
-    protected function setBreadcrumb($breadcrumb)
+    protected function setBreadcrumb($breadcrumb, bool $lang = false)
     {
         $this->breadcrumb = $breadcrumb;
+        if($this->title !== '') {
+            if ($lang === true) {
+                $this->breadcrumb_last = '<span lang="en">' . $this->title . '</span>';
+            } else {
+                $this->breadcrumb_last = $this->title;
+            }
+        }
     }
 
     // TODO: check circular reference
@@ -79,7 +87,7 @@ class Page
         $nav = new ReferenceList($this->nav);
         $content = str_replace('{{ menu }}', $nav->render(), $content);
 
-        $breadcrumb = new Breadcrumb($this->breadcrumb, $this->title);
+        $breadcrumb = new Breadcrumb($this->breadcrumb, $this->breadcrumb_last);
         $content = str_replace('{{ breadcrumbs }}', $breadcrumb->render(), $content);
         $content = $this->takeOffCircularReference($content);
 

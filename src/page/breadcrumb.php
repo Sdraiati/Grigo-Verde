@@ -14,7 +14,14 @@ class Breadcrumb extends ReferenceList
 
     public function render()
     {
-        $content = parent::render() . PHP_EOL;
+        $content = '<li>Ti trovi in:</li>';
+
+        $breadcrumbItems = parent::render(). PHP_EOL;
+
+        if (!empty($breadcrumbItems)) {
+            $content .= $breadcrumbItems;
+        }
+
         $content .= '<li id="breadcrumb-last">' . $this->title . '</li>';
         return $content;
     }
