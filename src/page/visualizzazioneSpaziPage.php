@@ -10,10 +10,7 @@ class SpazioItem {
     // renderizza uno spazio
     // $params: array contenente i valori dei campi spazio
     public function render($values) {
-        $item = "<li>";
-
-        // costruzione dell'item.
-        
+        $item = '<li id="' . $values["Posizione"] . '">' . $values["Nome"] . " </li>";
         return $item;
     }
 }
@@ -21,7 +18,8 @@ class SpazioItem {
 class VisualizzazioneSpaziPage extends Page
 {
     private string $tipo;
-    private string $data;
+    private string $data_inizio;
+    private string $data_fine;
     public $title = 'VisualizzazioneSpazi';
     public $nav = [
         'About us' => 'about_us',
@@ -32,7 +30,7 @@ class VisualizzazioneSpaziPage extends Page
     public $keywords = ["Grigo verde", "aule verdi", "Liceo Scientifico", "M. Grigoletti", "scuola superiore", "Pordenone", "prenotazione", "area ping pong"];
     public $path = '/visualizzazione_spazi';
 
-    public function __construct(string $tipo = "", string $data = "") {
+    public function __construct(string $tipo = "", string $data_inizio = "", string $data_fine = "") {
         parent::setTitle('Viualizzazione Spazi');
         parent::setNav([]);
         parent::setBreadcrumb([
@@ -40,43 +38,56 @@ class VisualizzazioneSpaziPage extends Page
         ]);
 
         $this->tipo = $tipo;
-        $this->data = $data;
+        $this->data_inizio = $data_inizio;
+        $this->data_fine = $data_fine;
     }
 
-    private function filtra_spazi($tipo, $data) {
+    private function rimuovi_spazi_duplicati($values) {
+
+    } 
+
+    private function filtra_spazi($tipo, $data_inizio, $data_fine) {
 
         // query da modificare in quanto gestisce solamente il tipo.
-        $query = "SELECT * FROM SPAZIO 
-        JOIN PRENOTAZIONE ON SPAZIO.Posizione = PRENOTAZIONE.Spazio
-        JOIN DISPONIBILITA ON SPAZIO.Posizione = DISPONIBILITA.Spazio
-        WHERE SPAZIO.Tipo = ? AND 
-        DISPONIBILITA.Mese = ? AND 
-        (PRENOTAZIONE.DataFine <= ? AND PRENOTAZIONE.DataInizio >= ?) AND 
-        (DISPONIBILITA.Orario_apertura >= ? AND DISPONIBILITA.Orario_chiusura <= ?)";
+        // $query = "SELECT * FROM SPAZIO 
+        // JOIN PRENOTAZIONE ON SPAZIO.Posizione = PRENOTAZIONE.Spazio
+        // JOIN DISPONIBILITA ON SPAZIO.Posizione = DISPONIBILITA.Spazio
+        // WHERE SPAZIO.Tipo = ? AND 
+        // DISPONIBILITA.Mese = ? AND 
+        // (PRENOTAZIONE.DataFine <= ? AND PRENOTAZIONE.DataInizio >= ?) AND 
+        // (DISPONIBILITA.Orario_apertura >= ? AND DISPONIBILITA.Orario_chiusura <= ?)";
+
+        $debug_query = "SELECT * FROM SPAZIO LEFT JOIN PRENOTAZIONE ON SPAZIO.Posizione = PRENOTAZIONE.Spazio;";
         
-        if ($tipo == "") {
-            // regex
-            $tipo = ".*";
-        }
-        if ($data == "") {
-            $data = ".*";
-        }
+        // binding dei parametri
         $params = [
-            ['type' => 's', 'value' => $tipo],
-            ['type' => 's', 'value' => $data],
-            ['type' => 's', 'value' => $data]
+        //     ['type' => 's', 'value' => $tipo],
         ];
 
         // prendere un'istanza del db.
-        $db = Database::geInstance(); 
-        $stmt = $db->bindParams($query, $params);
-
+        $db = Database::getInstance(); 
+        $stmt = $db->bindParams($debug_query, $params);
+        
         if ($stmt === false) {
             return false;
         }
         try {
+
             $stmt->execute();
-            return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            $filtered = []; 
+
+            if ($tipo != "" || $data_inizio != "" || $data_fine != "") {
+                if ($tipo != "") {
+                    for ($i=0; $i < count($result); $i++) { 
+                        if ($result[$i]["Tipo"] == $tipo) {
+                            array_push($filtered, $result[$i]);
+                        }
+                    }
+                }
+                return $filtered;
+            } 
+            return $result;
         } catch (Exception $e) {
             return false;
         }
@@ -111,16 +122,30 @@ class VisualizzazioneSpaziPage extends Page
     public function render() 
     {
         $content = parent::render();
-        // $items =  $this->filtra_spazi($tipo, $data); // questo è un array di SpazioItems che deve essere rimpiazzato a {{ content }}
-        
-        // in base ad items costruire {{ content }}
-        $intestazione_pagina = $this->getContent('visualizzazione_spazi_page'); 
-        $lista_spazi = '{{ lista degli spazi }}'; // questo cambia in base ad items.
-        $lista_spazi = $lista_spazi . '<br>' . $this->debug();
-        $intestazione_pagina = str_replace("{{ lista }}", $lista_spazi , $intestazione_pagina);
 
-        // contenuto che varia in base agli spazi.
+        $intestazione_pagina = $this->getContent('visualizzazione_spazi_page'); 
+
+        // Fare sì che vi siano ancora i radio button checked nel caso di filtri di tipo
+        if ($this->tipo != "") {
+            $checked = '<input type="radio" id="tipo_' . $this->tipo .  '" name="tipo" value="' . $this->tipo . '" checked>';
+            $unchecked = '<input type="radio" id="tipo_' . $this->tipo . '" name="tipo" value="' . $this->tipo . '">';
+            $intestazione_pagina = str_replace($unchecked, $checked, $intestazione_pagina);
+        }
+
+        // lista degli spazi
+        $lista_debug = $this->filtra_spazi($this->tipo, $this->data_inizio, $this->data_fine);
+        $lista_spazi = "";
+        $spazioItem = new SpazioItem();
+        for ($i=0; $i < count($lista_debug); $i++) { 
+            $values = [];
+            $values["Posizione"] = ($lista_debug[$i]["Posizione"]);
+            $values["Nome"] = ($lista_debug[$i]["Nome"]);
+            $lista_spazi = $lista_spazi . $spazioItem->render($values);
+        }
+        $intestazione_pagina = str_replace("{{ lista }}", $lista_spazi, $intestazione_pagina);
+
         $content = str_replace("{{ content }}", $intestazione_pagina, $content);
+        
         $content = str_replace("href=\"/\"", "href=\"#\"", $content);
 
         $content = str_replace('{{ base_path }}', BASE_URL, $content);

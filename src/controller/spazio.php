@@ -12,14 +12,21 @@ class SpazioEndpoint extends Endpoint {
 
     public function handle() {
         $tipo = "";
-        $data = "";
+        $data_inizio = "";
+        $data_fine = "";
         if (isset($_GET['tipo'])) {
             $tipo = $_GET['tipo'];
         }
-        if (isset($_GET['data'])) {
-            $data = $_GET['data'];
+        if (isset($_GET['Data_inizio']) || isset($_GET['Data_fine'])) {
+            if(isset($_GET['Data_inizio']) && isset($_GET['Data_fine'])) {
+                $data_inizio = $_GET['Data_inizio'];
+                $data_fine = $_GET['Data_fine'];
+            } 
         }
-        $page = new VisualizzazioneSpaziPage($tipo, $data);
+        var_dump($tipo);
+        var_dump($data_inizio);
+        var_dump($data_fine);
+        $page = new VisualizzazioneSpaziPage($tipo, $data_inizio, $data_fine);
         $content = $page->render();
         echo $content;
     }
