@@ -28,7 +28,7 @@ class HomePage extends Page
         $content = str_replace("{{ content }}", $this->getContent('home'), $content);
         $content = str_replace("href=\"/\"", "href=\"#\"", $content);
 
-        $content = str_replace('{{ base_path }}', BASE_URL, $content);
+        //$content = str_replace('{{ base_path }}', BASE_URL, $content);
         $content = str_replace("{{ error }}", '', $content);
         return $content;
     }
