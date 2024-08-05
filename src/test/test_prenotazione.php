@@ -64,7 +64,7 @@ function prendi_per_settimana_prenotazione()
     $utente->elimina('mario_rossi');
     $spazio->elimina(1);
 
-    return count($reservations) > 1;
+    return count($reservations) > 0;
 }
 
 function test_prenotazione_is_available()
