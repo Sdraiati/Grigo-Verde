@@ -1,0 +1,31 @@
+<div class="container">
+    <h1>Nuovo Utente</h1>
+    <form action="spazi/nuovo" method="post" enctype="multipart/form-data" onsubmit="">
+        <fieldset>
+            <legend>Informazioni relative all'utente</legend>
+            <label for="nome">Nome <span class="required" aria-hidden="true">*</span></label>
+            <input type="text" id="nome" name="nome" value="{{ nome }}" required>
+            <label for="cognome">Cognome <span class="required" aria-hidden="true">*</span></label>
+            <input type="text" id="cognome" name="cognome" value="{{ cognome }}" required>
+            <label for="ruolo">Ruolo <span class="required" aria-hidden="true">*</span></label>
+            <select id="ruolo" name="ruolo" required>
+                <option value="" disabled {{ selectedDefault }}>Seleziona un ruolo</option>
+                <option {{ docente }} value="Docente">Docente</option>
+                <option {{ amministratore }} value="Amministratore">Amministratore</option>
+            </select>
+            <label for="username">Nome utente <span class="required" aria-hidden="true">*</span></label>
+            <input type="text" id="username" name="username" value="{{ username }}" required>
+            <label for="password"><span lang="en">Password</span> <span class="required"
+                                                                        aria-hidden="true">*</span></label>
+            <input type="password" id="password" name="password" placeholder="Inserire la password"
+                   value="{{ password }}" required>
+            <input id="mostra-password" type="checkbox" onclick="toggleView()">
+            <label for="mostra-password">Mostra <span lang="en">Password</span></label>
+            <label for="conferma_password"><span lang="en">Conferma Password</span> <span class="required"
+                                                                          aria-hidden="true">*</span></label>
+            <input type="password" id="conferma_password" name="conferma_password"
+                   placeholder="Conferma la password" value="{{ conferma_password }}" required>
+            <input id="mostra-conferma" type="checkbox" onclick="toggleView()">
+        </fieldset>
+    </form>
+</div>

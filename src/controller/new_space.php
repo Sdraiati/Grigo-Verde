@@ -17,14 +17,8 @@ class NewSpace extends Endpoint
         parent::__construct('spazi/nuovo', 'POST');
     }
 
-    public function validate(): bool
+    public function validate($posizione, $nome, $descrizione, $tipo, $n_tavoli): bool
     {
-        $posizione = intval($this->post('posizione'));
-        $nome = $this->post('nome');
-        $descrizione = $this->post('descrizione');
-        $tipo = $this->post('tipo');
-        $n_tavoli = intval($this->post('n_tavoli'));
-
         if (empty($posizione) || empty($nome) || empty($tipo)) {
             return false;
         }
@@ -38,13 +32,13 @@ class NewSpace extends Endpoint
 
     public function handle(): void
     {
-        $posizione = $this->post('posizione');
-        $nome = $this->post('nome');
-        $descrizione = $this->post('descrizione');
-        $tipo = $this->post('tipo');
-        $n_tavoli = $this->post('n_tavoli');
+        $this->posizione = $this->post('posizione');
+        $this->nome = $this->post('nome');
+        $this->descrizione = $this->post('descrizione');
+        $this->tipo = $this->post('tipo');
+        $this->n_tavoli = intval($this->post('n_tavoli'));
 
-        if (!$this->validate()) {
+        if (!$this->validate($this->posizione, $this->nome, $this->descrizione, $this->tipo, $this->n_tavoli)) {
             $page = new NewSpacePage(
                 $this->posizione,
                 $this->nome,
@@ -56,7 +50,7 @@ class NewSpace extends Endpoint
             echo $page->render();
         } else {
             $spazio = new Spazio();
-            if ($spazio->prendi($posizione) !== null) {
+            if ($spazio->prendi($this->posizione) !== null) {
                 $page = new NewSpacePage(
                     $this->posizione,
                     $this->nome,
@@ -68,7 +62,7 @@ class NewSpace extends Endpoint
                 echo $page->render();
                 return;
             }
-            if ($spazio->prendi_per_nome($nome) !== null) {
+            if ($spazio->prendi_per_nome($this->nome) !== null) {
                 $page = new NewSpacePage(
                     $this->posizione,
                     $this->nome,
@@ -80,7 +74,7 @@ class NewSpace extends Endpoint
                 echo $page->render();
                 return;
             }
-            $spazio->nuovo($posizione, $nome, $descrizione, $tipo, $n_tavoli);
+            $spazio->nuovo($this->posizione, $this->nome, $this->descrizione, $this->tipo, $this->n_tavoli);
             echo "Spazio creato";
 
             $uploadedFiles = $_FILES;
@@ -95,6 +89,9 @@ class NewSpace extends Endpoint
 
             $images = [];
             foreach ($uploadedFiles as $key => $file) {
+                if($file['size'] === 0) {
+                    return;
+                }
                 if ($file['error'] !== UPLOAD_ERR_OK) {
                     $page = new NewSpacePage(
                         $this->posizione,

@@ -17,14 +17,8 @@ class EditSpace extends Endpoint
         parent::__construct('spazi/modifica', 'POST');
     }
 
-    public function validate(): bool
+    public function validate($posizione, $nome, $descrizione, $tipo, $n_tavoli): bool
     {
-        $posizione = intval($this->$this->post('posizione'));
-        $nome = $this->post('nome');
-        $descrizione = $this->post('descrizione');
-        $tipo = $this->post('tipo');
-        $n_tavoli = intval($this->post('n_tavoli'));
-
         if (empty($posizione) || empty($nome) || empty($tipo)) {
             return false;
         }
@@ -36,16 +30,16 @@ class EditSpace extends Endpoint
         return true;
     }
 
-    public function handle()
+    public function handle() : void
     {
-        $posizione = $this->post('posizione');
-        $nome = $this->post('nome');
-        $descrizione = $this->post('descrizione');
-        $tipo = $this->post('tipo');
-        $n_tavoli = $this->post('n_tavoli');
+        $this->posizione = $this->post('posizione');
+        $this->nome = $this->post('nome');
+        $this->descrizione = $this->post('descrizione');
+        $this->tipo = $this->post('tipo');
+        $this->n_tavoli = intval($this->post('n_tavoli'));
 
-        if (!$this->validate()) {
-            $page = new NewSpacePage(
+        if (!$this->validate($this->posizione, $this->nome, $this->descrizione, $this->tipo, $this->n_tavoli)) {
+            $page = new EditSpacePage(
                 $this->posizione,
                 $this->nome,
                 $this->descrizione,
@@ -56,8 +50,21 @@ class EditSpace extends Endpoint
             echo $page->render();
         } else {
             $spazio = new Spazio();
+            if ($spazio->prendi($this->posizione)['Nome'] !== $this->nome &&
+                $spazio->prendi_per_nome($this->nome) !== null) {
+                $page = new EditSpacePage(
+                    $this->posizione,
+                    $this->nome,
+                    $this->descrizione,
+                    $this->tipo,
+                    $this->n_tavoli,
+                    "Nome già esistente, sceglierne un altro"
+                );
+                echo $page->render();
+                return;
+            }
 
-            $spazio->modifica($posizione, $nome, $descrizione, $tipo, $n_tavoli);
+            $spazio->modifica($this->posizione, $this->nome, $this->descrizione, $this->tipo, $this->n_tavoli);
             echo "Spazio modificato";
 
             $uploadedFiles = $_FILES;
@@ -71,10 +78,10 @@ class EditSpace extends Endpoint
 
             $immagine = new Immagine();
             //if spazio has images update them
-            if ($immagine->prendi($posizione) !== null) {
+            if ($immagine->prendi($this->posizione) !== null) {
                 if (empty($uploadedFiles)) {
                     //delete all images
-                    $immagine->elimina($posizione);
+                    $immagine->elimina($this->posizione);
                 }
                 foreach ($uploadedFiles as $key => $file) {
                     if ($file['size'] === 0) {
@@ -92,12 +99,12 @@ class EditSpace extends Endpoint
                                 echo $page->render();
                                 return;
                             }
-                            $immagine->modifica_descrizione($posizione, $value);
+                            $immagine->modifica_descrizione($this->posizione, $value);
                         }
                     } else {
                         //TODO: questa parte va modificata se si vuole permettere più immagini
                         //delete all images
-                        $immagine->elimina($posizione);
+                        $immagine->elimina($this->posizione);
                     }
                 }
             }
