@@ -7,10 +7,10 @@ include_once 'model/utente.php';
 
 class editSpacePage extends Page
 {
-    private $title = 'Modifica Spazio';
-    private $keywords = [""];
-    private $path = '/spazi/modifica';
-    private $breadcrumb = [
+    protected $title = 'Modifica Spazio';
+    protected $keywords = [""];
+    protected $path = '/spazi/modifica';
+    protected $breadcrumb = [
         'Spazi' => 'spazi'
     ];
 
@@ -20,9 +20,14 @@ class editSpacePage extends Page
     private string $tipo = '';
     private int $n_tavoli = 0;
     private string $error = '';
-    public function __construct(int $posizione=-1, string $nome="", string $descrizione="", string $tipo="", int $n_tavoli=0,
-                                string $error='')
-    {
+    public function __construct(
+        int $posizione = -1,
+        string $nome = "",
+        string $descrizione = "",
+        string $tipo = "",
+        int $n_tavoli = 0,
+        string $error = ''
+    ) {
         parent::__construct();
         $this->setTitle($this->title);
         $this->setBreadcrumb($this->breadcrumb);
@@ -36,26 +41,25 @@ class editSpacePage extends Page
         $this->n_tavoli = $n_tavoli;
         $this->error = $error;
     }
-    private function fetch() : void
+    private function fetch(): void
     {
-        if(isset($_GET['posizione'])) {
+        if (isset($_GET['posizione'])) {
             $this->posizione = intval($_GET['posizione']);
         }
 
-        if($this->posizione!==-1 && $this->nome==="" && $this->descrizione==="" && $this->tipo===""
-            && $this->n_tavoli===0 && $this->error==="")
-        {
+        if (
+            $this->posizione !== -1 && $this->nome === "" && $this->descrizione === "" && $this->tipo === ""
+            && $this->n_tavoli === 0 && $this->error === ""
+        ) {
             $spazio = new Spazio();
-            
-            if ($spazio->exists($this->posizione))
-            {
+
+            if ($spazio->exists($this->posizione)) {
                 $result = $spazio->prendi($this->posizione);
                 $this->nome = $result['Nome'];
                 $this->descrizione = $result['Descrizione'];
                 $this->tipo = $result['Tipo'];
                 $this->n_tavoli = $result['N_tavoli'];
-            }
-            else {
+            } else {
                 $this->error = "Spazio non esistente";
             }
         }
@@ -63,8 +67,11 @@ class editSpacePage extends Page
     public function render()
     {
         if (!Autenticazione::isLogged()) {
-            $page = new LoginPage("", "",
-                'Devi effettuare il login per accedere a questa pagina');
+            $page = new LoginPage(
+                "",
+                "",
+                'Devi effettuare il login per accedere a questa pagina'
+            );
             return $page->render();
         }
         if (!Autenticazione::is_amministratore()) {
@@ -74,16 +81,13 @@ class editSpacePage extends Page
         $this->fetch();
         $image_result = $this->loadImages();
         $html_img = '';
-        if ($image_result)
-        {
+        if ($image_result) {
             //se è un array di array
             if (is_array(reset($image_result))) {
-                foreach ($image_result as $img)
-                {
+                foreach ($image_result as $img) {
                     $html_img .= $this->renderImagePreviews($img);
                 }
-            }
-            else {
+            } else {
                 $html_img = $this->renderImagePreviews($image_result);
             }
         }
@@ -91,12 +95,10 @@ class editSpacePage extends Page
         $content = parent::render();
         $content = str_replace("{{ content }}", $this->getContent('edit_space'), $content);
 
-        if (($html_img !== ''))
-        {
+        if (($html_img !== '')) {
             $content = str_replace("{{ images }}", $html_img, $content);
             $content = str_replace("{{ add_image_button }}", '', $content);
-        }
-        else {
+        } else {
             $content = str_replace("{{ images }}", '', $content);
             $content = str_replace("{{ add_image_button }}", '<input type="button" id="add_img_button" value="Aggiungi immagine" onclick="addImage()">', $content);
         }
@@ -114,7 +116,7 @@ class editSpacePage extends Page
             }
             $content = str_replace("{{ tipo }}", $this->tipo, $content);
             $content = str_replace("{{ n_tavoli }}", $this->n_tavoli, $content);
-            if($this->error !== '')
+            if ($this->error !== '')
                 $content = str_replace("{{ error }}", parent::error($this->error), $content);
             else
                 $content = str_replace("{{ error }}", '', $content);
@@ -130,12 +132,12 @@ class editSpacePage extends Page
         }
         return $content;
     }
-    public function loadImages() : array | null
+    public function loadImages(): array | null
     {
         $immagine = new Immagine();
         return $immagine->prendi($this->posizione);
     }
-    private function renderImagePreviews(array $immagine, int $num = 0) : string
+    private function renderImagePreviews(array $immagine, int $num = 0): string
     {
         $imageData = $immagine['Byte'];
         $mimeType = htmlspecialchars($immagine['Mime_type']);
@@ -154,3 +156,4 @@ class editSpacePage extends Page
         return $html;
     }
 }
+

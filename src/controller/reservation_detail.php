@@ -24,7 +24,7 @@ class ReservationDetail extends Endpoint
         return true;
     }
 
-    public function mathc($path, $method): bool
+    public function match($path, $method): bool
     {
         $path = explode('?', $path)[0];
         return parent::match($path, $method);
@@ -40,14 +40,14 @@ class ReservationDetail extends Endpoint
         $prenotazioni = new Prenotazione();
 
         $reservation = $prenotazioni->prendi_by_id($this->reservation_id);
+        if ($reservation === null) {
+            echo 404; // todo: return 404 page
+            return;
+        }
 
-        $start_date_time = new DateTime($reservation['DataInizio']);
-        $end_date_time = new DateTime($reservation['DataFine']);
-        $giorno = $start_date_time->format('d/m/Y');
-        $ora_inizio = $start_date_time->format('H:i');
-        $ora_fine = $end_date_time->format('H:i');
+        $page = new PrenotazioneDetailPage($this->reservation_id);
 
-        $page = new PrenotazioneDetailPage($giorno, $ora_inizio, $ora_fine, $reservation['Nome'], $reservation['Cognome'], $reservation['NomeSpazio'], $reservation['Descrizione']);
+        $page->setPath('prenotazioni/?prenotazione=' . $this->reservation_id);
         echo $page->render();
     }
 }

@@ -25,33 +25,28 @@ class Prenotazione extends Model
         return $this->exec($query, $params);
     }
 
-    public function modifica($dataInizioOld, $dataFineOld, $spazioOld, $dataInizio, $dataFine, $username, $spazio, $descrizione)
+    public function modifica($id, $dataInizio, $dataFine, $spazio, $descrizione)
     {
         $query = "UPDATE " . $this->table . " 
-        SET DataInizio = ?, DataFine = ?, Username = ?, Spazio = ?, Descrizione = ? 
-        WHERE DataInizio = ? AND DataFine = ? AND Spazio = ?";
+        SET DataInizio = ?, DataFine = ?, Spazio = ?, Descrizione = ? 
+        WHERE Id = ?";
 
         $params = [
-        ['type' => 's', 'value' => $dataInizio],
-        ['type' => 's', 'value' => $dataFine],
-        ['type' => 's', 'value' => $username],
-        ['type' => 'i', 'value' => $spazio],
-        ['type' => 's', 'value' => $descrizione],
-        ['type' => 's', 'value' => $dataInizioOld],
-        ['type' => 's', 'value' => $dataFineOld],
-        ['type' => 'i', 'value' => $spazioOld]
+            ['type' => 's', 'value' => $dataInizio],
+            ['type' => 's', 'value' => $dataFine],
+            ['type' => 'i', 'value' => $spazio],
+            ['type' => 's', 'value' => $descrizione],
+            ['type' => 'i', 'value' => $id]
         ];
 
         return $this->exec($query, $params);
     }
 
-    public function elimina($dataInizio, $dataFine, $spazio)
+    public function elimina($id)
     {
-        $query = "DELETE FROM " . $this->table . " WHERE DataInizio = ? AND DataFine = ? AND Spazio = ?";
+        $query = "DELETE FROM " . $this->table . " WHERE Id = ?";
         $params = [
-            ['type' => 's', 'value' => $dataInizio], // 's' per DATETIME
-            ['type' => 's', 'value' => $dataFine],   // 's' per DATETIME
-            ['type' => 'i', 'value' => $spazio]       // 'i' per INT
+            ['type' => 'i', 'value' => $id]       // 'i' per INT
         ];
 
         return $this->exec($query, $params);
@@ -115,9 +110,9 @@ class Prenotazione extends Model
 
     public function prendi_by_id($res_id)
     {
-        $query = "SELECT DataInizio, DataFine, UTENTE.Nome, UTENTE.Cognome, SPAZIO.Nome AS NomeSpazio, PRENOTAZIONE.Descrizione FROM " . $this->table . " 
-                    JOIN SPAZIO ON PRENOTAZIONE.Spazio = SPAZIO.Posizione
-                    JOIN UTENTE ON PRENOTAZIONE.Username = UTENTE.Username
+        $query = "SELECT DataInizio, DataFine, U.Nome, U.Cognome, S.Nome AS NomeSpazio, PRENOTAZIONE.Descrizione, PRENOTAZIONE.Spazio, U.Username FROM " . $this->table . " 
+                    JOIN SPAZIO AS S ON PRENOTAZIONE.Spazio = S.Posizione
+                    JOIN UTENTE AS U ON PRENOTAZIONE.Username = U.Username
                     WHERE PRENOTAZIONE.Id = ?";
         $params = [
             ['type' => 'i', 'value' => $res_id]

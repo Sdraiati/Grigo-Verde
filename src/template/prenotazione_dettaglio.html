@@ -1,5 +1,5 @@
-<h1>Dettaglio prenotazione</h1>
-<section class="short-content">
+<section>
+    <h1>Dettaglio prenotazione</h1>
     <ul>
         <li>Giorno: <strong> {{ giorno }} </strong></li>
         <li>Dalle ore: <strong> {{ ora_inizio }} </strong></li>
@@ -8,4 +8,13 @@
         <li>Nome dell'aula prenotata: <strong> {{ nome_aula }} </strong></li>
         <li>Nota: <strong> {{ descrizione }} </strong></li>
     </ul>
+
+    <form action="prenotazione/elimina" method="post">
+        <input type="hidden" name="prenotazione" value="{{ id_prenotazione }}">
+        <input type="submit" value="Elimina prenotazione">
+    </form>
+    <form action="dashboard/prenotazione/modifica" method="get">
+        <input type="hidden" name="prenotazione" value="{{ id_prenotazione }}">
+        <input type="submit" value="Modifica prenotazione">
+    </form>
 </section>

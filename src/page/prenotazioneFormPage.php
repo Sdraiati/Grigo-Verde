@@ -7,27 +7,22 @@ include_once 'model/utente.php';
 
 class PrenotazioneFormPage extends Page
 {
-    private $title = 'Nuova Prenotazione';
-    private $keywords = [""];
-    private $path = '/dashboard/nuova-prenotazione';
-    private $breadcrumb = [
-        'Dashboard' => 'dashboard'
-    ];
-
+    private int $reservation_id = -1;
     private string $giorno = '';
     private string $dalle_ore = '';
     private string $alle_ore = '';
     private int $posizione = -1;
     private string $descrizione = '';
     private string $error = '';
-    public function __construct(string $giorno = '', string $dalle_ore = '', string $alle_ore = '', int $posizione = -1, string $descrizione = '', string $error = '')
+
+    public function __construct(string $giorno = '', string $dalle_ore = '', string $alle_ore = '', int $posizione = -1, string $descrizione = '', string $error = '', int $reservation_id = -1)
     {
         parent::__construct();
-        $this->setTitle($this->title);
-        $this->setBreadcrumb($this->breadcrumb);
-        $this->setPath($this->path);
-        $this->addKeywords($this->keywords);
+        parent::setTitle('Nuova Prenotazione');
+        $this->setBreadcrumb(['Dashboard' => 'dashboard']);
+        $this->addKeywords(['']);
 
+        $this->reservation_id = $reservation_id;
         $this->giorno = $giorno;
         $this->dalle_ore = $dalle_ore;
         $this->alle_ore = $alle_ore;
@@ -41,12 +36,15 @@ class PrenotazioneFormPage extends Page
         $spazio = new Spazio();
         $result = $spazio->prendi_tutti();
         $options = '';
+        if ($this->posizione == -1) {
+            $options .= '<option value="-1" selected disabled>Seleziona uno spazio</option>\n';
+        }
         foreach ($result as $row) {
             if ($this->posizione == $row['Posizione']) {
-                $options .= '<option value="' . $row['Posizione'] . '" selected>' . $row['Nome'] . '</option>';
+                $options .= '<option value="' . $row['Posizione'] . '" selected>' . $row['Nome'] . '</option>\n';
                 continue;
             }
-            $options .= '<option value="' . $row['Posizione'] . '">' . $row['Nome'] . '</option>';
+            $options .= '<option value="' . $row['Posizione'] . '">' . $row['Nome'] . '</option>\n';
         }
         return $options;
     }
@@ -78,8 +76,13 @@ class PrenotazioneFormPage extends Page
             $this->alle_ore = $current_time->format('H:i');
         }
 
-        $content = parent::render();
-        $content = str_replace("{{ content }}", $this->getContent('prenotazione_form'), $content);
+
+        $content = $this->getContent('prenotazione_form');
+        if ($this->reservation_id == -1) {
+            $content = str_replace("{{ reservation-id }}", "", $content);
+        } else {
+            $content = str_replace("{{ reservation-id }}", '<input type="hidden" name="id" value="' . $this->reservation_id . '">', $content);
+        }
 
         $content = str_replace("{{ giorno }}", $this->giorno, $content);
         $content = str_replace("{{ dalle-ore }}", $this->dalle_ore, $content);
@@ -87,6 +90,8 @@ class PrenotazioneFormPage extends Page
         $content = str_replace("{{ spazi-options }}", $this->getSpaziOptions(), $content);
         $content = str_replace("{{ descrizione }}", $this->descrizione, $content);
         $content = str_replace("{{ error }}", parent::error($this->error), $content);
+        $content = str_replace("{{ content }}", $content, parent::render());
+        $content = str_replace("{{ title }}", $this->title, $content);
 
         /*
         if (Autenticazione::is_amministratore()) {

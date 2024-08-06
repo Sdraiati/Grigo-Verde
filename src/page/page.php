@@ -7,16 +7,16 @@ include_once 'breadcrumb.php';
 
 class Page
 {
-    private $title = '';
-    private $titleBreadcrumb = '';
-    private $keywords = ['ricette', 'gustose', 'cucina', 'italiana'];
-    private $path = '/';
-    private $nav = [
+    protected $title = '';
+    protected $titleBreadcrumb = '';
+    protected $keywords = ['ricette', 'gustose', 'cucina', 'italiana'];
+    protected $path = '/';
+    protected $nav = [
         '<span lang="en">Home</span>' => '',
         '<span lang="en">About us</span>' => 'about_us',
         '<span lang="en">Login</span>' => 'login'
     ];
-    private $breadcrumb = [];
+    protected $breadcrumb = [];
 
     public function __construct($title = '', $path = '/')
     {
@@ -39,7 +39,7 @@ class Page
         exit;
     }
 
-    protected function setTitle($title)
+    public function setTitle($title)
     {
         $this->titleBreadcrumb = $title;
         $title = preg_replace('/^<span[^>]*>(.*?)<\/span>$/i', '$1', $title);
@@ -66,7 +66,7 @@ class Page
         $this->nav = $nav;
     }
 
-    protected function setBreadcrumb($breadcrumb)
+    public function setBreadcrumb($breadcrumb)
     {
         $this->breadcrumb = $breadcrumb;
     }
@@ -75,7 +75,7 @@ class Page
     protected function takeOffCircularReference($content)
     {
         // Example implementation: replacing current path with '#'
-        return $content;//str_replace('href="' . $this->path . '"', 'href="#"', $content);
+        return $content; //str_replace('href="' . $this->path . '"', 'href="#"', $content);
     }
 
     // path is the path of the page, which is used to skip the navbar and jump

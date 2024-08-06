@@ -6,12 +6,13 @@ include_once 'controller/new_space.php';
 include_once 'model/utente.php';
 class newSpacePage extends Page
 {
-    private $title = 'Nuovo Spazio';
-    private $keywords = [""];
-    private $path = '/spazi/nuovo';
-    private $breadcrumb = [
+    protected $title = 'Nuovo Spazio';
+    protected $keywords = [""];
+    protected $path = '/spazi/nuovo';
+    protected $breadcrumb = [
         'Spazi' => 'spazi'
     ];
+
     private int $posizione = -1;
     private string $nome = '';
     private string $descrizione = '';
@@ -37,8 +38,11 @@ class newSpacePage extends Page
     public function render()
     {
         if (!Autenticazione::isLogged()) {
-            $page = new LoginPage("", "",
-                'Devi effettuare il login per accedere a questa pagina');
+            $page = new LoginPage(
+                "",
+                "",
+                'Devi effettuare il login per accedere a questa pagina'
+            );
             return $page->render();
         }
         if (!Autenticazione::is_amministratore()) {
@@ -59,7 +63,7 @@ class newSpacePage extends Page
             }
             $content = str_replace("{{ tipo }}", $this->tipo, $content);
             $content = str_replace("{{ n_tavoli }}", $this->n_tavoli, $content);
-            if($this->error !== '')
+            if ($this->error !== '')
                 $content = str_replace("{{ error }}", parent::error($this->error), $content);
             else
                 $content = str_replace("{{ error }}", '', $content);
@@ -76,4 +80,3 @@ class newSpacePage extends Page
         return $content;
     }
 }
-

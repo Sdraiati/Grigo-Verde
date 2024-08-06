@@ -41,7 +41,7 @@ function removeErrorDivs() {
     }
 }
 
-function validateString(element, str, min = Number.MIN_SAFE_INTEGER, max = Number.MAX_SAFE_INTEGER, show_char_number = false, spaces=false) {
+function validateString(element, str, min = Number.MIN_SAFE_INTEGER, max = Number.MAX_SAFE_INTEGER, show_char_number = false, spaces = false) {
     const specialCharPattern = /[{}\[\]|`¬¦!"£$%^&*<>:;#~_\-+=,@]/;
     if (str === '') {
         insertErrorMessage(element, "Il campo non può essere vuoto.");
@@ -271,7 +271,7 @@ function addImage() {
     imgCount++;
 
     let add_image_button = document.getElementById("add_img_button");
-    if(add_image_button === null) {
+    if (add_image_button === null) {
         console.log("nooo");
     }
     add_image_button.parentNode.insertBefore(image_div, add_image_button);
@@ -299,7 +299,7 @@ function validatePrenotazione() {
     removeErrorDivs();
 
     // Check if any required field is empty
-    if (!giorno || !dalleOre || !alleOre || !spazio) {
+    if (!giorno.value || !dalleOre.value || !alleOre.value || !spazio.value || spazio.value === '-1') {
         insertErrorMessage(fieldset_element, "Compilare tutti i campi obbligatori.");
         return false;
     }

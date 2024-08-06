@@ -2,46 +2,47 @@
 
 include_once 'page.php';
 $project_root = dirname(__FILE__, 2);
+require_once $project_root . '/model/prenotazione.php';
 
 class PrenotazioneDetailPage extends Page
 {
-    private string $giorno = '';
-    private string $ora_inizio = '';
-    private string $ora_fine = '';
-    private string $nome = '';
-    private string $cognome = '';
-    private string $nome_aula = '';
-    private string $descrizione = '';
+    private $reservation_id;
 
-    public function __construct(string $giorno, string $ora_inizio, string $ora_fine, string $nome, string $cognome, string $nome_aula, string $descrizione)
+    public function __construct($reservation_id)
     {
         parent::setTitle('Dettaglio Prenotazione');
         parent::setNav([]);
         parent::setBreadcrumb([
             'Dashboard' => 'dashboard',
+            'Prenotazioni' => 'dashboard/prenotazioni',
         ]);
 
-        $this->giorno = $giorno;
-        $this->ora_inizio = $ora_inizio;
-        $this->ora_fine = $ora_fine;
-        $this->nome = $nome;
-        $this->cognome = $cognome;
-        $this->nome_aula = $nome_aula;
-        $this->descrizione = $descrizione;
+        $this->reservation_id = $reservation_id;
     }
 
     public function render()
     {
+        $prenotazioni = new Prenotazione();
+
+        $reservation = $prenotazioni->prendi_by_id($this->reservation_id);
+
+        $start_date_time = new DateTime($reservation['DataInizio']);
+        $end_date_time = new DateTime($reservation['DataFine']);
+        $giorno = $start_date_time->format('d/m/Y');
+        $ora_inizio = $start_date_time->format('H:i');
+        $ora_fine = $end_date_time->format('H:i');
+
         $content = parent::render();
         $content = str_replace("{{ content }}", $this->getContent('prenotazione_dettaglio'), $content);
 
-        $content = str_replace("{{ giorno }}", $this->giorno, $content);
-        $content = str_replace("{{ ora_inizio }}", $this->ora_inizio, $content);
-        $content = str_replace("{{ ora_fine }}", $this->ora_fine, $content);
-        $content = str_replace("{{ nome }}", $this->nome, $content);
-        $content = str_replace("{{ cognome }}", $this->cognome, $content);
-        $content = str_replace("{{ nome_aula }}", $this->nome_aula, $content);
-        $content = str_replace("{{ descrizione }}", $this->descrizione, $content);
+        $content = str_replace("{{ giorno }}", $giorno, $content);
+        $content = str_replace("{{ ora_inizio }}", $ora_inizio, $content);
+        $content = str_replace("{{ ora_fine }}", $ora_fine, $content);
+        $content = str_replace("{{ nome }}", $reservation['Nome'], $content);
+        $content = str_replace("{{ cognome }}", $reservation['Cognome'], $content);
+        $content = str_replace("{{ nome_aula }}", $reservation['NomeSpazio'], $content);
+        $content = str_replace("{{ descrizione }}", $reservation['Descrizione'], $content);
+        $content = str_replace("{{ id_prenotazione }}", $this->reservation_id, $content);
 
         return $content;
     }

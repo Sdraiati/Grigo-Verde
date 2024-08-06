@@ -4,9 +4,10 @@ include_once 'page.php';
 
 class HomePage extends Page
 {
-    private $title = '<span lang="en">Home</span>';
-    private $keywords = [];
-    private $path = '/';
+    protected $title = '<span lang="en">Home</span>';
+    protected $keywords = [];
+    protected $path = '/';
+
     public function __construct()
     {
         parent::__construct();

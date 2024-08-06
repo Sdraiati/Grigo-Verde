@@ -6,8 +6,9 @@ require_once $project_root . '/model/prenotazione.php';
 require_once $project_root . '/model/disponibilità.php';
 require_once $project_root . '/page/prenotazioneFormPage.php';
 
-class ReservationNew extends Endpoint
+class ReservationUpdatePost extends Endpoint
 {
+    private $reservation_id;
     private $giorno;
     private $dalle_ore;
     private $alle_ore;
@@ -16,7 +17,13 @@ class ReservationNew extends Endpoint
 
     public function __construct()
     {
-        parent::__construct('dashboard/nuova-prenotazione', 'POST');
+        parent::__construct('dashboard/prenotazione/modifica', 'POST');
+    }
+
+    public function match($path, $method): bool
+    {
+        $path = explode('?', $path)[0];
+        return parent::match($path, $method);
     }
 
     public function render_with_error($error)
@@ -27,25 +34,33 @@ class ReservationNew extends Endpoint
             $this->alle_ore,
             $this->posizione,
             $this->descrizione,
-            $error
+            $error,
+            $this->reservation_id,
         );
-        $page->setPath('dashboard/nuova-prenotazione');
 
-        echo $page->render();
+        $page->setTitle('Modifica prenotazione');
+        $page->setPath('dashboard/prenotazione/modifica');
+        $page = $page->render();
+        $page = str_replace("Crea Prenotazione", "Modifica Prenotazione", $page);
+        $page = str_replace("dashboard/nuova-prenotazione", "dashboard/prenotazione/modifica", $page);
+
+        echo $page;
     }
 
     public function validate(): bool
     {
+        $reservation_id = $this->post('id');
         $giorno = $this->post('giorno');
         $dalle_ore = $this->post('dalle-ore');
         $alle_ore = $this->post('alle-ore');
         $posizione = intval($this->post('spazio'));
         $descrizione = $this->post('descrizione');
 
-        if (empty($giorno) || empty($dalle_ore) || empty($alle_ore) || empty($posizione)) {
+        if (empty($reservation_id) || empty($giorno) || empty($dalle_ore) || empty($alle_ore) || empty($posizione)) {
             return false;
         }
 
+        $this->reservation_id = $reservation_id;
         $this->giorno = $giorno;
         $this->dalle_ore = $dalle_ore;
         $this->alle_ore = $alle_ore;
@@ -74,6 +89,14 @@ class ReservationNew extends Endpoint
             return;
         }
 
+        $username = Autenticazione::getLoggedUser();
+        $prenotazione = new Prenotazione();
+
+        if (!Autenticazione::is_amministratore() && $prenotazione->prendi_by_id($this->reservation_id)['Username'] !== $username) {
+            echo 403; // Todo: unauthorized
+            return;
+        }
+
         // Check if the space is open to the public
         $disponibilita = new Disponibilita();
         if (!$disponibilita->is_open($this->posizione, $this->giorno, $this->dalle_ore, $this->alle_ore)) {
@@ -84,25 +107,10 @@ class ReservationNew extends Endpoint
         $data_inizio = $this->giorno . ' ' . $this->dalle_ore;
         $data_fine = $this->giorno . ' ' . $this->alle_ore;
 
-        // Check if the space is available
-        $prenotazione = new Prenotazione();
-        if (!$prenotazione->is_available($this->post('spazio'), $this->giorno, $this->dalle_ore, $this->alle_ore)) {
-            $this->render_with_error("Lo spazio non è disponibile nell'orario specificato");
-            return;
+        if ($prenotazione->modifica($this->reservation_id, $data_inizio, $data_fine, $this->posizione, $this->descrizione)) {
+            $this->redirect('prenotazioni/?prenotazione=' . $this->reservation_id);
         }
 
-        $username = Autenticazione::getLoggedUser();
-
-        // Check if the user has already booked something in the same time slot
-        if (!$prenotazione->user_already_booked($this->post('spazio'), $this->giorno, $this->dalle_ore, $this->alle_ore)) {
-            $this->render_with_error("Hai già prenotato un altro spazio nello stesso orario");
-            return;
-        }
-
-        if ($prenotazione->nuovo($data_inizio, $data_fine, $username, $this->posizione, $this->descrizione)) {
-            $this->redirect('dashboard');
-        }
-
-        $this->render_with_error("Errore nella creazione della prenotazione");
+        $this->render_with_error("Errore nell'aggiornamento della prenotazione");
     }
 }

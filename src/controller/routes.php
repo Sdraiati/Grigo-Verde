@@ -18,6 +18,9 @@ include_once 'controller/spazio.php';
 include_once 'page/prenotazioneFormPage.php';
 include_once 'controller/reservation_new.php';
 include_once 'controller/reservation_detail.php';
+include_once 'controller/reservation_update_get.php';
+include_once 'controller/reservation_update_post.php';
+include_once 'controller/reservation_delete.php';
 
 $about_us = new AboutUsPage();
 $homepage = new HomePage();
@@ -49,3 +52,6 @@ $router->add($editSpace);
 $router->add(new StaticPage('dashboard/nuova-prenotazione', $newPrenotazionePage));
 $router->add(new ReservationNew());
 $router->add(new ReservationDetail());
+$router->add(new ReservationUpdateGet());
+$router->add(new ReservationUpdatePost());
+$router->add(new ReservationDelete());
