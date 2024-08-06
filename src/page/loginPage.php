@@ -4,19 +4,16 @@ $project_root = dirname(__FILE__, 2);
 include_once 'controller/login.php';
 class loginPage extends Page
 {
-    protected $title = '<span lang="en">Login</span>';
-    protected $keywords = [""];
-    protected $path = '/login';
     protected string $username = '';
     protected string $password = '';
     protected string $error = '';
     public function __construct(string $username = "", string $password = "", string $error = "")
     {
         parent::__construct();
-        $this->setTitle($this->title);
+        $this->setTitle('<span lang="en">Login</span>');
         $this->setBreadcrumb([]);
-        $this->addKeywords($this->keywords);
-        $this->setPath($this->path);
+        $this->addKeywords([""]);
+        $this->setPath('/login');
 
         $this->username = $username;
         $this->password = $password;
