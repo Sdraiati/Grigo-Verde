@@ -7,10 +7,10 @@ include_once 'model/utente.php';
 
 class editSpacePage extends Page
 {
-    private $title = 'Modifica Spazio';
-    private $keywords = [""];
-    private $path = '/spazi/modifica';
-    private $breadcrumb = [
+    protected $title = 'Modifica Spazio';
+    protected $keywords = [""];
+    protected $path = '/spazi/modifica';
+    protected $breadcrumb = [
         'Spazi' => 'spazi'
     ];
 
