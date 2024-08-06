@@ -3,14 +3,13 @@
     onsubmit="return validatePrenotazione()">
     <fieldset>
         <legend>Informazioni sulla prenotazione</legend>
-        {{ reservation-id }}
-        <label for="giorno">Giorno<span class='required'>*</span></label>
+        <label for="giorno">Giorno <span class="required">*</span></label>
         <input type="date" id="giorno" name="giorno" value="{{ giorno }}" required>
-        <label for="dalle-ore">Dalle ore<span class='required'>*</span></label>
+        <label for="dalle-ore">Dalle ore <span class="required">*</span></label>
         <input type="time" id="dalle-ore" name="dalle-ore" value="{{ dalle-ore }}" required>
-        <label for="alle-ore">Alle ore<span class='required'>*</span></label>
+        <label for="alle-ore">Alle ore <span class="required">*</span></label>
         <input type="time" id="alle-ore" name="alle-ore" value="{{ alle-ore }}" required>
-        <label for="spazio">Tipo</label>
+        <label for="spazio">Spazio <span class="required">*</span></label>
         <select id="spazio" name="spazio" required>
             {{ spazi-options }}
         </select>

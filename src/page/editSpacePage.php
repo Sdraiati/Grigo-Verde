@@ -104,6 +104,8 @@ class editSpacePage extends Page
         }
 
         if ($this->posizione != -1) {
+            $content = str_replace("{{ selectedDefault }}", '', $content);
+
             $content = str_replace("{{ posizione }}", $this->posizione, $content);
             $content = str_replace("{{ nome }}", $this->nome, $content);
             $content = str_replace("{{ descrizione }}", $this->descrizione, $content);
@@ -121,6 +123,8 @@ class editSpacePage extends Page
             else
                 $content = str_replace("{{ error }}", '', $content);
         } else {
+            $content = str_replace("{{ selectedDefault }}", 'selected', $content);
+
             $content = str_replace("{{ posizione }}", '', $content);
             $content = str_replace("{{ nome }}", '', $content);
             $content = str_replace("{{ descrizione }}", '', $content);
