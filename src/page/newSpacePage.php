@@ -55,13 +55,10 @@ class newSpacePage extends Page
             $content = str_replace("{{ posizione }}", $this->posizione, $content);
             $content = str_replace("{{ nome }}", $this->nome, $content);
             $content = str_replace("{{ descrizione }}", $this->descrizione, $content);
-            if ($this->tipo === 'Aula verde') {
-                $content = str_replace("{{ selectedVerde }}", 'selected', $content);
-                $content = str_replace("{{ selectedRicreativo }}", '', $content);
-            } elseif ($this->tipo === 'Spazio ricreativo') {
-                $content = str_replace("{{ selectedRicreativo }}", 'selected', $content);
-                $content = str_replace("{{ selectedVerde }}", '', $content);
-            }
+
+            $content = str_replace("{{ selectedVerde }}", $this->tipo == "Aula verde" ? 'selected' : '', $content);
+            $content = str_replace("{{ selectedRicreativo }}", $this->tipo == "Spazio ricreativo" ? 'selected' : '', $content);
+
             $content = str_replace("{{ tipo }}", $this->tipo, $content);
             $content = str_replace("{{ n_tavoli }}", $this->n_tavoli, $content);
             if ($this->error !== '')
