@@ -42,27 +42,11 @@ class VisualizzazioneSpaziPage extends Page
         $this->data_fine = $data_fine;
     }
 
-    private function rimuovi_spazi_duplicati($values) {
-
-    } 
-
     private function filtra_spazi($tipo, $data_inizio, $data_fine) {
 
-        // query da modificare in quanto gestisce solamente il tipo.
-        // $query = "SELECT * FROM SPAZIO 
-        // JOIN PRENOTAZIONE ON SPAZIO.Posizione = PRENOTAZIONE.Spazio
-        // JOIN DISPONIBILITA ON SPAZIO.Posizione = DISPONIBILITA.Spazio
-        // WHERE SPAZIO.Tipo = ? AND 
-        // DISPONIBILITA.Mese = ? AND 
-        // (PRENOTAZIONE.DataFine <= ? AND PRENOTAZIONE.DataInizio >= ?) AND 
-        // (DISPONIBILITA.Orario_apertura >= ? AND DISPONIBILITA.Orario_chiusura <= ?)";
-
         $debug_query = "SELECT * FROM SPAZIO;";
-        
         // binding dei parametri
-        $params = [
-        //     ['type' => 's', 'value' => $tipo],
-        ];
+        $params = [];
 
         // prendere un'istanza del db.
         $db = Database::getInstance(); 
@@ -76,6 +60,8 @@ class VisualizzazioneSpaziPage extends Page
             $stmt->execute();
             $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
             $filtered = []; 
+
+            var_dump($result);
 
             if ($tipo != "" || $data_inizio != "" || $data_fine != "") {
                 if ($tipo != "") {
@@ -127,12 +113,9 @@ class VisualizzazioneSpaziPage extends Page
                                 }
                             }
                         }
-                        
                     } catch (Exception $e) {
                         return false;
                     }
-
-                    var_dump($filtered);
                 }
                 return $filtered;
             } 
@@ -170,6 +153,7 @@ class VisualizzazioneSpaziPage extends Page
         // lista degli spazi
         $lista_debug = $this->filtra_spazi($this->tipo, $this->data_inizio, $this->data_fine);
 
+        var_dump($lista_debug);
         if ($lista_debug) {
             $lista_spazi = "";
             $spazioItem = new SpazioItem();
@@ -191,10 +175,16 @@ class VisualizzazioneSpaziPage extends Page
             $content = str_replace('{{ base_path }}', BASE_URL, $content);
             $content = str_replace("{{ error }}", '', $content);
         
-            return $content;
         } else {
-            return "ops something went wrong";
-        }
+            $lista_spazi = " <p> non sono stati trovai degli spazi corrispondenti ai parametri della ricerca <p>";
 
+            $intestazione_pagina = str_replace("{{ lista }}", $lista_spazi, $intestazione_pagina);
+
+            $content = str_replace("{{ content }}", $intestazione_pagina, $content);
+            $content = str_replace("href=\"/\"", "href=\"#\"", $content);
+            $content = str_replace('{{ base_path }}', BASE_URL, $content);
+            $content = str_replace("{{ error }}", '', $content);
+        }
+        return $content;
     }
 }
