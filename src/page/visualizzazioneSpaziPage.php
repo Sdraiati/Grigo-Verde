@@ -95,11 +95,33 @@ class VisualizzazioneSpaziPage extends Page
                     if ($stmt == false) {
                         return false;
                     }
-
                     try {
                         $stmt->execute();
-                        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-                        var_dump($result);
+                        $prenotazioni = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+                        var_dump($prenotazioni);
+
+                        // filtro per data
+                        $current_space = $prenotazioni[0]["Spazio"];
+                        $overlap = false;
+                        for ($i=0; $i < count($prenotazioni); $i++) { 
+                            if ($prenotazioni[$i]["Spazio"] != $current_space) {
+                                if ($overlap) { // l'intervallo selezionato va in conflitto con le altre prenotazioni.
+                                    for ($j=0; $j < count($filtered); $j++) { 
+                                        if ($filtered[$j]["Spazio"] == $current_space) {
+                                            array_splice($filtered, $j, $j);
+                                            $j = count($filtered); // uscire dal ciclo non appena si trova l'elemento da scartare.
+                                        }
+                                    }
+                                }
+                                $current_space = $prenotazioni[$i]["Spazio"];
+                            } 
+                            $pdi = $prenotazioni[$i]["DataInizio"];
+                            $pdf = $prenotazioni[$i]["DataFine"];
+                            if (($pdi > $data_inizio && $pdi < $data_fine) || ($pdf > $data_inizio && $pdf < $data_fine)) { 
+                                // in questo caso vi è una prenotazione che si sovrappone.
+                                $overlap = true;
+                            }
+                        }
                     } catch (Exception $e) {
                         return false;
                     }
