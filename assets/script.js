@@ -200,7 +200,7 @@ function addImage() {
 
     let image_label = document.createElement("label");
     image_label.htmlFor = `image_${imgCount}`;
-    image_label.innerHTML = "Carica un'immagine: ";
+    image_label.innerHTML = "Carica un'immagine";
     let image_input = document.createElement("input");
     image_input.type = "file";
     image_input.className = "image";
