@@ -57,7 +57,7 @@ class VisualizzazioneSpaziPage extends Page
         // (PRENOTAZIONE.DataFine <= ? AND PRENOTAZIONE.DataInizio >= ?) AND 
         // (DISPONIBILITA.Orario_apertura >= ? AND DISPONIBILITA.Orario_chiusura <= ?)";
 
-        $debug_query = "SELECT * FROM SPAZIO LEFT JOIN PRENOTAZIONE ON SPAZIO.Posizione = PRENOTAZIONE.Spazio;";
+        $debug_query = "SELECT * FROM SPAZIO;";
         
         // binding dei parametri
         $params = [
@@ -75,7 +75,6 @@ class VisualizzazioneSpaziPage extends Page
 
             $stmt->execute();
             $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-            var_dump($result);
             $filtered = []; 
 
             if ($tipo != "" || $data_inizio != "" || $data_fine != "") {
@@ -86,38 +85,31 @@ class VisualizzazioneSpaziPage extends Page
                         }
                     }
                 }
+                if ($data_inizio != "" && $data_fine != "") {
+                    $query = 'SELECT * FROM PRENOTAZIONE WHERE DataInizio >= ? AND DataFine <= ?';
+                    $params = [
+                        ['type' => 's', 'value' => $data_inizio],
+                        ['type' => 's', 'value' => $data_fine],
+                    ];                    
+                    $stmt = $db->bindParams($query, $params);
+                    if ($stmt == false) {
+                        return false;
+                    }
+
+                    try {
+                        $stmt->execute();
+                        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+                        var_dump($result);
+                    } catch (Exception $e) {
+                        return false;
+                    }
+                }
                 return $filtered;
             } 
             return $result;
         } catch (Exception $e) {
             return false;
         }
-    }
-
-    
-
-    public function replace_content($content) {
-        // $content = str_replace("{{ content }}", $this->getContent('home'), $content);
-        // $content = str_replace("href=\"/\"", "href=\"#\"", $content);
-
-        $content = str_replace('{{ base_path }}', BASE_URL, $content);
-        $content = str_replace("{{ error }}", '', $content);
-        return $content;
-    }
-
-    public function getTipo() {
-        return $this->tipo;
-    }
-
-    private function debug() {
-        $debug_msg = "parametri utilizzati: ";  
-        if ($this->tipo != "") {
-            $debug_msg = $debug_msg . " " . $this->tipo;
-        } 
-        if ($this->data != "") {
-            $debug_msg = $debug_msg . " " . $this->data;
-        } 
-        return $debug_msg;
     }
 
     public function render() 
@@ -147,22 +139,32 @@ class VisualizzazioneSpaziPage extends Page
 
         // lista degli spazi
         $lista_debug = $this->filtra_spazi($this->tipo, $this->data_inizio, $this->data_fine);
-        $lista_spazi = "";
-        $spazioItem = new SpazioItem();
-        for ($i=0; $i < count($lista_debug); $i++) { 
-            $values = [];
-            $values["Posizione"] = ($lista_debug[$i]["Posizione"]);
-            $values["Nome"] = ($lista_debug[$i]["Nome"]);
-            $lista_spazi = $lista_spazi . $spazioItem->render($values);
-        }
-        $intestazione_pagina = str_replace("{{ lista }}", $lista_spazi, $intestazione_pagina);
 
-        $content = str_replace("{{ content }}", $intestazione_pagina, $content);
+        if ($lista_debug) {
+            $lista_spazi = "";
+            $spazioItem = new SpazioItem();
+            for ($i=0; $i < count($lista_debug); $i++) { 
+                $values = [];
+                $values["Posizione"] = ($lista_debug[$i]["Posizione"]);
+                $values["Nome"] = ($lista_debug[$i]["Nome"]);
+                $lista_spazi = $lista_spazi . $spazioItem->render($values);
+            }
+
+            if ($lista_spazi == "") {
+                $lista_spazi = "non sono stati trovai degli spazi corrispondenti ai parametri della ricerca";
+            }
+
+            $intestazione_pagina = str_replace("{{ lista }}", $lista_spazi, $intestazione_pagina);
+
+            $content = str_replace("{{ content }}", $intestazione_pagina, $content);
+            $content = str_replace("href=\"/\"", "href=\"#\"", $content);
+            $content = str_replace('{{ base_path }}', BASE_URL, $content);
+            $content = str_replace("{{ error }}", '', $content);
         
-        $content = str_replace("href=\"/\"", "href=\"#\"", $content);
+            return $content;
+        } else {
+            return "ops something went wrong";
+        }
 
-        $content = str_replace('{{ base_path }}', BASE_URL, $content);
-        $content = str_replace("{{ error }}", '', $content);
-        return $content;
     }
 }

@@ -23,9 +23,10 @@ class SpazioEndpoint extends Endpoint {
                 $data_fine = $_GET['Data_fine'];
             } 
         }
-        var_dump($tipo);
-        var_dump($data_inizio);
-        var_dump($data_fine);
+        // DEBUG
+        // var_dump($tipo);
+        // var_dump($data_inizio);
+        // var_dump($data_fine);
         $page = new VisualizzazioneSpaziPage($tipo, $data_inizio, $data_fine);
         $content = $page->render();
         echo $content;
