@@ -18,7 +18,6 @@ class newSpacePage extends Page
     private string $descrizione = '';
     private string $tipo = '';
     private int $n_tavoli = 0;
-    private string $error = '';
     public function __construct(int $posizione = -1, string $nome = "", string $descrizione = '', string $tipo = "", int $n_tavoli = 0, string $error = '')
     {
         parent::__construct();
