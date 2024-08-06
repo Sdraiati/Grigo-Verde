@@ -21,6 +21,8 @@ include_once 'controller/reservation_detail.php';
 include_once 'controller/reservation_update_get.php';
 include_once 'controller/reservation_update_post.php';
 include_once 'controller/reservation_delete.php';
+include_once 'page/newUserPage.php';
+include_once 'controller/new_user.php';
 
 $about_us = new AboutUsPage();
 $homepage = new HomePage();
@@ -34,6 +36,8 @@ $dettaglioSpazio = new DettaglioSpazio();
 $editSpacePage = new EditSpacePage();
 $editSpace = new EditSpace();
 $newPrenotazionePage = new PrenotazioneFormPage();
+$newUserPage = new newUserPage();
+$newUser = new NewUser();
 
 $router = new Router();
 
@@ -55,3 +59,5 @@ $router->add(new ReservationDetail());
 $router->add(new ReservationUpdateGet());
 $router->add(new ReservationUpdatePost());
 $router->add(new ReservationDelete());
+$router->add(new StaticPage('utenti/nuovo', $newUserPage));
+$router->add($newUser);
