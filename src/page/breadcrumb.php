@@ -8,7 +8,7 @@ class Breadcrumb extends ReferenceList
 
     public function __construct($items, $title)
     {
-        parent::__construct($items);
+        parent::__construct($items, '/', true);
         $this->title = $title;
     }
 
@@ -16,13 +16,14 @@ class Breadcrumb extends ReferenceList
     {
         $content = '<li>Ti trovi in:</li>';
 
-        $breadcrumbItems = parent::render(). PHP_EOL;
+        $breadcrumbItems = parent::render();
 
         if (!empty($breadcrumbItems)) {
             $content .= $breadcrumbItems;
         }
 
         $content .= '<li id="breadcrumb-last">' . $this->title . '</li>';
+
         return $content;
     }
 }

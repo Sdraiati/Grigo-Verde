@@ -7,6 +7,13 @@ include_once 'model/utente.php';
 
 class editSpacePage extends Page
 {
+    private $title = 'Modifica Spazio';
+    private $keywords = [""];
+    private $path = '/spazi/modifica';
+    private $breadcrumb = [
+        'Spazi' => 'spazi'
+    ];
+
     private int $posizione = -1;
     private string $nome = '';
     private string $descrizione = '';
@@ -16,12 +23,11 @@ class editSpacePage extends Page
     public function __construct(int $posizione=-1, string $nome="", string $descrizione="", string $tipo="", int $n_tavoli=0,
                                 string $error='')
     {
-        parent::setTitle('Modifica Spazio');
-        parent::setNav([]);
-        parent::setBreadcrumb([
-            'Home' => '',
-            'Spazi' => 'spazi',
-        ]);
+        parent::__construct();
+        $this->setTitle($this->title);
+        $this->setBreadcrumb($this->breadcrumb);
+        $this->setPath($this->path);
+        $this->addKeywords($this->keywords);
 
         $this->posizione = $posizione;
         $this->nome = $nome;

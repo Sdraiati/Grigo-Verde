@@ -7,6 +7,13 @@ include_once 'model/utente.php';
 
 class PrenotazioneFormPage extends Page
 {
+    private $title = 'Nuova Prenotazione';
+    private $keywords = [""];
+    private $path = '/dashboard/nuova-prenotazione';
+    private $breadcrumb = [
+        'Dashboard' => 'dashboard'
+    ];
+
     private string $giorno = '';
     private string $dalle_ore = '';
     private string $alle_ore = '';
@@ -15,11 +22,11 @@ class PrenotazioneFormPage extends Page
     private string $error = '';
     public function __construct(string $giorno = '', string $dalle_ore = '', string $alle_ore = '', int $posizione = -1, string $descrizione = '', string $error = '')
     {
-        parent::setTitle('Nuova Prenotazione');
-        parent::setNav([]);
-        parent::setBreadcrumb([
-            'Dashboard' => 'dashboard',
-        ]);
+        parent::__construct();
+        $this->setTitle($this->title);
+        $this->setBreadcrumb($this->breadcrumb);
+        $this->setPath($this->path);
+        $this->addKeywords($this->keywords);
 
         $this->giorno = $giorno;
         $this->dalle_ore = $dalle_ore;

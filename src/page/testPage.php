@@ -33,16 +33,21 @@ class TestItem
 
 class TestPage extends Page
 {
+    private $title = 'Test';
+    private $keywords = [""];
+    private $path = '/test';
+    private $breadcrumb = [];
     private $testItems;
 
     public function __construct()
     {
+        parent::__construct();
+        $this->setTitle($this->title);
+        $this->setBreadcrumb($this->breadcrumb);
+        $this->setPath($this->path);
+        $this->addKeywords($this->keywords);
+
         $this->testItems = [];
-        parent::setTitle('Test');
-        parent::setNav([]);
-        parent::setBreadcrumb([
-            'Home' => '',
-        ]);
     }
 
     public function addTest($test_name, $test_fn)

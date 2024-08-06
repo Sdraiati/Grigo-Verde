@@ -4,18 +4,14 @@ include_once 'page.php';
 
 class AboutUsPage extends Page
 {
-    public $title = 'About Us';
-    public $nav = [
-        '<span lang="en">Home</span>' => '',
-        '<span lang="en">Login</span>' => 'login'
-    ];
-    public $keywords = [""];
-    public $path = '/about_us';
+    private $title = '<span lang="en">About Us</span>';
+    private $keywords = [""];
+    private $path = '/about_us';
     public function __construct()
     {
+        parent::__construct();
         $this->setTitle($this->title);
-        $this->setNav($this->nav);
-        $this->setBreadcrumb([], true);
+        $this->setBreadcrumb([]);
         $this->addKeywords($this->keywords);
         $this->setPath($this->path);
     }
