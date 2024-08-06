@@ -309,7 +309,7 @@ input[type="submit"]:hover {
     background-color: var(--primaryColor);
 }
 
-#mostra-password + label {
+.mostra-password + label {
     display: inline-block;
     margin-bottom: 1rem;
     cursor: pointer;
