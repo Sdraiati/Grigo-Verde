@@ -166,7 +166,7 @@ header {
     list-style: none;
 }
 
-#breadcrumbs li::after {
+#breadcrumbs li:not(:first-child)::after {
     content: ">";
     margin-left: 0.4rem;
 }
