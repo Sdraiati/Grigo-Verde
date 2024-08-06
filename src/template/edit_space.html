@@ -20,10 +20,11 @@
         {{ error }}
         <fieldset>
             <legend id="add_image">Aggiungi immagini</legend>
-            <input type="button" id="add_img_button" value="Aggiungi immagine" onclick="return addImage()">
+            {{ images }}
+            {{ add_image_button }}
         </fieldset>
         <div>
-            <input type="submit" value="Crea Spazio">
+            <input type="submit" value="Modifica Spazio">
         </div>
     </form>
 </div>

@@ -54,7 +54,10 @@ class newSpacePage extends Page
             }
             $content = str_replace("{{ tipo }}", $this->tipo, $content);
             $content = str_replace("{{ n_tavoli }}", $this->n_tavoli, $content);
-            $content = str_replace("{{ error }}", parent::error($this->error), $content);
+            if($this->error !== '')
+                $content = str_replace("{{ error }}", parent::error($this->error), $content);
+            else
+                $content = str_replace("{{ error }}", '', $content);
         } else {
             $content = str_replace("{{ posizione }}", '', $content);
             $content = str_replace("{{ nome }}", '', $content);
