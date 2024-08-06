@@ -4,6 +4,7 @@ require_once 'autenticazione.php';
 $project_root = dirname(__FILE__, 2);
 require_once $project_root . '/model/prenotazione.php';
 require_once $project_root . '/model/disponibilità.php';
+require_once $project_root . '/page/prenotazioneFormPage.php';
 
 class ReservationNew extends Endpoint
 {

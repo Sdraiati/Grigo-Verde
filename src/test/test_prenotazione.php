@@ -105,3 +105,27 @@ function test_prenotazione_user_already_booked()
     $spazio->elimina($space);
     return $result;
 }
+
+function test_prenotazione_prendi_by_id()
+{
+    global $prenotazione, $spazio, $utente;
+    $username = 'mario_rossdkai';
+    $nome = 'Mario';
+    $space = 2000;
+    $spaceName = 'Sala Conferenze';
+    $utente->nuovo($username, $nome, 'Rossi', 'Amministratore', 'password123');
+    $spazio->nuovo($space, $spaceName, 'Una grande sala per conferenze', 'Conferenza', 20);
+    $prenotazione->nuovo('2024-08-05 14:00:00', '2024-08-05 16:00:00', $username, $space, 'Conferenza');
+    $res_id = $prenotazione->prendi($space)[0]['Id'];
+
+    $reservation = $prenotazione->prendi_by_id($res_id);
+
+    $prenotazione->elimina('2024-08-05 14:00:00', '2024-08-05 16:00:00', $username, $space);
+    $utente->elimina($username);
+    $spazio->elimina($space);
+
+    if ($reservation && $reservation['Nome'] === $nome && $reservation['NomeSpazio'] === $spaceName) {
+        return true;
+    }
+    return false;
+}

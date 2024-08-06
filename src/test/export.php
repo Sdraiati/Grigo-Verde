@@ -80,6 +80,9 @@ $tests = [
     'Is Available Reservation' => function () {
         return test_prenotazione_is_available();
     },
+    'Prendi by Id Reservation' => function () {
+        return test_prenotazione_prendi_by_id();
+    },
     'User Already Booked' => function () {
         return test_prenotazione_user_already_booked();
     },

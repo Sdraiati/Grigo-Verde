@@ -16,6 +16,7 @@ include_once 'page/editSpacePage.php';
 include_once 'controller/edit_space.php';
 include_once 'page/prenotazioneFormPage.php';
 include_once 'controller/reservation_new.php';
+include_once 'controller/reservation_detail.php';
 
 $about_us = new AboutUsPage();
 $homepage = new HomePage();
@@ -44,3 +45,4 @@ $router->add(new StaticPage('spazi/modifica', $editSpacePage));
 $router->add($editSpace);
 $router->add(new StaticPage('dashboard/nuova-prenotazione', $newPrenotazionePage));
 $router->add(new ReservationNew());
+$router->add(new ReservationDetail());

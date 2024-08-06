@@ -114,4 +114,17 @@ class Prenotazione extends Model
         $res = $this->get_all($query, $params);
         return count($res) == 0;
     }
+
+    public function prendi_by_id($res_id)
+    {
+        $query = "SELECT DataInizio, DataFine, UTENTE.Nome, UTENTE.Cognome, SPAZIO.Nome AS NomeSpazio, PRENOTAZIONE.Descrizione FROM " . $this->table . " 
+                    JOIN SPAZIO ON PRENOTAZIONE.Spazio = SPAZIO.Posizione
+                    JOIN UTENTE ON PRENOTAZIONE.Username = UTENTE.Username
+                    WHERE PRENOTAZIONE.Id = ?";
+        $params = [
+            ['type' => 'i', 'value' => $res_id]
+        ];
+
+        return $this->get($query, $params);
+    }
 }

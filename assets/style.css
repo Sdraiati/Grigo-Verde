@@ -207,6 +207,7 @@ main p {
 
 .short-content {
     width: var(--shortContent);
+    margin: 0 auto;
 }
 
 /* --------- FOOTER --------- */

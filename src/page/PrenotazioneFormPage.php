@@ -54,9 +54,6 @@ class PrenotazioneFormPage extends Page
             );
             return $page->render();
         }
-        if (Autenticazione::is_amministratore()) {
-            return "Sei un amministratore"; //TODO: nuova prenotazione di un amministratore
-        }
 
         if ($this->giorno == '') {
             $this->giorno = date('Y-m-d');
@@ -83,6 +80,16 @@ class PrenotazioneFormPage extends Page
         $content = str_replace("{{ spazi-options }}", $this->getSpaziOptions(), $content);
         $content = str_replace("{{ descrizione }}", $this->descrizione, $content);
         $content = str_replace("{{ error }}", parent::error($this->error), $content);
+
+        /*
+        if (Autenticazione::is_amministratore()) {
+            // return "Sei un amministratore"; //TODO: nuova prenotazione di un amministratore
+            // here we could render a button to create repetitions
+        } else {
+            // here we take off the space to create repetitions, so that nothing
+            // is showed
+        }
+        */
 
         return $content;
     }
