@@ -6,6 +6,12 @@ include_once 'controller/new_space.php';
 include_once 'model/utente.php';
 class newSpacePage extends Page
 {
+    private $title = 'Nuovo Spazio';
+    private $keywords = [""];
+    private $path = '/spazi/nuovo';
+    private $breadcrumb = [
+        'Spazi' => 'spazi'
+    ];
     private int $posizione = -1;
     private string $nome = '';
     private string $descrizione = '';
@@ -14,12 +20,11 @@ class newSpacePage extends Page
     private string $error = '';
     public function __construct(int $posizione = -1, string $nome = "", string $descrizione = '', string $tipo = "", int $n_tavoli = 0, string $error = '')
     {
-        parent::setTitle('Nuovo Spazio');
-        parent::setNav([]);
-        parent::setBreadcrumb([
-            'Home' => '',
-            'Spazi' => 'spazi',
-        ]);
+        parent::__construct();
+        $this->setTitle($this->title);
+        $this->setBreadcrumb($this->breadcrumb);
+        $this->setPath($this->path);
+        $this->addKeywords($this->keywords);
 
         $this->posizione = $posizione;
         $this->nome = $nome;
@@ -54,7 +59,10 @@ class newSpacePage extends Page
             }
             $content = str_replace("{{ tipo }}", $this->tipo, $content);
             $content = str_replace("{{ n_tavoli }}", $this->n_tavoli, $content);
-            $content = str_replace("{{ error }}", parent::error($this->error), $content);
+            if($this->error !== '')
+                $content = str_replace("{{ error }}", parent::error($this->error), $content);
+            else
+                $content = str_replace("{{ error }}", '', $content);
         } else {
             $content = str_replace("{{ posizione }}", '', $content);
             $content = str_replace("{{ nome }}", '', $content);

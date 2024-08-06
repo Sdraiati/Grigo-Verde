@@ -19,11 +19,11 @@ class NewSpace extends Endpoint
 
     public function validate(): bool
     {
-        $posizione = intval($this->sanitizeInput($this->post('posizione')));
-        $nome = $this->sanitizeInput($this->post('nome'));
-        $descrizione = $this->sanitizeInput($this->post('descrizione'));
-        $tipo = $this->sanitizeInput($this->post('tipo'));
-        $n_tavoli = intval($this->sanitizeInput($this->post('n_tavoli')));
+        $posizione = intval($this->post('posizione'));
+        $nome = $this->post('nome');
+        $descrizione = $this->post('descrizione');
+        $tipo = $this->post('tipo');
+        $n_tavoli = intval($this->post('n_tavoli'));
 
         if (empty($posizione) || empty($nome) || empty($tipo)) {
             return false;
@@ -164,4 +164,3 @@ class NewSpace extends Endpoint
         }
     }
 }
-

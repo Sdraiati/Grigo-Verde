@@ -58,7 +58,7 @@ function prendi_immagine()
     $immagine->nuovo($dato, $alt, $mime_type, $posizione_spazio);
     $img = $immagine->prendi($posizione_spazio);
 
-    if (!$img || $img['Alt'] != $alt || $img['Mime_type'] != $mime_type || $img['Spazio'] != $posizione_spazio) {
+    if (!$img || $img['Byte'] != $dato || $img['Alt'] != $alt || $img['Mime_type'] != $mime_type || $img['Spazio'] != $posizione_spazio) {
         return False;
     }
 

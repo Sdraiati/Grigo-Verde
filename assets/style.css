@@ -8,7 +8,7 @@
 @media (prefers-color-scheme: light) {
     :root {
         --textColor: #333333;
-        --backgroundColor: #FFFFFF;
+        --backgroundColor: #ffffff;
         --primaryColor: #335833;
         --secondaryColor: #73dec1;
         --errorMessageColor: red;
@@ -22,7 +22,7 @@
         --backgroundColor: #333333;
         --primaryColor: #73dec1;
         --secondaryColor: #335833;
-        --errorMessageColor: red;
+        --errorMessageColor: #ffa0ff;
         --shadow: 0 0 0.4rem 0.01rem var(--secondaryColor);
     }
 }
@@ -114,6 +114,10 @@ a:visited {
     background-color: var(--backgroundColor);
 }
 
+.hidden {
+    display: none;
+}
+
 /* --------- HEADER --------- */
 
 header {
@@ -162,7 +166,7 @@ header {
     list-style: none;
 }
 
-#breadcrumbs li::after {
+#breadcrumbs li:not(:first-child)::after {
     content: ">";
     margin-left: 0.4rem;
 }
@@ -203,6 +207,7 @@ main p {
 
 .short-content {
     width: var(--shortContent);
+    margin: 0 auto;
 }
 
 /* --------- FOOTER --------- */
@@ -245,8 +250,8 @@ form {
 
 fieldset {
     border: none;
-    padding: 0;
-    margin: 0;
+    padding: 1rem;
+    margin-bottom: 1rem;
 }
 
 legend {
@@ -256,7 +261,7 @@ legend {
 
 label {
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3rem;
 }
 
 input {
@@ -264,6 +269,8 @@ input {
     color: var(--textColor);
 }
 
+form input[type="date"],
+form input[type="time"],
 input[type="text"],
 input[type="number"],
 textarea,
@@ -274,6 +281,12 @@ input[type="password"] {
     margin-bottom: 1rem;
     border: 0.1rem solid var(--primaryColor);
     border-radius: 0.4rem;
+    background-color: var(--backgroundColor);
+    color: var(--textColor);
+}
+
+textarea {
+    height: 5rem;
 }
 
 input[type="checkbox"] {

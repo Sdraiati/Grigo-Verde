@@ -7,21 +7,19 @@ include_once 'model/prenotazione.php';
 class DettaglioSpazioPage extends Page
 {
     private string $spazio_nome = "";
-    public $title = 'Dettaglio Spazio';
-    public $nav = [
-        'About us' => 'about_us',
-        'Login' => 'login'
+    private $title = 'Dettaglio Spazio';
+    private $keywords = [];
+    public $breadcrumb = [
+        'Spazi' => 'spazi'
     ];
-    public $breadcrumb = [];
-    public $keywords = ["Grigo verde", "aule verdi", "Liceo Scientifico", "M. Grigoletti", "scuola superiore", "Pordenone", "prenotazione", "area ping pong"];
-    public $path = '/';
+    public $path = '/spazi/spazio';
     public function __construct(string $spazio_nome = '')
     {
-        parent::setTitle('Dettagli Spazio');
-        parent::setNav([]);
-        parent::setBreadcrumb([
-            'Home' => '',
-        ]);
+        parent::__construct();
+        $this->setTitle($this->title);
+        $this->setBreadcrumb($this->breadcrumb);
+        $this->setPath($this->path);
+        $this->addKeywords($this->keywords);
 
         $this->spazio_nome = $spazio_nome;
     }
@@ -29,19 +27,9 @@ class DettaglioSpazioPage extends Page
     public function render()
     {
         $content = parent::render();
-        $content = $this->getContent('layout');
 
         $spazio = new Spazio();
         $spazio_data = $spazio->prendi_per_nome($this->spazio_nome);
-
-        $content = str_replace('{{ title }}', $this->title . ' - Grigo Verde', $content);
-        $content = str_replace('{{ description }}', 'This is a description', $content);
-        $content = str_replace('{{ keywords }}', implode(', ', $this->keywords), $content);
-        $content = str_replace('{{ page_path }}', $this->path, $content);
-        $nav = new ReferenceList($this->nav);
-        $content = str_replace('{{ menu }}', $nav->render(), $content);
-        $breadcrumb = new Breadcrumb($this->breadcrumb, $this->title);
-        $content = str_replace('{{ breadcrumbs }}', $breadcrumb->render(), $content);
 
         if(empty($spazio_data))
         {

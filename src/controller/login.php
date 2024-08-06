@@ -12,8 +12,8 @@ class Login extends Endpoint
 
     public function validate() : bool
     {
-        $username = $this->sanitizeInput($this->post('username'));
-        $password = $this->sanitizeInput($this->post('password'));
+        $username = $this->post('username');
+        $password = $this->post('password');
 
         if (empty($username) || empty($password)) {
             return false;

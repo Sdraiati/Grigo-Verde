@@ -1,0 +1,25 @@
+<h1>Nuova Prenotazione</h1>
+<form action="dashboard/nuova-prenotazione" method="post" enctype="multipart/form-data"
+    onsubmit="return validatePrenotazione()">
+    <fieldset>
+        <legend>Informazioni sulla prenotazione</legend>
+        <label for="giorno">Giorno:</label>
+        <input type="date" id="giorno" name="giorno" value="{{ giorno }}" required>
+        <label for="dalle-ore">Dalle ore:</label>
+        <input type="time" id="dalle-ore" name="dalle-ore" value="{{ dalle-ore }}" required>
+        <label for="alle-ore">Alle ore:</label>
+        <input type="time" id="alle-ore" name="alle-ore" value="{{ alle-ore }}" required>
+        <label for="spazio">Tipo:</label>
+        <select id="spazio" name="spazio" required>
+            {{ spazi-options }}
+        </select>
+        <label for="descrizione">Nota:</label>
+        <textarea id="descrizione" name="descrizione">{{ descrizione }}</textarea>
+    </fieldset>
+
+    {{ error }}
+
+    <div>
+        <input type="submit" value="Crea Prenotazione">
+    </div>
+</form>

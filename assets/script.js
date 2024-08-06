@@ -41,36 +41,36 @@ function removeErrorDivs() {
     }
 }
 
-function validateString(element, str, min=Number.MIN_SAFE_INTEGER, max=Number.MAX_SAFE_INTEGER, show_char_number=false) {
+function validateString(element, str, min = Number.MIN_SAFE_INTEGER, max = Number.MAX_SAFE_INTEGER, show_char_number = false, spaces=false) {
     const specialCharPattern = /[{}\[\]|`¬¦!"£$%^&*<>:;#~_\-+=,@]/;
-    if(str === '') {
+    if (str === '') {
         insertErrorMessage(element, "Il campo non può essere vuoto.");
         return false;
     }
 
-    if(str.length < min) {
+    if (str.length < min) {
         if (show_char_number) {
-            insertErrorMessage(element,"Il campo deve contenere almeno " + min + " caratteri.");
+            insertErrorMessage(element, "Il campo deve contenere almeno " + min + " caratteri.");
         }
         return false;
     }
-    if(str.length > max) {
+    if (str.length > max) {
         if (show_char_number) {
-            insertErrorMessage(element,"Il campo può contenere al massimo " + max + " caratteri.");
+            insertErrorMessage(element, "Il campo può contenere al massimo " + max + " caratteri.");
         }
         return false;
     }
     // se la stringa contiene uno spazio
-    if (str.includes(' ')) {
-        if(show_char_number) {
-            insertErrorMessage(element,"Il campo non può contenere spazi.");
+    if (!spaces && str.includes(' ')) {
+        if (show_char_number) {
+            insertErrorMessage(element, "Il campo non può contenere spazi.");
         }
         return false;
     }
 
     if (specialCharPattern.test(str)) {
-        if(show_char_number) {
-            insertErrorMessage(element,"Il campo non può contenere caratteri speciali.");
+        if (show_char_number) {
+            insertErrorMessage(element, "Il campo non può contenere caratteri speciali.");
         }
         return false;
     }
@@ -85,11 +85,11 @@ function validateLogin() {
     let fieldset_element = document.getElementsByTagName("fieldset")[0];
 
     let isUsernameValid = validateString(fieldset_element, username, 4, 50);
-    let isPasswordValid = validateString( fieldset_element, password,  4, 100);
+    let isPasswordValid = validateString(fieldset_element, password, 4, 100);
 
     removeErrorDivs();
     if (!isUsernameValid || !isPasswordValid) {
-        insertErrorMessage(fieldset_element,"Username o password non validi");
+        insertErrorMessage(fieldset_element, "Username o password non validi");
     }
 
     return isUsernameValid && isPasswordValid;
@@ -154,7 +154,7 @@ function validateNewSpace() {
         return false;
     }
 
-    let isNomeValid = validateString(fieldset_element, nome, 2, 70, true);
+    let isNomeValid = validateString(fieldset_element, nome, 2, 70, true, true);
     let isImageValid = validateImage();
     return isNomeValid && isImageValid;
 }
@@ -162,6 +162,17 @@ function validateNewSpace() {
 function removeImage(num) {
     let image_div = document.getElementById(`image_div_${num}`);
     image_div.remove();
+    //if count is 1 we can add the button again
+    if (imgCount === 1) {
+        let add_image_button = document.createElement("input");
+        add_image_button.type = "button";
+        add_image_button.value = "Aggiungi immagine";
+        add_image_button.id = "add_img_button";
+        add_image_button.onclick = addImage;
+
+        let fieldset = document.getElementsByTagName("fieldset")[1];
+        fieldset.appendChild(add_image_button);
+    }
 }
 
 let imgCount = 0;
@@ -260,5 +271,52 @@ function addImage() {
     imgCount++;
 
     let add_image_button = document.getElementById("add_img_button");
-    add_image.parentNode.insertBefore(image_div, add_image_button);
+    if(add_image_button === null) {
+        console.log("nooo");
+    }
+    add_image_button.parentNode.insertBefore(image_div, add_image_button);
+    //TODO: teniamo una sola immagine quindi dopo l'aggiunta di una nuova immagine rimuoviamo il pulsante
+    if (imgCount === 1)
+        add_image_button.remove();
+}
+
+function refreshPreview() {
+    //remove all elements with id starting with image_preview_
+    let images = document.getElementsByClassName("image");
+    for (let i = 0; i < images.length; i++) {
+        let image_preview = document.getElementById(`image_preview_${i}`);
+        image_preview.remove();
+    }
+}
+function validatePrenotazione() {
+    // Get the form elements
+    var giorno = document.getElementById('giorno');
+    var dalleOre = document.getElementById('dalle-ore');
+    var alleOre = document.getElementById('alle-ore');
+    var spazio = document.getElementById('spazio');
+    let fieldset_element = document.getElementsByTagName("fieldset")[0];
+
+    removeErrorDivs();
+
+    // Check if any required field is empty
+    if (!giorno || !dalleOre || !alleOre || !spazio) {
+        insertErrorMessage(fieldset_element, "Compilare tutti i campi obbligatori.");
+        return false;
+    }
+
+    // Check if the date is not sooner than today
+    var today = new Date();
+    today.setHours(0, 0, 0, 0); // Set to midnight to compare only the date part
+    var selectedDate = new Date(giorno.value);
+    if (selectedDate < today) {
+        insertErrorMessage(giorno, "La data non può essere precedente a oggi.");
+        return false;
+    }
+
+    if (dalleOre.value >= alleOre.value) {
+        insertErrorMessage(alleOre, "L'orario di fine deve essere successivo a quello di inizio.");
+        return false;
+    }
+
+    return true;
 }

@@ -22,7 +22,7 @@ abstract class Model
             $stmt->execute();
             return true;
         } catch (Exception $e) {
-            return false;
+            return $e->getMessage();
         }
     }
 
@@ -38,7 +38,7 @@ abstract class Model
                 $stmt->execute();
                 return $stmt->get_result()->fetch_assoc();
             } catch (Exception $e) {
-                return false;
+                return $e->getMessage();
             }
         }
     }
@@ -55,7 +55,7 @@ abstract class Model
                 $stmt->execute();
                 return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
             } catch (Exception $e) {
-                return false;
+                return $e->getMessage();
             }
         }
     }

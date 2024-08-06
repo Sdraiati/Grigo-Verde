@@ -8,10 +8,21 @@ include_once 'breadcrumb.php';
 class Page
 {
     private $title = '';
+    private $titleBreadcrumb = '';
     private $keywords = ['ricette', 'gustose', 'cucina', 'italiana'];
     private $path = '/';
-    private $nav = [];
+    private $nav = [
+        '<span lang="en">Home</span>' => '',
+        '<span lang="en">About us</span>' => 'about_us',
+        '<span lang="en">Login</span>' => 'login'
+    ];
     private $breadcrumb = [];
+
+    public function __construct($title = '', $path = '/')
+    {
+        $this->title = $title;
+        $this->path = $path;
+    }
 
     protected function getContent($path)
     {
@@ -30,10 +41,12 @@ class Page
 
     protected function setTitle($title)
     {
+        $this->titleBreadcrumb = $title;
+        $title = preg_replace('/^<span[^>]*>(.*?)<\/span>$/i', '$1', $title);
         $this->title = $title;
     }
 
-    // expectes an array of keywords
+    // expects an array of keywords
     protected function addKeywords($keywords)
     {
         foreach ($keywords as $keyword) {
@@ -61,11 +74,11 @@ class Page
     // TODO: check circular reference
     protected function takeOffCircularReference($content)
     {
-        // return str_replace('"' . $this->path . '"', '\"#\"', $content);
-        return $content;
+        // Example implementation: replacing current path with '#'
+        return $content;//str_replace('href="' . $this->path . '"', 'href="#"', $content);
     }
 
-    // path is the path of the page, which is used to skip the navbar and jump 
+    // path is the path of the page, which is used to skip the navbar and jump
     // to the content
     public function render()
     {
@@ -76,10 +89,11 @@ class Page
         $content = str_replace('{{ keywords }}', implode(', ', $this->keywords), $content);
         $content = str_replace('{{ page_path }}', $this->path, $content);
 
-        $nav = new ReferenceList($this->nav);
+        // Pass the current path to ReferenceList
+        $nav = new ReferenceList($this->nav, $this->path);
         $content = str_replace('{{ menu }}', $nav->render(), $content);
 
-        $breadcrumb = new Breadcrumb($this->breadcrumb, $this->title);
+        $breadcrumb = new Breadcrumb($this->breadcrumb, $this->titleBreadcrumb);
         $content = str_replace('{{ breadcrumbs }}', $breadcrumb->render(), $content);
         $content = $this->takeOffCircularReference($content);
 

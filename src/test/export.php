@@ -77,6 +77,15 @@ $tests = [
     'Fetch Weekly Reservations' => function () {
         return prendi_per_settimana_prenotazione();
     },
+    'Is Available Reservation' => function () {
+        return test_prenotazione_is_available();
+    },
+    'Prendi by Id Reservation' => function () {
+        return test_prenotazione_prendi_by_id();
+    },
+    'User Already Booked' => function () {
+        return test_prenotazione_user_already_booked();
+    },
     'Nuovo Disponibilità' => function () {
         return nuovo_disponibilita();
     },
@@ -91,5 +100,8 @@ $tests = [
     },
     'Prendi per Giorno Disponibilità' => function () {
         return prendi_per_giorno_disponibilita();
+    },
+    'Is Open Disponibilità' => function () {
+        return test_disponibilita_is_open();
     }
 ];
