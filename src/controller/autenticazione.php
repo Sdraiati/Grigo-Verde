@@ -1,6 +1,7 @@
 <?php
 $project_root = dirname(__FILE__, 2);
 include_once $project_root . '/model/database.php';
+include_once $project_root . '/model/utente.php';
 class Autenticazione
 {
     private static function ensureSessionStarted()
@@ -21,15 +22,17 @@ class Autenticazione
     public static function login($username, $password) : bool
     {
         self::ensureSessionStarted();
-        $db = Database::getInstance();
-        $sql = "SELECT password FROM UTENTE WHERE username = ? AND password = ?";
-        $params = [
-            ['type' => 's', 'value' => $username],
-            ['type' => 's', 'value' => $password],
-        ];
-        $stmt = $db->bindParams($sql, $params);
-        $stmt->execute();
-        $result = $stmt->fetch();
+//        $db = Database::getInstance();
+//        $sql = "SELECT password FROM UTENTE WHERE username = ? AND password = ?";
+//        $params = [
+//            ['type' => 's', 'value' => $username],
+//            ['type' => 's', 'value' => $password],
+//        ];
+//        $stmt = $db->bindParams($sql, $params);
+//        $stmt->execute();
+//        $result = $stmt->fetch();
+        $utente = new Utente();
+        $result = $utente->check_password($username, $password);
         if ($result) {
             $_SESSION['username'] = $username;
             setcookie("LogIn", $username, time() + (86400 * 30), "/"); // Set a cookie for 30 days

@@ -59,4 +59,18 @@ class Utente extends Model
 
         return $this->get($query, $params);
     }
+
+    public function check_password($username, $password)
+    {
+        $query = "SELECT Password FROM " . $this->table . " WHERE Username = ?";
+        $params = [
+            ['type' => 's', 'value' => $username]
+        ];
+
+        $result = $this->get($query, $params);
+        if ($result === null) {
+            return false;
+        }
+        return password_verify($password, $result['Password']);
+    }
 }
