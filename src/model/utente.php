@@ -51,6 +51,18 @@ class Utente extends Model
         return $this->exec($query, $params);
     }
 
+    public function modifica_password($username, $password)
+    {
+        $query = "UPDATE " . $this->table . " SET Password = ? WHERE Username = ?";
+        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+        $params = [
+            ['type' => 's', 'value' => $hashed_password],
+            ['type' => 's', 'value' => $username]
+        ];
+
+        return $this->exec($query, $params);
+    }
+
     public function elimina($username)
     {
         $query = "DELETE FROM " . $this->table . " WHERE Username = ?";

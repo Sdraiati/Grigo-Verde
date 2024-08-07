@@ -323,9 +323,6 @@ function validatePrenotazione() {
 function validateNewUser()
 {
     let username = document.getElementsByName("username")[0].value;
-    let password = document.getElementsByName("password")[0].value;
-    // check if fieldset with id password-fields is enabled
-    let password_fieldset = document.getElementById("password-fields");
     let nome = document.getElementsByName("nome")[0].value;
     let cognome = document.getElementsByName("cognome")[0].value;
     let ruolo = document.getElementsByName("ruolo")[0].value;
@@ -340,27 +337,16 @@ function validateNewUser()
     }
 
     let username_element = document.getElementsByName("username")[0];
-    let password_element = document.getElementsByName("password")[0];
     let nome_element = document.getElementsByName("nome")[0];
     let cognome_element = document.getElementsByName("cognome")[0];
 
     let isUsernameValid = validateString(username_element, username, 4, 50, true, true);
 
-    let isPasswordValid = true;
-    if(!password_fieldset.disabled)
-        isPasswordValid = validateString(password_element, password, 4, 100, true, true);
-
     let isNomeValid = validateString(nome_element, nome, 2, 70, true, false);
     let isCognomeValid = validateString(cognome_element, cognome, 2, 70, true, false);
 
-    //check if the password corresponds to the value in conferma password
-    let conferma_password = document.getElementsByName("conferma_password")[0].value;
-    let conferma_password_element = document.getElementsByName("conferma_password")[0];
-    if(password !== conferma_password)
-    {
-        insertErrorMessage(conferma_password_element, "Le password non corrispondono.");
-        return false;
-    }
+    isPasswordValid = validatePassword();
+
     return isUsernameValid && isPasswordValid && isNomeValid && isCognomeValid;
 }
 
@@ -369,4 +355,23 @@ function showEditPassword()
     let fieldset = document.getElementById("password-fields");
     fieldset.classList.remove("hidden");
     fieldset.disabled = false;
+}
+
+function validatePassword()
+{
+    let password = document.getElementsByName("password")[0].value;
+    let password_element = document.getElementsByName("password")[0];
+    // check if fieldset with id password-fields is enabled
+    let password_fieldset = document.getElementById("password-fields");
+    if(password_fieldset && !password_fieldset.disabled)
+        isPasswordValid = validateString(password_element, password, 4, 100, true, true);
+    //check if the password corresponds to the value in conferma password
+    let conferma_password = document.getElementsByName("conferma_password")[0].value;
+    let conferma_password_element = document.getElementsByName("conferma_password")[0];
+    if(password !== conferma_password)
+    {
+        insertErrorMessage(conferma_password_element, "Le password non corrispondono.");
+        return false;
+    }
+    return isPasswordValid;
 }
