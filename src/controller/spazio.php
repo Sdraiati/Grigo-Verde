@@ -22,13 +22,16 @@ class SpazioEndpoint extends Endpoint {
                 $data_inizio = $_GET['Data_inizio'];
                 $data_fine = $_GET['Data_fine'];
             } 
+            if ($data_inizio != "" && $data_fine != "") {
+                $data_inizio = str_replace("T", " ", $data_inizio);
+                $data_fine = str_replace("T", " ", $data_fine);
+                $data_inizio = $data_inizio . ":00";
+                $data_fine = $data_fine . ":00";
+            }
         }
         // DEBUG
         // var_dump($tipo);
-        $data_inizio = str_replace("T", " ", $data_inizio);
-        $data_fine = str_replace("T", " ", $data_fine);
-        $data_inizio = $data_inizio . ":00";
-        $data_fine = $data_fine . ":00";
+        
 
         // var_dump($data_inizio);
         // var_dump($data_fine);

@@ -57,25 +57,34 @@ class VisualizzazioneSpaziPage extends Page
         }
         try {
 
+            $filtered = []; 
             $stmt->execute();
             $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-            $filtered = []; 
 
-            var_dump($result);
+            var_dump($tipo);
+            var_dump($data_inizio);
+            var_dump($data_fine);
+
+            if ($tipo == "" && $data_inizio == "" && $data_fine == "") {
+                return $result;
+            }
 
             if ($tipo != "" || $data_inizio != "" || $data_fine != "") {
                 if ($tipo != "") {
                     for ($i=0; $i < count($result); $i++) { 
-                        if ($result[$i]["Tipo"] == $tipo) {
+                        if ($result[$i]["Tipo"] != $tipo) {
                             array_push($filtered, $result[$i]);
                         }
                     }
                 }
+
+                $filtered = $result; // questo è da cambiare.
+                var_dump($filtered);
                 if ($data_inizio != "" && $data_fine != "") {
 
                     $diq = explode(" ", $data_inizio)[0] . " 00:00:00";
                     $dfq = explode(" ", $data_fine)[0] . " 23:59:59";
-                    $query = 'SELECT * FROM PRENOTAZIONE WHERE DataInizio >= ? AND DataFine <= ?';
+                    $query = 'SELECT * FROM PRENOTAZIONE WHERE DataInizio >= ? AND DataFine <= ? ORDER BY PRENOTAZIONE.Spazio';
                     $params = [
                         ['type' => 's', 'value' => $diq],
                         ['type' => 's', 'value' => $dfq],
@@ -88,29 +97,33 @@ class VisualizzazioneSpaziPage extends Page
                         $stmt->execute();
                         $prenotazioni = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
-
-                        if (count($prenotazioni) != 0)  {
-                            // filtro per data
+                        if (count($prenotazioni) > 0)  {
                             $current_space = $prenotazioni[0]["Spazio"];
                             $overlap = false;
+
                             for ($i=0; $i < count($prenotazioni); $i++) { 
+                                if (!$overlap) { // se vi è un overlap
+                                    $pdi = $prenotazioni[$i]["DataInizio"];
+                                    $pdf = $prenotazioni[$i]["DataFine"];
+
+                                    // in questo caso vi è una prenotazione che si sovrappone.
+                                    if (($pdi >= $data_inizio && $pdi <= $data_fine) || ($pdf >= $data_inizio && $pdf <= $data_fine)) { 
+                                        $overlap = true;
+                                        // provare ad inserire la logia all'interno del controllo dell'overlap.
+                                    }
+                                }
                                 if ($prenotazioni[$i]["Spazio"] != $current_space) {
-                                    if ($overlap) { // l'intervallo selezionato va in conflitto con le altre prenotazioni.
+                                    if ($overlap && count($filtered) > 0) { // l'intervallo selezionato va in conflitto con le altre prenotazioni.
                                         for ($j=0; $j < count($filtered); $j++) { 
-                                            if ($filtered[$j]["Spazio"] == $current_space) {
-                                                array_splice($filtered, $j, $j);
-                                                $j = count($filtered); // uscire dal ciclo non appena si trova l'elemento da scartare.
+                                            if ($current_space == $filtered[$j]["Posizione"]) {
+                                                array_splice($filtered, $j, 1);
                                             }
                                         }
                                     }
                                     $current_space = $prenotazioni[$i]["Spazio"];
-                                } 
-                                $pdi = $prenotazioni[$i]["DataInizio"];
-                                $pdf = $prenotazioni[$i]["DataFine"];
-                                if (($pdi > $data_inizio && $pdi < $data_fine) || ($pdf > $data_inizio && $pdf < $data_fine)) { 
-                                    // in questo caso vi è una prenotazione che si sovrappone.
-                                    $overlap = true;
+                                    $overlap = false;
                                 }
+                                
                             }
                         }
                     } catch (Exception $e) {
@@ -118,8 +131,9 @@ class VisualizzazioneSpaziPage extends Page
                     }
                 }
                 return $filtered;
-            } 
+            }
             return $result;
+
         } catch (Exception $e) {
             return false;
         }
@@ -153,7 +167,6 @@ class VisualizzazioneSpaziPage extends Page
         // lista degli spazi
         $lista_debug = $this->filtra_spazi($this->tipo, $this->data_inizio, $this->data_fine);
 
-        var_dump($lista_debug);
         if ($lista_debug) {
             $lista_spazi = "";
             $spazioItem = new SpazioItem();
