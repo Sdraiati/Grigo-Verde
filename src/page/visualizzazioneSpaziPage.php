@@ -79,7 +79,6 @@ class VisualizzazioneSpaziPage extends Page
                 }
 
                 $filtered = $result; // questo è da cambiare.
-                var_dump($filtered);
                 if ($data_inizio != "" && $data_fine != "") {
 
                     $diq = explode(" ", $data_inizio)[0] . " 00:00:00";
@@ -102,34 +101,35 @@ class VisualizzazioneSpaziPage extends Page
                             $overlap = false;
 
                             for ($i=0; $i < count($prenotazioni); $i++) { 
-                                if (!$overlap) { // se vi è un overlap
+                                if ($prenotazioni[$i]["Spazio"] != $current_space) { // se la prenotazione corrente ha uno spazio diverso da quello corrente.
+                                    $current_space = $prenotazioni[$i]["Spazio"];
+                                    $overlap = false; // per il nuovo spazio in esame non vi sono ancora overlap.
+                                }
+                                if (!$overlap) { // se non vi è ancora un overlap per lo spazio corrente.
                                     $pdi = $prenotazioni[$i]["DataInizio"];
                                     $pdf = $prenotazioni[$i]["DataFine"];
 
                                     // in questo caso vi è una prenotazione che si sovrappone.
                                     if (($pdi >= $data_inizio && $pdi <= $data_fine) || ($pdf >= $data_inizio && $pdf <= $data_fine)) { 
-                                        $overlap = true;
-                                        // provare ad inserire la logia all'interno del controllo dell'overlap.
-                                    }
-                                }
-                                if ($prenotazioni[$i]["Spazio"] != $current_space) {
-                                    if ($overlap && count($filtered) > 0) { // l'intervallo selezionato va in conflitto con le altre prenotazioni.
-                                        for ($j=0; $j < count($filtered); $j++) { 
-                                            if ($current_space == $filtered[$j]["Posizione"]) {
-                                                array_splice($filtered, $j, 1);
+
+                                        $overlap = true; // serve per escludere eventuali prenotazioni aventi lo stesso spazio
+
+                                        // if (count($filtered) > 0) { // se l'array contiene ancora posizioni.
+                                            for ($j=0; $j < count($filtered); $j++) { 
+                                                if ($current_space == $filtered[$j]["Posizione"]) {
+                                                    array_splice($filtered, $j, 1);
+                                                }
                                             }
-                                        }
+                                        // }
                                     }
-                                    $current_space = $prenotazioni[$i]["Spazio"];
-                                    $overlap = false;
                                 }
-                                
                             }
                         }
                     } catch (Exception $e) {
                         return false;
                     }
                 }
+                var_dump($filtered);
                 return $filtered;
             }
             return $result;
