@@ -1,6 +1,6 @@
 <div class="container">
-    <h1>Nuovo Utente</h1>
-    <form action="utenti/nuovo" method="post" onsubmit="return validateNewUser()">
+    <h1>{{ operazione }} Utente</h1>
+    <form action="{{ action }}" method="post" onsubmit="return validateNewUser()">
         <fieldset>
             <legend>Informazioni relative all'utente</legend>
             <label for="nome">Nome <span class="required" aria-hidden="true">*</span></label>
@@ -14,7 +14,9 @@
                 <option {{ selectedAmministratore }} value="Amministratore">Amministratore</option>
             </select>
             <label for="username">Nome utente <span class="required" aria-hidden="true">*</span></label>
-            <input type="text" id="username" name="username" placeholder="Inserire un nome utente" value="{{ username }}" required>
+            <input type="text" id="username" name="username" placeholder="Inserire un nome utente" value="{{ username }}"
+                   {{ disabled }}>
+            {{ hidden_input }}
             <label for="password"><span lang="en">Password</span> <span class="required"
                                                                         aria-hidden="true">*</span></label>
             <input type="password" id="password" name="password" placeholder="Inserire una password"
@@ -30,7 +32,7 @@
         </fieldset>
         {{ error }}
         <div>
-            <input type="submit" value="Crea Utente">
+            <input type="submit" value="{{ operazione }} Utente">
         </div>
     </form>
 </div>
