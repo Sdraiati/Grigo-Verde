@@ -18,11 +18,10 @@ class SpazioEndpoint extends Endpoint {
         if (isset($_GET['tipo'])) {
             $tipo = $_GET['tipo'];
         }
-        if (isset($_GET['Data_inizio']) || isset($_GET['Data_fine'])) {
-            if(isset($_GET['Data_inizio']) && isset($_GET['Data_fine'])) {
-                $data_inizio = $_GET['Data_inizio'];
-                $data_fine = $_GET['Data_fine'];
-            } 
+        if (isset($_GET['Data_inizio']) && isset($_GET['Data_fine'])) {
+            $data_inizio = $_GET['Data_inizio'];
+            $data_fine = $_GET['Data_fine'];
+
             if ($data_inizio != "" && $data_fine != "") {
                 $data_inizio = str_replace("T", " ", $data_inizio);
                 $data_fine = str_replace("T", " ", $data_fine);
