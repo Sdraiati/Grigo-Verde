@@ -14,7 +14,7 @@ class Page
     protected $nav = [
         '<span lang="en">Home</span>' => '',
         '<span lang="en">About us</span>' => 'about_us',
-        '<span lang="en">Spazi</span>' => 'spazi'
+        '<span lang="en">Spazi</span>' => 'spazi',
         '<span lang="en">Login</span>' => 'login'
     ];
     protected $breadcrumb = [];
