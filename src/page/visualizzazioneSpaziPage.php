@@ -74,9 +74,11 @@ class VisualizzazioneSpaziPage extends Page
 
                 if ($tipo != "") {
                     for ($i=0; $i < count($result); $i++) { 
-                        if ($result[$i]["Tipo"] != $tipo) {
-                            array_splice($filtered, $i, 1);
+                        $j = 0;
+                        while ($result[$j]["Tipo"] != $tipo) {
+                            $j++;
                         }
+                        array_splice($filtered, $j, 1);
                     }
                 }
 
@@ -112,16 +114,12 @@ class VisualizzazioneSpaziPage extends Page
 
                                     // in questo caso vi è una prenotazione che si sovrappone.
                                     if (($pdi >= $data_inizio && $pdi <= $data_fine) || ($pdf >= $data_inizio && $pdf <= $data_fine)) { 
-
                                         $overlap = true; // serve per escludere eventuali prenotazioni aventi lo stesso spazio
-
-                                        // if (count($filtered) > 0) { // se l'array contiene ancora posizioni.
-                                            for ($j=0; $j < count($filtered); $j++) { 
-                                                if ($current_space == $filtered[$j]["Posizione"]) {
-                                                    array_splice($filtered, $j, 1);
-                                                }
+                                        for ($j=0; $j < count($filtered); $j++) { 
+                                            if ($current_space == $filtered[$j]["Posizione"]) {
+                                                array_splice($filtered, $j, 1);
                                             }
-                                        // }
+                                        }
                                     }
                                 }
                             }
