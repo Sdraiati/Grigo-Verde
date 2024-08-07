@@ -13,9 +13,7 @@
                 <option {{ selectedDocente }} value="Docente">Docente</option>
                 <option {{ selectedAmministratore }} value="Amministratore">Amministratore</option>
             </select>
-            <label for="username">Nome utente <span class="required" aria-hidden="true">*</span></label>
-            <input type="text" id="username" name="username" placeholder="Inserire un nome utente" value="{{ username }}"
-                   {{ disabled }}>
+            {{ normal_input }}
             {{ hidden_input }}
         </fieldset>
         {{ error }}

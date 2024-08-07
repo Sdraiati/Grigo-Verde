@@ -74,7 +74,7 @@ class editUserPage extends Page
 
         $content = str_replace("{{ action }}", $this->path, $content);
         $content = str_replace("{{ operazione }}", "Modifica", $content);
-        $content = str_replace("{{ disabled }}", 'disabled', $content);
+        $content = str_replace("{{ normal_input }}", '', $content);
         $content = str_replace("{{ hidden_input }}",
             '<input type="hidden" id="username_hidden" name="username" value="{{ username }}">',
             $content);
