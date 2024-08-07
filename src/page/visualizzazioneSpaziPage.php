@@ -70,15 +70,16 @@ class VisualizzazioneSpaziPage extends Page
             }
 
             if ($tipo != "" || $data_inizio != "" || $data_fine != "") {
+                $filtered = $result; // questo è da cambiare.
+
                 if ($tipo != "") {
                     for ($i=0; $i < count($result); $i++) { 
                         if ($result[$i]["Tipo"] != $tipo) {
-                            array_push($filtered, $result[$i]);
+                            array_splice($filtered, $i, 1);
                         }
                     }
                 }
 
-                $filtered = $result; // questo è da cambiare.
                 if ($data_inizio != "" && $data_fine != "") {
 
                     $diq = explode(" ", $data_inizio)[0] . " 00:00:00";
@@ -129,7 +130,6 @@ class VisualizzazioneSpaziPage extends Page
                         return false;
                     }
                 }
-                var_dump($filtered);
                 return $filtered;
             }
             return $result;
