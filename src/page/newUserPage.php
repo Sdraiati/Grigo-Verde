@@ -50,6 +50,21 @@ class newUserPage extends Page
         $content = str_replace("{{ disabled }}", 'required', $content);
         $content = str_replace("{{ hidden_input }}", '', $content);
 
+        $password_fields =
+            '<label for="password"><span lang="en">Password</span> <span class="required"
+                                                                        aria-hidden="true">*</span></label>
+            <input type="password" id="password" name="password" placeholder="Inserire una password"
+                   value="{{ password }}" required>
+            <input id="mostra-password" type="checkbox" class="mostra-password" onclick="toggleView()">
+            <label for="mostra-password">Mostra <span lang="en">Password</span></label>
+            <label for="conferma_password"><span lang="en">Conferma Password</span> <span class="required"
+                                                                          aria-hidden="true">*</span></label>
+            <input type="password" id="conferma_password" name="conferma_password"
+                   placeholder="Conferma la password" required>
+            <input id="mostra-conferma" type="checkbox" class="mostra-password" onclick="toggleView(\'conferma_password\')">
+            <label for="mostra-conferma">Mostra <span lang="en">Password</span></label>';
+        $content = str_replace("{{ password_fields }}", $password_fields, $content);
+
         if($this->nome != '') {
             $content = str_replace("{{ nome }}", $this->nome, $content);
             $content = str_replace("{{ cognome }}", $this->cognome, $content);
