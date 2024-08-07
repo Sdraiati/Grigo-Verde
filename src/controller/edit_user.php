@@ -6,6 +6,7 @@ include_once $project_root . '/model/utente.php';
 class EditUser extends Endpoint
 {
     private string $username = '';
+    private string $password = '';
     private string $nome = '';
     private string $cognome = '';
     private string $ruolo = '';
@@ -15,12 +16,13 @@ class EditUser extends Endpoint
         parent::__construct('utenti/modifica', 'POST');
     }
 
-    public function validate($username, $nome, $cognome, $ruolo): bool
+    public function validate($username, $password, $nome, $cognome, $ruolo): bool
     {
         if (empty($username) || empty($nome) || empty($cognome) || empty($ruolo)) {
             return false;
         }
         $this->username = $username;
+        $this->password = $password;
         $this->nome = $nome;
         $this->cognome = $cognome;
         $this->ruolo = $ruolo;
@@ -30,11 +32,12 @@ class EditUser extends Endpoint
     public function handle(): void
     {
         $this->username = $this->post('username');
+        $this->password = $_POST['password'] ?? '';
         $this->nome = $this->post('nome');
         $this->cognome = $this->post('cognome');
         $this->ruolo = $this->post('ruolo');
 
-        if (!$this->validate($this->username, $this->nome, $this->cognome, $this->ruolo)) {
+        if (!$this->validate($this->username, $this->password, $this->nome, $this->cognome, $this->ruolo)) {
             $page = new EditUserPage(
                 $this->username,
                 $this->nome,
@@ -55,8 +58,11 @@ class EditUser extends Endpoint
                 );
                 echo $page->render();
             } else {
-
-                $utente->modifica($this->username, $this->nome, $this->cognome, $this->ruolo);
+                //if password is epmpty don't update it
+                if ($this->password === '') {
+                    $this->password = $utente->prendi($this->username)['Password'];
+                }
+                $utente->modifica($this->username, $this->nome, $this->cognome, $this->ruolo, $this->password);
                 echo "Utente modificato con successo";
             }
         }

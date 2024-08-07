@@ -44,6 +44,7 @@ function removeErrorDivs() {
 function validateString(element, str, min = Number.MIN_SAFE_INTEGER, max = Number.MAX_SAFE_INTEGER, show_char_number = false, spaces = false) {
     const specialCharPattern = /[{}\[\]|`¬¦!"£$%^&*<>:;#~_\-+=,@]/;
     if (str === '') {
+        console.log("metto errore");
         insertErrorMessage(element, "Il campo non può essere vuoto.");
         return false;
     }
@@ -271,9 +272,7 @@ function addImage() {
     imgCount++;
 
     let add_image_button = document.getElementById("add_img_button");
-    if (add_image_button === null) {
-        console.log("nooo");
-    }
+
     add_image_button.parentNode.insertBefore(image_div, add_image_button);
     //TODO: teniamo una sola immagine quindi dopo l'aggiunta di una nuova immagine rimuoviamo il pulsante
     if (imgCount === 1)
@@ -325,6 +324,8 @@ function validateNewUser()
 {
     let username = document.getElementsByName("username")[0].value;
     let password = document.getElementsByName("password")[0].value;
+    // check if fieldset with id password-fields is enabled
+    let password_fieldset = document.getElementById("password-fields");
     let nome = document.getElementsByName("nome")[0].value;
     let cognome = document.getElementsByName("cognome")[0].value;
     let ruolo = document.getElementsByName("ruolo")[0].value;
@@ -344,7 +345,11 @@ function validateNewUser()
     let cognome_element = document.getElementsByName("cognome")[0];
 
     let isUsernameValid = validateString(username_element, username, 4, 50, true, true);
-    let isPasswordValid = validateString(password_element, password, 4, 100, true, true);
+
+    let isPasswordValid = true;
+    if(!password_fieldset.disabled)
+        isPasswordValid = validateString(password_element, password, 4, 100, true, true);
+
     let isNomeValid = validateString(nome_element, nome, 2, 70, true, false);
     let isCognomeValid = validateString(cognome_element, cognome, 2, 70, true, false);
 
@@ -356,6 +361,12 @@ function validateNewUser()
         insertErrorMessage(conferma_password_element, "Le password non corrispondono.");
         return false;
     }
-
     return isUsernameValid && isPasswordValid && isNomeValid && isCognomeValid;
+}
+
+function showEditPassword()
+{
+    let fieldset = document.getElementById("password-fields");
+    fieldset.classList.remove("hidden");
+    fieldset.disabled = false;
 }
