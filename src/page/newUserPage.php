@@ -47,7 +47,10 @@ class newUserPage extends Page
 
         $content = str_replace("{{ action }}", $this->path, $content);
         $content = str_replace("{{ operazione }}", "Crea", $content);
-        $content = str_replace("{{ disabled }}", 'required', $content);
+        $content = str_replace("{{ normal_input }}",
+            '<label for="username">Nome utente <span class="required" aria-hidden="true">*</span></label>
+            <input type="text" id="username" name="username" placeholder="Inserire un nome utente" 
+            value="{{ username }}"', $content);
         $content = str_replace("{{ hidden_input }}", '', $content);
         $content = str_replace("{{ hide-password-fields }}", '', $content);
         $content = str_replace("{{ edit_password_button }}", '', $content);
