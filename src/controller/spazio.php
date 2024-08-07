@@ -30,7 +30,7 @@ class SpazioEndpoint extends Endpoint
                 $data_fine = str_replace("T", " ", $data_fine);
                 $data_inizio = $data_inizio . ":00";
                 $data_fine = $data_fine . ":00";
-            }
+                }
         }
 
         // DEBUG
