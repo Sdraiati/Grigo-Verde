@@ -6,26 +6,20 @@ include_once 'controller/new_space.php';
 include_once 'model/utente.php';
 class newSpacePage extends Page
 {
-    protected $title = 'Nuovo Spazio';
-    protected $keywords = [""];
-    protected $path = '/spazi/nuovo';
-    protected $breadcrumb = [
-        'Spazi' => 'spazi'
-    ];
-
     private int $posizione = -1;
     private string $nome = '';
     private string $descrizione = '';
     private string $tipo = '';
     private int $n_tavoli = 0;
-    private string $error = '';
     public function __construct(int $posizione = -1, string $nome = "", string $descrizione = '', string $tipo = "", int $n_tavoli = 0, string $error = '')
     {
         parent::__construct();
-        $this->setTitle($this->title);
-        $this->setBreadcrumb($this->breadcrumb);
-        $this->setPath($this->path);
-        $this->addKeywords($this->keywords);
+        $this->setTitle('Nuovo Spazio');
+        $this->setBreadcrumb([
+            'Spazi' => 'spazi'
+        ]);
+        $this->setPath('/spazi/nuovo');
+        $this->addKeywords([""]);
 
         $this->posizione = $posizione;
         $this->nome = $nome;
@@ -56,13 +50,10 @@ class newSpacePage extends Page
             $content = str_replace("{{ posizione }}", $this->posizione, $content);
             $content = str_replace("{{ nome }}", $this->nome, $content);
             $content = str_replace("{{ descrizione }}", $this->descrizione, $content);
-            if ($this->tipo === 'Aula verde') {
-                $content = str_replace("{{ selectedVerde }}", 'selected', $content);
-                $content = str_replace("{{ selectedRicreativo }}", '', $content);
-            } elseif ($this->tipo === 'Spazio ricreativo') {
-                $content = str_replace("{{ selectedRicreativo }}", 'selected', $content);
-                $content = str_replace("{{ selectedVerde }}", '', $content);
-            }
+
+            $content = str_replace("{{ selectedVerde }}", $this->tipo == "Aula verde" ? 'selected' : '', $content);
+            $content = str_replace("{{ selectedRicreativo }}", $this->tipo == "Spazio ricreativo" ? 'selected' : '', $content);
+
             $content = str_replace("{{ tipo }}", $this->tipo, $content);
             $content = str_replace("{{ n_tavoli }}", $this->n_tavoli, $content);
             if ($this->error !== '')

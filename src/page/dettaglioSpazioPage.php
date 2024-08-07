@@ -7,18 +7,14 @@ include_once 'model/prenotazione.php';
 class DettaglioSpazioPage extends Page
 {
     private string $spazio_nome = "";
-    protected $title = 'Dettaglio Spazio';
-    protected $keywords = [];
-    protected $breadcrumb = ['Spazi' => 'spazi'];
-    protected $path = '/spazi/spazio';
 
     public function __construct(string $spazio_nome = '')
     {
         parent::__construct();
-        $this->setTitle($this->title);
-        $this->setBreadcrumb($this->breadcrumb);
-        $this->setPath($this->path);
-        $this->addKeywords($this->keywords);
+        $this->setTitle('Dettaglio Spazio');
+        $this->setBreadcrumb(['Spazi' => 'spazi']);
+        $this->setPath('/spazi/spazio');
+        $this->addKeywords([]);
 
         $this->spazio_nome = $spazio_nome;
     }

@@ -25,8 +25,19 @@ class Utente extends Model
         return $this->exec($query, $params);
     }
 
-    public function modifica($username, $nome, $cognome, $ruolo, $password)
+    public function modifica($username, $nome, $cognome, $ruolo, $password='')
     {
+        if($password === '')
+        {
+            $query = "UPDATE " . $this->table . " SET Nome = ?, Cognome = ?, Ruolo = ? WHERE Username = ?";
+            $params = [
+                ['type' => 's', 'value' => $nome],
+                ['type' => 's', 'value' => $cognome],
+                ['type' => 's', 'value' => $ruolo],
+                ['type' => 's', 'value' => $username]
+            ];
+            return $this->exec($query, $params);
+        }
         $query = "UPDATE " . $this->table . " SET Nome = ?, Cognome = ?, Ruolo = ?, Password = ? WHERE Username = ?";
         $hashed_password = password_hash($password, PASSWORD_BCRYPT);
         $params = [
@@ -58,5 +69,19 @@ class Utente extends Model
         ];
 
         return $this->get($query, $params);
+    }
+
+    public function check_password($username, $password)
+    {
+        $query = "SELECT Password FROM " . $this->table . " WHERE Username = ?";
+        $params = [
+            ['type' => 's', 'value' => $username]
+        ];
+
+        $result = $this->get($query, $params);
+        if ($result === null) {
+            return false;
+        }
+        return password_verify($password, $result['Password']);
     }
 }

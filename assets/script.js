@@ -320,3 +320,42 @@ function validatePrenotazione() {
 
     return true;
 }
+
+function validateNewUser()
+{
+    let username = document.getElementsByName("username")[0].value;
+    let password = document.getElementsByName("password")[0].value;
+    let nome = document.getElementsByName("nome")[0].value;
+    let cognome = document.getElementsByName("cognome")[0].value;
+    let ruolo = document.getElementsByName("ruolo")[0].value;
+
+    let ruolo_element = document.getElementsByName("ruolo")[0];
+    removeErrorDivs();
+
+    if(ruolo !== "Amministratore" && ruolo !== "Docente")
+    {
+        insertErrorMessage(ruolo_element, "Il ruolo deve essere Amministratore o Docente.");
+        return false;
+    }
+
+    let username_element = document.getElementsByName("username")[0];
+    let password_element = document.getElementsByName("password")[0];
+    let nome_element = document.getElementsByName("nome")[0];
+    let cognome_element = document.getElementsByName("cognome")[0];
+
+    let isUsernameValid = validateString(username_element, username, 4, 50, true, true);
+    let isPasswordValid = validateString(password_element, password, 4, 100, true, true);
+    let isNomeValid = validateString(nome_element, nome, 2, 70, true, false);
+    let isCognomeValid = validateString(cognome_element, cognome, 2, 70, true, false);
+
+    //check if the password corresponds to the value in conferma password
+    let conferma_password = document.getElementsByName("conferma_password")[0].value;
+    let conferma_password_element = document.getElementsByName("conferma_password")[0];
+    if(password !== conferma_password)
+    {
+        insertErrorMessage(conferma_password_element, "Le password non corrispondono.");
+        return false;
+    }
+
+    return isUsernameValid && isPasswordValid && isNomeValid && isCognomeValid;
+}

@@ -8,7 +8,7 @@
         <label for="password"><span lang="en">Password</span></label>
         <input type="password" id="password" name="password" placeholder="Inserire la password" value="{{ password }}"
             required autocomplete="current-password">
-        <input id="mostra-password" type="checkbox" onclick="toggleView()">
+        <input id="mostra-password" class="mostra-password" type="checkbox" onclick="toggleView()">
         <label for="mostra-password">Mostra <span lang="en">Password</span></label>
     </fieldset>
     {{ error }}

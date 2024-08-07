@@ -45,17 +45,10 @@ class EditSpace extends Endpoint
 
         $page->setPath("spazi/modifica");
         echo $page->render();
-        return;
     }
 
-    public function validate(): bool
+    public function validate($posizione, $nome, $descrizione, $tipo, $n_tavoli): bool
     {
-        $posizione = intval($this->$this->post('posizione'));
-        $nome = $this->post('nome');
-        $descrizione = $this->post('descrizione');
-        $tipo = $this->post('tipo');
-        $n_tavoli = intval($this->post('n_tavoli'));
-
         if (empty($posizione) || empty($nome) || empty($tipo)) {
             return false;
         }
@@ -67,53 +60,61 @@ class EditSpace extends Endpoint
         return true;
     }
 
-    public function handle()
+    public function handle(): void
     {
-        $posizione = $this->post('posizione');
-        $nome = $this->post('nome');
-        $descrizione = $this->post('descrizione');
-        $tipo = $this->post('tipo');
-        $n_tavoli = $this->post('n_tavoli');
+        $this->posizione = $this->post('posizione');
+        $this->nome = $this->post('nome');
+        $this->descrizione = $this->post('descrizione');
+        $this->tipo = $this->post('tipo');
+        $this->n_tavoli = intval($this->post('n_tavoli'));
 
-        if (!$this->validate()) {
-            echo $this->render_new_page();
+        if (!$this->validate($this->posizione, $this->nome, $this->descrizione, $this->tipo, $this->n_tavoli)) {
+            $this->render_edit_page_with_error("Inserire tutti i campi");
             return;
-        }
-        $spazio = new Spazio();
-
-        $spazio->modifica($posizione, $nome, $descrizione, $tipo, $n_tavoli);
-        echo "Spazio modificato";
-
-        $uploadedFiles = $_FILES;
-        $descriptions = [];
-        foreach ($_POST as $key => $value) {
-            if (str_starts_with($key, 'img_description_')) {
-                $num = substr($key, strrpos($key, '_') + 1);
-                $descriptions[intval($num)] = $value;
+        } else {
+            $spazio = new Spazio();
+            if (
+                $spazio->prendi($this->posizione)['Nome'] !== $this->nome &&
+                $spazio->prendi_per_nome($this->nome) !== null
+            ) {
+                $this->render_edit_page_with_error("Nome già esistente, sceglierne un altro");
+                return;
             }
-        }
 
-        $immagine = new Immagine();
-        //if spazio has images update them
-        if ($immagine->prendi($posizione) !== null) {
-            if (empty($uploadedFiles)) {
-                //delete all images
-                $immagine->elimina($posizione);
+            $spazio->modifica($this->posizione, $this->nome, $this->descrizione, $this->tipo, $this->n_tavoli);
+            echo "Spazio modificato"; // TODO: reindirizzare al dettaglio dello spazio?
+
+            $uploadedFiles = $_FILES;
+            $descriptions = [];
+            foreach ($_POST as $key => $value) {
+                if (str_starts_with($key, 'img_description_')) {
+                    $num = substr($key, strrpos($key, '_') + 1);
+                    $descriptions[intval($num)] = $value;
+                }
             }
-            foreach ($uploadedFiles as $key => $file) {
-                if ($file['size'] === 0) {
-                    //update description
-                    foreach ($descriptions as $key => $value) {
-                        if ($value === '') {
-                            $this->render_edit_page_with_error("L'immagine deve contenere una descrizione");
-                            return;
-                        }
-                        $immagine->modifica_descrizione($posizione, $value);
-                    }
-                } else {
-                    //TODO: questa parte va modificata se si vuole permettere più immagini
+
+            $immagine = new Immagine();
+            //if spazio has images update them
+            if ($immagine->prendi($this->posizione) !== null) {
+                if (empty($uploadedFiles)) {
                     //delete all images
-                    $immagine->elimina($posizione);
+                    $immagine->elimina($this->posizione);
+                }
+                foreach ($uploadedFiles as $key => $file) {
+                    if ($file['size'] === 0) {
+                        //update description
+                        foreach ($descriptions as $key => $value) {
+                            if ($value === '') {
+                                $this->render_edit_page_with_error("L'immagine deve contenenere una descrizione");
+                                return;
+                            }
+                            $immagine->modifica_descrizione($this->posizione, $value);
+                        }
+                    } else {
+                        //TODO: questa parte va modificata se si vuole permettere più immagini
+                        //delete all images
+                        $immagine->elimina($this->posizione);
+                    }
                 }
             }
         }

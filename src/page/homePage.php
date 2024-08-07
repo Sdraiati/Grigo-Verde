@@ -4,17 +4,13 @@ include_once 'page.php';
 
 class HomePage extends Page
 {
-    protected $title = '<span lang="en">Home</span>';
-    protected $keywords = [];
-    protected $path = '/';
-
     public function __construct()
     {
         parent::__construct();
-        $this->setTitle($this->title);
+        $this->setTitle('<span lang="en">Home</span>');
         $this->setBreadcrumb([]);
-        $this->addKeywords($this->keywords);
-        $this->setPath($this->path);
+        $this->addKeywords([]);
+        $this->setPath('/');
     }
 
     public function render()
