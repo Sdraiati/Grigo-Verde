@@ -4,13 +4,16 @@ require_once 'endpoint.php';
 include_once $project_root . '/model/database.php';
 include_once $project_root . '/page/visualizzazioneSpaziPage.php';
 
-class SpazioEndpoint extends Endpoint {
+class SpazioEndpoint extends Endpoint
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('spazi', 'GET');
     }
 
-    public function handle() {
+    public function handle()
+    {
         $tipo = "";
         $data_inizio = "";
         $data_fine = "";
@@ -18,10 +21,10 @@ class SpazioEndpoint extends Endpoint {
             $tipo = $_GET['tipo'];
         }
         if (isset($_GET['Data_inizio']) || isset($_GET['Data_fine'])) {
-            if(isset($_GET['Data_inizio']) && isset($_GET['Data_fine'])) {
+            if (isset($_GET['Data_inizio']) && isset($_GET['Data_fine'])) {
                 $data_inizio = $_GET['Data_inizio'];
                 $data_fine = $_GET['Data_fine'];
-            } 
+            }
         }
         // DEBUG
         // var_dump($tipo);
@@ -33,6 +36,7 @@ class SpazioEndpoint extends Endpoint {
         // var_dump($data_inizio);
         // var_dump($data_fine);
         $page = new VisualizzazioneSpaziPage($tipo, $data_inizio, $data_fine);
+        $page->setPath('spazi');
         $content = $page->render();
         echo $content;
     }
@@ -43,3 +47,4 @@ class SpazioEndpoint extends Endpoint {
         return parent::match($path, $method);
     }
 }
+

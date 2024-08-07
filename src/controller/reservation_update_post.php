@@ -78,6 +78,7 @@ class ReservationUpdatePost extends Endpoint
                 "",
                 'Devi effettuare il login per accedere a questa pagina'
             );
+            $page->setPath('login');
 
             echo $page->render();
             return;
