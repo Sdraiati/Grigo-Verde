@@ -4,7 +4,7 @@ include_once $project_root . '/model/database.php';
 include_once $project_root . '/model/utente.php';
 class Autenticazione
 {
-    private static function ensureSessionStarted()
+    private static function ensureSessionStarted() : void
     {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
@@ -45,9 +45,19 @@ class Autenticazione
     {
         self::ensureSessionStarted();
         session_destroy();
+
+        $params = session_get_cookie_params();
+        // remove session cookie
         if (ini_get("session.use_cookies")) {
             $params = session_get_cookie_params();
             setcookie(session_name(), '', time() - 42000,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httponly"]
+            );
+        }
+        // remove LogIn cookie
+        if (isset($_COOKIE['LogIn'])) {
+            setcookie('LogIn', '', time() - 42000,
                 $params["path"], $params["domain"],
                 $params["secure"], $params["httponly"]
             );
