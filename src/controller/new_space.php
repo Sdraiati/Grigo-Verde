@@ -36,6 +36,20 @@ class NewSpace extends Endpoint
         return true;
     }
 
+    protected function render_new_space_with_error($error)
+    {
+        $page = new NewSpacePage(
+            $this->posizione,
+            $this->nome,
+            $this->descrizione,
+            $this->tipo,
+            $this->n_tavoli,
+            $error
+        );
+        $page->setPath('spazi/nuovo');
+        echo $page->render();
+    }
+
     public function handle(): void
     {
         $posizione = $this->post('posizione');
@@ -45,43 +59,20 @@ class NewSpace extends Endpoint
         $n_tavoli = $this->post('n_tavoli');
 
         if (!$this->validate()) {
-            $page = new NewSpacePage(
-                $this->posizione,
-                $this->nome,
-                $this->descrizione,
-                $this->tipo,
-                $this->n_tavoli,
-                "Inserire tutti i campi"
-            );
-            echo $page->render();
+            $this->render_new_space_with_error('Inserire tutti i campi');
+            return;
         } else {
             $spazio = new Spazio();
             if ($spazio->prendi($posizione) !== null) {
-                $page = new NewSpacePage(
-                    $this->posizione,
-                    $this->nome,
-                    $this->descrizione,
-                    $this->tipo,
-                    $this->n_tavoli,
-                    "Posizione già esistente, sceglierne un'altra o modificare lo spazio esistente"
-                );
-                echo $page->render();
+                $this->render_new_space_with_error("Posizione già esistente, sceglierne un'altra o modificare lo spazio esistente");
                 return;
             }
             if ($spazio->prendi_per_nome($nome) !== null) {
-                $page = new NewSpacePage(
-                    $this->posizione,
-                    $this->nome,
-                    $this->descrizione,
-                    $this->tipo,
-                    $this->n_tavoli,
-                    "Nome già esistente, sceglierne un altro"
-                );
-                echo $page->render();
+                $this->render_new_space_with_error("Nome già esistente, sceglierne un altro");
                 return;
             }
             $spazio->nuovo($posizione, $nome, $descrizione, $tipo, $n_tavoli);
-            echo "Spazio creato";
+            // echo "Spazio creato";
 
             $uploadedFiles = $_FILES;
             $descriptions = [];
@@ -96,40 +87,16 @@ class NewSpace extends Endpoint
             $images = [];
             foreach ($uploadedFiles as $key => $file) {
                 if ($file['error'] !== UPLOAD_ERR_OK) {
-                    $page = new NewSpacePage(
-                        $this->posizione,
-                        $this->nome,
-                        $this->descrizione,
-                        $this->tipo,
-                        $this->n_tavoli,
-                        "Errore nel caricamento dell'immagine"
-                    );
-                    echo $page->render();
+                    $this->render_new_space_with_error("Errore nel caricamento dell'immagine");
                     return;
                 }
                 if ($file['size'] > 1048576) {
-                    $page = new NewSpacePage(
-                        $this->posizione,
-                        $this->nome,
-                        $this->descrizione,
-                        $this->tipo,
-                        $this->n_tavoli,
-                        "Errore: l'immagine è troppo grande, dimensione massima 1MB"
-                    );
-                    echo $page->render();
+                    $this->render_new_space_with_error("Errore: l'immagine è troppo grande, dimensione massima 1MB");
                     return;
                 }
                 $allowed_mime_types = ['image/jpeg', 'image/png', 'image/jpg'];
                 if (!in_array(mime_content_type($file['tmp_name']), $allowed_mime_types)) {
-                    $page = new NewSpacePage(
-                        $this->posizione,
-                        $this->nome,
-                        $this->descrizione,
-                        $this->tipo,
-                        $this->n_tavoli,
-                        "Errore: il tipo di file non è supportato"
-                    );
-                    echo $page->render();
+                    $this->render_new_space_with_error("Errore: il tipo di file non è supportato");
                     return;
                 }
                 $tmpName = $file['tmp_name'];
@@ -160,7 +127,8 @@ class NewSpace extends Endpoint
 
                 fclose($fp);
             }
-            echo "Immagini salvate";
+            // echo "Immagini salvate";
         }
+        // $this->redirect("dettaglio-spazio?spazio_nome=...); TODO
     }
 }

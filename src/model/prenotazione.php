@@ -120,4 +120,16 @@ class Prenotazione extends Model
 
         return $this->get($query, $params);
     }
+
+    public function prendi_by($begin_time, $end_time, $space)
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE Spazio = ? AND DataInizio = ? AND DataFine = ?";
+        $params = [
+            ['type' => 'i', 'value' => $space],
+            ['type' => 's', 'value' => $begin_time],
+            ['type' => 's', 'value' => $end_time]
+        ];
+
+        return $this->get($query, $params);
+    }
 }

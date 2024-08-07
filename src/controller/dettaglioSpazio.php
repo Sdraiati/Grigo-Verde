@@ -10,8 +10,8 @@ class DettaglioSpazio extends Endpoint
         parent::__construct('spazi/spazio', 'GET');
     }
 
-    public function validate() : bool
-    {   
+    public function validate(): bool
+    {
         $spazio_nome = $this->get('spazio_nome');
         $this->spazio_nome = $spazio_nome;
 
@@ -19,10 +19,11 @@ class DettaglioSpazio extends Endpoint
     }
 
 
-    public function handle() : void
-    {   
+    public function handle(): void
+    {
         $this->validate();
         $page = new DettaglioSpazioPage($this->spazio_nome);
+        $page->setPath("spazi/spazio?spazio_nome=" . $this->spazio_nome);
         echo $page->render();
     }
 }
