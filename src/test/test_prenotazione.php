@@ -82,9 +82,26 @@ function test_prenotazione_is_available()
     $spazio->nuovo($space, 'Pruno', 'Una grande sala per conferenze', 'Conferenza', 20);
     $prenotazione->nuovo('2024-09-05 14:00:00', '2024-09-05 16:00:00', $username, $space, 'Conferenza');
 
-    $result = $prenotazione->is_available($space, '2024-09-05 13:00:00', '2024-09-05 14:00:00');
-    $result = $result && !$prenotazione->is_available($space, '2024-09-05 15:00:00', '2024-09-05 17:00:00');
-    $result = $result && !$prenotazione->is_available($space, '2024-09-05 13:00:00', '2024-09-05 14:00:01');
+    $caso1 = $prenotazione->is_available($space, '2024-09-05 13:00:00', '2024-09-05 14:00:00');
+    $caso2 = !$prenotazione->is_available($space, '2024-09-05 13:00:00', '2024-09-05 17:00:00');
+    $caso3 = !$prenotazione->is_available($space, '2024-09-05 15:00:00', '2024-09-05 17:00:00');
+    $caso4 = !$prenotazione->is_available($space, '2024-09-05 13:00:00', '2024-09-05 15:00:00');
+    $caso5 = !$prenotazione->is_available($space, '2024-09-05 15:00:00', '2024-09-05 15:30:00');
+
+    /*
+    $caso1 = json_encode($prenotazione->is_available($space, '2024-09-05 13:00:00', '2024-09-05 14:00:00'));
+    $caso2 = json_encode($prenotazione->is_available($space, '2024-09-05 13:00:00', '2024-09-05 17:00:00'));
+    $caso3 = json_encode($prenotazione->is_available($space, '2024-09-05 15:00:00', '2024-09-05 17:00:00'));
+    $caso4 = json_encode($prenotazione->is_available($space, '2024-09-05 13:00:00', '2024-09-05 15:00:00'));
+    $caso5 = json_encode($prenotazione->is_available($space, '2024-09-05 15:00:00', '2024-09-05 15:30:00'));
+    echo "free: $caso1 <br>
+before-after: $caso2 <br>
+middle-after: $caso3 <br>
+before-middle: $caso4 <br>
+middle-middle: $caso5";
+    */
+
+    $result = $caso1 && $caso2 && $caso3 && $caso4 && $caso5;
 
     $reservations = $prenotazione->prendi($space);
     $prenotazione->elimina($reservations[0]['Id']);

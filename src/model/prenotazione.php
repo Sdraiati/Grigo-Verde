@@ -79,12 +79,14 @@ class Prenotazione extends Model
     public function is_available($spazio, $begin_time, $end_time)
     {
         // check if there is no other booking in the same time
-        $query = "SELECT * FROM " . $this->table . " WHERE Spazio = ? AND ((DataInizio < ? AND DataFine > ?) OR (DataInizio < ? AND DataFine > ?))";
+        $query = "SELECT * FROM " . $this->table . " WHERE Spazio = ? AND ((DataInizio < ? AND DataFine > ?) OR (DataInizio < ? AND DataFine > ?) OR (DataInizio > ? AND DataFine < ?))";
         $params = [
             ['type' => 'i', 'value' => $spazio],
             ['type' => 's', 'value' => $begin_time],
             ['type' => 's', 'value' => $begin_time],
             ['type' => 's', 'value' => $end_time],
+            ['type' => 's', 'value' => $end_time],
+            ['type' => 's', 'value' => $begin_time],
             ['type' => 's', 'value' => $end_time]
         ];
 

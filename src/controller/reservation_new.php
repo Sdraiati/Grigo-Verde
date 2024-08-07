@@ -86,7 +86,7 @@ class ReservationNew extends Endpoint
 
         // Check if the space is available
         $prenotazione = new Prenotazione();
-        if (!$prenotazione->is_available($this->post('spazio'), $this->giorno, $this->dalle_ore, $this->alle_ore)) {
+        if (!$prenotazione->is_available($this->post('spazio'), $data_inizio, $data_fine)) {
             $this->render_with_error("Lo spazio non è disponibile nell'orario specificato");
             return;
         }
@@ -94,15 +94,15 @@ class ReservationNew extends Endpoint
         $username = Autenticazione::getLoggedUser();
 
         // Check if the user has already booked something in the same time slot
-        if (!$prenotazione->user_already_booked($this->post('spazio'), $this->giorno, $this->dalle_ore, $this->alle_ore)) {
+        if (!$prenotazione->user_already_booked($username, $data_inizio, $data_fine)) {
             $this->render_with_error("Hai già prenotato un altro spazio nello stesso orario");
             return;
         }
 
-        if ($prenotazione->nuovo($data_inizio, $data_fine, $username, $this->posizione, $this->descrizione)) {
-            $this->redirect('dashboard');
+        if (!$prenotazione->nuovo($data_inizio, $data_fine, $username, $this->posizione, $this->descrizione)) {
+            $this->render_with_error("Errore nella creazione della prenotazione");
         }
 
-        $this->render_with_error("Errore nella creazione della prenotazione");
+        $this->redirect('dashboard');
     }
 }
