@@ -4,13 +4,16 @@ require_once 'endpoint.php';
 include_once $project_root . '/model/database.php';
 include_once $project_root . '/page/visualizzazioneSpaziPage.php';
 
-class SpazioEndpoint extends Endpoint {
+class SpazioEndpoint extends Endpoint
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('spazi', 'GET');
     }
 
-    public function handle() {
+    public function handle()
+    {
         $tipo = "";
         $data_inizio = "";
         $data_fine = "";
@@ -40,6 +43,7 @@ class SpazioEndpoint extends Endpoint {
         // che data di fine bisogerebbe ritornare un messaggio di errore ù// nel quale si ottiene all'utente di
         // scegliere tutte e due le date. 
         $page = new VisualizzazioneSpaziPage($tipo, $data_inizio, $data_fine);
+        $page->setPath('spazi');
         $content = $page->render();
         echo $content;
     }
@@ -50,3 +54,4 @@ class SpazioEndpoint extends Endpoint {
         return parent::match($path, $method);
     }
 }
+

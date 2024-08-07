@@ -78,6 +78,7 @@ class ReservationUpdatePost extends Endpoint
                 "",
                 'Devi effettuare il login per accedere a questa pagina'
             );
+            $page->setPath('login');
 
             echo $page->render();
             return;
@@ -107,10 +108,38 @@ class ReservationUpdatePost extends Endpoint
         $data_inizio = $this->giorno . ' ' . $this->dalle_ore;
         $data_fine = $this->giorno . ' ' . $this->alle_ore;
 
-        if ($prenotazione->modifica($this->reservation_id, $data_inizio, $data_fine, $this->posizione, $this->descrizione)) {
-            $this->redirect('prenotazioni/?prenotazione=' . $this->reservation_id);
+        $reservation = $prenotazione->prendi_by_id($this->reservation_id);
+
+        if (!$prenotazione->elimina($this->reservation_id)) {
+            $this->render_with_error("Errore nell'aggiornamento della prenotazione");
+            return;
         }
 
-        $this->render_with_error("Errore nell'aggiornamento della prenotazione");
+        // Check if the space is available
+        $prenotazione = new Prenotazione();
+        if (!$prenotazione->is_available($this->post('spazio'), $data_inizio, $data_fine)) {
+            $prenotazione->nuovo($reservation['DataInizio'], $reservation['DataFine'], $reservation['Username'], $reservation['Spazio'], $reservation['Descrizione']);
+            $reservation_id = $prenotazione->prendi_by($reservation['DataInizio'], $reservation['DataFine'], $reservation['Spazio']);
+            $this->reservation_id = $reservation_id;
+            $this->render_with_error("Lo spazio non è disponibile nell'orario specificato");
+            return;
+        }
+
+        $username = Autenticazione::getLoggedUser();
+
+        // Check if the user has already booked something in the same time slot
+        if (!$prenotazione->user_already_booked($username, $data_inizio, $data_fine)) {
+            $prenotazione->nuovo($reservation['DataInizio'], $reservation['DataFine'], $reservation['Username'], $reservation['Spazio'], $reservation['Descrizione']);
+            $reservation_id = $prenotazione->prendi_by($reservation['DataInizio'], $reservation['DataFine'], $reservation['Spazio']);
+            $this->reservation_id = $reservation_id;
+            $this->render_with_error("Hai già prenotato un altro spazio nello stesso orario");
+            return;
+        }
+
+        if (!$prenotazione->nuovo($data_inizio, $data_fine, $username, $this->posizione, $this->descrizione)) {
+            $this->render_with_error("Errore nella creazione della prenotazione");
+        }
+
+        $this->redirect('dashboard');
     }
 }

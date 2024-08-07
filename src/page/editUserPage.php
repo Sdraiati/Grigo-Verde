@@ -6,12 +6,11 @@ include_once 'model/utente.php';
 class editUserPage extends Page
 {
     private string $username = '';
-    private string $password = '';
     private string $nome = '';
     private string $cognome = '';
     private string $ruolo = '';
 
-    public function __construct(string $username = '', string $password = '', string $nome = '', string $cognome = '', string $ruolo = '', string $error = '')
+    public function __construct(string $username = '', string $nome = '', string $cognome = '', string $ruolo = '', string $error = '')
     {
         parent::__construct();
         $this->setTitle('Modifica Utente');
@@ -22,7 +21,6 @@ class editUserPage extends Page
         $this->addKeywords([""]);
 
         $this->username = $username;
-        $this->password = $password;
         $this->nome = $nome;
         $this->cognome = $cognome;
         $this->ruolo = $ruolo;
@@ -36,7 +34,7 @@ class editUserPage extends Page
         }
 
         if (
-            $this->username !== '' && $this->password === '' && $this->nome === '' && $this->cognome === '' && $this->ruolo === ''
+            $this->username !== '' && $this->nome === '' && $this->cognome === '' && $this->ruolo === ''
             && $this->error === ''
         ) {
             $utente = new Utente();
@@ -78,12 +76,12 @@ class editUserPage extends Page
         $content = str_replace("{{ operazione }}", "Modifica", $content);
         $content = str_replace("{{ disabled }}", 'disabled', $content);
         $content = str_replace("{{ hidden_input }}", '<input type="hidden" id="username_hidden" name="username" value="{{ username }}">', $content);
+        $content = str_replace("{{ password_fields }}", '', $content);
 
         if($this->nome != '') {
             $content = str_replace("{{ nome }}", $this->nome, $content);
             $content = str_replace("{{ cognome }}", $this->cognome, $content);
             $content = str_replace("{{ username }}", $this->username, $content);
-            $content = str_replace("{{ password }}", $this->password, $content);
 
             $content = str_replace("{{ selectedDefault }}", '', $content);
             $content = str_replace("{{ selectedAmministratore }}", $this->ruolo == 'Amministratore' ? 'selected' : '', $content);

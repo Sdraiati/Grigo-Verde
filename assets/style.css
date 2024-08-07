@@ -321,6 +321,14 @@ input[type="submit"]:hover {
     margin-top: 1rem;
 }
 
+.describer {
+    font-size: 0.85em;
+    color: #333;
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
 /* --------- ABOUT US PAGE --------- */
 
 .signature {

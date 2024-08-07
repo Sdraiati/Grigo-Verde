@@ -3,6 +3,7 @@
 include_once 'page.php';
 $project_root = dirname(__FILE__, 2);
 require_once $project_root . '/model/prenotazione.php';
+require_once $project_root . '/controller/autenticazione.php';
 
 class PrenotazioneDetailPage extends Page
 {
@@ -43,6 +44,12 @@ class PrenotazioneDetailPage extends Page
         $content = str_replace("{{ nome_aula }}", $reservation['NomeSpazio'], $content);
         $content = str_replace("{{ descrizione }}", $reservation['Descrizione'], $content);
         $content = str_replace("{{ id_prenotazione }}", $this->reservation_id, $content);
+
+        $username = Autenticazione::getLoggedUser();
+
+        if ($username !== $reservation['Username'] && !Autenticazione::is_amministratore()) {
+            $content = preg_replace('/<form.*?<\/form>/is', '', $content);
+        }
 
         return $content;
     }

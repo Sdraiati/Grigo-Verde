@@ -39,6 +39,9 @@ class ReservationUpdateGet extends Endpoint
                 "",
                 'Devi effettuare il login per accedere a questa pagina'
             );
+            $page->setPath("login");
+            // TODO: here we could do something like 
+            // _SESSION('redirect') = 'dashboard/prenotazione/modifica?prenotazione=...';
 
             echo $page->render();
             return;

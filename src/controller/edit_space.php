@@ -17,6 +17,36 @@ class EditSpace extends Endpoint
         parent::__construct('spazi/modifica', 'POST');
     }
 
+    protected function render_new_page()
+    {
+        $page = new NewSpacePage(
+            $this->posizione,
+            $this->nome,
+            $this->descrizione,
+            $this->tipo,
+            $this->n_tavoli,
+            "Inserire tutti i campi"
+        );
+        $page->setPath("spazi/modifica");
+
+        echo $page->render();
+    }
+
+    protected function render_edit_page_with_error($error)
+    {
+        $page = new EditSpacePage(
+            $this->posizione,
+            $this->nome,
+            $this->descrizione,
+            $this->tipo,
+            $this->n_tavoli,
+            $error
+        );
+
+        $page->setPath("spazi/modifica");
+        echo $page->render();
+    }
+
     public function validate($posizione, $nome, $descrizione, $tipo, $n_tavoli): bool
     {
         if (empty($posizione) || empty($nome) || empty($tipo)) {
@@ -30,7 +60,7 @@ class EditSpace extends Endpoint
         return true;
     }
 
-    public function handle() : void
+    public function handle(): void
     {
         $this->posizione = $this->post('posizione');
         $this->nome = $this->post('nome');
@@ -39,33 +69,20 @@ class EditSpace extends Endpoint
         $this->n_tavoli = intval($this->post('n_tavoli'));
 
         if (!$this->validate($this->posizione, $this->nome, $this->descrizione, $this->tipo, $this->n_tavoli)) {
-            $page = new EditSpacePage(
-                $this->posizione,
-                $this->nome,
-                $this->descrizione,
-                $this->tipo,
-                $this->n_tavoli,
-                "Inserire tutti i campi"
-            );
-            echo $page->render();
+            $this->render_edit_page_with_error("Inserire tutti i campi");
+            return;
         } else {
             $spazio = new Spazio();
-            if ($spazio->prendi($this->posizione)['Nome'] !== $this->nome &&
-                $spazio->prendi_per_nome($this->nome) !== null) {
-                $page = new EditSpacePage(
-                    $this->posizione,
-                    $this->nome,
-                    $this->descrizione,
-                    $this->tipo,
-                    $this->n_tavoli,
-                    "Nome già esistente, sceglierne un altro"
-                );
-                echo $page->render();
+            if (
+                $spazio->prendi($this->posizione)['Nome'] !== $this->nome &&
+                $spazio->prendi_per_nome($this->nome) !== null
+            ) {
+                $this->render_edit_page_with_error("Nome già esistente, sceglierne un altro");
                 return;
             }
 
             $spazio->modifica($this->posizione, $this->nome, $this->descrizione, $this->tipo, $this->n_tavoli);
-            echo "Spazio modificato";
+            echo "Spazio modificato"; // TODO: reindirizzare al dettaglio dello spazio?
 
             $uploadedFiles = $_FILES;
             $descriptions = [];
@@ -87,16 +104,8 @@ class EditSpace extends Endpoint
                     if ($file['size'] === 0) {
                         //update description
                         foreach ($descriptions as $key => $value) {
-                            if($value === '') {
-                                $page = new EditSpacePage(
-                                    $this->posizione,
-                                    $this->nome,
-                                    $this->descrizione,
-                                    $this->tipo,
-                                    $this->n_tavoli,
-                                    "L'immagine deve contenere una descrizione"
-                                );
-                                echo $page->render();
+                            if ($value === '') {
+                                $this->render_edit_page_with_error("L'immagine deve contenenere una descrizione");
                                 return;
                             }
                             $immagine->modifica_descrizione($this->posizione, $value);
@@ -108,78 +117,53 @@ class EditSpace extends Endpoint
                     }
                 }
             }
-            if (!empty($uploadedFiles)) {
-                foreach ($uploadedFiles as $key => $file) {
-                    if($file['size'] === 0) {
-                        return;
-                    }
-                    if ($file['error'] !== UPLOAD_ERR_OK) {
-                        $page = new EditSpacePage(
-                            $this->posizione,
-                            $this->nome,
-                            $this->descrizione,
-                            $this->tipo,
-                            $this->n_tavoli,
-                            "Errore nel caricamento dell'immagine"
-                        );
-                        echo $page->render();
-                        return;
-                    }
-                    if ($file['size'] > 1048576) {
-                        $page = new EditSpacePage(
-                            $this->posizione,
-                            $this->nome,
-                            $this->descrizione,
-                            $this->tipo,
-                            $this->n_tavoli,
-                            "Errore: l'immagine è troppo grande, dimensione massima 1MB"
-                        );
-                        echo $page->render();
-                        return;
-                    }
-                    $allowed_mime_types = ['image/jpeg', 'image/png', 'image/jpg'];
-                    if (!in_array(mime_content_type($file['tmp_name']), $allowed_mime_types)) {
-                        $page = new EditSpacePage(
-                            $this->posizione,
-                            $this->nome,
-                            $this->descrizione,
-                            $this->tipo,
-                            $this->n_tavoli,
-                            "Errore: il tipo di file non è supportato"
-                        );
-                        echo $page->render();
-                        return;
-                    }
-                    $tmpName = $file['tmp_name'];
-                    $fileName = basename($file['name']);
-
-                    $num = substr($key, strrpos($key, '_') + 1);
-                    $num = intval($num);
-
-                    $images[] = [
-                        'tmp_name' => $tmpName,
-                        'file_name' => $fileName,
-                        'description' => $descriptions[$num]
-                    ];
-                }
-
-                if (!isset($images)) {
+        }
+        if (!empty($uploadedFiles)) {
+            foreach ($uploadedFiles as $key => $file) {
+                if ($file['size'] === 0) {
                     return;
                 }
-                // Salvataggio delle nuove immagini
-                foreach ($images as $image) {
-                    $mime_type = mime_content_type($image['tmp_name']);
-                    $fp = fopen($image['tmp_name'], 'rb');
-                    $base64 = base64_encode(fread($fp, filesize($image['tmp_name'])));
-
-                    $imgDB = new Immagine();
-                    $imgDB->nuovo($base64, $image['description'], $mime_type, $this->posizione);
-
-                    fclose($fp);
+                if ($file['error'] !== UPLOAD_ERR_OK) {
+                    $this->render_edit_page_with_error("Errore nel caricamento dell'immagine");
+                    return;
                 }
-                echo "Immagini salvate";
+                if ($file['size'] > 1048576) {
+                    $this->render_edit_page_with_error("Errore: l'immagine è troppo grande, dimensione massima 1MB");
+                    return;
+                }
+                $allowed_mime_types = ['image/jpeg', 'image/png', 'image/jpg'];
+                if (!in_array(mime_content_type($file['tmp_name']), $allowed_mime_types)) {
+                    $this->render_edit_page_with_error("Errore: il tipo di file non è supportato");
+                    return;
+                }
+                $tmpName = $file['tmp_name'];
+                $fileName = basename($file['name']);
+
+                $num = substr($key, strrpos($key, '_') + 1);
+                $num = intval($num);
+
+                $images[] = [
+                    'tmp_name' => $tmpName,
+                    'file_name' => $fileName,
+                    'description' => $descriptions[$num]
+                ];
             }
+
+            if (!isset($images)) {
+                return;
+            }
+            // Salvataggio delle nuove immagini
+            foreach ($images as $image) {
+                $mime_type = mime_content_type($image['tmp_name']);
+                $fp = fopen($image['tmp_name'], 'rb');
+                $base64 = base64_encode(fread($fp, filesize($image['tmp_name'])));
+
+                $imgDB = new Immagine();
+                $imgDB->nuovo($base64, $image['description'], $mime_type, $this->posizione);
+
+                fclose($fp);
+            }
+            echo "Immagini salvate";
         }
     }
 }
-

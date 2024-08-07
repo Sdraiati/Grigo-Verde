@@ -17,25 +17,31 @@ function nuovo_prenotazione()
     $user = $utente->prendi('mario_rossi');
     $space = $spazio->prendi_per_nome('Sala Conferenze');
     $res = $prenotazione->nuovo('2024-08-05 14:00:00', '2024-08-05 16:00:00', $user['Username'], $space['Posizione'], 'Conferenza');
-    $prenotazione->elimina('2024-08-05 14:00:00', '2024-08-05 16:00:00', $space['Posizione']);
-    return $res !== false;
+
+
+    $reservation = $prenotazione->prendi_by('2024-08-05 14:00:00', '2024-08-05 16:00:00', 1);
+    $prenotazione->elimina($reservation['Id']);
+    return $res;
 }
 
 function modifica_prenotazione()
 {
     global $prenotazione;
     $prenotazione->nuovo('2024-08-05 14:00:00', '2024-08-05 16:00:00', 'mario_rossi', 1, 'Conferenza');
-    $res = $prenotazione->modifica('2024-08-05 14:00:00', '2024-08-05 16:00:00', 1, '2024-08-06 15:00:00', '2024-08-06 17:00:00', 'mario_rossi', 1, 'Conferenza');
+    $reservation = $prenotazione->prendi_by('2024-08-05 14:00:00', '2024-08-05 16:00:00', 1);
+    $res = $prenotazione->modifica($reservation['Id'], '2024-08-06 15:00:00', '2024-08-06 17:00:00', 1, 'Conferenza');
     $prenotazione->elimina('2024-08-06 15:00:00', '2024-08-06 17:00:00', 1);
-    return $res !== false;
+    return $res;
 }
 
 function elimina_prenotazione()
 {
     global $prenotazione;
     $prenotazione->nuovo('2024-08-05 14:00:00', '2024-08-05 16:00:00', 'mario_rossi', 1, 'Conferenza');
-    $result = $prenotazione->elimina('2024-08-05 14:00:00', '2024-08-05 16:00:00', 1);
-    return $result !== false;
+
+    $reservation = $prenotazione->prendi_by('2024-08-05 14:00:00', '2024-08-05 16:00:00', 1);
+    $result = $prenotazione->elimina($reservation['Id']);
+    return $result;
 }
 
 function prendi_prenotazione()
@@ -70,17 +76,35 @@ function prendi_per_settimana_prenotazione()
 function test_prenotazione_is_available()
 {
     global $prenotazione, $spazio, $utente;
-    $username = 'mario_rossdkai';
+    $username = 'mario_rossdkaid';
     $space = 2000;
     $utente->nuovo($username, 'Mario', 'Rossi', 'Amministratore', 'password123');
-    $spazio->nuovo($space, 'Sala Conferenze', 'Una grande sala per conferenze', 'Conferenza', 20);
-    $prenotazione->nuovo('2024-08-05 14:00:00', '2024-08-05 16:00:00', $username, $space, 'Conferenza');
+    $spazio->nuovo($space, 'Pruno', 'Una grande sala per conferenze', 'Conferenza', 20);
+    $prenotazione->nuovo('2024-09-05 14:00:00', '2024-09-05 16:00:00', $username, $space, 'Conferenza');
 
-    $result = $prenotazione->is_available($space, '2024-08-05 13:00:00', '2024-08-05 14:00:00');
-    $result = $result && !$prenotazione->is_available($space, '2024-08-05 15:00:00', '2024-08-05 17:00:00');
-    $result = $result && !$prenotazione->is_available($space, '2024-08-05 13:00:00', '2024-08-05 14:00:01');
+    $caso1 = $prenotazione->is_available($space, '2024-09-05 13:00:00', '2024-09-05 14:00:00');
+    $caso2 = !$prenotazione->is_available($space, '2024-09-05 13:00:00', '2024-09-05 17:00:00');
+    $caso3 = !$prenotazione->is_available($space, '2024-09-05 15:00:00', '2024-09-05 17:00:00');
+    $caso4 = !$prenotazione->is_available($space, '2024-09-05 13:00:00', '2024-09-05 15:00:00');
+    $caso5 = !$prenotazione->is_available($space, '2024-09-05 15:00:00', '2024-09-05 15:30:00');
 
-    $prenotazione->elimina('2024-08-05 14:00:00', '2024-08-05 16:00:00', $username, $space);
+    /*
+    $caso1 = json_encode($prenotazione->is_available($space, '2024-09-05 13:00:00', '2024-09-05 14:00:00'));
+    $caso2 = json_encode($prenotazione->is_available($space, '2024-09-05 13:00:00', '2024-09-05 17:00:00'));
+    $caso3 = json_encode($prenotazione->is_available($space, '2024-09-05 15:00:00', '2024-09-05 17:00:00'));
+    $caso4 = json_encode($prenotazione->is_available($space, '2024-09-05 13:00:00', '2024-09-05 15:00:00'));
+    $caso5 = json_encode($prenotazione->is_available($space, '2024-09-05 15:00:00', '2024-09-05 15:30:00'));
+    echo "free: $caso1 <br>
+before-after: $caso2 <br>
+middle-after: $caso3 <br>
+before-middle: $caso4 <br>
+middle-middle: $caso5";
+    */
+
+    $result = $caso1 && $caso2 && $caso3 && $caso4 && $caso5;
+
+    $reservations = $prenotazione->prendi($space);
+    $prenotazione->elimina($reservations[0]['Id']);
     $utente->elimina($username);
     $spazio->elimina($space);
     return $result;
@@ -92,7 +116,7 @@ function test_prenotazione_user_already_booked()
     $username = 'mario_rossdkai';
     $space = 2000;
     $utente->nuovo($username, 'Mario', 'Rossi', 'Amministratore', 'password123');
-    $spazio->nuovo($space, 'Sala Conferenze', 'Una grande sala per conferenze', 'Conferenza', 20);
+    $spazio->nuovo($space, 'Pruno', 'Una grande sala per conferenze', 'Conferenza', 20);
     $prenotazione->nuovo('2024-08-05 14:00:00', '2024-08-05 16:00:00', $username, $space, 'Conferenza');
 
     $result = $prenotazione->user_already_booked($username, '2024-08-05 13:00:00', '2024-08-05 14:00:00');
@@ -111,10 +135,11 @@ function test_prenotazione_prendi_by_id()
     $username = 'mario_rossdkai';
     $nome = 'Mario';
     $space = 2000;
-    $spaceName = 'Sala Conferenze';
+    $spaceName = 'Paglia';
     $utente->nuovo($username, $nome, 'Rossi', 'Amministratore', 'password123');
     $spazio->nuovo($space, $spaceName, 'Una grande sala per conferenze', 'Conferenza', 20);
     $prenotazione->nuovo('2024-08-05 14:00:00', '2024-08-05 16:00:00', $username, $space, 'Conferenza');
+
     $res_id = $prenotazione->prendi($space)[0]['Id'];
 
     $reservation = $prenotazione->prendi_by_id($res_id);

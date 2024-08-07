@@ -25,6 +25,7 @@ include_once 'page/newUserPage.php';
 include_once 'controller/new_user.php';
 include_once 'page/editUserPage.php';
 include_once 'controller/edit_user.php';
+include_once 'controller/logout.php';
 
 $about_us = new AboutUsPage();
 $homepage = new HomePage();
@@ -42,6 +43,8 @@ $newUserPage = new newUserPage();
 $newUser = new NewUser();
 $editUserPage = new EditUserPage();
 $editUser = new EditUser();
+$logout = new Logout();
+
 
 $router = new Router();
 
@@ -67,3 +70,4 @@ $router->add(new StaticPage('utenti/nuovo', $newUserPage));
 $router->add($newUser);
 $router->add(new StaticPage('utenti/modifica', $editUserPage));
 $router->add($editUser);
+$router->add($logout);
