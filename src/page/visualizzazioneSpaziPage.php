@@ -61,7 +61,7 @@ class VisualizzazioneSpaziPage extends Page
             $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
             $filtered = []; 
 
-            var_dump($result);
+            //var_dump($result);
 
             if ($tipo != "" || $data_inizio != "" || $data_fine != "") {
                 if ($tipo != "") {
@@ -72,7 +72,6 @@ class VisualizzazioneSpaziPage extends Page
                     }
                 }
                 if ($data_inizio != "" && $data_fine != "") {
-
                     $diq = explode(" ", $data_inizio)[0] . " 00:00:00";
                     $dfq = explode(" ", $data_fine)[0] . " 23:59:59";
                     $query = 'SELECT * FROM PRENOTAZIONE WHERE DataInizio >= ? AND DataFine <= ?';
@@ -87,7 +86,6 @@ class VisualizzazioneSpaziPage extends Page
                     try {
                         $stmt->execute();
                         $prenotazioni = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-
 
                         if (count($prenotazioni) != 0)  {
                             // filtro per data
@@ -114,6 +112,7 @@ class VisualizzazioneSpaziPage extends Page
                             }
                         }
                     } catch (Exception $e) {
+                        echo $e->getMessage();
                         return false;
                     }
                 }

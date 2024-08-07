@@ -3,9 +3,25 @@
     <p><strong>Tipo:</strong> {{ tipo spazio }} </p>
     <p><strong>Descrizione:</strong> {{ descrizione spazio }} </p>
     <p><strong>Numero di Tavoli:</strong> {{ numero tavoli spazio }} </p>
+    <p><strong>Immagine:</strong> {{ immagine }} </p>
 </section>
 
 <section id="prenotazioni">
     <h2>Prenotazioni</h2>
-    {{ prenotazioni }}
+    <table aria-describedby="descrizione-tabella">
+        <caption>Informazioni sulle prenotazioni</caption>
+        <thead>
+            <tr>
+                <th scope='col'>Data Inizio</th>
+                <th scope='col'>Data Fine</th>
+                <th scope='col'>Nome</th>
+                <th scope='col'>Cognome</th>
+                <th scope='col'>Descrizione</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ righe tabella }}
+        </tbody>
+    </table>
+    <p id="descrizione-tabella">questa tabella mostra le prenotazioni per lo spazio</p>
 </section>

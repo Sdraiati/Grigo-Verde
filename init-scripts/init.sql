@@ -54,7 +54,7 @@ INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('misto_seg
 
 INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (23, 'prova_in_culo', 'descrizione_in_culo', 'indovina?bravo_in_culo', 99999999);
 
-INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (3, 'tiglio', "un' aula verde vicino alla statua", 'aula verde', 20);
+INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (3, 'tiglio', "un aula verde vicino alla statua", 'aula verde', 20);
 INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (2, 'ginepro', "un' aula verde vicino alle palestre di ginnastica", 'aula verde', 20);
 
 INSERT INTO DISPONIBILITA (Spazio, Mese, Giorno_settimana, Orario_apertura, Orario_chiusura) VALUES (3, 'Agosto', 'Lunedì', '08:00:00', '18:00:00');
@@ -83,3 +83,4 @@ INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) V
 
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-08-12 14:00:00', '2024-08-12 16:00:00', 'user', 2, 'attivita didattica');
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-08-12 14:00:00', '2024-08-12 16:00:00', 'user', 3, 'napoleone');
+INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-08-12 18:00:00', '2024-08-12 20:00:00', 'user', 3, 'dsfg');
