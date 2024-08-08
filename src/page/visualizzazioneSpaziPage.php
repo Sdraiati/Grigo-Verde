@@ -158,17 +158,29 @@ class VisualizzazioneSpaziPage extends Page
             $intestazione_pagina = str_replace($unchecked, $checked, $intestazione_pagina);
         }
 
-        if ($this->data_inizio != "") {
-            $unchecked = '<input type="datetime-local" name="Data_inizio" id="Data_inizio" />';
-            $checked = '<input type="datetime-local" name="Data_inizio" id="Data_inizio" value="' . $this->data_inizio . '"/>';
-            $intestazione_pagina = str_replace($unchecked, $checked, $intestazione_pagina);
+        if ($this->data_inizio != "" && $this->data_fine != "") { 
+            $data = explode(" ", $this->data_inizio)[0];
+            $start = explode(" ", $this->data_inizio)[1];
+            $end = explode(" ", $this->data_fine)[1];
+
+            $date_picker = '<input type="date" id="data" name="data"/>';
+            $date_picker_r = '<input type="date" id="data" name="data" value="' . $data .  '"/>';
+            $start_picker = '<input type="time" id="orario_inizio" name="orario_inizio">';
+            $start_picker_r = '<input type="time" id="orario_inizio" name="orario_inizio" value="' . $start .'">';
+            $end_picker = '<input type="time" id="orario_fine" name="orario_fine">';
+            $end_picker_r = '<input type="time" id="orario_fine" name="orario_fine" value="' . $end .'">';
+            // $unchecked = '<input type="datetime-local" name="Data_inizio" id="Data_inizio" />';
+            // $checked = '<input type="datetime-local" name="Data_inizio" id="Data_inizio" value="' . $this->data_inizio . '"/>';
+            $intestazione_pagina = str_replace($date_picker, $date_picker_r, $intestazione_pagina);
+            $intestazione_pagina = str_replace($start_picker, $start_picker_r, $intestazione_pagina);
+            $intestazione_pagina = str_replace($end_picker, $end_picker_r, $intestazione_pagina);
         }
 
-        if ($this->data_fine != "") {
-            $unchecked = '<input type="datetime-local" name="Data_fine" id="Data_fine" />';
-            $checked = '<input type="datetime-local" name="Data_fine" id="Data_fine" value="' . $this->data_fine . '"/>';
-            $intestazione_pagina = str_replace($unchecked, $checked, $intestazione_pagina);
-        }
+        // if ($this->data_fine != "") {
+        //     $unchecked = '<input type="datetime-local" name="Data_fine" id="Data_fine" />';
+        //     $checked = '<input type="datetime-local" name="Data_fine" id="Data_fine" value="' . $this->data_fine . '"/>';
+        //     $intestazione_pagina = str_replace($unchecked, $checked, $intestazione_pagina);
+        // }
 
         // lista degli spazi
         $lista_debug = $this->filtra_spazi($this->tipo, $this->data_inizio, $this->data_fine);
