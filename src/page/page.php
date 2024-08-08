@@ -5,6 +5,7 @@ include_once $project_root . '/global_values.php';
 include_once 'referenceList.php';
 include_once 'breadcrumb.php';
 include_once $project_root . '/controller/autenticazione.php';
+require_once $project_root . '/page/resource_not_found.php';
 
 class Page
 {
@@ -51,10 +52,9 @@ class Page
         if (file_exists($filename)) {
             return file_get_contents($filename);
         }
-        http_response_code(404);
-        echo '404 Not Found';
-        echo '<br>';
-        echo $path;
+        $page = new ResourceNotFoundPage();
+        $page->setPath($this->path);
+        echo $page->render();
         exit;
     }
 

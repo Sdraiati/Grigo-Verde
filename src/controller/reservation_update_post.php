@@ -5,6 +5,7 @@ $project_root = dirname(__FILE__, 2);
 require_once $project_root . '/model/prenotazione.php';
 require_once $project_root . '/model/disponibilità.php';
 require_once $project_root . '/page/prenotazioneFormPage.php';
+require_once $project_root . '/page/unauthorized.php';
 
 class ReservationUpdatePost extends Endpoint
 {
@@ -94,7 +95,9 @@ class ReservationUpdatePost extends Endpoint
         $prenotazione = new Prenotazione();
 
         if (!Autenticazione::is_amministratore() && $prenotazione->prendi_by_id($this->reservation_id)['Username'] !== $username) {
-            echo 403; // Todo: unauthorized
+            $page = new UnauthorizedPage();
+            $page->setPath($this->path);
+            echo $page->render();
             return;
         }
 
