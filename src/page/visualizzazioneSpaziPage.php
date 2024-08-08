@@ -20,22 +20,28 @@ class VisualizzazioneSpaziPage extends Page
     private string $tipo;
     private string $data_inizio;
     private string $data_fine;
-    public $title = 'VisualizzazioneSpazi';
-    public $nav = [
-        'About us' => 'about_us',
-    ];
-    public $breadcrumb = [
-        'Home' => '',
-    ];
-    public $keywords = ["Grigo verde", "aule verdi", "Liceo Scientifico", "M. Grigoletti", "scuola superiore", "Pordenone", "prenotazione", "area ping pong"];
-    public $path = '/visualizzazione_spazi';
+    // public $title = 'VisualizzazioneSpazi';
+    // public $nav = [
+    //     'About us' => 'about_us',
+    // ];
+    // public $breadcrumb = [
+    //     'Home' => '',
+    // ];
+    // public $keywords = ["Grigo verde", "aule verdi", "Liceo Scientifico", "M. Grigoletti", "scuola superiore", "Pordenone", "prenotazione", "area ping pong"];
+    // public $path = '/visualizzazione_spazi';
 
     public function __construct(string $tipo = "", string $data_inizio = "", string $data_fine = "") {
-        parent::setTitle('Viualizzazione Spazi');
-        parent::setNav([]);
-        parent::setBreadcrumb([
-            'Home' => '',
-        ]);
+        // parent::setTitle('Viualizzazione Spazi');
+        // parent::setNav([]);
+        // parent::setBreadcrumb([
+        //     'Home' => '',
+        // ]);
+
+        parent::__construct();
+        $this->setTitle('<span lang="en">Visualizzazione Spazi </span>');
+        $this->setBreadcrumb([]);
+        $this->addKeywords([""]);
+        $this->setPath('/spazi');
 
         $this->tipo = $tipo;
         $this->data_inizio = $data_inizio;
@@ -61,9 +67,10 @@ class VisualizzazioneSpaziPage extends Page
             $stmt->execute();
             $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
-            var_dump($tipo);
-            var_dump($data_inizio);
-            var_dump($data_fine);
+            // DEBUG
+            // var_dump($tipo);
+            // var_dump($data_inizio);
+            // var_dump($data_fine);
 
             if ($tipo == "" && $data_inizio == "" && $data_fine == "") {
                 return $result;
