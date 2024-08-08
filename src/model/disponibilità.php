@@ -84,7 +84,7 @@ class Disponibilita extends Model
                 $orario_apertura = $apertura['Orario_apertura'];
                 $orario_chiusura = $apertura['Orario_chiusura'];
 
-                if ($begin_time >= $orario_apertura && $end_time <= $orario_chiusura) {
+                if ($begin_time . ":00" >= $orario_apertura && $end_time . ":00" <= $orario_chiusura) {
                     return true;
                 }
             }
