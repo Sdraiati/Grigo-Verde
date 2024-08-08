@@ -5,11 +5,13 @@ include_once 'page.php';
 include_once 'model/spazio.php';
 
 // classe item
-class SpazioItem {
+class SpazioItem
+{
 
     // renderizza uno spazio
     // $params: array contenente i valori dei campi spazio
-    public function render($values) {
+    public function render($values)
+    {
         $item = '<li id="' . $values["Posizione"] . '">' . $values["Nome"] . " </li>";
         return $item;
     }
@@ -20,19 +22,14 @@ class VisualizzazioneSpaziPage extends Page
     private string $tipo;
     private string $data_inizio;
     private string $data_fine;
-    public $title = 'VisualizzazioneSpazi';
-    public $nav = [
-        'About us' => 'about_us',
-    ];
-    public $breadcrumb = [
-        'Home' => '',
-    ];
-    public $keywords = ["Grigo verde", "aule verdi", "Liceo Scientifico", "M. Grigoletti", "scuola superiore", "Pordenone", "prenotazione", "area ping pong"];
-    public $path = '/visualizzazione_spazi';
+    //    public $keywords = ["Grigo verde", "aule verdi", "Liceo Scientifico", "M. Grigoletti", "scuola superiore", "Pordenone", "prenotazione", "area ping pong"];
 
-    public function __construct(string $tipo = "", string $data_inizio = "", string $data_fine = "") {
+    public function __construct(string $tipo = "", string $data_inizio = "", string $data_fine = "")
+    {
         parent::setTitle('Viualizzazione Spazi');
-        parent::setNav([]);
+        parent::setNav([
+            'About us' => 'about_us',
+        ]);
         parent::setBreadcrumb([
             'Home' => '',
         ]);
@@ -42,16 +39,17 @@ class VisualizzazioneSpaziPage extends Page
         $this->data_fine = $data_fine;
     }
 
-    private function filtra_spazi($tipo, $data_inizio, $data_fine) {
+    private function filtra_spazi($tipo, $data_inizio, $data_fine)
+    {
 
         $debug_query = "SELECT * FROM SPAZIO;";
         // binding dei parametri
         $params = [];
 
         // prendere un'istanza del db.
-        $db = Database::getInstance(); 
+        $db = Database::getInstance();
         $stmt = $db->bindParams($debug_query, $params);
-        
+
         if ($stmt === false) {
             return false;
         }
@@ -59,13 +57,13 @@ class VisualizzazioneSpaziPage extends Page
 
             $stmt->execute();
             $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-            $filtered = []; 
+            $filtered = [];
 
             //var_dump($result);
 
             if ($tipo != "" || $data_inizio != "" || $data_fine != "") {
                 if ($tipo != "") {
-                    for ($i=0; $i < count($result); $i++) { 
+                    for ($i = 0; $i < count($result); $i++) {
                         if ($result[$i]["Tipo"] == $tipo) {
                             array_push($filtered, $result[$i]);
                         }
@@ -78,7 +76,7 @@ class VisualizzazioneSpaziPage extends Page
                     $params = [
                         ['type' => 's', 'value' => $diq],
                         ['type' => 's', 'value' => $dfq],
-                    ];                    
+                    ];
                     $stmt = $db->bindParams($query, $params);
                     if ($stmt == false) {
                         return false;
@@ -87,14 +85,14 @@ class VisualizzazioneSpaziPage extends Page
                         $stmt->execute();
                         $prenotazioni = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
-                        if (count($prenotazioni) != 0)  {
+                        if (count($prenotazioni) != 0) {
                             // filtro per data
                             $current_space = $prenotazioni[0]["Spazio"];
                             $overlap = false;
-                            for ($i=0; $i < count($prenotazioni); $i++) { 
+                            for ($i = 0; $i < count($prenotazioni); $i++) {
                                 if ($prenotazioni[$i]["Spazio"] != $current_space) {
                                     if ($overlap) { // l'intervallo selezionato va in conflitto con le altre prenotazioni.
-                                        for ($j=0; $j < count($filtered); $j++) { 
+                                        for ($j = 0; $j < count($filtered); $j++) {
                                             if ($filtered[$j]["Spazio"] == $current_space) {
                                                 array_splice($filtered, $j, $j);
                                                 $j = count($filtered); // uscire dal ciclo non appena si trova l'elemento da scartare.
@@ -102,10 +100,10 @@ class VisualizzazioneSpaziPage extends Page
                                         }
                                     }
                                     $current_space = $prenotazioni[$i]["Spazio"];
-                                } 
+                                }
                                 $pdi = $prenotazioni[$i]["DataInizio"];
                                 $pdf = $prenotazioni[$i]["DataFine"];
-                                if (($pdi > $data_inizio && $pdi < $data_fine) || ($pdf > $data_inizio && $pdf < $data_fine)) { 
+                                if (($pdi > $data_inizio && $pdi < $data_fine) || ($pdf > $data_inizio && $pdf < $data_fine)) {
                                     // in questo caso vi è una prenotazione che si sovrappone.
                                     $overlap = true;
                                 }
@@ -117,18 +115,18 @@ class VisualizzazioneSpaziPage extends Page
                     }
                 }
                 return $filtered;
-            } 
+            }
             return $result;
         } catch (Exception $e) {
             return false;
         }
     }
 
-    public function render() 
+    public function render()
     {
         $content = parent::render();
 
-        $intestazione_pagina = $this->getContent('visualizzazione_spazi_page'); 
+        $intestazione_pagina = $this->getContent('visualizzazione_spazi_page');
 
         // Renderizzare i filtri se ce ne sono. 
         if ($this->tipo != "") {
@@ -156,7 +154,7 @@ class VisualizzazioneSpaziPage extends Page
         if ($lista_debug) {
             $lista_spazi = "";
             $spazioItem = new SpazioItem();
-            for ($i=0; $i < count($lista_debug); $i++) { 
+            for ($i = 0; $i < count($lista_debug); $i++) {
                 $values = [];
                 $values["Posizione"] = ($lista_debug[$i]["Posizione"]);
                 $values["Nome"] = ($lista_debug[$i]["Nome"]);
@@ -170,19 +168,18 @@ class VisualizzazioneSpaziPage extends Page
             $intestazione_pagina = str_replace("{{ lista }}", $lista_spazi, $intestazione_pagina);
 
             $content = str_replace("{{ content }}", $intestazione_pagina, $content);
-            $content = str_replace("href=\"/\"", "href=\"#\"", $content);
-            $content = str_replace('{{ base_path }}', BASE_URL, $content);
-            $content = str_replace("{{ error }}", '', $content);
-        
+            $content = str_replace("href=\"/\"", "href=\"#\"", $content);   // todo: check if and why this is needed (this should never be needed)
+            $content = str_replace('{{ base_path }}', BASE_URL, $content);  // todo: check if and why this is needed
+            $content = str_replace("{{ error }}", '', $content);            // todo: check if and why this is needed
         } else {
             $lista_spazi = " <p> non sono stati trovai degli spazi corrispondenti ai parametri della ricerca <p>";
 
             $intestazione_pagina = str_replace("{{ lista }}", $lista_spazi, $intestazione_pagina);
 
             $content = str_replace("{{ content }}", $intestazione_pagina, $content);
-            $content = str_replace("href=\"/\"", "href=\"#\"", $content);
-            $content = str_replace('{{ base_path }}', BASE_URL, $content);
-            $content = str_replace("{{ error }}", '', $content);
+            $content = str_replace("href=\"/\"", "href=\"#\"", $content);   // idem as above
+            $content = str_replace('{{ base_path }}', BASE_URL, $content);  // idem as above
+            $content = str_replace("{{ error }}", '', $content);            // idem as above
         }
         return $content;
     }
