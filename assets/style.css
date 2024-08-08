@@ -12,6 +12,7 @@
         --primaryColor: #335833;
         --secondaryColor: #73dec1;
         --errorMessageColor: red;
+        --shadow: 0 0 0.4rem 0.01rem var(--secondaryColor);
     }
 }
 
@@ -22,12 +23,12 @@
         --primaryColor: #73dec1;
         --secondaryColor: #335833;
         --errorMessageColor: #ffa0ff;
+        --shadow: 0 0 0.4rem 0.01rem var(--secondaryColor);
     }
 }
 
 :root {
     --round-radius: 0.4rem;
-    --shadow: 0 0 0.4rem 0.01rem var(--secondaryColor);
 }
 
 /* --------- MOBILE BREAKPOINT --------- */
@@ -246,20 +247,6 @@ main p {
     margin: 0 auto;
 }
 
-#message {
-    position: fixed;
-    top: 20%;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 0 1rem;
-    border-radius: var(--round-radius);
-    font-size: 1em;
-    z-index: 1000;
-    text-align: center;
-    background-color: var(--primaryColor);
-    color: var(--backgroundColor);
-    border: 0.1rem solid var(--backgroundColor);
-}
 /* --------- FOOTER --------- */
 
 #back-to-top {
