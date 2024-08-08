@@ -4,6 +4,7 @@ $project_root = dirname(__FILE__, 2);
 include_once $project_root . '/global_values.php';
 include_once 'referenceList.php';
 include_once 'breadcrumb.php';
+include_once $project_root . '/controller/autenticazione.php';
 
 class Page
 {
@@ -22,6 +23,15 @@ class Page
     {
         $this->title = $title;
         $this->path = $path;
+    }
+
+    protected function makeLogin()
+    {
+        if (Autenticazione::isLogged()) {
+            return '<a href="dashboard"><span lang="en">Dashboard</span></a>';
+        } else {
+            return '<a href="login"><span lang="en">Login</span></a>';
+        }
     }
 
     protected function getContent($path)
@@ -84,6 +94,7 @@ class Page
         $content = $this->getContent('layout');
         $content = str_replace('{{ base_path }}', BASE_URL, $content);
         $content = str_replace('{{ title }}', $this->title . ' - Grigo Verde', $content);
+        $content = str_replace('{{ login }}', $this->makeLogin(), $content);
         $content = str_replace('{{ description }}', 'This is a description', $content);
         $content = str_replace('{{ keywords }}', implode(', ', $this->keywords), $content);
         $content = str_replace('{{ page_path }}', $this->path, $content);

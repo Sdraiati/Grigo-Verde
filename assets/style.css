@@ -120,8 +120,26 @@ a:visited {
 
 /* --------- HEADER --------- */
 
+.helper {
+    position: absolute;
+    top: -999px;
+    left: 0px;
+}
+
+.helper:focus {
+    top: 0px;
+}
+
+
 header {
     margin: 0 auto;
+}
+
+#logo-login {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
 }
 
 #logoLink img {
@@ -140,14 +158,8 @@ header {
 
 }
 
-.helper {
-    position: absolute;
-    top: -999px;
-    left: 0px;
-}
-
-.helper:focus {
-    top: 0px;
+#loginLink {
+    text-align: right;
 }
 
 #menu ul {

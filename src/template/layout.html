@@ -24,13 +24,19 @@
     <header>
         <a href="{{ page_path }}#content" class="helper">Vai al contenuto</a>
 
-        <nav id="logoLink" aria-label="Torna alla Home">
-            <a href="">
-                <img src="logo.png"
-                    alt="Una “G” da “Grigoletti” verde “Green”, decorata dalla natura stessa. Il logo di Grigo Verde" />
-                Grigo Verde
-            </a>
-        </nav>
+        <div id="logo-login">
+            <nav id="logoLink" aria-label="Torna alla Home">
+                <a href="">
+                    <img src="logo.png"
+                        alt="Una “G” da “Grigoletti” verde “Green”, decorata dalla natura stessa. Il logo di Grigo Verde" />
+                    Grigo Verde
+                </a>
+            </nav>
+
+            <nav id="loginLink" aria-label="Area riservata">
+                {{ login }}
+            </nav>
+        </div>
 
         <nav id="menu" aria-label="Barra di navigazione">
             <ul>
