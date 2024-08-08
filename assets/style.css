@@ -76,6 +76,11 @@
         --shortContent: 36%;
         --content: 70%;
     }
+
+    #menu {
+        border-radius: var(--round-radius);
+    }
+
 }
 
 /* --------- TYPOGRAPHY --------- */
@@ -167,7 +172,6 @@ header {
 
 #menu {
     padding: 1rem;
-    border-radius: var(--round-radius);
     background-color: var(--primaryColor);
     color: var(--backgroundColor);
 }

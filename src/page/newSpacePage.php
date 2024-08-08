@@ -4,6 +4,8 @@ include_once 'loginPage.php';
 $project_root = dirname(__FILE__, 2);
 include_once 'controller/new_space.php';
 include_once 'model/utente.php';
+require_once $project_root . '/page/unauthorized.php';
+
 class newSpacePage extends Page
 {
     private int $posizione = -1;
@@ -11,6 +13,7 @@ class newSpacePage extends Page
     private string $descrizione = '';
     private string $tipo = '';
     private int $n_tavoli = 0;
+    private string $error = '';
     public function __construct(int $posizione = -1, string $nome = "", string $descrizione = '', string $tipo = "", int $n_tavoli = 0, string $error = '')
     {
         parent::__construct();
@@ -40,7 +43,9 @@ class newSpacePage extends Page
             return $page->render();
         }
         if (!Autenticazione::is_amministratore()) {
-            return "Non hai i permessi per accedere a questa pagina"; //TODO: 403 forbidden page
+            $page = new UnauthorizedPage();
+            $page->setPath($this->path);
+            echo $page->render();
         }
         $content = parent::render();
         $content = str_replace("{{ content }}", $this->getContent('new_space'), $content);
