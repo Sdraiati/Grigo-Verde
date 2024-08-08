@@ -1,7 +1,7 @@
 <?php
 require_once 'endpoint.php';
 require_once 'autenticazione.php';
-require_once 'model/utente';
+include_once 'model/utente.php';
 
 class DashboardDocente extends Endpoint
 {
@@ -13,17 +13,13 @@ class DashboardDocente extends Endpoint
 
     public function validate(): bool
     {
-        if(isset($_COOKIE['LogIn']))
+        $auth = new Autenticazione();
+        if($auth->isLogged() && !$auth->is_amministratore())
         {
-            $user = new Utente();
-            
-            //controllo se l'username appartiene ad un utente docente
-            $this->docente_nome = $_COOKIE['LogIn'];
+            $this->docente_nome = $_SESSION['username'];
             return true;
         }
-        else{
-            return false;
-        }
+        return false;
     }
 
 

@@ -28,6 +28,8 @@ include_once 'controller/edit_user.php';
 include_once 'controller/logout.php';
 include_once 'controller/dashboardDocente.php';
 include_once 'page/dashboardDocentePage.php';
+include_once 'controller/dashboardAmministratore.php';
+include_once 'page/dashboardAmministratorePage.php';
 include_once 'page/editPasswordPage.php';
 include_once 'controller/edit_password.php';
 
@@ -62,6 +64,7 @@ $router->add(new StaticPage('spazi/nuovo', $newSpacePage));
 $router->add($newSpace);
 $router->add(new DettaglioSpazio());
 $router->add(new DashboardDocente());
+$router->add(new DashboardAmministratore());
 $router->add(new StaticPage('spazi/modifica', $editSpacePage));
 $router->add($editSpace);
 $router->add(new StaticPage('dashboard/nuova-prenotazione', $newPrenotazionePage));
