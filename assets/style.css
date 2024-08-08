@@ -27,6 +27,10 @@
     }
 }
 
+:root {
+    --round-radius: 0.4rem;
+}
+
 /* --------- MOBILE BREAKPOINT --------- */
 
 @media screen and (max-width: 767px) {
@@ -106,7 +110,7 @@ a {
     color: var(--backgroundColor);
     background-color: var(--primaryColor);
     padding: 0.3rem;
-    border-radius: 0.4rem;
+    border-radius: var(--round-radius);
 }
 
 a:visited {
@@ -162,10 +166,27 @@ header {
     text-align: right;
 }
 
+#menu {
+    padding: 1rem;
+    border-radius: var(--round-radius);
+    background-color: var(--primaryColor);
+    color: var(--backgroundColor);
+}
+
 #menu ul {
     display: flex;
     gap: 1rem;
     list-style: none;
+}
+
+#menu a {
+    color: var(--primaryColor);
+    background-color: var(--backgroundColor);
+}
+
+#menu a:visited {
+    background-color: var(--primaryColor);
+    color: var(--backgroundColor);
 }
 
 #breadcrumbs ol {
@@ -255,7 +276,7 @@ footer {
 
 form {
     padding: 1.5rem;
-    border-radius: 0.4rem;
+    border-radius: var(--round-radius);
     box-shadow: var(--shadow);
     margin: 0 auto;
 }
@@ -292,7 +313,7 @@ input[type="password"] {
     padding: 0.5rem;
     margin-bottom: 1rem;
     border: 0.1rem solid var(--primaryColor);
-    border-radius: 0.4rem;
+    border-radius: var(--round-radius);
     background-color: var(--backgroundColor);
     color: var(--textColor);
 }
@@ -311,7 +332,7 @@ input[type="submit"] {
     background-color: var(--primaryColor);
     color: var(--backgroundColor);
     border: none;
-    border-radius: 0.4rem;
+    border-radius: var(--round-radius);
     cursor: pointer;
     font-size: 1.1em;
     box-shadow: var(--shadow);
