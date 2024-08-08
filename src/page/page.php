@@ -25,6 +25,15 @@ class Page
         $this->path = $path;
     }
 
+    protected function makeMessage()
+    {
+        if (isset($_SESSION['message'])) {
+            return '<div id="message"><p>' . $_SESSION['message'] . '</div>';
+        } else {
+            return '';
+        }
+    }
+
     protected function makeLogin()
     {
         if (Autenticazione::isLogged()) {
@@ -98,6 +107,8 @@ class Page
         $content = str_replace('{{ description }}', 'This is a description', $content);
         $content = str_replace('{{ keywords }}', implode(', ', $this->keywords), $content);
         $content = str_replace('{{ page_path }}', $this->path, $content);
+        $content = str_replace('{{ message }}', $this->makeMessage(), $content);
+
 
         // Pass the current path to ReferenceList
         $nav = new ReferenceList($this->nav, $this->path);
