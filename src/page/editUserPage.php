@@ -74,9 +74,16 @@ class editUserPage extends Page
 
         $content = str_replace("{{ action }}", $this->path, $content);
         $content = str_replace("{{ operazione }}", "Modifica", $content);
-        $content = str_replace("{{ disabled }}", 'disabled', $content);
-        $content = str_replace("{{ hidden_input }}", '<input type="hidden" id="username_hidden" name="username" value="{{ username }}">', $content);
-        $content = str_replace("{{ password_fields }}", '', $content);
+        $content = str_replace("{{ normal_input }}", '', $content);
+        $content = str_replace("{{ hidden_input }}",
+            '<input type="hidden" id="username_hidden" name="username" value="{{ username }}">',
+            $content);
+        $content = str_replace("{{ hide-password-fields }}",
+            'class=\'hidden\' disabled', $content);
+        $content = str_replace("{{ edit_password_button }}",
+            '<input type="button" id="edit_password_button" value="Modifica password" 
+                    onclick="showEditPassword()">', $content);
+        $content = str_replace("{{ password-required }}", '', $content);
 
         if($this->nome != '') {
             $content = str_replace("{{ nome }}", $this->nome, $content);
@@ -96,7 +103,6 @@ class editUserPage extends Page
             $content = str_replace("{{ nome }}", '', $content);
             $content = str_replace("{{ cognome }}", '', $content);
             $content = str_replace("{{ username }}", '', $content);
-            $content = str_replace("{{ password }}", '', $content);
             $content = str_replace("{{ selectedDefault }}", 'selected', $content);
             $content = str_replace("{{ selectedAmministratore }}", '', $content);
             $content = str_replace("{{ selectedDocente }}", '', $content);

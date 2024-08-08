@@ -9,6 +9,13 @@ document.addEventListener("DOMContentLoaded", function(_) {
             back_to_top_button.style.display = "none";
         }
     }
+
+    let message = document.getElementById("message");
+    if (message) {
+        setTimeout(function() {
+            message.remove();
+        }, 3000);
+    }
 })
 
 function toggleView(name = "password") {
@@ -44,6 +51,7 @@ function removeErrorDivs() {
 function validateString(element, str, min = Number.MIN_SAFE_INTEGER, max = Number.MAX_SAFE_INTEGER, show_char_number = false, spaces = false) {
     const specialCharPattern = /[{}\[\]|`¬¦!"£$%^&*<>:;#~_\-+=,@]/;
     if (str === '') {
+        console.log("metto errore");
         insertErrorMessage(element, "Il campo non può essere vuoto.");
         return false;
     }
@@ -271,9 +279,7 @@ function addImage() {
     imgCount++;
 
     let add_image_button = document.getElementById("add_img_button");
-    if (add_image_button === null) {
-        console.log("nooo");
-    }
+
     add_image_button.parentNode.insertBefore(image_div, add_image_button);
     //TODO: teniamo una sola immagine quindi dopo l'aggiunta di una nuova immagine rimuoviamo il pulsante
     if (imgCount === 1)
@@ -321,10 +327,8 @@ function validatePrenotazione() {
     return true;
 }
 
-function validateNewUser()
-{
+function validateNewUser() {
     let username = document.getElementsByName("username")[0].value;
-    let password = document.getElementsByName("password")[0].value;
     let nome = document.getElementsByName("nome")[0].value;
     let cognome = document.getElementsByName("cognome")[0].value;
     let ruolo = document.getElementsByName("ruolo")[0].value;
@@ -332,30 +336,44 @@ function validateNewUser()
     let ruolo_element = document.getElementsByName("ruolo")[0];
     removeErrorDivs();
 
-    if(ruolo !== "Amministratore" && ruolo !== "Docente")
-    {
+    if (ruolo !== "Amministratore" && ruolo !== "Docente") {
         insertErrorMessage(ruolo_element, "Il ruolo deve essere Amministratore o Docente.");
         return false;
     }
 
     let username_element = document.getElementsByName("username")[0];
-    let password_element = document.getElementsByName("password")[0];
     let nome_element = document.getElementsByName("nome")[0];
     let cognome_element = document.getElementsByName("cognome")[0];
 
     let isUsernameValid = validateString(username_element, username, 4, 50, true, true);
-    let isPasswordValid = validateString(password_element, password, 4, 100, true, true);
+
     let isNomeValid = validateString(nome_element, nome, 2, 70, true, false);
     let isCognomeValid = validateString(cognome_element, cognome, 2, 70, true, false);
 
+    isPasswordValid = validatePassword();
+
+    return isUsernameValid && isPasswordValid && isNomeValid && isCognomeValid;
+}
+
+function showEditPassword() {
+    let fieldset = document.getElementById("password-fields");
+    fieldset.classList.remove("hidden");
+    fieldset.disabled = false;
+}
+
+function validatePassword() {
+    let password = document.getElementsByName("password")[0].value;
+    let password_element = document.getElementsByName("password")[0];
+    // check if fieldset with id password-fields is enabled
+    let password_fieldset = document.getElementById("password-fields");
+    if (password_fieldset && !password_fieldset.disabled)
+        isPasswordValid = validateString(password_element, password, 4, 100, true, true);
     //check if the password corresponds to the value in conferma password
     let conferma_password = document.getElementsByName("conferma_password")[0].value;
     let conferma_password_element = document.getElementsByName("conferma_password")[0];
-    if(password !== conferma_password)
-    {
+    if (password !== conferma_password) {
         insertErrorMessage(conferma_password_element, "Le password non corrispondono.");
         return false;
     }
-
-    return isUsernameValid && isPasswordValid && isNomeValid && isCognomeValid;
+    return isPasswordValid;
 }

@@ -4,6 +4,7 @@ $project_root = dirname(__FILE__, 2);
 include_once $project_root . '/global_values.php';
 include_once 'referenceList.php';
 include_once 'breadcrumb.php';
+include_once $project_root . '/controller/autenticazione.php';
 
 class Page
 {
@@ -22,6 +23,24 @@ class Page
     {
         $this->title = $title;
         $this->path = $path;
+    }
+
+    protected function makeMessage()
+    {
+        if (isset($_SESSION['message'])) {
+            return '<div id="message"><p>' . $_SESSION['message'] . '</div>';
+        } else {
+            return '';
+        }
+    }
+
+    protected function makeLogin()
+    {
+        if (Autenticazione::isLogged()) {
+            return '<a href="dashboard"><span lang="en">Dashboard</span></a>';
+        } else {
+            return '<a href="login"><span lang="en">Login</span></a>';
+        }
     }
 
     protected function getContent($path)
@@ -74,8 +93,7 @@ class Page
     // TODO: check circular reference
     protected function takeOffCircularReference($content)
     {
-        // Example implementation: replacing current path with '#'
-        return $content; //str_replace('href="' . $this->path . '"', 'href="#"', $content);
+        return str_replace('href="' . $this->path . '"', 'href="#"', $content);
     }
 
     // path is the path of the page, which is used to skip the navbar and jump
@@ -85,9 +103,12 @@ class Page
         $content = $this->getContent('layout');
         $content = str_replace('{{ base_path }}', BASE_URL, $content);
         $content = str_replace('{{ title }}', $this->title . ' - Grigo Verde', $content);
+        $content = str_replace('{{ login }}', $this->makeLogin(), $content);
         $content = str_replace('{{ description }}', 'This is a description', $content);
         $content = str_replace('{{ keywords }}', implode(', ', $this->keywords), $content);
         $content = str_replace('{{ page_path }}', $this->path, $content);
+        $content = str_replace('{{ message }}', $this->makeMessage(), $content);
+
 
         // Pass the current path to ReferenceList
         $nav = new ReferenceList($this->nav, $this->path);

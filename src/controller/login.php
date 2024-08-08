@@ -42,6 +42,7 @@ class Login extends Endpoint
             $page = new LoginPage($this->username, $this->password, "Username e password non possono contenere spazi");
             echo $page->render();
         } elseif (Autenticazione::login($username, $password)) {
+            $_SESSION['message'] = "Benvenuto $username!";
             echo "Pagina utente";
             // $this->redirect('dashboard')
         } else {

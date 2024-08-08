@@ -12,7 +12,6 @@
         --primaryColor: #335833;
         --secondaryColor: #73dec1;
         --errorMessageColor: red;
-        --shadow: 0 0 0.4rem 0.01rem var(--secondaryColor);
     }
 }
 
@@ -23,8 +22,12 @@
         --primaryColor: #73dec1;
         --secondaryColor: #335833;
         --errorMessageColor: #ffa0ff;
-        --shadow: 0 0 0.4rem 0.01rem var(--secondaryColor);
     }
+}
+
+:root {
+    --round-radius: 0.4rem;
+    --shadow: 0 0 0.4rem 0.01rem var(--secondaryColor);
 }
 
 /* --------- MOBILE BREAKPOINT --------- */
@@ -106,7 +109,7 @@ a {
     color: var(--backgroundColor);
     background-color: var(--primaryColor);
     padding: 0.3rem;
-    border-radius: 0.4rem;
+    border-radius: var(--round-radius);
 }
 
 a:visited {
@@ -120,8 +123,26 @@ a:visited {
 
 /* --------- HEADER --------- */
 
+.helper {
+    position: absolute;
+    top: -999px;
+    left: 0px;
+}
+
+.helper:focus {
+    top: 0px;
+}
+
+
 header {
     margin: 0 auto;
+}
+
+#logo-login {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
 }
 
 #logoLink img {
@@ -140,20 +161,31 @@ header {
 
 }
 
-.helper {
-    position: absolute;
-    top: -999px;
-    left: 0px;
+#loginLink {
+    text-align: right;
 }
 
-.helper:focus {
-    top: 0px;
+#menu {
+    padding: 1rem;
+    border-radius: var(--round-radius);
+    background-color: var(--primaryColor);
+    color: var(--backgroundColor);
 }
 
 #menu ul {
     display: flex;
     gap: 1rem;
     list-style: none;
+}
+
+#menu a {
+    color: var(--primaryColor);
+    background-color: var(--backgroundColor);
+}
+
+#menu a:visited {
+    background-color: var(--primaryColor);
+    color: var(--backgroundColor);
 }
 
 #breadcrumbs ol {
@@ -210,13 +242,27 @@ main p {
     margin: 0 auto;
 }
 
+#message {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 1rem;
+    border-radius: var(--round-radius);
+    font-size: 1em;
+    z-index: 1000;
+    text-align: center;
+    background-color: var(--primaryColor);
+    color: var(--backgroundColor);
+    border: 0.1rem solid var(--backgroundColor);
+}
 /* --------- FOOTER --------- */
 
 #back-to-top {
     display: none;
     line-height: 1rem;
     position: fixed;
-    bottom: 1rem;
+    bottom: 6rem;
     right: 1rem;
 }
 
@@ -243,7 +289,7 @@ footer {
 
 form {
     padding: 1.5rem;
-    border-radius: 0.4rem;
+    border-radius: var(--round-radius);
     box-shadow: var(--shadow);
     margin: 0 auto;
 }
@@ -280,7 +326,7 @@ input[type="password"] {
     padding: 0.5rem;
     margin-bottom: 1rem;
     border: 0.1rem solid var(--primaryColor);
-    border-radius: 0.4rem;
+    border-radius: var(--round-radius);
     background-color: var(--backgroundColor);
     color: var(--textColor);
 }
@@ -299,7 +345,7 @@ input[type="submit"] {
     background-color: var(--primaryColor);
     color: var(--backgroundColor);
     border: none;
-    border-radius: 0.4rem;
+    border-radius: var(--round-radius);
     cursor: pointer;
     font-size: 1.1em;
     box-shadow: var(--shadow);

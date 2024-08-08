@@ -47,23 +47,14 @@ class newUserPage extends Page
 
         $content = str_replace("{{ action }}", $this->path, $content);
         $content = str_replace("{{ operazione }}", "Crea", $content);
-        $content = str_replace("{{ disabled }}", 'required', $content);
+        $content = str_replace("{{ normal_input }}",
+            '<label for="username">Nome utente <span class="required" aria-hidden="true">*</span></label>
+            <input type="text" id="username" name="username" placeholder="Inserire un nome utente" 
+            value="{{ username }}"', $content);
         $content = str_replace("{{ hidden_input }}", '', $content);
-
-        $password_fields =
-            '<label for="password"><span lang="en">Password</span> <span class="required"
-                                                                        aria-hidden="true">*</span></label>
-            <input type="password" id="password" name="password" placeholder="Inserire una password"
-                   value="{{ password }}" required>
-            <input id="mostra-password" type="checkbox" class="mostra-password" onclick="toggleView()">
-            <label for="mostra-password">Mostra <span lang="en">Password</span></label>
-            <label for="conferma_password"><span lang="en">Conferma Password</span> <span class="required"
-                                                                          aria-hidden="true">*</span></label>
-            <input type="password" id="conferma_password" name="conferma_password"
-                   placeholder="Conferma la password" required>
-            <input id="mostra-conferma" type="checkbox" class="mostra-password" onclick="toggleView(\'conferma_password\')">
-            <label for="mostra-conferma">Mostra <span lang="en">Password</span></label>';
-        $content = str_replace("{{ password_fields }}", $password_fields, $content);
+        $content = str_replace("{{ hide-password-fields }}", '', $content);
+        $content = str_replace("{{ edit_password_button }}", '', $content);
+        $content = str_replace("{{ password-required }}", 'required', $content);
 
         if($this->nome != '') {
             $content = str_replace("{{ nome }}", $this->nome, $content);

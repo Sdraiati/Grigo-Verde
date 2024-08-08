@@ -13,13 +13,25 @@
                 <option {{ selectedDocente }} value="Docente">Docente</option>
                 <option {{ selectedAmministratore }} value="Amministratore">Amministratore</option>
             </select>
-            <label for="username">Nome utente <span class="required" aria-hidden="true">*</span></label>
-            <input type="text" id="username" name="username" placeholder="Inserire un nome utente" value="{{ username }}"
-                   {{ disabled }}>
+            {{ normal_input }}
             {{ hidden_input }}
-            {{ password_fields }}
         </fieldset>
         {{ error }}
+        <fieldset id="password-fields" {{ hide-password-fields }}>
+            <legend>Impostazione <span lang="en">Password</span></legend>
+            <label for="password"><span lang="en">Password</span> <span class="required"
+                                                                        aria-hidden="true">*</span></label>
+            <input type="password" id="password" name="password" placeholder="Inserire una password" {{ password-required }}>
+            <input id="mostra-password" type="checkbox" class="mostra-password" onclick="toggleView()">
+            <label for="mostra-password">Mostra <span lang="en">Password</span></label>
+            <label for="conferma_password"><span lang="en">Conferma Password</span> <span class="required"
+                                                                                          aria-hidden="true">*</span></label>
+            <input type="password" id="conferma_password" name="conferma_password"
+                   placeholder="Conferma la password" {{ password-required }}>
+            <input id="mostra-conferma" type="checkbox" class="mostra-password" onclick="toggleView('conferma_password')">
+            <label for="mostra-conferma">Mostra <span lang="en">Password</span></label>
+        </fieldset>
+        {{ edit_password_button }}
         <div>
             <input type="submit" value="{{ operazione }} Utente">
         </div>
