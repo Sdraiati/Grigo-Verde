@@ -59,6 +59,7 @@ abstract class Endpoint
 
     public function match($path, $method): bool
     {
+        //echo "| ".BASE_URL . $this->path." == ".$path ." |";
         return BASE_URL . $this->path === $path && $this->method === $method;
     }
 
