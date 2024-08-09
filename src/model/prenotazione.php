@@ -76,6 +76,24 @@ class Prenotazione extends Model
         return $this->get_all($query, $params);
     }
 
+    public function prendi_per_utente($username, $day=NULL)
+    {
+        if ($day == NULL) {
+            $query = "SELECT * FROM " . $this->table . " WHERE Username = ?";
+            $params = [
+                ['type' => 's', 'value' => $username]
+            ];
+        } else {
+            $query = "SELECT * FROM " . $this->table . " WHERE Username = ? AND DataFine >= ?";
+            $params = [
+                ['type' => 's', 'value' => $username],
+                ['type' => 's', 'value' => $day]
+            ];
+        }
+
+        return $this->get_all($query, $params);
+    }
+
     public function is_available($spazio, $begin_time, $end_time)
     {
         // check if there is no other booking in the same time
