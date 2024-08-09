@@ -78,6 +78,12 @@ class Spazio extends Model
         return $this->get($query, $params);
     }
 
+    public function prendi_tutti_con_immagini() 
+    {
+        $query = "SELECT * FROM SPAZIO LEFT JOIN IMMAGINE ON SPAZIO.Posizione = IMMAGINE.Spazio;";
+        return $this->get_all($query, []);
+    }
+
     public function prendi_tutti()
     {
         $query = "SELECT * FROM " . $this->table;
