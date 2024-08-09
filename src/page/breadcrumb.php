@@ -15,6 +15,7 @@ class Breadcrumb extends ReferenceList
     public function render()
     {
         $content = '<li>Ti trovi in:</li>';
+        parent::setDivider(' > ');
 
         $breadcrumbItems = parent::render();
 
@@ -27,3 +28,4 @@ class Breadcrumb extends ReferenceList
         return $content;
     }
 }
+
