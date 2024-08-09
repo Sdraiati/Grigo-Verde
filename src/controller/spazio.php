@@ -38,19 +38,7 @@ class SpazioEndpoint extends Endpoint
             }
         }
 
-        // DEBUG
-        var_dump($tipo);
-        var_dump($data_inizio);
-        var_dump($data_fine);
-
-        // capire cosa fare con {{ error }}
-        // questo in quanto nel caso in cuoi non vengano inserite sia data di inizio
-        // che data di fine bisogerebbe ritornare un messaggio di errore ù// nel quale si ottiene all'utente di
-        // scegliere tutte e due le date. 
-        if ($error) {
-            echo $error;
-        }
-        $page = new VisualizzazioneSpaziPage($tipo, $data_inizio, $data_fine);
+        $page = new VisualizzazioneSpaziPage($tipo, $data_inizio, $data_fine, $error);
         $page->setPath('spazi');
         $content = $page->render();
         echo $content;

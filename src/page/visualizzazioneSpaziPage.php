@@ -26,6 +26,7 @@ class VisualizzazioneSpaziPage extends Page
     private string $tipo;
     private string $data_inizio;
     private string $data_fine;
+    private string $error;
     // public $title = 'VisualizzazioneSpazi';
     // public $nav = [
     //     'About us' => 'about_us',
@@ -36,7 +37,7 @@ class VisualizzazioneSpaziPage extends Page
     // public $keywords = ["Grigo verde", "aule verdi", "Liceo Scientifico", "M. Grigoletti", "scuola superiore", "Pordenone", "prenotazione", "area ping pong"];
     // public $path = '/visualizzazione_spazi';
 
-    public function __construct(string $tipo = "", string $data_inizio = "", string $data_fine = "") {
+    public function __construct(string $tipo = "", string $data_inizio = "", string $data_fine = "", string $error = "") {
         // parent::setTitle('Viualizzazione Spazi');
         // parent::setNav([]);
         // parent::setBreadcrumb([
@@ -52,6 +53,7 @@ class VisualizzazioneSpaziPage extends Page
         $this->tipo = $tipo;
         $this->data_inizio = $data_inizio;
         $this->data_fine = $data_fine;
+        $this->error = $error;
     }
 
     private function filtra_spazi($tipo, $data_inizio, $data_fine)
@@ -209,16 +211,20 @@ class VisualizzazioneSpaziPage extends Page
             $content = str_replace("{{ content }}", $intestazione_pagina, $content);
             $content = str_replace("href=\"/\"", "href=\"#\"", $content);   // todo: check if and why this is needed (this should never be needed)
             $content = str_replace('{{ base_path }}', BASE_URL, $content);  // todo: check if and why this is needed
-            $content = str_replace("{{ error }}", '', $content);            // todo: check if and why this is needed
         } else {
-            $lista_spazi = " <p> non sono stati trovai degli spazi corrispondenti ai parametri della ricerca <p>";
+            $messaggio = " <p> non sono stati trovai degli spazi corrispondenti ai parametri della ricerca <p>";
 
-            $intestazione_pagina = str_replace("{{ lista }}", $lista_spazi, $intestazione_pagina);
+            $intestazione_pagina = str_replace("{{ lista }}", $messaggio, $intestazione_pagina);
 
             $content = str_replace("{{ content }}", $intestazione_pagina, $content);
             $content = str_replace("href=\"/\"", "href=\"#\"", $content);   // idem as above
             $content = str_replace('{{ base_path }}', BASE_URL, $content);  // idem as above
-            $content = str_replace("{{ error }}", '', $content);            // idem as above
+
+        }
+        if ($this->error) {
+            $content = str_replace("{{ error }}", $this->error, $content);            // idem as above
+        } else {
+            $content = str_replace("{{ error }}", '', $content);            // todo: check if and why this is needed
         }
         return $content;
     }
