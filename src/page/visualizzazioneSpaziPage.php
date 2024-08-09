@@ -56,7 +56,6 @@ class VisualizzazioneSpaziPage extends Page
     {
 
         $debug_query = "SELECT * FROM SPAZIO LEFT JOIN IMMAGINE ON SPAZIO.Posizione = IMMAGINE.Spazio;";
-        // binding dei parametri
         $params = [];
 
         // prendere un'istanza del db.
@@ -127,7 +126,8 @@ class VisualizzazioneSpaziPage extends Page
 
                                     // in questo caso vi è una prenotazione che si sovrappone.
                                     // N.B: funziona ma con il minore stretto.
-                                    if (($pdi >= $data_inizio && $pdi <= $data_fine) || ($pdf >= $data_inizio && $pdf <= $data_fine)) { 
+                                    if (($pdi > $data_inizio && $pdi < $data_fine) || ($pdf > $data_inizio && $pdf < $data_fine) 
+                                    || ($pdi == $data_inizio && $pdf == $data_fine)) { 
 
                                         $overlap = true; // serve per escludere eventuali prenotazioni aventi lo stesso spazio
                                         for ($j=0; $j < count($filtered); $j++) { 
@@ -183,7 +183,7 @@ class VisualizzazioneSpaziPage extends Page
         }
 
         // lista degli spazi
-        $lista_debug = $this->filtra_spazi($this->tipo, $this->data_inizio, $this->data_fine);
+        $lista_debug = $this->filtra_spazi($this->tipo, $this->data_inizio . ":00", $this->data_fine . ":00");
 
         if ($lista_debug) {
             $lista_spazi = "";

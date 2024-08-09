@@ -17,18 +17,16 @@ class SpazioEndpoint extends Endpoint
         $tipo = "";
         $data_inizio = "";
         $data_fine = "";
-        $error = "";
 
         if (isset($_GET['tipo'])) {
             $tipo = $_GET['tipo'];
         }
         if (isset($_GET['data']) && isset($_GET['orario_inizio']) && isset($_GET['orario_fine'])) {
-            
+            $data = $_GET['data'];
+            $start = $_GET['orario_inizio'];
+            $end = $_GET['orario_fine'];
 
             if ($data != "" && $start != "" && $end != "") {
-                $data = $_GET['data'];
-                $start = $_GET['orario_inizio'];
-                $end = $_GET['orario_fine'];
                 $data_inizio = $data . " " . $start . "";
                 $data_fine = $data . " " . $end. "";
             } else {
@@ -37,7 +35,7 @@ class SpazioEndpoint extends Endpoint
         }
 
         // DEBUG
-        // var_dump($tipo);
+        var_dump($tipo);
         var_dump($data_inizio);
         var_dump($data_fine);
 
