@@ -19,6 +19,7 @@ class newSpacePage extends Page
         parent::__construct();
         $this->setTitle('Nuovo Spazio');
         $this->setBreadcrumb([
+            '<span lang="en">Home</span>' => '',
             'Spazi' => 'spazi'
         ]);
         $this->setPath('/spazi/nuovo');

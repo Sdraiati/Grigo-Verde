@@ -26,8 +26,11 @@ class VisualizzazioneSpaziPage extends Page
 
     public function __construct(string $tipo = "", string $data_inizio = "", string $data_fine = "")
     {
+        parent::__construct();
         parent::setTitle('Viualizzazione Spazi');
-        parent::setBreadcrumb([]);
+        parent::setBreadcrumb([
+            '<span lang="en">Home</span>' => '',
+        ]);
 
         $this->tipo = $tipo;
         $this->data_inizio = $data_inizio;

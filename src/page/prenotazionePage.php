@@ -21,7 +21,9 @@ class PrenotazionePage extends Page
     {
         parent::__construct();
         parent::setTitle('Prenotazioni');
-        parent::setBreadcrumb([]);
+        parent::setBreadcrumb([
+            '<span lang="en">Home</span>' => '',
+        ]);
     }
 
     private function render_row($reservation)

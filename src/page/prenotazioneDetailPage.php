@@ -14,6 +14,7 @@ class PrenotazioneDetailPage extends Page
         parent::__construct();
         parent::setTitle('Dettaglio Prenotazione');
         parent::setBreadcrumb([
+            '<span lang="en">Home</span>' => '',
             'Prenotazioni' => 'prenotazioni',
         ]);
 

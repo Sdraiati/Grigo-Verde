@@ -39,7 +39,9 @@ class TestPage extends Page
     {
         parent::__construct();
         $this->setTitle('Test');
-        $this->setBreadcrumb(['Home' => '']);
+        $this->setBreadcrumb([
+            '<span lang="en">Home</span>' => '',
+        ]);
         $this->setPath('/test');
         $this->addKeywords([""]);
 

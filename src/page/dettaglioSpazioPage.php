@@ -14,7 +14,10 @@ class DettaglioSpazioPage extends Page
     {
         parent::__construct();
         $this->setTitle('Dettaglio Spazio');
-        $this->setBreadcrumb(['Spazi' => 'spazi']);
+        $this->setBreadcrumb([
+            '<span lang="en">Home</span>' => '',
+            'Spazi' => 'spazi'
+        ]);
         $this->setPath('/spazi/spazio');
         $this->addKeywords([]);
 
@@ -29,8 +32,7 @@ class DettaglioSpazioPage extends Page
         $spazio_data = $spazio->prendi_per_nome($this->spazio_nome);
 
         $anteprima = $image->prendi($spazio_data['Posizione']);
-        if(!empty($anteprima))
-        {
+        if (!empty($anteprima)) {
             $mime_type = $anteprima['Mime_type'];
             $src = 'data:' . $mime_type . ';base64,' . $anteprima['Byte'];
             $alt = $anteprima['Alt'];
@@ -45,9 +47,12 @@ class DettaglioSpazioPage extends Page
             $content_2 = str_replace('{{ descrizione spazio }}', $spazio_data['Descrizione'], $content_2);
             $content_2 = str_replace('{{ tipo spazio }}', $spazio_data['Tipo'], $content_2);
             $content_2 = str_replace('{{ numero tavoli spazio }}', $spazio_data['N_tavoli'], $content_2);
-            if(!empty($anteprima)){$content_2 = str_replace('{{ immagine }}', "<img src='".$src."' alt='".$alt."' />", $content_2);}
-            else{$content_2 = str_replace('{{ immagine }}', "nessun'immagine", $content_2);}
-                
+            if (!empty($anteprima)) {
+                $content_2 = str_replace('{{ immagine }}', "<img src='" . $src . "' alt='" . $alt . "' />", $content_2);
+            } else {
+                $content_2 = str_replace('{{ immagine }}', "nessun'immagine", $content_2);
+            }
+
 
             $prenotazione = new Prenotazione();
             date_default_timezone_set('Europe/Rome');
@@ -69,13 +74,13 @@ class DettaglioSpazioPage extends Page
                                 </tbody>
                             </table>
                             <p id='descrizione-tabella'>questa tabella mostra le prenotazioni per lo spazio</p>";
-            
+
             if (empty($prenotazioni_data)) {
                 $content_2 = str_replace($table, "<p>Non ci sono prenotazioni per questo spazio.</p>", $content_2);
             } else {
-                
+
                 $rows = $this->setRowTable($prenotazioni_data);
-            
+
                 $content_2 = str_replace('{{ righe tabella }}', $rows, $content_2);
             }
 
@@ -99,7 +104,7 @@ class DettaglioSpazioPage extends Page
         $count = count($prenotazioni_data);
         for ($i = 0; $i < $count; $i++) {
             $prenotazione = $prenotazioni_data[$i];
-            $currentUser = $utente->prendi($prenotazione['Username']); 
+            $currentUser = $utente->prendi($prenotazione['Username']);
             $row = str_replace('{{ data inizio }}', $prenotazione['DataInizio'], $rowTemplate);
             $row = str_replace('{{ data fine }}', $prenotazione['DataFine'], $row);
             $row = str_replace('{{ nome }}', $currentUser['Nome'], $row);

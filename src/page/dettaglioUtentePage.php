@@ -19,6 +19,7 @@ class DettaglioUtentePage extends Page
         parent::__construct();
         $this->setTitle('Dettaglio Utente');
         $this->setBreadcrumb([
+            '<span lang="en">Home</span>' => '',
             'Utenti' => 'utenti'
         ]);
         $this->setPath('/utenti/utente');
@@ -28,12 +29,11 @@ class DettaglioUtentePage extends Page
         $this->spazio = new Spazio();
     }
 
-    public function fetch() : void
+    public function fetch(): void
     {
         if (isset($_GET['username'])) {
             $this->username = $_GET['username'];
-        }
-        else {
+        } else {
             //echo "Utente non specificato";
             return;
         }
@@ -41,20 +41,18 @@ class DettaglioUtentePage extends Page
         if ($this->username !== '' && $this->nome === '' && $this->cognome === '' && $this->ruolo === '') {
             $utente = new Utente();
 
-            if ($utente->prendi($this->username) !== null)
-            {
+            if ($utente->prendi($this->username) !== null) {
                 $result = $utente->prendi($this->username);
                 $this->nome = $result['Nome'];
                 $this->cognome = $result['Cognome'];
                 $this->ruolo = $result['Ruolo'];
-            }
-            else {
+            } else {
                 //echo "Utente non esistente";
             }
         }
     }
 
-    public function setRowTable($prenotazioni) : string
+    public function setRowTable($prenotazioni): string
     {
         $nome_spazio = '';
         $row = '';
@@ -72,10 +70,9 @@ class DettaglioUtentePage extends Page
         return $row;
     }
 
-    public function render() : string
+    public function render(): string
     {
-        if(!Autenticazione::isLogged())
-        {
+        if (!Autenticazione::isLogged()) {
             $page = new LoginPage(
                 "",
                 "",
@@ -98,13 +95,13 @@ class DettaglioUtentePage extends Page
 
         $prenotazioni = $this->prenotazione->prendi_per_utente($this->username);
 
-        if(empty($prenotazioni)) {
+        if (empty($prenotazioni)) {
             return "Nessuna prenotazione trovata";
-        }
-        else {
+        } else {
             $content = str_replace("{{ table-rows }}", $this->setRowTable($prenotazioni), $content);
         }
 
         return $content;
     }
 }
+

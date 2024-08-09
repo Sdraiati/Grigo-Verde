@@ -7,9 +7,9 @@
 
 @media (prefers-color-scheme: light) {
     :root {
-        --textColor: #333333;
-        --backgroundColor: #ffffff;
-        --primaryColor: #335833;
+        --textColor: #000;
+        --backgroundColor: #FFF;
+        --primaryColor: #268700;
         --secondaryColor: #73dec1;
         --errorMessageColor: red;
     }
@@ -18,9 +18,9 @@
 @media (prefers-color-scheme: dark) {
     :root {
         --textColor: #FFFFFF;
-        --backgroundColor: #333333;
-        --primaryColor: #73dec1;
-        --secondaryColor: #335833;
+        --backgroundColor: #000000;
+        --primaryColor: #268700;
+        --secondaryColor: #73dec1;
         --errorMessageColor: #ffa0ff;
     }
 }
@@ -111,15 +111,13 @@ h2 {
 }
 
 a {
-    color: var(--backgroundColor);
-    background-color: var(--primaryColor);
+    color: var(--primaryColor);
     padding: 0.3rem;
     border-radius: var(--round-radius);
 }
 
 a:visited {
-    color: var(--primaryColor);
-    background-color: var(--backgroundColor);
+    color: var(--textColor);
 }
 
 .hidden {
@@ -142,6 +140,7 @@ a:visited {
 header {
     background-color: var(--primaryColor);
     color: var(--backgroundColor);
+    font-size: 150%;
 }
 
 header a {
@@ -173,7 +172,7 @@ header > * {
 #logoLink a {
     display: flex;
     align-items: center;
-    padding: 1rem;
+    padding: 0;
     text-decoration: none;
     font-weight: bold;
     color: var(--backgroundColor);
@@ -191,6 +190,7 @@ header > * {
     justify-content: space-between;
     flex-wrap: wrap;
     row-gap: calc(var(--textSize));
+    padding: 0;
 }
 
 #menu ul li {
@@ -275,8 +275,6 @@ main p {
     padding: 1rem;
     border-radius: 50%;
     cursor: pointer;
-    text-decoration: none;
-    font-weight: bold;
     border: 0.1rem solid var(--backgroundColor);
 }
 
@@ -372,7 +370,7 @@ input[type="submit"]:hover {
 
 .describer {
     font-size: 0.85em;
-    color: #333;
+    color: var(--textColor);
     display: block;
     margin-top: 0.5em;
     margin-bottom: 0.5em;

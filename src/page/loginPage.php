@@ -11,7 +11,9 @@ class loginPage extends Page
     {
         parent::__construct();
         $this->setTitle('<span lang="en">Login</span>');
-        $this->setBreadcrumb([]);
+        $this->setBreadcrumb([
+            '<span lang="en">Home</span>' => '',
+        ]);
         $this->addKeywords([""]);
         $this->setPath('/login');
 
@@ -36,4 +38,3 @@ class loginPage extends Page
         return $content;
     }
 }
-

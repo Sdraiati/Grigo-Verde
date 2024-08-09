@@ -18,6 +18,7 @@ class editUserPage extends Page
         parent::__construct();
         $this->setTitle('Modifica Utente');
         $this->setBreadcrumb([
+            '<span lang="en">Home</span>' => '',
             'Utenti' => 'utenti'
         ]);
         $this->setPath('/utenti/modifica');

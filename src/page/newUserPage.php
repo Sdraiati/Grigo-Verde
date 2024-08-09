@@ -18,6 +18,7 @@ class newUserPage extends Page
         parent::__construct();
         $this->setTitle('Nuovo Utente');
         $this->setBreadcrumb([
+            '<span lang="en">Home</span>' => '',
             'Utenti' => 'utenti'
         ]);
         $this->setPath('/utenti/nuovo');

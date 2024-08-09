@@ -25,6 +25,7 @@ class editSpacePage extends Page
         parent::__construct();
         $this->setTitle('Modifica Spazio');
         $this->setBreadcrumb([
+            '<span lang="en">Home</span>' => '',
             'Spazi' => 'spazi'
         ]);
         $this->setPath('/spazi/modifica');

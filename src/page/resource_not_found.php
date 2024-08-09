@@ -8,7 +8,9 @@ class ResourceNotFoundPage extends Page
     {
         parent::__construct();
         $this->setTitle('Pagina non trovata');
-        $this->setBreadcrumb([]);
+        $this->setBreadcrumb([
+            '<span lang="en">Home</span>' => '',
+        ]);
         $this->addKeywords([""]);
     }
 
