@@ -1,11 +1,11 @@
-<h3> SPAZI DISPONIBILI </h3>
+<h1> SPAZI DISPONIBILI <h1>
 
 <form id="form_filtri" action="spazi" method="get">
     <fieldset>
-
-        <input type="radio" id="tipo_verde" name="tipo" value="verde" {{ checked-verde }}>
+        <legend> Filtri </legend>
+        <input type="radio" id="tipo_verde" name="tipo" value="verde" aria-label="verde" {{ checked-verde }}>
         <label for="tipo_verde">Verde</label>
-        <input type="radio" id="tipo_grigio" name="tipo" value="grigio" {{ checked-grigio }}>
+        <input type="radio" id="tipo_grigio" name="tipo" value="grigio" aria-label="grigio" {{ checked-grigio }}>
         <label for="tipo_grigio">Grigio</label>
         <input type="date" id="data" name="data" {{ data }} />
         <label for="data"> giorno </label>
@@ -13,14 +13,14 @@
         <label for="orario_inizio"> orario inizio </label>
         <input type="time" id="orario_fine" name="orario_fine" {{ end }}>
         <label for="orario_fine"> orario fine </label>
-        <input type="submit"> <br>
+        <input type="submit" value="applica filtri"> <br>
     </fieldset>
     {{ error }}
 </form>
 
 <!-- questo form si potrebbe rendere hidden quando non ci sono dei filtri e visibile quando ci sono filtri. -->
 <form action="spazi" method="get">
-    <input type="submit">
+    <input type="submit" value="rimuovi filtri">
 </form>
 
 <ul>
