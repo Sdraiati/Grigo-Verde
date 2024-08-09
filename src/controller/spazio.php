@@ -28,9 +28,9 @@ class SpazioEndpoint extends Endpoint
             $end = $_GET['orario_fine'];
 
             if ($data != "" || $start != "" || $end != "") { // se almeno uno di questi campi è selezionato.
-                if ($data == "" || $start == "" || $end == "") {
-                    $error = "I campi data devono essere tutti selezionati";
-                } elseif ($start >= $end) {
+                if ($data == "" || $start == "" || $end == "") { // se solo un campo dovesse essere vuoto
+                    $error = "I campi data devono essere tutti selezionati"; 
+                } elseif ($start >= $end) {  
                     $error = "L'orario di inizio non può essere ne maggiore ne uguale a quello di fine";
                 } else {
                     $data_inizio = $data . " " . $start . "";
