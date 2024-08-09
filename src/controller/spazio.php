@@ -26,7 +26,7 @@ class SpazioEndpoint extends Endpoint
             $start = $_GET['orario_inizio'];
             $end = $_GET['orario_fine'];
 
-            if ($data != "" && $start != "" && $end != "") {
+            if (($data != "" && $start != "" && $end != "") && ($start < $end)) {
                 $data_inizio = $data . " " . $start . "";
                 $data_fine = $data . " " . $end. "";
             } else {

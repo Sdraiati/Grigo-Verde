@@ -126,8 +126,10 @@ class VisualizzazioneSpaziPage extends Page
 
                                     // in questo caso vi è una prenotazione che si sovrappone.
                                     // N.B: funziona ma con il minore stretto.
-                                    if (($pdi > $data_inizio && $pdi < $data_fine) || ($pdf > $data_inizio && $pdf < $data_fine) 
-                                    || ($pdi == $data_inizio && $pdf == $data_fine)) { 
+                                    if (($data_inizio > $pdi && $data_inizio < $pdf) || 
+                                        ($data_fine > $pdi && $data_fine < $pdf) || 
+                                        ($pdi == $data_inizio && $pdf == $data_fine) || 
+                                        ($data_inizio <= $pdi && $data_fine >= $pdf)) { 
 
                                         $overlap = true; // serve per escludere eventuali prenotazioni aventi lo stesso spazio
                                         for ($j=0; $j < count($filtered); $j++) { 
