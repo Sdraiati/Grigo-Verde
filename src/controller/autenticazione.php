@@ -4,13 +4,13 @@ include_once $project_root . '/model/database.php';
 include_once $project_root . '/model/utente.php';
 class Autenticazione
 {
-    private static function ensureSessionStarted() : void
+    private static function ensureSessionStarted(): void
     {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
     }
-    public static function session_by_cookie() : void
+    public static function session_by_cookie(): void
     {
         self::ensureSessionStarted();
         $logged = isset($_COOKIE["LogIn"]);
@@ -19,18 +19,18 @@ class Autenticazione
             session_write_close();
         }
     }
-    public static function login($username, $password) : bool
+    public static function login($username, $password): bool
     {
         self::ensureSessionStarted();
-//        $db = Database::getInstance();
-//        $sql = "SELECT password FROM UTENTE WHERE username = ? AND password = ?";
-//        $params = [
-//            ['type' => 's', 'value' => $username],
-//            ['type' => 's', 'value' => $password],
-//        ];
-//        $stmt = $db->bindParams($sql, $params);
-//        $stmt->execute();
-//        $result = $stmt->fetch();
+        //        $db = Database::getInstance();
+        //        $sql = "SELECT password FROM UTENTE WHERE username = ? AND password = ?";
+        //        $params = [
+        //            ['type' => 's', 'value' => $username],
+        //            ['type' => 's', 'value' => $password],
+        //        ];
+        //        $stmt = $db->bindParams($sql, $params);
+        //        $stmt->execute();
+        //        $result = $stmt->fetch();
         $utente = new Utente();
         $result = $utente->check_password($username, $password);
         if ($result) {
@@ -41,7 +41,7 @@ class Autenticazione
         }
         return false;
     }
-    public static function logout() : void
+    public static function logout(): void
     {
         self::ensureSessionStarted();
         session_destroy();
@@ -50,21 +50,31 @@ class Autenticazione
         // remove session cookie
         if (ini_get("session.use_cookies")) {
             $params = session_get_cookie_params();
-            setcookie(session_name(), '', time() - 42000,
-                $params["path"], $params["domain"],
-                $params["secure"], $params["httponly"]
+            setcookie(
+                session_name(),
+                '',
+                time() - 42000,
+                $params["path"],
+                $params["domain"],
+                $params["secure"],
+                $params["httponly"]
             );
         }
         // remove LogIn cookie
         if (isset($_COOKIE['LogIn'])) {
-            setcookie('LogIn', '', time() - 42000,
-                $params["path"], $params["domain"],
-                $params["secure"], $params["httponly"]
+            setcookie(
+                'LogIn',
+                '',
+                time() - 42000,
+                $params["path"],
+                $params["domain"],
+                $params["secure"],
+                $params["httponly"]
             );
         }
         $_SESSION = [];
     }
-    public static function isLogged() : bool
+    public static function isLogged(): bool
     {
         self::ensureSessionStarted();
         return isset($_SESSION['username']);
@@ -75,7 +85,7 @@ class Autenticazione
         return $_SESSION['username'];
     }
 
-    public static function is_amministratore() : bool
+    public static function is_amministratore(): bool
     {
         $db = Database::getInstance();
         $sql = "SELECT * FROM UTENTE WHERE RUOLO = 'amministratore' AND username = ?";
@@ -91,3 +101,4 @@ class Autenticazione
         return false;
     }
 }
+

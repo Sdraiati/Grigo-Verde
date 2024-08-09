@@ -11,7 +11,7 @@ class StaticPage extends Endpoint
     {
         parent::__construct($path, 'GET');
         $page->setPath($path);
-        $this->content = $page->render('');
+        $this->content = $page->render();
     }
 
     public function handle()
