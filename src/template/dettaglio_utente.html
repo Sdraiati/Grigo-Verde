@@ -1,0 +1,29 @@
+<section>
+    <h1> Dettaglio utente</h1>
+    <ul>
+        <li><strong>Nome:</strong> {{ nome }}</li>
+        <li><strong>Cognome:</strong> {{ cognome }}</li>
+        <li><strong>Ruolo:</strong> {{ ruolo }}</li>
+        <li><strong>Nome utente:</strong> {{ username }}</li>
+    </ul>
+</section>
+<section>
+    <h2>Prenotazioni</h2>
+    <p>Prenotazioni effettate dall'utente.</p>
+    <p id="descrizione tabella" class="helper">La tabella mostra le prenotazioni effettuate dall'utente {{ username }}.
+        Ha 4 campi, ovvero: spazio prenotato , data di inizio della prenotazione, data di fine e la descrizione.</p>
+    <table aria-describedby="descrizione-tabella">
+        <caption>Informazioni sulle prenotazioni</caption>
+        <thead>
+            <tr>
+                <th scope="col">Spazio</th>
+                <th scope="col">Data inizio</th>
+                <th scope="col">Data fine</th>
+                <th scope="col">Descrizione</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ table-rows }}
+        </tbody>
+    </table>
+</section>
