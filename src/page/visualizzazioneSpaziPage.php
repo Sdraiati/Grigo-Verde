@@ -10,7 +10,11 @@ class SpazioItem {
     // renderizza uno spazio
     // $params: array contenente i valori dei campi spazio
     public function render($values) {
-        $item = '<li id="' . $values["Posizione"] . '">' . $values["Nome"] . " </li>";
+        $item = '<li id="' . $values["Posizione"] . '">' . $values["Nome"];
+        if ($values["Byte"]) {
+            $item = $item . '<img src="' . $values["Byte"].' </li>';
+        }
+        $item = $item . ' </li>';
         return $item;
     }
 }
@@ -50,7 +54,7 @@ class VisualizzazioneSpaziPage extends Page
 
     private function filtra_spazi($tipo, $data_inizio, $data_fine) {
 
-        $debug_query = "SELECT * FROM SPAZIO;";
+        $debug_query = "SELECT * FROM SPAZIO LEFT JOIN IMMAGINE ON SPAZIO.Posizione = IMMAGINE.Spazio;";
         // binding dei parametri
         $params = [];
 
@@ -192,6 +196,7 @@ class VisualizzazioneSpaziPage extends Page
                 $values = [];
                 $values["Posizione"] = ($lista_debug[$i]["Posizione"]);
                 $values["Nome"] = ($lista_debug[$i]["Nome"]);
+                $values["Byte"] = ($lista_debug[$i]["Byte"]);
                 $lista_spazi = $lista_spazi . $spazioItem->render($values);
             }
 
