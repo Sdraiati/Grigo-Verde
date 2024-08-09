@@ -11,11 +11,10 @@ class PrenotazioneDetailPage extends Page
 
     public function __construct($reservation_id)
     {
+        parent::__construct();
         parent::setTitle('Dettaglio Prenotazione');
-        parent::setNav([]);
         parent::setBreadcrumb([
-            'Dashboard' => 'dashboard',
-            'Prenotazioni' => 'dashboard/prenotazioni',
+            'Prenotazioni' => 'prenotazioni',
         ]);
 
         $this->reservation_id = $reservation_id;

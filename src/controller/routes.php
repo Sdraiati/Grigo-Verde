@@ -29,6 +29,7 @@ include_once 'controller/logout.php';
 include_once 'page/editPasswordPage.php';
 include_once 'controller/edit_password.php';
 include_once 'page/dettaglioUtentePage.php';
+include_once 'controller/reservations.php';
 
 $about_us = new AboutUsPage();
 $homepage = new HomePage();
@@ -80,3 +81,5 @@ $router->add($logout);
 $router->add(new StaticPage('dashboard/modifica-password', $editPasswordPage));
 $router->add($editPassword);
 $router->add(new StaticPage('utenti/utente', $dettaglioUtentePage));
+$router->add(new Reservations());
+

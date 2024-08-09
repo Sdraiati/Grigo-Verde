@@ -76,7 +76,7 @@ class Prenotazione extends Model
         return $this->get_all($query, $params);
     }
 
-    public function prendi_per_utente($username, $day=NULL)
+    public function prendi_per_utente($username, $day = NULL)
     {
         if ($day == NULL) {
             $query = "SELECT * FROM " . $this->table . " WHERE Username = ?";
@@ -153,5 +153,26 @@ class Prenotazione extends Model
         ];
 
         return $this->get($query, $params);
+    }
+
+    public function prendi_all()
+    {
+        $query = "SELECT 
+                DataInizio, DataFine, P.Descrizione, P.Id,
+                    U.Nome, U.Cognome, U.Username,
+                    S.Nome AS NomeSpazio, S.Posizione 
+                FROM " . $this->table . "  AS P
+                JOIN SPAZIO AS S ON P.Spazio = S.Posizione
+                JOIN UTENTE AS U ON P.Username = U.Username
+                WHERE P.DataFine >= ?
+                ORDER BY P.DataFine ASC";
+
+        date_default_timezone_set('UTC');
+        $currentDateTime = date('Y/m/d H:i:s');
+        $params = [
+            ['type' => 's', 'value' => $currentDateTime]
+        ];
+
+        return $this->get_all($query, $params);
     }
 }

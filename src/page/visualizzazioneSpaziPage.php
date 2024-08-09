@@ -27,12 +27,7 @@ class VisualizzazioneSpaziPage extends Page
     public function __construct(string $tipo = "", string $data_inizio = "", string $data_fine = "")
     {
         parent::setTitle('Viualizzazione Spazi');
-        parent::setNav([
-            'About us' => 'about_us',
-        ]);
-        parent::setBreadcrumb([
-            'Home' => '',
-        ]);
+        parent::setBreadcrumb([]);
 
         $this->tipo = $tipo;
         $this->data_inizio = $data_inizio;

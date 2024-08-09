@@ -87,7 +87,12 @@ class ReservationUpdateGet extends Endpoint
 
         $page->setTitle('Modifica prenotazione');
         $page->setPath('dashboard/prenotazione/modifica');
+        $page->setBreadcrumb([
+            'Dashboard' => 'dashboard',
+            'Dettaglio Prenotazione' => 'prenotazioni/?prenotazione=' . $this->reservation_id,
+        ]);
         $page = $page->render();
+
         $page = str_replace("Crea Prenotazione", "Modifica Prenotazione", $page);
         $page = str_replace("dashboard/nuova-prenotazione", "dashboard/prenotazione/modifica", $page);
         echo $page;
