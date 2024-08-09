@@ -91,7 +91,7 @@
     font-family: Arial, sans-serif;
 }
 
-*:not(html, body, footer) {
+*:not(html, body, footer, header) {
     max-width: 1200px;
 }
 
@@ -140,6 +140,22 @@ a:visited {
 
 
 header {
+    background-color: var(--primaryColor);
+    color: var(--backgroundColor);
+}
+
+header a {
+    color: var(--primaryColor);
+    background-color: var(--backgroundColor);
+    padding: calc(var(--textSize) / 1.5) calc(2 * var(--textSize));
+}
+
+header a:visited {
+    background-color: var(--primaryColor);
+    color: var(--backgroundColor);
+}
+
+header > * {
     margin: 0 auto;
 }
 
@@ -158,38 +174,32 @@ header {
 #logoLink a {
     display: flex;
     align-items: center;
-    padding: 1rem 0;
+    padding: 1rem;
     text-decoration: none;
-    color: var(--primaryColor);
-    background-color: var(--backgroundColor);
     font-weight: bold;
-
+    color: var(--backgroundColor);
+    background-color: var(--primaryColor);
 }
 
 #loginLink {
     text-align: right;
-}
-
-#menu {
-    padding: 1rem;
-    background-color: var(--primaryColor);
-    color: var(--backgroundColor);
+    margin-right: 1rem;
 }
 
 #menu ul {
-    display: flex;
-    gap: 1rem;
     list-style: none;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: calc(var(--textSize));
 }
 
-#menu a {
-    color: var(--primaryColor);
-    background-color: var(--backgroundColor);
+#menu ul li {
+    margin: 0 auto;
 }
 
-#menu a:visited {
-    background-color: var(--primaryColor);
-    color: var(--backgroundColor);
+#breadcrumbs {
+    padding: 0.1rem 0 0.3rem 0;
 }
 
 #breadcrumbs ol {
@@ -198,7 +208,7 @@ header {
 }
 
 #breadcrumbs li {
-    color: var(--primaryColor);
+   /* color: var(--primaryColor); */
     list-style: none;
 }
 
