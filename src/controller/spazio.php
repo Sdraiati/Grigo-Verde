@@ -17,6 +17,7 @@ class SpazioEndpoint extends Endpoint
         $tipo = "";
         $data_inizio = "";
         $data_fine = "";
+        $error = "";
 
         if (isset($_GET['tipo'])) {
             $tipo = $_GET['tipo'];
@@ -46,6 +47,9 @@ class SpazioEndpoint extends Endpoint
         // questo in quanto nel caso in cuoi non vengano inserite sia data di inizio
         // che data di fine bisogerebbe ritornare un messaggio di errore ù// nel quale si ottiene all'utente di
         // scegliere tutte e due le date. 
+        if ($error) {
+            echo $error;
+        }
         $page = new VisualizzazioneSpaziPage($tipo, $data_inizio, $data_fine);
         $page->setPath('spazi');
         $content = $page->render();
