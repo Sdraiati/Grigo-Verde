@@ -13,6 +13,8 @@ class SpazioItem {
         $item = '<li id="' . $values["Posizione"] . '">' . $values["Nome"];
         if ($values["Byte"]) {
             $item = $item . '<img src="' . $values["Byte"] .' alt="">';
+        } else { // immagine di default
+            $item = $item . '<img src="assets/default_space_light_theme.png"alt="">';
         }
         $item = $item . ' </li>';
         return $item;
