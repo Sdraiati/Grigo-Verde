@@ -26,10 +26,6 @@ class SpazioEndpoint extends Endpoint
             $start = $_GET['orario_inizio'];
             $end = $_GET['orario_fine'];
 
-            // var_dump($data);
-            // var_dump($start);
-            // var_dump($end);
-
             if ($data != "" && $start != "" && $end != "") {
                 $data_inizio = $data . " " . $start . "";
                 $data_fine = $data . " " . $end. "";

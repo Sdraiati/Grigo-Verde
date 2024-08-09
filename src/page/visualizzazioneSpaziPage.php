@@ -52,16 +52,17 @@ class VisualizzazioneSpaziPage extends Page
         $this->data_fine = $data_fine;
     }
 
-    private function filtra_spazi($tipo, $data_inizio, $data_fine) {
+    private function filtra_spazi($tipo, $data_inizio, $data_fine)
+    {
 
         $debug_query = "SELECT * FROM SPAZIO LEFT JOIN IMMAGINE ON SPAZIO.Posizione = IMMAGINE.Spazio;";
         // binding dei parametri
         $params = [];
 
         // prendere un'istanza del db.
-        $db = Database::getInstance(); 
+        $db = Database::getInstance();
         $stmt = $db->bindParams($debug_query, $params);
-        
+
         if ($stmt === false) {
             return false;
         }
@@ -79,6 +80,9 @@ class VisualizzazioneSpaziPage extends Page
             if ($tipo == "" && $data_inizio == "" && $data_fine == "") {
                 return $result;
             }
+            $filtered = [];
+
+            //var_dump($result);
 
             if ($tipo != "" || $data_inizio != "" || $data_fine != "") {
                 $filtered = $result; // questo è da cambiare.
@@ -93,14 +97,13 @@ class VisualizzazioneSpaziPage extends Page
                 }
 
                 if ($data_inizio != "" && $data_fine != "") {
-
                     $diq = explode(" ", $data_inizio)[0] . " 00:00:00";
                     $dfq = explode(" ", $data_fine)[0] . " 23:59:59";
                     $query = 'SELECT * FROM PRENOTAZIONE WHERE DataInizio >= ? AND DataFine <= ? ORDER BY PRENOTAZIONE.Spazio';
                     $params = [
                         ['type' => 's', 'value' => $diq],
                         ['type' => 's', 'value' => $dfq],
-                    ];                    
+                    ];
                     $stmt = $db->bindParams($query, $params);
                     if ($stmt == false) {
                         return false;
@@ -149,11 +152,11 @@ class VisualizzazioneSpaziPage extends Page
         }
     }
 
-    public function render() 
+    public function render()
     {
         $content = parent::render();
 
-        $intestazione_pagina = $this->getContent('visualizzazione_spazi_page'); 
+        $intestazione_pagina = $this->getContent('visualizzazione_spazi_page');
 
         // Renderizzare i filtri se ce ne sono. 
         if ($this->tipo != "") {
@@ -192,7 +195,7 @@ class VisualizzazioneSpaziPage extends Page
         if ($lista_debug) {
             $lista_spazi = "";
             $spazioItem = new SpazioItem();
-            for ($i=0; $i < count($lista_debug); $i++) { 
+            for ($i = 0; $i < count($lista_debug); $i++) {
                 $values = [];
                 $values["Posizione"] = ($lista_debug[$i]["Posizione"]);
                 $values["Nome"] = ($lista_debug[$i]["Nome"]);
@@ -207,19 +210,18 @@ class VisualizzazioneSpaziPage extends Page
             $intestazione_pagina = str_replace("{{ lista }}", $lista_spazi, $intestazione_pagina);
 
             $content = str_replace("{{ content }}", $intestazione_pagina, $content);
-            $content = str_replace("href=\"/\"", "href=\"#\"", $content);
-            $content = str_replace('{{ base_path }}', BASE_URL, $content);
-            $content = str_replace("{{ error }}", '', $content);
-        
+            $content = str_replace("href=\"/\"", "href=\"#\"", $content);   // todo: check if and why this is needed (this should never be needed)
+            $content = str_replace('{{ base_path }}', BASE_URL, $content);  // todo: check if and why this is needed
+            $content = str_replace("{{ error }}", '', $content);            // todo: check if and why this is needed
         } else {
             $lista_spazi = " <p> non sono stati trovai degli spazi corrispondenti ai parametri della ricerca <p>";
 
             $intestazione_pagina = str_replace("{{ lista }}", $lista_spazi, $intestazione_pagina);
 
             $content = str_replace("{{ content }}", $intestazione_pagina, $content);
-            $content = str_replace("href=\"/\"", "href=\"#\"", $content);
-            $content = str_replace('{{ base_path }}', BASE_URL, $content);
-            $content = str_replace("{{ error }}", '', $content);
+            $content = str_replace("href=\"/\"", "href=\"#\"", $content);   // idem as above
+            $content = str_replace('{{ base_path }}', BASE_URL, $content);  // idem as above
+            $content = str_replace("{{ error }}", '', $content);            // idem as above
         }
         return $content;
     }
