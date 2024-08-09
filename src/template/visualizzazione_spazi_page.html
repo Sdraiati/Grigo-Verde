@@ -1,22 +1,21 @@
 <h3> SPAZI DISPONIBILI </h3>
 
 <form id="form_filtri" action="spazi" method="get">
-    <input type="radio" id="tipo_verde" name="tipo" value="verde">
-    <label for="tipo_verde">Verde</label>
-    <input type="radio" id="tipo_grigio" name="tipo" value="grigio">
-    <label for="tipo_grigio">Grigio</label>
-    <!-- <input type="datetime-local" name="Data_inizio" id="Data_inizio" />
-    <label for="Data_inizio">orario inizio </label>
-    <input type="datetime-local" name="Data_fine" id="Data_fine" />
-    <label for="Data_fine">orario fine </label> -->
-    <input type="date" id="data" name="data"/>
-    <label for="data"> giorno </label>
-    <input type="time" id="orario_inizio" name="orario_inizio">
-    <label for="orario_inizio"> orario inizio </label>
-    <input type="time" id="orario_fine" name="orario_fine">
-    <label for="orario_fine"> orario fine </label>
-    <input type="submit"> <br>
-    <p> {{ error }} </p>
+    <fieldset>
+
+        <input type="radio" id="tipo_verde" name="tipo" value="verde" {{ checked-verde }}>
+        <label for="tipo_verde">Verde</label>
+        <input type="radio" id="tipo_grigio" name="tipo" value="grigio" {{ checked-grigio }}>
+        <label for="tipo_grigio">Grigio</label>
+        <input type="date" id="data" name="data" {{ data }} />
+        <label for="data"> giorno </label>
+        <input type="time" id="orario_inizio" name="orario_inizio" {{ start }}>
+        <label for="orario_inizio"> orario inizio </label>
+        <input type="time" id="orario_fine" name="orario_fine" {{ end }}>
+        <label for="orario_fine"> orario fine </label>
+        <input type="submit"> <br>
+    </fieldset>
+    {{ error }}
 </form>
 
 <!-- questo form si potrebbe rendere hidden quando non ci sono dei filtri e visibile quando ci sono filtri. -->
