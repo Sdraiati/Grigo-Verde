@@ -18,7 +18,6 @@ class SpazioItem {
         $item = $item . ' </li>';
         return $item;
     }
-
 }
 
 class VisualizzazioneSpaziPage extends Page
@@ -27,23 +26,9 @@ class VisualizzazioneSpaziPage extends Page
     private string $data_inizio;
     private string $data_fine;
     private string $error;
-    // public $title = 'VisualizzazioneSpazi';
-    // public $nav = [
-    //     'About us' => 'about_us',
-    // ];
-    // public $breadcrumb = [
-    //     'Home' => '',
-    // ];
     // public $keywords = ["Grigo verde", "aule verdi", "Liceo Scientifico", "M. Grigoletti", "scuola superiore", "Pordenone", "prenotazione", "area ping pong"];
-    // public $path = '/visualizzazione_spazi';
 
     public function __construct(string $tipo = "", string $data_inizio = "", string $data_fine = "", string $error = "") {
-        // parent::setTitle('Viualizzazione Spazi');
-        // parent::setNav([]);
-        // parent::setBreadcrumb([
-        //     'Home' => '',
-        // ]);
-
         parent::__construct();
         $this->setTitle('<span lang="en">Visualizzazione Spazi </span>');
         $this->setBreadcrumb([]);
@@ -70,8 +55,6 @@ class VisualizzazioneSpaziPage extends Page
                 $pdi = $prenotazioni[$i]["DataInizio"];
                 $pdf = $prenotazioni[$i]["DataFine"];
                 
-                // in questo caso vi è una prenotazione che si sovrappone.
-                // N.B: funziona ma con il minore stretto.
                 if (($data_inizio > $pdi && $data_inizio < $pdf) || 
                 ($data_fine > $pdi && $data_fine < $pdf) || 
                 ($pdi == $data_inizio && $pdf == $data_fine) || 
