@@ -12,7 +12,7 @@ class SpazioItem {
     public function render($values) {
         $item = '<li id="' . $values["Posizione"] . '">' . $values["Nome"];
         if ($values["Byte"]) {
-            $item = $item . '<img src="' . $values["Byte"].' </li>';
+            $item = $item . '<img src="' . $values["Byte"] .' alt="">';
         }
         $item = $item . ' </li>';
         return $item;
