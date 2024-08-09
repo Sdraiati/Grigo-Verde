@@ -5,6 +5,8 @@ $project_root = dirname(__FILE__, 2);
 include_once 'model/utente.php';
 class editPasswordPage extends Page
 {
+    private $error;
+
     public function __construct(string $error = '')
     {
         parent::__construct();

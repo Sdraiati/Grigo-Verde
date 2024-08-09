@@ -37,8 +37,7 @@ class SpazioEndpoint extends Endpoint
         // var_dump($data_fine);
         $page = new VisualizzazioneSpaziPage($tipo, $data_inizio, $data_fine);
         $page->setPath('spazi');
-        $content = $page->render();
-        echo $content;
+        echo $page->render();
     }
 
     public function match($path, $method): bool
@@ -47,4 +46,3 @@ class SpazioEndpoint extends Endpoint
         return parent::match($path, $method);
     }
 }
-
