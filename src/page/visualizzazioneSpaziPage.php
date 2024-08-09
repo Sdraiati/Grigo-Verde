@@ -56,6 +56,39 @@ class VisualizzazioneSpaziPage extends Page
         $this->error = $error;
     }
 
+    private function filtra_per_ora($prenotazioni, $filtered, $data_inizio, $data_fine) 
+    {
+        $overlap = false;
+        $current_space = $prenotazioni[0]["Spazio"];
+        
+        for ($i=0; $i < count($prenotazioni); $i++) { 
+            if ($prenotazioni[$i]["Spazio"] != $current_space) { // se la prenotazione corrente ha uno spazio diverso da quello corrente.
+                $current_space = $prenotazioni[$i]["Spazio"];
+                $overlap = false; // per il nuovo spazio in esame non vi sono ancora overlap.
+            }
+            if (!$overlap) { // se non vi è ancora un overlap per lo spazio corrente.
+                $pdi = $prenotazioni[$i]["DataInizio"];
+                $pdf = $prenotazioni[$i]["DataFine"];
+                
+                // in questo caso vi è una prenotazione che si sovrappone.
+                // N.B: funziona ma con il minore stretto.
+                if (($data_inizio > $pdi && $data_inizio < $pdf) || 
+                ($data_fine > $pdi && $data_fine < $pdf) || 
+                ($pdi == $data_inizio && $pdf == $data_fine) || 
+                ($data_inizio <= $pdi && $data_fine >= $pdf)) { 
+                    
+                    $overlap = true; // serve per escludere eventuali prenotazioni aventi lo stesso spazio
+                    for ($j=0; $j < count($filtered); $j++) { 
+                        if ($current_space == $filtered[$j]["Posizione"]) {
+                            array_splice($filtered, $j, 1);
+                        }
+                    }
+                }
+            }
+        }
+        return $filtered;
+    }
+
     private function filtra_spazi($tipo, $data_inizio, $data_fine)
     {
 
@@ -67,6 +100,7 @@ class VisualizzazioneSpaziPage extends Page
             if ($tipo == "" && $data_inizio == "" && $data_fine == "") {
                 return $result;
             }
+
             $filtered = [];
 
             if ($tipo != "" || $data_inizio != "" || $data_fine != "") {
@@ -91,34 +125,7 @@ class VisualizzazioneSpaziPage extends Page
                         $prenotazioni = $model_prenotazione->prendi_per_intervallo($diq, $dfq);
 
                         if (count($prenotazioni) > 0)  {
-                            $current_space = $prenotazioni[0]["Spazio"];
-                            $overlap = false;
-
-                            for ($i=0; $i < count($prenotazioni); $i++) { 
-                                if ($prenotazioni[$i]["Spazio"] != $current_space) { // se la prenotazione corrente ha uno spazio diverso da quello corrente.
-                                    $current_space = $prenotazioni[$i]["Spazio"];
-                                    $overlap = false; // per il nuovo spazio in esame non vi sono ancora overlap.
-                                }
-                                if (!$overlap) { // se non vi è ancora un overlap per lo spazio corrente.
-                                    $pdi = $prenotazioni[$i]["DataInizio"];
-                                    $pdf = $prenotazioni[$i]["DataFine"];
-
-                                    // in questo caso vi è una prenotazione che si sovrappone.
-                                    // N.B: funziona ma con il minore stretto.
-                                    if (($data_inizio > $pdi && $data_inizio < $pdf) || 
-                                        ($data_fine > $pdi && $data_fine < $pdf) || 
-                                        ($pdi == $data_inizio && $pdf == $data_fine) || 
-                                        ($data_inizio <= $pdi && $data_fine >= $pdf)) { 
-
-                                        $overlap = true; // serve per escludere eventuali prenotazioni aventi lo stesso spazio
-                                        for ($j=0; $j < count($filtered); $j++) { 
-                                            if ($current_space == $filtered[$j]["Posizione"]) {
-                                                array_splice($filtered, $j, 1);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                            $filtered = $this->filtra_per_ora($prenotazioni, $filtered, $data_inizio, $data_fine);
                         }
                     } catch (Exception $e) {
                         return false;
