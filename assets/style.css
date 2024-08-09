@@ -163,7 +163,6 @@ header > * {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 0;
 }
 
 #logoLink img {
@@ -196,10 +195,6 @@ header > * {
 
 #menu ul li {
     margin: 0 auto;
-}
-
-#breadcrumbs {
-    padding: 0.1rem 0 0.3rem 0;
 }
 
 #breadcrumbs ol {
