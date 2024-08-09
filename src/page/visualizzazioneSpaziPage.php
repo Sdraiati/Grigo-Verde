@@ -3,6 +3,7 @@
 include_once 'model/database.php';
 include_once 'page.php';
 include_once 'model/spazio.php';
+include_once 'model/prenotazione.php';
 
 // classe item
 class SpazioItem {
@@ -58,21 +59,10 @@ class VisualizzazioneSpaziPage extends Page
     private function filtra_spazi($tipo, $data_inizio, $data_fine)
     {
 
-        $debug_query = "SELECT * FROM SPAZIO LEFT JOIN IMMAGINE ON SPAZIO.Posizione = IMMAGINE.Spazio;";
-        $params = [];
-
-        // prendere un'istanza del db.
-        $db = Database::getInstance();
-        $stmt = $db->bindParams($debug_query, $params);
-
-        if ($stmt === false) {
-            return false;
-        }
         try {
 
-            $filtered = []; 
-            $stmt->execute();
-            $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            $model_spazio = new Spazio();
+            $result = $model_spazio->prendi_tutti_con_immagini();
 
             if ($tipo == "" && $data_inizio == "" && $data_fine == "") {
                 return $result;
@@ -94,18 +84,11 @@ class VisualizzazioneSpaziPage extends Page
                 if ($data_inizio != "" && $data_fine != "") {
                     $diq = explode(" ", $data_inizio)[0] . " 00:00:00";
                     $dfq = explode(" ", $data_fine)[0] . " 23:59:59";
-                    $query = 'SELECT * FROM PRENOTAZIONE WHERE DataInizio >= ? AND DataFine <= ? ORDER BY PRENOTAZIONE.Spazio';
-                    $params = [
-                        ['type' => 's', 'value' => $diq],
-                        ['type' => 's', 'value' => $dfq],
-                    ];
-                    $stmt = $db->bindParams($query, $params);
-                    if ($stmt == false) {
-                        return false;
-                    }
+                  
                     try {
-                        $stmt->execute();
-                        $prenotazioni = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+                        $model_prenotazione = new Prenotazione();
+                        $prenotazioni = $model_prenotazione->prendi_per_intervallo($diq, $dfq);
 
                         if (count($prenotazioni) > 0)  {
                             $current_space = $prenotazioni[0]["Spazio"];
