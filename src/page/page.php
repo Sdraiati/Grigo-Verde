@@ -20,8 +20,6 @@ class Page
         '<span lang="en">Login</span>' => 'login'
     ];
     protected $breadcrumb = [];
-    private $nav;
-
     public function __construct($title = '', $path = '/')
     {
         $this->title = $title;
