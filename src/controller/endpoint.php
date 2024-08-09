@@ -5,7 +5,7 @@ include_once $project_root . '/global_values.php';
 
 abstract class Endpoint
 {
-    private $path;
+    protected $path;
     private $method;
 
     public function __construct($path, $method)

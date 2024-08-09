@@ -5,6 +5,8 @@ $project_root = dirname(__FILE__, 2);
 require_once $project_root . '/model/prenotazione.php';
 require_once $project_root . '/model/disponibilità.php';
 require_once $project_root . '/page/prenotazioneFormPage.php';
+require_once $project_root . '/page/unauthorized.php';
+require_once $project_root . '/page/resource_not_found.php';
 
 class ReservationDelete extends Endpoint
 {
@@ -42,7 +44,9 @@ class ReservationDelete extends Endpoint
 
 
         if (!$this->validate()) {
-            $this->render_with_error("Errore nella validazione dei dati");
+            $page = new ResourceNotFoundPage();
+            $page->setPath($this->path);
+            echo $page->render();
             return;
         }
 
@@ -50,8 +54,10 @@ class ReservationDelete extends Endpoint
         $prenotazione = new Prenotazione();
 
         if (!Autenticazione::is_amministratore() && $prenotazione->prendi_by_id($this->reservation_id)['Username'] !== $username) {
-            echo 403; // Todo: unauthorized
-            return;
+            $page = new UnauthorizedPage();
+            $page->setPath($this->path);
+            echo $page->render();
+            exit();
         }
 
         $prenotazione->elimina($this->reservation_id);

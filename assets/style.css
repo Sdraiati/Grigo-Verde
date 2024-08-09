@@ -12,7 +12,6 @@
         --primaryColor: #335833;
         --secondaryColor: #73dec1;
         --errorMessageColor: red;
-        --shadow: 0 0 0.4rem 0.01rem var(--secondaryColor);
     }
 }
 
@@ -23,8 +22,12 @@
         --primaryColor: #73dec1;
         --secondaryColor: #335833;
         --errorMessageColor: #ffa0ff;
-        --shadow: 0 0 0.4rem 0.01rem var(--secondaryColor);
     }
+}
+
+:root {
+    --round-radius: 0.4rem;
+    --shadow: 0 0 0.4rem 0.01rem var(--secondaryColor);
 }
 
 /* --------- MOBILE BREAKPOINT --------- */
@@ -73,6 +76,11 @@
         --shortContent: 36%;
         --content: 70%;
     }
+
+    #menu {
+        border-radius: var(--round-radius);
+    }
+
 }
 
 /* --------- TYPOGRAPHY --------- */
@@ -83,7 +91,7 @@
     font-family: Arial, sans-serif;
 }
 
-*:not(html, body, footer) {
+*:not(html, body, footer, header) {
     max-width: 1200px;
 }
 
@@ -106,7 +114,7 @@ a {
     color: var(--backgroundColor);
     background-color: var(--primaryColor);
     padding: 0.3rem;
-    border-radius: 0.4rem;
+    border-radius: var(--round-radius);
 }
 
 a:visited {
@@ -120,26 +128,6 @@ a:visited {
 
 /* --------- HEADER --------- */
 
-header {
-    margin: 0 auto;
-}
-
-#logoLink img {
-    max-width: 3rem;
-    margin-right: 0.5rem;
-}
-
-#logoLink a {
-    display: flex;
-    align-items: center;
-    padding: 1rem 0;
-    text-decoration: none;
-    color: var(--primaryColor);
-    background-color: var(--backgroundColor);
-    font-weight: bold;
-
-}
-
 .helper {
     position: absolute;
     top: -999px;
@@ -150,10 +138,63 @@ header {
     top: 0px;
 }
 
-#menu ul {
+
+header {
+    background-color: var(--primaryColor);
+    color: var(--backgroundColor);
+}
+
+header a {
+    color: var(--primaryColor);
+    background-color: var(--backgroundColor);
+    padding: calc(var(--textSize) / 1.5) calc(2 * var(--textSize));
+}
+
+header a:visited {
+    background-color: var(--primaryColor);
+    color: var(--backgroundColor);
+}
+
+header > * {
+    margin: 0 auto;
+}
+
+#logo-login {
     display: flex;
-    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#logoLink img {
+    max-width: 3rem;
+    margin-right: 0.5rem;
+}
+
+#logoLink a {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--backgroundColor);
+    background-color: var(--primaryColor);
+}
+
+#loginLink {
+    text-align: right;
+    margin-right: 1rem;
+}
+
+#menu ul {
     list-style: none;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: calc(var(--textSize));
+}
+
+#menu ul li {
+    margin: 0 auto;
 }
 
 #breadcrumbs ol {
@@ -162,18 +203,12 @@ header {
 }
 
 #breadcrumbs li {
-    color: var(--primaryColor);
+   /* color: var(--primaryColor); */
     list-style: none;
 }
 
-#breadcrumbs li:not(:first-child)::after {
-    content: ">";
-    margin-left: 0.4rem;
-}
-
-#breadcrumbs li:last-child::after {
-    content: "";
-    margin-left: 0;
+#breadcrumbs a {
+    padding: 0.3rem;
 }
 
 /* --------- BODY --------- */
@@ -210,13 +245,27 @@ main p {
     margin: 0 auto;
 }
 
+#message {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 1rem;
+    border-radius: var(--round-radius);
+    font-size: 1em;
+    z-index: 1000;
+    text-align: center;
+    background-color: var(--primaryColor);
+    color: var(--backgroundColor);
+    border: 0.1rem solid var(--backgroundColor);
+}
 /* --------- FOOTER --------- */
 
 #back-to-top {
     display: none;
     line-height: 1rem;
     position: fixed;
-    bottom: 1rem;
+    bottom: 6rem;
     right: 1rem;
 }
 
@@ -243,7 +292,7 @@ footer {
 
 form {
     padding: 1.5rem;
-    border-radius: 0.4rem;
+    border-radius: var(--round-radius);
     box-shadow: var(--shadow);
     margin: 0 auto;
 }
@@ -280,7 +329,7 @@ input[type="password"] {
     padding: 0.5rem;
     margin-bottom: 1rem;
     border: 0.1rem solid var(--primaryColor);
-    border-radius: 0.4rem;
+    border-radius: var(--round-radius);
     background-color: var(--backgroundColor);
     color: var(--textColor);
 }
@@ -299,7 +348,7 @@ input[type="submit"] {
     background-color: var(--primaryColor);
     color: var(--backgroundColor);
     border: none;
-    border-radius: 0.4rem;
+    border-radius: var(--round-radius);
     cursor: pointer;
     font-size: 1.1em;
     box-shadow: var(--shadow);

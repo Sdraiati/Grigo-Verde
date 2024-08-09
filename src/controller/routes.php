@@ -26,6 +26,10 @@ include_once 'controller/new_user.php';
 include_once 'page/editUserPage.php';
 include_once 'controller/edit_user.php';
 include_once 'controller/logout.php';
+include_once 'page/editPasswordPage.php';
+include_once 'controller/edit_password.php';
+include_once 'page/dettaglioUtentePage.php';
+include_once 'controller/reservations.php';
 
 $about_us = new AboutUsPage();
 $homepage = new HomePage();
@@ -44,6 +48,9 @@ $newUser = new NewUser();
 $editUserPage = new EditUserPage();
 $editUser = new EditUser();
 $logout = new Logout();
+$editPasswordPage = new EditPasswordPage();
+$editPassword = new EditPassword();
+$dettaglioUtentePage = new DettaglioUtentePage();
 
 
 $router = new Router();
@@ -71,3 +78,8 @@ $router->add($newUser);
 $router->add(new StaticPage('utenti/modifica', $editUserPage));
 $router->add($editUser);
 $router->add($logout);
+$router->add(new StaticPage('dashboard/modifica-password', $editPasswordPage));
+$router->add($editPassword);
+$router->add(new StaticPage('utenti/utente', $dettaglioUtentePage));
+$router->add(new Reservations());
+

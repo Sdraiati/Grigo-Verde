@@ -6,7 +6,8 @@ include_once 'model/spazio.php';
 include_once 'model/prenotazione.php';
 
 // classe item
-class SpazioItem {
+class SpazioItem
+{
 
     public function render($values) {
         $item = '<li id="' . $values["Posizione"] . '">' . $values["Nome"];
@@ -111,6 +112,7 @@ class VisualizzazioneSpaziPage extends Page
                             $filtered = $this->filtra_per_ora($prenotazioni, $filtered, $data_inizio, $data_fine);
                         }
                     } catch (Exception $e) {
+                        echo $e->getMessage();
                         return false;
                     }
                 }

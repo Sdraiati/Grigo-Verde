@@ -3,6 +3,8 @@ require_once 'endpoint.php';
 $project_root = dirname(__FILE__, 2);
 require_once $project_root . '/model/prenotazione.php';
 require_once $project_root . '/page/prenotazioneDetailPage.php';
+require_once $project_root . '/page/resource_not_found.php';
+require_once $project_root . '/page/unauthorized.php';
 
 class ReservationDetail extends Endpoint
 {
@@ -10,7 +12,7 @@ class ReservationDetail extends Endpoint
 
     public function __construct()
     {
-        parent::__construct('prenotazioni/', 'GET');
+        parent::__construct('prenotazioni/dettaglio', 'GET');
     }
 
     public function validate(): bool
@@ -33,7 +35,9 @@ class ReservationDetail extends Endpoint
     public function handle(): void
     {
         if (!$this->validate()) {
-            echo 404; // todo: return 404 page
+            $page = new ResourceNotFoundPage();
+            $page->setPath($this->path);
+            echo $page->render();
             return;
         }
 
@@ -41,12 +45,14 @@ class ReservationDetail extends Endpoint
 
         $reservation = $prenotazioni->prendi_by_id($this->reservation_id);
         if ($reservation === null) {
-            echo 404; // todo: return 404 page
+            $page = new ResourceNotFoundPage();
+            $page->setPath($this->path);
+            echo $page->render();
             return;
         }
 
         $page = new PrenotazioneDetailPage($this->reservation_id);
-        $page->setPath('prenotazioni/?prenotazione=' . $this->reservation_id);
+        $page->setPath('prenotazioni/dettaglio?prenotazione=' . $this->reservation_id);
         echo $page->render();
     }
 }

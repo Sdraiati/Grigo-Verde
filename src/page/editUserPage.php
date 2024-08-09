@@ -3,12 +3,15 @@ include_once 'page.php';
 include_once 'loginPage.php';
 $project_root = dirname(__FILE__, 2);
 include_once 'model/utente.php';
+require_once $project_root . '/page/unauthorized.php';
+
 class editUserPage extends Page
 {
     private string $username = '';
     private string $nome = '';
     private string $cognome = '';
     private string $ruolo = '';
+    private string $error = '';
 
     public function __construct(string $username = '', string $nome = '', string $cognome = '', string $ruolo = '', string $error = '')
     {
@@ -27,7 +30,7 @@ class editUserPage extends Page
         $this->error = $error;
     }
 
-    public function fetch() : void
+    public function fetch(): void
     {
         if (isset($_GET['username'])) {
             $this->username = $_GET['username'];
@@ -39,23 +42,20 @@ class editUserPage extends Page
         ) {
             $utente = new Utente();
 
-            if ($utente->prendi($this->username) !== null)
-            {
+            if ($utente->prendi($this->username) !== null) {
                 $result = $utente->prendi($this->username);
                 $this->nome = $result['Nome'];
                 $this->cognome = $result['Cognome'];
                 $this->ruolo = $result['Ruolo'];
-            }
-            else {
+            } else {
                 $this->error = "Utente non esistente";
             }
         }
     }
 
-    public function render() : string
+    public function render(): string
     {
-        if(!Autenticazione::isLogged())
-        {
+        if (!Autenticazione::isLogged()) {
             $page = new LoginPage(
                 "",
                 "",
@@ -64,7 +64,9 @@ class editUserPage extends Page
             return $page->render();
         }
         if (!Autenticazione::is_amministratore()) {
-            return "Non hai i permessi per accedere a questa pagina"; //TODO: 403 forbidden page
+            $page = new UnauthorizedPage();
+            $page->setPath($this->path);
+            return $page->render();
         }
 
         $this->fetch();
@@ -74,11 +76,26 @@ class editUserPage extends Page
 
         $content = str_replace("{{ action }}", $this->path, $content);
         $content = str_replace("{{ operazione }}", "Modifica", $content);
-        $content = str_replace("{{ disabled }}", 'disabled', $content);
-        $content = str_replace("{{ hidden_input }}", '<input type="hidden" id="username_hidden" name="username" value="{{ username }}">', $content);
-        $content = str_replace("{{ password_fields }}", '', $content);
+        $content = str_replace("{{ normal_input }}", '', $content);
+        $content = str_replace(
+            "{{ hidden_input }}",
+            '<input type="hidden" id="username_hidden" name="username" value="{{ username }}">',
+            $content
+        );
+        $content = str_replace(
+            "{{ hide-password-fields }}",
+            'class=\'hidden\' disabled',
+            $content
+        );
+        $content = str_replace(
+            "{{ edit_password_button }}",
+            '<input type="button" id="edit_password_button" value="Modifica password" 
+                    onclick="showEditPassword()">',
+            $content
+        );
+        $content = str_replace("{{ password-required }}", '', $content);
 
-        if($this->nome != '') {
+        if ($this->nome != '') {
             $content = str_replace("{{ nome }}", $this->nome, $content);
             $content = str_replace("{{ cognome }}", $this->cognome, $content);
             $content = str_replace("{{ username }}", $this->username, $content);
@@ -87,7 +104,7 @@ class editUserPage extends Page
             $content = str_replace("{{ selectedAmministratore }}", $this->ruolo == 'Amministratore' ? 'selected' : '', $content);
             $content = str_replace("{{ selectedDocente }}", $this->ruolo == 'Docente' ? 'selected' : '', $content);
 
-            if($this->error != '') {
+            if ($this->error != '') {
                 $content = str_replace("{{ error }}", $this->error($this->error), $content);
             } else {
                 $content = str_replace("{{ error }}", '', $content);
@@ -96,7 +113,6 @@ class editUserPage extends Page
             $content = str_replace("{{ nome }}", '', $content);
             $content = str_replace("{{ cognome }}", '', $content);
             $content = str_replace("{{ username }}", '', $content);
-            $content = str_replace("{{ password }}", '', $content);
             $content = str_replace("{{ selectedDefault }}", 'selected', $content);
             $content = str_replace("{{ selectedAmministratore }}", '', $content);
             $content = str_replace("{{ selectedDocente }}", '', $content);

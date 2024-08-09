@@ -2,22 +2,23 @@
 
 include_once 'page.php';
 
-class HomePage extends Page
+class UnauthorizedPage extends Page
 {
     public function __construct()
     {
         parent::__construct();
-        $this->setTitle('<span lang="en">Home</span>');
+        $this->setTitle('Non autorizzato');
         $this->setBreadcrumb([]);
-        $this->addKeywords([]);
-        $this->setPath('');
+        $this->addKeywords([""]);
     }
 
     public function render()
     {
         $content = parent::render();
-        $content = str_replace("{{ content }}", $this->getContent('home'), $content);
+        $content = str_replace("{{ content }}", $this->getContent('403'), $content);
         $content = str_replace("{{ error }}", '', $content);
+        $content = preg_replace('/<nav id="breadcrumbs">.*?<\/nav>/s', '', $content);
+
         return $content;
     }
 }

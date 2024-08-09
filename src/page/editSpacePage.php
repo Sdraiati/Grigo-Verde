@@ -4,6 +4,7 @@ include_once 'loginPage.php';
 $project_root = dirname(__FILE__, 2);
 include_once 'controller/edit_space.php';
 include_once 'model/utente.php';
+require_once $project_root . '/page/unauthorized.php';
 
 class editSpacePage extends Page
 {
@@ -12,9 +13,15 @@ class editSpacePage extends Page
     private string $descrizione = '';
     private string $tipo = '';
     private int $n_tavoli = 0;
-    public function __construct(int $posizione=-1, string $nome="", string $descrizione="", string $tipo="", int $n_tavoli=0,
-                                string $error='')
-    {
+    private string $error = '';
+    public function __construct(
+        int $posizione = -1,
+        string $nome = "",
+        string $descrizione = "",
+        string $tipo = "",
+        int $n_tavoli = 0,
+        string $error = ''
+    ) {
         parent::__construct();
         $this->setTitle('Modifica Spazio');
         $this->setBreadcrumb([
@@ -41,16 +48,14 @@ class editSpacePage extends Page
             && $this->n_tavoli === 0 && $this->error === ""
         ) {
             $spazio = new Spazio();
-            
-            if ($spazio->exists($this->posizione))
-            {
+
+            if ($spazio->exists($this->posizione)) {
                 $result = $spazio->prendi($this->posizione);
                 $this->nome = $result['Nome'];
                 $this->descrizione = $result['Descrizione'];
                 $this->tipo = $result['Tipo'];
                 $this->n_tavoli = $result['N_tavoli'];
-            }
-            else {
+            } else {
                 $this->error = "Spazio non esistente";
             }
         }
@@ -66,22 +71,21 @@ class editSpacePage extends Page
             return $page->render();
         }
         if (!Autenticazione::is_amministratore()) {
-            return "Non hai i permessi per accedere a questa pagina"; //TODO: 403 forbidden page
+            $page = new UnauthorizedPage();
+            $page->setPath($this->path);
+            return $page->render();
         }
 
         $this->fetch();
         $image_result = $this->loadImages();
         $html_img = '';
-        if ($image_result)
-        {
+        if ($image_result) {
             //se è un array di array
             if (is_array(reset($image_result))) {
-                foreach ($image_result as $img)
-                {
+                foreach ($image_result as $img) {
                     $html_img .= $this->renderImagePreviews($img);
                 }
-            }
-            else {
+            } else {
                 $html_img = $this->renderImagePreviews($image_result);
             }
         }
@@ -89,12 +93,10 @@ class editSpacePage extends Page
         $content = parent::render();
         $content = str_replace("{{ content }}", $this->getContent('edit_space'), $content);
 
-        if (($html_img !== ''))
-        {
+        if (($html_img !== '')) {
             $content = str_replace("{{ images }}", $html_img, $content);
             $content = str_replace("{{ add_image_button }}", '', $content);
-        }
-        else {
+        } else {
             $content = str_replace("{{ images }}", '', $content);
             $content = str_replace("{{ add_image_button }}", '<input type="button" id="add_img_button" value="Aggiungi immagine" onclick="addImage()">', $content);
         }

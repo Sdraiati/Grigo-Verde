@@ -2,9 +2,6 @@
     <h1>Modifica Spazio</h1>
     <form action="spazi/modifica" method="post" enctype="multipart/form-data" onsubmit="return validateNewSpace()">
         <fieldset>
-            <label for="posizione">Numero Posizione nell'Area Esterna della Scuola <span class="required" aria-hidden="true">*</span></label></label>
-            <p class="describer"  id="posizioneHelp">La posizione è un numero intero che rappresenta una specifica area all'aperto della scuola.</p>
-            <input type="number" id="posizione" name="posizione" value="{{ posizione }}" min="0" aria-describedby="posizioneHelp" disabled>
             <input type="hidden" id="posizione_hidden" name="posizione" value="{{ posizione }}">
             <label for="nome">Nome <span class="required" aria-hidden="true">*</span></label></label>
             <p class="describer"  id="nomeHelp">Nome che identifica univocamente lo spazio.</p>

@@ -4,6 +4,8 @@ $project_root = dirname(__FILE__, 2);
 include_once $project_root . '/global_values.php';
 include_once 'referenceList.php';
 include_once 'breadcrumb.php';
+include_once $project_root . '/controller/autenticazione.php';
+require_once $project_root . '/page/resource_not_found.php';
 
 class Page
 {
@@ -18,11 +20,51 @@ class Page
         '<span lang="en">Login</span>' => 'login'
     ];
     protected $breadcrumb = [];
+    private $nav;
 
     public function __construct($title = '', $path = '/')
     {
         $this->title = $title;
         $this->path = $path;
+
+        if (!Autenticazione::isLogged()) {
+            $this->nav = [
+                '<span>Spazi</span>' => 'spazi',
+                '<span>Prenotazioni</span>' => 'prenotazioni',
+                '<span lang="en">About us</span>' => 'about_us',
+            ];
+        } else if (Autenticazione::is_amministratore()) {
+            $this->nav = [
+                '<span>Spazi</span>' => 'spazi',
+                '<span>Utenti</span>' => 'utenti',
+                '<span>Prenotazioni</span>' => 'prenotazioni',
+                '<span lang="en">About us</span>' => 'about_us',
+            ];
+        } else {
+            $this->nav = [
+                '<span>Spazi</span>' => 'spazi',
+                '<span>Prenotazioni</span>' => 'prenotazioni',
+                '<span lang="en">About us</span>' => 'about_us',
+            ];
+        }
+    }
+
+    protected function makeMessage()
+    {
+        if (isset($_SESSION['message'])) {
+            return '<div id="message"><p>' . $_SESSION['message'] . '</div>';
+        } else {
+            return '';
+        }
+    }
+
+    protected function makeLogin()
+    {
+        if (Autenticazione::isLogged()) {
+            return '<a href="dashboard"><span lang="en">Dashboard</span></a>';
+        } else {
+            return '<a href="login"><span lang="en">Login</span></a>';
+        }
     }
 
     protected function getContent($path)
@@ -33,10 +75,9 @@ class Page
         if (file_exists($filename)) {
             return file_get_contents($filename);
         }
-        http_response_code(404);
-        echo '404 Not Found';
-        echo '<br>';
-        echo $path;
+        $page = new ResourceNotFoundPage();
+        $page->setPath($this->path);
+        echo $page->render();
         exit;
     }
 
@@ -62,11 +103,6 @@ class Page
         $this->path = $path;
     }
 
-    protected function setNav($nav)
-    {
-        $this->nav = $nav;
-    }
-
     public function setBreadcrumb($breadcrumb)
     {
         $this->breadcrumb = $breadcrumb;
@@ -75,8 +111,7 @@ class Page
     // TODO: check circular reference
     protected function takeOffCircularReference($content)
     {
-        // Example implementation: replacing current path with '#'
-        return $content; //str_replace('href="' . $this->path . '"', 'href="#"', $content);
+        return str_replace('href="' . $this->path . '"', 'href="#"', $content);
     }
 
     // path is the path of the page, which is used to skip the navbar and jump
@@ -86,9 +121,12 @@ class Page
         $content = $this->getContent('layout');
         $content = str_replace('{{ base_path }}', BASE_URL, $content);
         $content = str_replace('{{ title }}', $this->title . ' - Grigo Verde', $content);
+        $content = str_replace('{{ login }}', $this->makeLogin(), $content);
         $content = str_replace('{{ description }}', 'This is a description', $content);
         $content = str_replace('{{ keywords }}', implode(', ', $this->keywords), $content);
         $content = str_replace('{{ page_path }}', $this->path, $content);
+        $content = str_replace('{{ message }}', $this->makeMessage(), $content);
+
 
         // Pass the current path to ReferenceList
         $nav = new ReferenceList($this->nav, $this->path);

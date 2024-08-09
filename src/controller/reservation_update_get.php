@@ -4,6 +4,8 @@ require_once 'autenticazione.php';
 $project_root = dirname(__FILE__, 2);
 require_once $project_root . '/model/prenotazione.php';
 require_once $project_root . '/page/prenotazioneFormPage.php';
+require_once $project_root . '/page/resource_not_found.php';
+require_once $project_root . '/page/unauthorized.php';
 
 class ReservationUpdateGet extends Endpoint
 {
@@ -49,7 +51,9 @@ class ReservationUpdateGet extends Endpoint
 
 
         if (!$this->validate()) {
-            echo 404; // todo: not found
+            $page = new ResourceNotFoundPage();
+            $page->setPath($this->path);
+            echo $page->render();
             return;
         }
 
@@ -59,7 +63,9 @@ class ReservationUpdateGet extends Endpoint
         $reservation = $prenotazione->prendi_by_id($this->reservation_id);
 
         if (!Autenticazione::is_amministratore() && $reservation['Username'] !== $username) {
-            echo 403; // Todo: unauthorized
+            $page = new UnauthorizedPage();
+            $page->setPath($this->path);
+            echo $page->render();
             return;
         }
 
@@ -81,7 +87,12 @@ class ReservationUpdateGet extends Endpoint
 
         $page->setTitle('Modifica prenotazione');
         $page->setPath('dashboard/prenotazione/modifica');
+        $page->setBreadcrumb([
+            'Dashboard' => 'dashboard',
+            'Dettaglio Prenotazione' => 'prenotazioni/?prenotazione=' . $this->reservation_id,
+        ]);
         $page = $page->render();
+
         $page = str_replace("Crea Prenotazione", "Modifica Prenotazione", $page);
         $page = str_replace("dashboard/nuova-prenotazione", "dashboard/prenotazione/modifica", $page);
         echo $page;

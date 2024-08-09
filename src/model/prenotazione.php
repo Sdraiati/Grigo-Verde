@@ -88,10 +88,28 @@ class Prenotazione extends Model
         return $this->get_all($query, $params);
     }
 
+    public function prendi_per_utente($username, $day = NULL)
+    {
+        if ($day == NULL) {
+            $query = "SELECT * FROM " . $this->table . " WHERE Username = ?";
+            $params = [
+                ['type' => 's', 'value' => $username]
+            ];
+        } else {
+            $query = "SELECT * FROM " . $this->table . " WHERE Username = ? AND DataFine >= ?";
+            $params = [
+                ['type' => 's', 'value' => $username],
+                ['type' => 's', 'value' => $day]
+            ];
+        }
+
+        return $this->get_all($query, $params);
+    }
+
     public function is_available($spazio, $begin_time, $end_time)
     {
         // check if there is no other booking in the same time
-        $query = "SELECT * FROM " . $this->table . " WHERE Spazio = ? AND ((DataInizio < ? AND DataFine > ?) OR (DataInizio < ? AND DataFine > ?) OR (DataInizio > ? AND DataFine < ?))";
+        $query = "SELECT * FROM " . $this->table . " WHERE Spazio = ? AND ((DataInizio <= ? AND DataFine > ?) OR (DataInizio < ? AND DataFine >= ?) OR (DataInizio > ? AND DataFine < ?))";
         $params = [
             ['type' => 'i', 'value' => $spazio],
             ['type' => 's', 'value' => $begin_time],
@@ -109,12 +127,14 @@ class Prenotazione extends Model
     public function user_already_booked($username, $begin_time, $end_time)
     {
         // check if user has no other booking in the same time
-        $query = "SELECT * FROM " . $this->table . " WHERE Username = ? AND ((DataInizio < ? AND DataFine > ?) OR (DataInizio < ? AND DataFine > ?))";
+        $query = "SELECT * FROM " . $this->table . " WHERE Username = ? AND ((DataInizio <= ? AND DataFine > ?) OR (DataInizio < ? AND DataFine >= ?) OR (DataInizio > ? AND DataFine < ?))";
         $params = [
             ['type' => 's', 'value' => $username],
             ['type' => 's', 'value' => $begin_time],
             ['type' => 's', 'value' => $begin_time],
             ['type' => 's', 'value' => $end_time],
+            ['type' => 's', 'value' => $end_time],
+            ['type' => 's', 'value' => $begin_time],
             ['type' => 's', 'value' => $end_time]
         ];
 
@@ -145,5 +165,26 @@ class Prenotazione extends Model
         ];
 
         return $this->get($query, $params);
+    }
+
+    public function prendi_all()
+    {
+        $query = "SELECT 
+                DataInizio, DataFine, P.Descrizione, P.Id,
+                    U.Nome, U.Cognome, U.Username,
+                    S.Nome AS NomeSpazio, S.Posizione 
+                FROM " . $this->table . "  AS P
+                JOIN SPAZIO AS S ON P.Spazio = S.Posizione
+                JOIN UTENTE AS U ON P.Username = U.Username
+                WHERE P.DataFine >= ?
+                ORDER BY P.DataFine ASC";
+
+        date_default_timezone_set('UTC');
+        $currentDateTime = date('Y/m/d H:i:s');
+        $params = [
+            ['type' => 's', 'value' => $currentDateTime]
+        ];
+
+        return $this->get_all($query, $params);
     }
 }
