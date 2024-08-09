@@ -62,6 +62,18 @@ class Prenotazione extends Model
         return $this->get_all($query, $params);
     }
 
+    public function prendi_per_intervallo($dataInizio, $dataFine) 
+    {
+        // dataInizio e dataFine devono essere nel formato: YYYY-MM-DD HH:SS:MM
+        $query = 'SELECT * FROM PRENOTAZIONE WHERE DataInizio >= ? AND DataFine <= ? ORDER BY PRENOTAZIONE.Spazio';
+        $params = [
+            ['type' => 's', 'value' => $dataInizio],
+            ['type' => 's', 'value' => $dataFine],
+        ];
+
+        return $this->get_all($query, $params);
+    }
+
     public function prendi_per_settimana($spazio, $day)
     {
         $endDate = date('Y-m-d H:i:s', strtotime($day . ' +1 week'));

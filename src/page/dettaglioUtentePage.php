@@ -52,6 +52,14 @@ class DettaglioUtentePage extends Page
         }
     }
 
+    public function getDateInfo($date): array
+    {
+        $date_time = new DateTime($date);
+        $day = $date_time->format('Y-m-d');
+        $time = $date_time->format('H:i');
+        return ['day' => $day, 'time' => $time];
+    }
+
     public function setRowTable($prenotazioni): string
     {
         $nome_spazio = '';
@@ -60,11 +68,17 @@ class DettaglioUtentePage extends Page
             $row .= '<tr>';
 
             $nome_spazio = $this->spazio->prendi($prenotazione['Spazio'])['Nome'];
-            $row .= '<td data-title="nome spazio">' . $nome_spazio . '</td>';
+            $row .= '<td headers="spazio" data-title="nome spazio">' . $nome_spazio . '</td>';
 
-            $row .= '<td data-title="data inizio"> <time datetime="' . $prenotazione['DataInizio'] . '">' . $prenotazione['DataInizio'] . '</time></td>';
-            $row .= '<td data-title="data fine"> <time datetime="' . $prenotazione['DataFine'] . '">' . $prenotazione['DataFine'] . '</time></td>';
-            $row .= '<td data-title="descrizione">' . $prenotazione['Descrizione'] . '</td>';
+            $startDateInfo = $this->getDateInfo($prenotazione['DataInizio']);
+            $endDateInfo = $this->getDateInfo($prenotazione['DataFine']);
+
+            $row .= '<td data-title="giorno">' . $startDateInfo['day'] . '</td>';
+            $row .= '<td data-title="ora di inizio"><time>' . $startDateInfo['time'] . '</time></td>';
+            $row .= '<td data-title="ora di fine"><time>' . $endDateInfo['time'] . '</time></td>';
+            $row .= '<td data-title="descrizione"><a href="prenotazioni/dettaglio?prenotazione=' .
+                $prenotazione['Spazio'] . '" aria-label="dettaglio prenotazione dello spazio ' . $nome_spazio .
+                '">dettaglio</a></td>';
             $row .= '</tr>';
         }
         return $row;
@@ -104,4 +118,3 @@ class DettaglioUtentePage extends Page
         return $content;
     }
 }
-

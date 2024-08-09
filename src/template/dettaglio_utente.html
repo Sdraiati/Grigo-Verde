@@ -11,15 +11,17 @@
     <h2>Prenotazioni</h2>
     <p>Prenotazioni effettate dall'utente.</p>
     <p id="descrizione tabella" class="helper">La tabella mostra le prenotazioni effettuate dall'utente {{ username }}.
-        Ha 4 campi, ovvero: spazio prenotato , data di inizio della prenotazione, data di fine e la descrizione.</p>
+        Ha 5 campi, ovvero: spazio prenotato, giorno della prenotazione, orario di inizio, orario di fine e un link per
+        accedere alla pagina di dettaglio della prenotazione.</p>
     <table aria-describedby="descrizione-tabella">
         <caption>Informazioni sulle prenotazioni</caption>
         <thead>
             <tr>
                 <th scope="col">Spazio</th>
-                <th scope="col">Data inizio</th>
-                <th scope="col">Data fine</th>
-                <th scope="col">Descrizione</th>
+                <th scope="col">Giorno</th>
+                <th scope="col">Orario di inizio</th>
+                <th scope="col">Orario di fine</th>
+                <th scope="col">Dettaglio</th>
             </tr>
         </thead>
         <tbody>

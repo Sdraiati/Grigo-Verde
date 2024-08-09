@@ -52,10 +52,10 @@ INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('user', '$
 INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('admin', '$2y$10$K6wj8TJzSVeA6y9JeMriiOT3Fh9enThoTvKCSCh/n2P7xATNTD4fG', 'admin', 'admin', 'Amministratore');
 INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('misto_segando', 'user', 'Leopoldo', 'Luamaro', 'Docente');
 
-INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (23, 'prova_in_culo', 'descrizione_in_culo', 'indovina?bravo_in_culo', 99999999);
 
-INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (3, 'tiglio', "un aula verde vicino alla statua", 'aula verde', 20);
-INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (2, 'ginepro', "un' aula verde vicino alle palestre di ginnastica", 'aula verde', 20);
+INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (4, 'pino', 'grigio', 'grigio', 10);
+INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (3, 'tiglio', "un' aula verde vicino alla statua", 'verde', 20);
+INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (2, 'ginepro', "un' aula verde vicino alle palestre di ginnastica", 'verde', 20);
 
 INSERT INTO DISPONIBILITA (Spazio, Mese, Giorno_settimana, Orario_apertura, Orario_chiusura) VALUES (3, 'Agosto', 'Lunedì', '08:00:00', '18:00:00');
 INSERT INTO DISPONIBILITA (Spazio, Mese, Giorno_settimana, Orario_apertura, Orario_chiusura) VALUES (3, 'Agosto', 'Martedì', '08:00:00', '18:00:00');
@@ -79,7 +79,7 @@ INSERT INTO DISPONIBILITA (Spazio, Mese, Giorno_settimana, Orario_apertura, Orar
 INSERT INTO DISPONIBILITA (Spazio, Mese, Giorno_settimana, Orario_apertura, Orario_chiusura) VALUES (2, 'Settembre', 'Giovedì', '08:00:00', '18:00:00');
 INSERT INTO DISPONIBILITA (Spazio, Mese, Giorno_settimana, Orario_apertura, Orario_chiusura) VALUES (2, 'Settembre', 'Venerdì', '08:00:00', '18:00:00');
 
-INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-08-12 14:00:00', '2024-08-12 16:00:00', 'user', 23, 'quante r ha gara di scorregge');
+INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-08-05 14:00:00', '2024-08-05 16:00:00', 'user', 4, 'quante r ha gara di scorregge');
 
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-08-12 14:00:00', '2024-08-12 16:00:00', 'user', 2, 'attivita didattica');
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-08-12 14:00:00', '2024-08-12 16:00:00', 'user', 3, 'napoleone');
