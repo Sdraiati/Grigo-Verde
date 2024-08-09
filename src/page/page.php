@@ -14,8 +14,6 @@ class Page
     protected $keywords = ['ricette', 'gustose', 'cucina', 'italiana'];
     protected $path = '/';
     protected $breadcrumb = [];
-    private $nav;
-
     public function __construct($title = '', $path = '/')
     {
         $this->title = $title;

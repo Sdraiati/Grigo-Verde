@@ -35,7 +35,7 @@ class ReferenceItem
             $content .= '</li>';
             return  $content;
         } else {
-            $content = '<li>';
+            $content = '<li aria-hidden="true">';
             $content .= '<a href="/' . $this->path . '">' . $this->title . '</a>';
             if ($divider !== '') {
                 $content .= '<span>' . $divider . '</span>';
