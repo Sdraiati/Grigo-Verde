@@ -13,9 +13,9 @@
         <label for="orario_inizio"> orario inizio </label>
         <input type="time" id="orario_fine" name="orario_fine" {{ end }}>
         <label for="orario_fine"> orario fine </label>
+        {{ error }}
         <input type="submit" value="applica filtri"> <br>
     </fieldset>
-    {{ error }}
 </form>
 
 <!-- questo form si potrebbe rendere hidden quando non ci sono dei filtri e visibile quando ci sono filtri. -->

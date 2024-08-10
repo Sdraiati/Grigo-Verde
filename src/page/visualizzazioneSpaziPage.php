@@ -173,7 +173,7 @@ class VisualizzazioneSpaziPage extends Page
         $content = str_replace("href=\"/\"", "href=\"#\"", $content);   // todo: check if and why this is needed (this should never be needed)
         $content = str_replace('{{ base_path }}', BASE_URL, $content);  // todo: check if and why this is needed
         if ($this->error) {
-            $content = str_replace("{{ error }}", $this->error, $content);            // idem as above
+            $content = str_replace("{{ error }}", $this->error($this->error), $content);            // idem as above
         } else {
             $content = str_replace("{{ error }}", '', $content);            // todo: check if and why this is needed
         }
