@@ -15,9 +15,9 @@ class SpazioItem
         if ($values["Byte"]) {
             $item = $item . '<img src="' . $values["Byte"] . ' alt="">';
         } else {
-            $item = $item . '<img src="assets/default_space_light_theme.png" alt="">';
+            $item = $item . '<img src="assets/default_spazio_image.png" alt="">';
         }
-        $item = $item . ' </li>';
+        $item = $item . ' <a href="/spazio?spazio_nome="' . $values["Nome"]. '"> visualizza dettaglio </a> </li>';
         return $item;
     }
 }
