@@ -17,7 +17,7 @@ class SpazioItem
         } else {
             $item = $item . '<img src="assets/default_spazio_image.png" alt="">';
         }
-        $item = $item . ' <a href="/spazio?spazio_nome=' . $values["Nome"]. '"> visualizza dettaglio </a> </li>';
+        $item = $item . ' <a href="spazi/spazio?spazio_nome=' . $values["Nome"]. '"> visualizza dettaglio </a> </li>';
         return $item;
     }
 }
