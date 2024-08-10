@@ -3,21 +3,21 @@
 
     <aside>
         <h2> Operazioni </h2>
+        <form action="utenti/nuovo" method="GET">
+            <input type="submit" value="Nuovo utente">
+        </form>
+        <form action="spazi/nuovo" method="GET">
+            <input type="submit" value="Nuovo spazio">
+        </form>
+        <form action="prenotazioni/nuovo" method="GET">
+            <input type="submit" value="Nuova prenotazione">
+        </form>
         <form action="utenti/modifica" method="get">
             <input type="hidden" name="username" value="{{ username }}">
             <input type="submit" value="Modifica Utente">
         </form>
         <form action="logout" method="GET">
             <input type="submit" value="Logout">
-        </form>
-        <form action="prenotazioni/nuovo" method="GET">
-            <input type="submit" value="Nuova prenotazione">
-        </form>
-        <form action="spazi/nuovo" method="GET">
-            <input type="submit" value="Nuovo spazio">
-        </form>
-        <form action="utenti/nuovo" method="GET">
-            <input type="submit" value="Nuovo utente">
         </form>
     </aside>
 

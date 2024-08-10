@@ -9,6 +9,8 @@ require_once $project_root . '/page/unauthorized.php';
 require_once $project_root . '/page/resource_not_found.php';
 require_once $project_root . '/page/unauthorized.php';
 require_once $project_root . '/page/resource_not_found.php';
+require_once 'message.php';
+
 
 class ReservationDelete extends Endpoint
 {
@@ -63,6 +65,7 @@ class ReservationDelete extends Endpoint
         }
 
         $prenotazione->elimina($this->reservation_id);
+        Message::set("Prenotazione cancellata con successo");
         $this->redirect('dashboard');
     }
 }

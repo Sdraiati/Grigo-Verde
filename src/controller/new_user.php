@@ -2,6 +2,8 @@
 require_once 'endpoint.php';
 $project_root = dirname(__FILE__, 2);
 include_once $project_root . '/model/utente.php';
+require_once 'message.php';
+
 
 class NewUser extends Endpoint
 {
@@ -61,8 +63,9 @@ class NewUser extends Endpoint
                 echo $page->render();
             } else {
                 $utente->nuovo($this->username, $this->nome, $this->cognome, $this->ruolo, $this->password);
-                echo "Utente creato con successo";
+                Message::set("Utente creato con successo");
             }
         }
     }
 }
+

@@ -121,6 +121,7 @@ h2 {
     color: var(--oneColor);
     margin-bottom: 1rem;
     font-size: var(--heading2Size);
+    text-align: center;
 }
 
 a {
@@ -474,6 +475,10 @@ table tr:nth-of-type(even) {
     background-color: rgba(var(--threeColor-rgb), 1);
 }
 
+table td a {
+    padding: 0.3rem;
+}
+
 /* --------- ABOUT US PAGE --------- */
 
 .signature {
@@ -551,7 +556,7 @@ table tr:nth-of-type(even) {
 
     #aule-verdi img:nth-of-type(3) {
         grid-area: img3;
-        margin: 0 auto;
+        margin: 0 auto 1rem auto;
     }
 
     #arte-natura {
@@ -560,7 +565,7 @@ table tr:nth-of-type(even) {
         grid-gap: 0 3rem;
         align-items: center;
         grid-template-areas: 
-            "title title"
+            "title img"
             "p1 img"
             "p2 img"
             "p3 img";

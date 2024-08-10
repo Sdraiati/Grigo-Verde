@@ -11,16 +11,16 @@ document.addEventListener("DOMContentLoaded", function(_) {
     }
 
     let messageDiv = document.getElementById('message');
-    setTimeout(function() {
-        messageDiv.classList.add('fade-out');
-
+    if (messageDiv) {
         setTimeout(function() {
-            if (messageDiv) {
-                messageDiv.remove();
-            }
-        }, 1000);
+            messageDiv.classList.add('fade-out');
 
-    }, 3000);
+            setTimeout(function() {
+                messageDiv.remove();
+            }, 1000);
+
+        }, 3000);
+    }
 })
 
 function toggleView(name = "password") {

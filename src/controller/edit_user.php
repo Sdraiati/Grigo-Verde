@@ -2,6 +2,7 @@
 require_once 'endpoint.php';
 $project_root = dirname(__FILE__, 2);
 include_once $project_root . '/model/utente.php';
+require_once 'message.php';
 
 class EditUser extends Endpoint
 {
@@ -16,11 +17,23 @@ class EditUser extends Endpoint
         parent::__construct('utenti/modifica', 'POST');
     }
 
-    public function validate($username, $password, $nome, $cognome, $ruolo): bool
+    public function validate(): bool
     {
+        $username = $this->post('username');
+        $nome = $this->post('nome');
+        $cognome = $this->post('cognome');
+        $ruolo = $this->post('ruolo');
+
         if (empty($username) || empty($nome) || empty($cognome) || empty($ruolo)) {
             return false;
         }
+
+        try {
+            $password = $this->post('password');
+        } catch (Exception $e) {
+            $password = '';
+        }
+
         $this->username = $username;
         $this->password = $password;
         $this->nome = $nome;
@@ -29,42 +42,39 @@ class EditUser extends Endpoint
         return true;
     }
 
+    public function render_edit_page_with_error($error)
+    {
+        $page = new EditUserPage(
+            $this->username,
+            $this->nome,
+            $this->cognome,
+            $this->ruolo,
+            $error
+        );
+
+        $page->setPath("utenti/modifica");
+        echo $page->render();
+    }
+
     public function handle(): void
     {
-        $this->username = $this->post('username');
-        $this->password = $_POST['password'] ?? '';
-        $this->nome = $this->post('nome');
-        $this->cognome = $this->post('cognome');
-        $this->ruolo = $this->post('ruolo');
-
         if (!$this->validate($this->username, $this->password, $this->nome, $this->cognome, $this->ruolo)) {
-            $page = new EditUserPage(
-                $this->username,
-                $this->nome,
-                $this->cognome,
-                $this->ruolo,
-                "Inserire tutti i campi"
-            );
-            echo $page->render();
-        } else {
-            $utente = new Utente();
-            if ($utente->prendi($this->username) === null) {
-                $page = new EditUserPage(
-                    $this->username,
-                    $this->nome,
-                    $this->cognome,
-                    $this->ruolo,
-                    "Utente non esistente"
-                );
-                echo $page->render();
-            } else {
-                //if password is epmpty don't update it
-                if ($this->password === '') {
-                    $this->password = $utente->prendi($this->username)['Password'];
-                }
-                $utente->modifica($this->username, $this->nome, $this->cognome, $this->ruolo, $this->password);
-                echo "Utente modificato con successo";
-            }
+            $this->render_edit_page_with_error("Inserire tutti i campi");
+            return;
         }
+        $utente = new Utente();
+        if ($utente->prendi($this->username) === null) {
+            $this->render_edit_page_with_error("Utente non esistente");
+            return;
+        }
+        //if password is epmpty don't update it
+        if ($this->password === '') {
+            $this->password = $utente->prendi($this->username)['Password'];
+        }
+
+        $utente->modifica($this->username, $this->nome, $this->cognome, $this->ruolo, $this->password);
+        Message::set("Utente modificato con successo");
+        $this->redirect('dashboard');
     }
 }
+

@@ -6,6 +6,8 @@ require_once $project_root . '/model/prenotazione.php';
 require_once $project_root . '/model/disponibilità.php';
 require_once $project_root . '/page/prenotazioneFormPage.php';
 require_once $project_root . '/page/unauthorized.php';
+require_once 'message.php';
+
 
 class ReservationUpdatePost extends Endpoint
 {
@@ -146,9 +148,10 @@ class ReservationUpdatePost extends Endpoint
         }
 
         if (!$prenotazione->nuovo($data_inizio, $data_fine, $username, $this->posizione, $this->descrizione)) {
-            $this->render_with_error("Errore nella creazione della prenotazione");
+            $this->render_with_error("Errore nell'aggiornamento della prenotazione");
         }
 
+        Message::set("Prenotazione aggiornata con successo");
         $this->redirect('dashboard');
     }
 }
