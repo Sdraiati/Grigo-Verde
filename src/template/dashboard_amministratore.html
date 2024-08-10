@@ -1,33 +1,46 @@
-<section id="dettagli-amministratore">
-    <form action="/utenti/modifica" method="GET" onsubmit="return validateLogin()">
-        <h1 id='username' name="username"> {{ username }} </h1>
-        <p><strong>Nome:</strong> {{ nome }} </p>
-        <p><strong>Cognome:</strong> {{ cognome }} </p>
-    <input type="submit" value="Modifica">
-    </form>
-    <form action="/logout" method="GET" onsubmit="return validateLogin()"><!--short-content-->
-        <input type="submit" value="Logout">
-    </form>
-</section>
+<div class="actions-content">
+    <h1 id='username' name="username"> Benvenuto {{ nome }} {{ cognome }}</h1>
 
-<section id="prenotazioni">
-    <h2>Prenotazioni</h2>
-    <table aria-describedby="descrizione-tabella">
-        <caption>Informazioni sulle prenotazioni</caption>
-        <thead>
-            <tr>
-                <th scope='col'>Giorno</th>
-                <th scope='col'>Orario Inizio</th>
-                <th scope='col'>Orario Fine</th>
-                <th scope='col'>Dettaglio</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{ righe tabella }}
-        </tbody>
-    </table>
-    <p id="descrizione-tabella">questa tabella mostra le prenotazioni dell' amministratore</p>
-    <p>per creare una nuova prenotazione <a href="/prenotazioni/nuovo">vai qua!</a></p>
-    <p>per creare un nuovo spazio <a href="/spazi/nuovo">vai qua!</a></p>
-    <p>per creare un nuovo utente <a href="/utenti/nuovo">vai qua!</a></p>
-</section>
+    <aside>
+        <h2> Operazioni </h2>
+        <form action="utenti/modifica" method="get">
+            <input type="hidden" name="username" value="{{ username }}">
+            <input type="submit" value="Modifica Utente">
+        </form>
+        <form action="logout" method="GET">
+            <input type="submit" value="Logout">
+        </form>
+        <form action="prenotazioni/nuovo" method="GET">
+            <input type="submit" value="Nuova prenotazione">
+        </form>
+        <form action="spazi/nuovo" method="GET">
+            <input type="submit" value="Nuovo spazio">
+        </form>
+        <form action="utenti/nuovo" method="GET">
+            <input type="submit" value="Nuovo utente">
+        </form>
+    </aside>
+
+    <section id="content">
+        <h2>Prenotazioni</h2>
+        <p id="descrizione-tabella" class="hidden">
+            Tabella delle tue prenotazioni future degli spazi verdi.
+            Ci sono 4 campi: il giorno, l'ora di inizio, l'ora di fine e un link
+            per visualizzare i dettagli della prenotazione.
+        </p>
+        <table aria-describedby="descrizione-tabella">
+            <caption>Tabella delle tue prenotazioni.</caption>
+            <thead>
+                <tr>
+                    <th abbr="il" scope='col'>Giorno</th>
+                    <th abbr="dalle" scope='col'>Orario Inizio</th>
+                    <th abbr="alle" scope='col'>Orario Fine</th>
+                    <th abbr="link" scope='col'>Dettaglio</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ righe tabella }}
+            </tbody>
+        </table>
+    </section>
+</div>

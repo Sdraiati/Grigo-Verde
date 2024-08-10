@@ -30,15 +30,18 @@ class DashboardDocentePage extends Page
         $user = new Utente();
         $prenotazioni = $prenotazione->prendi_per_utente_time($this->docente_nome);
         $utente = $user->prendi($this->docente_nome);
-        if (empty($prenotazioni)) {
-            $content = str_replace('{{ content }}', "<h1>" . $this->docente_nome . ", non hai ancora fatto prenotazioni.</h1>", $content);
-            return $content;
-        }
 
         $content_2 = $this->getContent('dashboard_docente');
         $content_2 = str_replace('{{ username }}', $this->docente_nome, $content_2);
         $content_2 = str_replace('{{ nome }}', $utente['Nome'], $content_2);
         $content_2 = str_replace('{{ cognome }}', $utente['Cognome'], $content_2);
+
+        if (empty($prenotazioni)) {
+            $content_2 = preg_replace('/<section id="content">.*<\/section>/s', "<h1>" . $this->docente_nome . ", non hai ancora fatto prenotazioni.</h1>", $content_2);
+            $content = str_replace('{{ content }}', $content_2, $content);
+            return $content;
+        }
+
         $rows = $this->setRowTable($prenotazioni);
         $content_2 = str_replace('{{ righe tabella }}', $rows, $content_2);
         $content = str_replace('{{ content }}', $content_2, $content);
