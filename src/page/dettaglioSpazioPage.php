@@ -48,6 +48,7 @@ class DettaglioSpazioPage extends Page
         $content_2 = str_replace('{{ descrizione spazio }}', $spazio_data['Descrizione'], $content_2);
         $content_2 = str_replace('{{ tipo spazio }}', $spazio_data['Tipo'], $content_2);
         $content_2 = str_replace('{{ numero tavoli spazio }}', $spazio_data['N_tavoli'], $content_2);
+
         if (!empty($anteprima)) {
             $content_2 = str_replace('{{ immagine }}', "<img src='" . $src . "' alt='" . $alt . "' />", $content_2);
         } else {
@@ -61,9 +62,11 @@ class DettaglioSpazioPage extends Page
         $prenotazioni_data = $prenotazione->prendi_per_settimana((int)$spazio_data['Posizione'], $dataEOraCorrenti);
 
         if (empty($prenotazioni_data)) {
-            $content = str_replace("{{ content }}", "<p>Non ci sono prenotazioni per questo spazio.</p>", $content_2);
-            $content = str_replace('{{ content }}', $content_2, $content);
-            return $content;
+            $content_2 = preg_replace(
+                '/<p id="descrizione-tabella">.*?<\/table>/s',
+                "<p>Non ci sono prenotazioni per questo spazio.</p>",
+                $content_2
+            );
         }
 
         $rows = $this->setRowTable($prenotazioni_data);
@@ -86,6 +89,7 @@ class DettaglioSpazioPage extends Page
 
         $rows = "";
         $count = count($prenotazioni_data);
+
         for ($i = 0; $i < $count; $i++) {
             $prenotazione = $prenotazioni_data[$i];
             $prenotazione = $prenotazioni_data[$i];
