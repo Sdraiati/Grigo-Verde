@@ -1,6 +1,8 @@
 <?php
 require_once 'endpoint.php';
 require_once 'autenticazione.php';
+require_once 'message.php';
+
 class Login extends Endpoint
 {
     public string $username = '';
@@ -46,6 +48,7 @@ class Login extends Endpoint
             $page->setPath("login");
             echo $page->render();
         }
+        Message::set("Login effettuato con successo");
         $this->redirect('dashboard');
     }
 }

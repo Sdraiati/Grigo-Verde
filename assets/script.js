@@ -9,6 +9,18 @@ document.addEventListener("DOMContentLoaded", function(_) {
             back_to_top_button.style.display = "none";
         }
     }
+
+    let messageDiv = document.getElementById('message');
+    setTimeout(function() {
+        messageDiv.classList.add('fade-out');
+
+        setTimeout(function() {
+            if (messageDiv) {
+                messageDiv.remove();
+            }
+        }, 1000);
+
+    }, 3000);
 })
 
 function toggleView(name = "password") {
@@ -320,8 +332,7 @@ function validatePrenotazione() {
     return true;
 }
 
-function validateNewUser()
-{
+function validateNewUser() {
     let username = document.getElementsByName("username")[0].value;
     let nome = document.getElementsByName("nome")[0].value;
     let cognome = document.getElementsByName("cognome")[0].value;
@@ -330,8 +341,7 @@ function validateNewUser()
     let ruolo_element = document.getElementsByName("ruolo")[0];
     removeErrorDivs();
 
-    if(ruolo !== "Amministratore" && ruolo !== "Docente")
-    {
+    if (ruolo !== "Amministratore" && ruolo !== "Docente") {
         insertErrorMessage(ruolo_element, "Il ruolo deve essere Amministratore o Docente.");
         return false;
     }
@@ -350,26 +360,23 @@ function validateNewUser()
     return isUsernameValid && isPasswordValid && isNomeValid && isCognomeValid;
 }
 
-function showEditPassword()
-{
+function showEditPassword() {
     let fieldset = document.getElementById("password-fields");
     fieldset.classList.remove("hidden");
     fieldset.disabled = false;
 }
 
-function validatePassword()
-{
+function validatePassword() {
     let password = document.getElementsByName("password")[0].value;
     let password_element = document.getElementsByName("password")[0];
     // check if fieldset with id password-fields is enabled
     let password_fieldset = document.getElementById("password-fields");
-    if(password_fieldset && !password_fieldset.disabled)
+    if (password_fieldset && !password_fieldset.disabled)
         isPasswordValid = validateString(password_element, password, 4, 100, true, true);
     //check if the password corresponds to the value in conferma password
     let conferma_password = document.getElementsByName("conferma_password")[0].value;
     let conferma_password_element = document.getElementsByName("conferma_password")[0];
-    if(password !== conferma_password)
-    {
+    if (password !== conferma_password) {
         insertErrorMessage(conferma_password_element, "Le password non corrispondono.");
         return false;
     }

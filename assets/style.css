@@ -158,7 +158,7 @@ header {
 }
 
 header a {
-    color: var(--threeColor);
+    color: var(--backgroundColor);
     padding: calc(var(--textSize) / 1.5) calc(2 * var(--textSize));
 }
 
@@ -276,9 +276,14 @@ main p {
     font-size: 1em;
     z-index: 1000;
     text-align: center;
-    background-color: var(--primaryColor);
-    color: var(--backgroundColor);
-    border: 0.1rem solid var(--backgroundColor);
+    background-color: var(--backgroundColor);
+    color: var(--oneColor);
+    box-shadow: var(--shadow);
+    transition: opacity 1s ease-out;
+}
+
+#message.fade-out {
+    opacity: 0;
 }
 
 /* --------- ACTIONS --------- */
