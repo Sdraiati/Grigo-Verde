@@ -22,6 +22,7 @@
         --oneColor: #268700;
         --twoColor: #73dec1;
         --errorMessageColor: red;
+        --shadow: 0 0 0.4rem 0.01rem var(--secondaryColor);
     }
 }
 
@@ -32,6 +33,7 @@
         --oneColor: #268700;
         --twoColor: #73dec1;
         --errorMessageColor: #ffa0ff;
+        --shadow: 0 0 0.4rem 0.01rem var(--secondaryColor);
     }
 }
 */
@@ -191,7 +193,13 @@ header > * {
 
 #loginLink {
     text-align: right;
-    margin-right: 1rem;
+}
+
+#menu {
+    padding: 1rem;
+    border-radius: var(--round-radius);
+    background-color: var(--primaryColor);
+    color: var(--backgroundColor);
 }
 
 #menu ul {
@@ -266,7 +274,7 @@ main p {
     font-size: 1em;
     z-index: 1000;
     text-align: center;
-    background-color: var(--oneColor);
+    background-color: var(--primaryColor);
     color: var(--backgroundColor);
     border: 0.1rem solid var(--backgroundColor);
 }

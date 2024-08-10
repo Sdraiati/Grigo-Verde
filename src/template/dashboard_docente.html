@@ -1,0 +1,31 @@
+<section id="dettagli-docente">
+    <form action="/utenti/modifica" method="GET" onsubmit="return validateLogin()">
+        <h1 id='username' name="username"> {{ username }} </h1>
+        <p><strong>Nome:</strong> {{ nome }} </p>
+        <p><strong>Cognome:</strong> {{ cognome }} </p>
+    <input type="submit" value="Modifica">
+    </form>
+    <form action="/logout" method="GET" onsubmit="return validateLogin()"><!--short-content-->
+        <input type="submit" value="Logout">
+    </form>
+</section>
+
+<section id="prenotazioni">
+    <h2>Prenotazioni</h2>
+    <table aria-describedby="descrizione-tabella">
+        <caption>Informazioni sulle prenotazioni</caption>
+        <thead>
+            <tr>
+                <th scope='col'>Giorno</th>
+                <th scope='col'>Orario Inizio</th>
+                <th scope='col'>Orario Fine</th>
+                <th scope='col'>Dettaglio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ righe tabella }}
+        </tbody>
+    </table>
+    <p id="descrizione-tabella">questa tabella mostra le prenotazioni del docente</p>
+    <p>per creare una nuova prenotazione <a href="/prenotazioni/nuovo">vai qua!</a></p>
+</section>

@@ -7,6 +7,8 @@ require_once $project_root . '/model/disponibilità.php';
 require_once $project_root . '/page/prenotazioneFormPage.php';
 require_once $project_root . '/page/unauthorized.php';
 require_once $project_root . '/page/resource_not_found.php';
+require_once $project_root . '/page/unauthorized.php';
+require_once $project_root . '/page/resource_not_found.php';
 
 class ReservationDelete extends Endpoint
 {

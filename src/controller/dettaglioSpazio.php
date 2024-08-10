@@ -14,7 +14,6 @@ class DettaglioSpazio extends Endpoint
     {
         $spazio_nome = $this->get('spazio_nome');
         $this->spazio_nome = $spazio_nome;
-
         return true;
     }
 
