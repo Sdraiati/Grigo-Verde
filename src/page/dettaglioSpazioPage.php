@@ -63,7 +63,7 @@ class DettaglioSpazioPage extends Page
 
         if (empty($prenotazioni_data)) {
             $content_2 = preg_replace(
-                '/<p id="descrizione-tabella">.*?<\/table>/s',
+                '/<p id="descrizione-tabella".*?<\/table>/s',
                 "<p>Non ci sono prenotazioni per questo spazio.</p>",
                 $content_2
             );
@@ -78,14 +78,13 @@ class DettaglioSpazioPage extends Page
     protected function setRowTable($prenotazioni_data)
     {
         $utente = new Utente();
-        $rowTemplate = "<tr>
-        <td>{{ giorno }}</td>
-        <td>{{ ora inizio }}</td>
-        <td>{{ ora fine }}</td>
-        <td>{{ nome }}</td>
-        <td>{{ cognome }}</td>
-        <td>{{ dettaglio }}</td>
-        </tr>";
+        $rowTemplate = '<tr>
+        <td>{{ nome }} {{ cognome }}</td>
+            <td scope="col"><time datetime="{{ data }}">{{ data }}</time></td>
+            <td scope="col"><time>{{ inizio }}</time></td>
+            <td scope="col"><time>{{ fine }}</time></td>
+            <td scope="col"><a href="prenotazioni/dettaglio?prenotazione={{ id }}">dettaglio</a></td>
+        </tr>';
 
         $rows = "";
         $count = count($prenotazioni_data);
@@ -95,16 +94,16 @@ class DettaglioSpazioPage extends Page
             $prenotazione = $prenotazioni_data[$i];
             $start_date_time = new DateTime($prenotazione['DataInizio']);
             $end_date_time = new DateTime($prenotazione['DataFine']);
-            $giorno = $start_date_time->format('Y-m-d');
+            $giorno = $start_date_time->format('d/m/Y');
             $ora_inizio = $start_date_time->format('H:i');
             $ora_fine = $end_date_time->format('H:i');
             $currentUser = $utente->prendi($prenotazione['Username']);
-            $row = str_replace('{{ giorno }}', $giorno, $rowTemplate);
-            $row = str_replace('{{ ora inizio }}', $ora_inizio, $row);
-            $row = str_replace('{{ ora fine }}', $ora_fine, $row);
-            $row = str_replace('{{ nome }}', $currentUser['Nome'], $row);
+            $row = str_replace('{{ nome }}', $currentUser['Nome'], $rowTemplate);
             $row = str_replace('{{ cognome }}', $currentUser['Cognome'], $row);
-            $row = str_replace('{{ dettaglio }}', '<a href="prenotazioni/dettaglio?prenotazione=' . $prenotazione['Id'] . '">dettaglio</a>', $row);
+            $row = str_replace('{{ data }}', $giorno, $row);
+            $row = str_replace('{{ inizio }}', $ora_inizio, $row);
+            $row = str_replace('{{ fine }}', $ora_fine, $row);
+            $row = str_replace('{{ id }}', $prenotazione['Id'], $row);
 
             $rows .= $row;
         }
