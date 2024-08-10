@@ -72,14 +72,14 @@ class DettaglioSpazioPage extends Page
     protected function setRowTable($prenotazioni_data)
     {
         $utente = new Utente();
-        $rowTemplate = "<tr>
-        <td>{{ giorno }}</td>
-        <td>{{ ora inizio }}</td>
-        <td>{{ ora fine }}</td>
+        $rowTemplate = '<tr>
+        <td scope="col"><time datetime="{{ data }}">{{ data }}</time></td>
+        <td scope="col"><time>{{ inizio }}</time></td>
+        <td scope="col"><time>{{ fine }}</time></td>
         <td>{{ nome }}</td>
         <td>{{ cognome }}</td>
-        <td>{{ dettaglio }}</td>
-        </tr>";
+        <td scope="col"><a href="prenotazioni/dettaglio?prenotazione={{ id }}">dettaglio</a></td>
+        </tr>';
 
         $rows = "";
         $count = count($prenotazioni_data);
@@ -92,12 +92,12 @@ class DettaglioSpazioPage extends Page
             $ora_inizio = $start_date_time->format('H:i');
             $ora_fine = $end_date_time->format('H:i');
             $currentUser = $utente->prendi($prenotazione['Username']);
-            $row = str_replace('{{ giorno }}', $giorno, $rowTemplate);
-            $row = str_replace('{{ ora inizio }}', $ora_inizio, $row);
-            $row = str_replace('{{ ora fine }}', $ora_fine, $row);
+            $row = str_replace('{{ data }}', $giorno, $rowTemplate);
+            $row = str_replace('{{ inizio }}', $ora_inizio, $row);
+            $row = str_replace('{{ fine }}', $ora_fine, $row);
             $row = str_replace('{{ nome }}', $currentUser['Nome'], $row);
             $row = str_replace('{{ cognome }}', $currentUser['Cognome'], $row);
-            $row = str_replace('{{ dettaglio }}', '<a href="prenotazioni/dettaglio?prenotazione='.$prenotazione['Id'].'">dettaglio</a>', $row);
+            $row = str_replace('{{ id }}', $prenotazione['Id'], $row);
 
             $rows .= $row;
         }
