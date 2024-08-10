@@ -8,16 +8,20 @@ include_once 'model/prenotazione.php';
 // classe item
 class SpazioItem
 {
+    static private $template = '<li> 
+            <p>{{ Nome }}</p> 
+            <img src="{{ Byte }}" alt=""> 
+            <a href="spazi/spazio?spazio_nome={{ Nome }}"> visualizza dettaglio </a> 
+        </li>';
 
     public function render($values)
     {
-        $item = '<li>' . $values["Nome"];
+        $item = str_replace('{{ Nome }}', $values["Nome"], self::$template);
         if ($values["Byte"]) {
-            $item = $item . '<img src="' . $values["Byte"] . ' alt="">';
+            $item = str_replace('{{ Byte }}', $values["Byte"], $item);
         } else {
-            $item = $item . '<img src="assets/default_spazio_image.png" alt="">';
+            $item = str_replace('{{ Byte }}', 'assets/default_spazio_image.png', $item);
         }
-        $item = $item . ' <a href="spazi/spazio?spazio_nome=' . $values["Nome"] . '"> visualizza dettaglio </a> </li>';
         return $item;
     }
 }
