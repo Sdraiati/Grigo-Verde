@@ -26,8 +26,8 @@ CREATE TABLE PRENOTAZIONE (
     Spazio INT NOT NULL,
     Descrizione TEXT,
     UNIQUE(DataInizio, DataFine, Spazio),
-    FOREIGN KEY (Username) REFERENCES UTENTE(Username),
-    FOREIGN KEY (Spazio) REFERENCES SPAZIO(Posizione)
+    FOREIGN KEY (Username) REFERENCES UTENTE(Username) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (Spazio) REFERENCES SPAZIO(Posizione) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 
@@ -50,7 +50,8 @@ CREATE TABLE DISPONIBILITA (
 
 INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('user', '$2y$10$jUmfsNGBXq5IUXDQ1fUSOuGAM7KIdwN6I.lxyJWNyysqns.pAP0pe', 'user', 'user', 'Docente');
 INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('admin', '$2y$10$K6wj8TJzSVeA6y9JeMriiOT3Fh9enThoTvKCSCh/n2P7xATNTD4fG', 'admin', 'admin', 'Amministratore');
-INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('misto_segando', 'user', 'Leopoldo', 'Luamaro', 'Docente');
+INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('ernestino', 'pass', 'Ernesto', 'Gialli', 'Docente');
+INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('mario', 'pass', 'Mario', 'Rossi', 'Docente');
 
 
 INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (4, 'pino', 'grigio', 'grigio', 10);
