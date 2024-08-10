@@ -8,7 +8,12 @@
 
 <section id="content">
     <h2>Prenotazioni</h2>
-    <p id="descrizione-tabella">Questa tabella mostra le prenotazioni per lo spazio</p>
+    <p id="descrizione-tabella" class="hidden">
+        Tabella delle tue prenotazioni future dello spazio {{ nome spazio }}.
+        Ci sono 5 campi: il nome di chi ha effettuato la prenotazione,
+        il giorno, l'ora di inizio, l'ora di fine e un link
+        per visualizzare i dettagli della prenotazione.
+    </p>
     <table aria-describedby="descrizione-tabella">
         <caption>Informazioni sulle prenotazioni</caption>
         <thead>
