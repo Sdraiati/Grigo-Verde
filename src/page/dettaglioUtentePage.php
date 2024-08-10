@@ -27,6 +27,7 @@ class DettaglioUtentePage extends Page
 
         $this->prenotazione = new Prenotazione();
         $this->spazio = new Spazio();
+        $this->utente = new Utente();
     }
 
     public function fetch(): void
@@ -97,6 +98,9 @@ class DettaglioUtentePage extends Page
         if (!Autenticazione::is_amministratore()) {
             return "Non hai i permessi per accedere a questa pagina"; //TODO: 403 forbidden page
         }
+        if(empty($this->utente->prendi($this->username))) {
+            return "Utente non esistente";
+        }
 
         $this->fetch();
 
@@ -110,7 +114,7 @@ class DettaglioUtentePage extends Page
         $prenotazioni = $this->prenotazione->prendi_per_utente($this->username);
 
         if (empty($prenotazioni)) {
-            return "Nessuna prenotazione trovata";
+            $content = str_replace("{{ table-rows }}", "Nessuna prenotazione trovata", $content);
         } else {
             $content = str_replace("{{ table-rows }}", $this->setRowTable($prenotazioni), $content);
         }
