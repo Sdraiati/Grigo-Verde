@@ -79,11 +79,10 @@ class DettaglioSpazioPage extends Page
     {
         $utente = new Utente();
         $rowTemplate = '<tr>
+        <td>{{ nome }}</td>
         <td scope="col"><time datetime="{{ data }}">{{ data }}</time></td>
         <td scope="col"><time>{{ inizio }}</time></td>
         <td scope="col"><time>{{ fine }}</time></td>
-        <td>{{ nome }}</td>
-        <td>{{ cognome }}</td>
         <td scope="col"><a href="prenotazioni/dettaglio?prenotazione={{ id }}">dettaglio</a></td>
         </tr>';
 
@@ -99,11 +98,10 @@ class DettaglioSpazioPage extends Page
             $ora_inizio = $start_date_time->format('H:i');
             $ora_fine = $end_date_time->format('H:i');
             $currentUser = $utente->prendi($prenotazione['Username']);
-            $row = str_replace('{{ data }}', $giorno, $rowTemplate);
+            $row = str_replace('{{ nome }}', $currentUser['Nome']." ".$currentUser['Cognome'], $rowTemplate);
+            $row = str_replace('{{ data }}', $giorno, $row);
             $row = str_replace('{{ inizio }}', $ora_inizio, $row);
             $row = str_replace('{{ fine }}', $ora_fine, $row);
-            $row = str_replace('{{ nome }}', $currentUser['Nome'], $row);
-            $row = str_replace('{{ cognome }}', $currentUser['Cognome'], $row);
             $row = str_replace('{{ id }}', $prenotazione['Id'], $row);
 
             $rows .= $row;
