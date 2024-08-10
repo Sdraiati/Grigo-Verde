@@ -6,11 +6,12 @@
 /* --------- COLORS --------- */
 
 :root {
+    --threeColor-rgb: 115, 222, 193;
     --backgroundColor: #fff;
     --textColor: #333;
     --oneColor: #335833;
     --twoColor: #0000FF;
-    --threeColor: #A4C7FF;
+    --threeColor: rgb(var(--threeColor-rgb));
     --errorMessageColor: red;
 }
 
@@ -49,7 +50,7 @@
     :root {
         --textSize: 1rem;
         --heading1Size: 2rem;
-        --heading2Size: 1.5rem;
+        --heading2Size: 1.3rem;
         --shortContent: 100%;
         --content: 100%;
     }
@@ -61,7 +62,7 @@
     :root {
         --textSize: 1.1rem;
         --heading1Size: 2.5rem;
-        --heading2Size: 2rem;
+        --heading2Size: 1.5rem;
         --shortContent: 55%;
         --content: 90%;
     }
@@ -73,7 +74,7 @@
     :root {
         --textSize: 1.3rem;
         --heading1Size: 3rem;
-        --heading2Size: 2.5rem;
+        --heading2Size: 1.8rem;
         --shortContent: 42%;
         --content: 80%;
     }
@@ -85,7 +86,7 @@
     :root {
         --textSize: 1.5rem;
         --heading1Size: 3.5rem;
-        --heading2Size: 3rem;
+        --heading2Size: 2rem;
         --shortContent: 36%;
         --content: 70%;
     }
@@ -369,7 +370,7 @@ fieldset {
 
 legend {
     margin-bottom: 1rem;
-    font-size: 1.5rem;
+    font-size: var(--heading2Size);
 }
 
 label {
@@ -440,6 +441,32 @@ input[type="submit"]:hover {
     display: block;
     margin-top: 0.5em;
     margin-bottom: 0.5em;
+}
+
+/* --------- TABLES --------- */
+
+table {
+    width: 100%;
+    border: 0.1rem solid var(--textColor);
+}
+
+table th, table td {
+    padding: 0.8rem;
+    text-align: left;
+    border-bottom: 0.1rem solid var(--textColor);
+    border-right: 0.1rem solid var(--textColor);
+}
+
+table th:last-of-type, table td:last-of-type {
+    border-right: none;
+}
+
+table tr:last-of-type td {
+    border-bottom: none;
+}
+
+table tr:nth-of-type(even) {
+    background-color: rgba(var(--threeColor-rgb), 1);
 }
 
 /* --------- ABOUT US PAGE --------- */
@@ -558,29 +585,14 @@ input[type="submit"]:hover {
 
 /* --------- TEST PAGE --------- */
 
-table {
-    width: 100%;
-    border: 0.1rem solid #ddd;
-}
-
-table th, table td {
-    padding: 0.8rem;
-    text-align: left;
-    border-bottom: 0.1rem solid #ddd;
-}
-
-.passed {
-    background-color: #d4edda;
-    color: #155724;
+table tbody .passed {
+    background-color: var(--threeColor);
+    color: var(--oneColor);
 }
 
 .failed {
     background-color: #f8d7da;
-    color: #721c24;
-}
-
-#tabella-test {
-    display: none;
+    color: var(--errorMessageColor);
 }
 
 /* --------- Spazi disponibili --------- */
@@ -615,8 +627,8 @@ table th, table td {
 }
 
 #form_filtri fieldset fieldset legend {
+    font-size: var(--textSize);
     display: inline;
-    font-size: 1.2rem;
 }
 
 
