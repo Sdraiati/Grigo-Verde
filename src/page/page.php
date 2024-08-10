@@ -30,6 +30,7 @@ class Page
         } else if (Autenticazione::is_amministratore()) {
             $this->nav = [
                 '<span lang="en">Home</span>' => '',
+                '<span lang="en">Dashboard</span>' => 'dashboard',
                 '<span>Spazi</span>' => 'spazi',
                 '<span>Utenti</span>' => 'utenti',
                 '<span>Prenotazioni</span>' => 'prenotazioni',
@@ -38,6 +39,7 @@ class Page
         } else {
             $this->nav = [
                 '<span lang="en">Home</span>' => '',
+                '<span lang="en">Dashboard</span>' => 'dashboard',
                 '<span>Spazi</span>' => 'spazi',
                 '<span>Prenotazioni</span>' => 'prenotazioni',
                 '<span lang="en">About us</span>' => 'about_us',

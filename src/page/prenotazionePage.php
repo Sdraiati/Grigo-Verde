@@ -48,7 +48,7 @@ class PrenotazionePage extends Page
         foreach ($reservations as $res) {
             $start_date_time = new DateTime($res['DataInizio']);
             $end_date_time = new DateTime($res['DataFine']);
-            $giorno = $start_date_time->format('Y-m-d');
+            $giorno = $start_date_time->format('d/m/Y');
             $ora_inizio = $start_date_time->format('H:i');
             $ora_fine = $end_date_time->format('H:i');
             $res['Giorno'] = $giorno;

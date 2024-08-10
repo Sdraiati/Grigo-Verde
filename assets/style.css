@@ -124,7 +124,7 @@ h2 {
 
 a {
     color: var(--twoColor);
-    padding: 0.3rem;
+/*    padding: 0.3rem; */
     border-radius: var(--round-radius);
 }
 
@@ -289,7 +289,7 @@ main p {
     "title title"
     "sidebar content";
     grid-template-columns: 1fr 3fr;
-    gap: 1rem;
+    gap: 2rem;
 }
 
 .actions-content h1 {
@@ -303,6 +303,10 @@ main p {
     box-shadow: var(--shadow);
     height: fit-content;
     margin-bottom: 1rem;
+}
+
+.actions-content aside form {
+    box-shadow: none;
 }
 
 .actions-content .content {

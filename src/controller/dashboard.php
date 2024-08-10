@@ -14,8 +14,7 @@ class Dashboard extends Endpoint
     public function validate(): bool
     {
         $auth = new Autenticazione();
-        if($auth->isLogged())
-        {
+        if ($auth->isLogged()) {
             $this->nome = $_SESSION['username'];
             return true;
         }
@@ -26,21 +25,18 @@ class Dashboard extends Endpoint
     public function handle(): void
     {
         $auth = new Autenticazione();
-        if($this->validate())
-        {
-            if(!$auth->is_amministratore())
-            {
+        if ($this->validate()) {
+            if (!$auth->is_amministratore()) {
                 $page = new DashboardDocentePage($this->nome);
-                $page->setPath("dashboard/docente");
+                $page->setPath("dashboard");
                 echo $page->render();
                 return;
             }
             $page = new DashboardAmministratorePage($this->nome);
-            $page->setPath("dashboard/amministratore");
+            $page->setPath("dashboard");
             echo $page->render();
             return;
-        }
-        else{
+        } else {
             header("Location: /login");
         }
     }
