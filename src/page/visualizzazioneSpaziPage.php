@@ -17,7 +17,7 @@ class SpazioItem
         } else {
             $item = $item . '<img src="assets/default_spazio_image.png" alt="">';
         }
-        $item = $item . ' <a href="spazi/spazio?spazio_nome=' . $values["Nome"]. '"> visualizza dettaglio </a> </li>';
+        $item = $item . ' <a href="spazi/spazio?spazio_nome=' . $values["Nome"] . '"> visualizza dettaglio </a> </li>';
         return $item;
     }
 }
@@ -170,8 +170,6 @@ class VisualizzazioneSpaziPage extends Page
             $content = str_replace("{{ content }}", $intestazione_pagina, $content);
         }
 
-        $content = str_replace("href=\"/\"", "href=\"#\"", $content);   // todo: check if and why this is needed (this should never be needed)
-        $content = str_replace('{{ base_path }}', BASE_URL, $content);  // todo: check if and why this is needed
         if ($this->error) {
             $content = str_replace("{{ error }}", $this->error($this->error), $content);            // idem as above
         } else {
