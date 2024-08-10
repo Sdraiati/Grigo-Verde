@@ -1,21 +1,21 @@
-<h1> SPAZI DISPONIBILI <h1>
+<h1> Spazi disponibili </h1>
 
 <form id="form_filtri" action="spazi" method="get">
     <fieldset>
         <legend> Filtri </legend>
-        <input type="radio" id="tipo_verde" name="tipo" value="verde" aria-label="verde" {{ checked-verde }}>
         <label for="tipo_verde">Verde</label>
-        <input type="radio" id="tipo_grigio" name="tipo" value="grigio" aria-label="grigio" {{ checked-grigio }}>
+        <input type="radio" id="tipo_verde" name="tipo" value="verde" aria-label="verde" {{ checked-verde }}>
         <label for="tipo_grigio">Grigio</label>
-        <input type="date" id="data" name="data" {{ data }} />
+        <input type="radio" id="tipo_grigio" name="tipo" value="grigio" aria-label="grigio" {{ checked-grigio }}>
         <label for="data"> giorno </label>
-        <input type="time" id="orario_inizio" name="orario_inizio" {{ start }}>
+        <input type="date" id="data" name="data" {{ data }} />
         <label for="orario_inizio"> orario inizio </label>
-        <input type="time" id="orario_fine" name="orario_fine" {{ end }}>
+        <input type="time" id="orario_inizio" name="orario_inizio" {{ start }}>
         <label for="orario_fine"> orario fine </label>
+        <input type="time" id="orario_fine" name="orario_fine" {{ end }}>
+        {{ error }}
         <input type="submit" value="applica filtri"> <br>
     </fieldset>
-    {{ error }}
 </form>
 
 <!-- questo form si potrebbe rendere hidden quando non ci sono dei filtri e visibile quando ci sono filtri. -->
