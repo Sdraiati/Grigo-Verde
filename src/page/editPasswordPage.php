@@ -5,11 +5,14 @@ $project_root = dirname(__FILE__, 2);
 include_once 'model/utente.php';
 class editPasswordPage extends Page
 {
+    private $error;
+
     public function __construct(string $error = '')
     {
         parent::__construct();
         $this->setTitle('Modifica Password');
         $this->setBreadcrumb([
+            '<span lang="en">Home</span>' => '',
             '<span lang="en">Dashboard</span>' => 'dashboard'
         ]);
         $this->setPath('/dashboard/modifica-password');
@@ -18,10 +21,9 @@ class editPasswordPage extends Page
         $this->error = $error;
     }
 
-    public function render() : string
+    public function render(): string
     {
-        if(!Autenticazione::isLogged())
-        {
+        if (!Autenticazione::isLogged()) {
             $page = new LoginPage(
                 "",
                 "",
@@ -40,3 +42,4 @@ class editPasswordPage extends Page
         return $content;
     }
 }
+

@@ -62,6 +62,18 @@ class Prenotazione extends Model
         return $this->get_all($query, $params);
     }
 
+    public function prendi_per_intervallo($dataInizio, $dataFine) 
+    {
+        // dataInizio e dataFine devono essere nel formato: YYYY-MM-DD HH:SS:MM
+        $query = 'SELECT * FROM PRENOTAZIONE WHERE DataInizio >= ? AND DataFine <= ? ORDER BY PRENOTAZIONE.Spazio';
+        $params = [
+            ['type' => 's', 'value' => $dataInizio],
+            ['type' => 's', 'value' => $dataFine],
+        ];
+
+        return $this->get_all($query, $params);
+    }
+
     public function prendi_per_settimana($spazio, $day)
     {
         $endDate = date('Y-m-d H:i:s', strtotime($day . ' +1 week'));
@@ -72,6 +84,24 @@ class Prenotazione extends Model
             ['type' => 's', 'value' => $day],
             ['type' => 's', 'value' => $endDate]
         ];
+
+        return $this->get_all($query, $params);
+    }
+
+    public function prendi_per_utente($username, $day = NULL)
+    {
+        if ($day == NULL) {
+            $query = "SELECT * FROM " . $this->table . " WHERE Username = ?";
+            $params = [
+                ['type' => 's', 'value' => $username]
+            ];
+        } else {
+            $query = "SELECT * FROM " . $this->table . " WHERE Username = ? AND DataFine >= ?";
+            $params = [
+                ['type' => 's', 'value' => $username],
+                ['type' => 's', 'value' => $day]
+            ];
+        }
 
         return $this->get_all($query, $params);
     }
@@ -142,6 +172,27 @@ class Prenotazione extends Model
         $query = "SELECT * FROM " . $this->table . " WHERE Username = ? AND DataInizio > CURRENT_TIME";
         $params = [
             ['type' => 's', 'value' => $username],
+        ];
+
+        return $this->get_all($query, $params);
+    }
+
+    public function prendi_all()
+    {
+        $query = "SELECT 
+                DataInizio, DataFine, P.Descrizione, P.Id,
+                    U.Nome, U.Cognome, U.Username,
+                    S.Nome AS NomeSpazio, S.Posizione 
+                FROM " . $this->table . "  AS P
+                JOIN SPAZIO AS S ON P.Spazio = S.Posizione
+                JOIN UTENTE AS U ON P.Username = U.Username
+                WHERE P.DataFine >= ?
+                ORDER BY P.DataFine ASC";
+
+        date_default_timezone_set('UTC');
+        $currentDateTime = date('Y/m/d H:i:s');
+        $params = [
+            ['type' => 's', 'value' => $currentDateTime]
         ];
 
         return $this->get_all($query, $params);

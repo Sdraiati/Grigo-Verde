@@ -14,6 +14,7 @@ class editSpacePage extends Page
     private string $tipo = '';
     private string $error = '';
     private int $n_tavoli = 0;
+    private string $error = '';
     public function __construct(
         int $posizione = -1,
         string $nome = "",
@@ -25,6 +26,7 @@ class editSpacePage extends Page
         parent::__construct();
         $this->setTitle('Modifica Spazio');
         $this->setBreadcrumb([
+            '<span lang="en">Home</span>' => '',
             'Spazi' => 'spazi'
         ]);
         $this->setPath('/spazi/modifica');
@@ -73,7 +75,7 @@ class editSpacePage extends Page
         if (!Autenticazione::is_amministratore()) {
             $page = new UnauthorizedPage();
             $page->setPath($this->path);
-            echo $page->render();
+            return $page->render();
         }
 
         $this->fetch();
@@ -155,4 +157,3 @@ class editSpacePage extends Page
         return $html;
     }
 }
-

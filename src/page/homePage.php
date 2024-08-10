@@ -10,7 +10,7 @@ class HomePage extends Page
         $this->setTitle('<span lang="en">Home</span>');
         $this->setBreadcrumb([]);
         $this->addKeywords([]);
-        $this->setPath('/');
+        $this->setPath('');
     }
 
     public function render()

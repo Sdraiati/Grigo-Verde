@@ -16,7 +16,7 @@ class ReservationNew extends Endpoint
 
     public function __construct()
     {
-        parent::__construct('dashboard/nuova-prenotazione', 'POST');
+        parent::__construct('prenotazioni/nuovo', 'POST');
     }
 
     public function render_with_error($error)
@@ -29,7 +29,7 @@ class ReservationNew extends Endpoint
             $this->descrizione,
             $error
         );
-        $page->setPath('dashboard/nuova-prenotazione');
+        $page->setPath('prenotazioni/nuovo');
 
         echo $page->render();
     }

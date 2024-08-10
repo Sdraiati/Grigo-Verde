@@ -18,6 +18,7 @@ class newUserPage extends Page
         parent::__construct();
         $this->setTitle('Nuovo Utente');
         $this->setBreadcrumb([
+            '<span lang="en">Home</span>' => '',
             'Utenti' => 'utenti'
         ]);
         $this->setPath('/utenti/nuovo');
@@ -44,7 +45,7 @@ class newUserPage extends Page
         if (!Autenticazione::is_amministratore()) {
             $page = new UnauthorizedPage();
             $page->setPath($this->path);
-            echo $page->render();
+            return $page->render();
         }
 
         $content = parent::render();
@@ -92,4 +93,3 @@ class newUserPage extends Page
         return $content;
     }
 }
-

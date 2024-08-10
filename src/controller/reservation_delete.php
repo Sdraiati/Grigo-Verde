@@ -7,6 +7,8 @@ require_once $project_root . '/model/disponibilità.php';
 require_once $project_root . '/page/prenotazioneFormPage.php';
 require_once $project_root . '/page/unauthorized.php';
 require_once $project_root . '/page/resource_not_found.php';
+require_once $project_root . '/page/unauthorized.php';
+require_once $project_root . '/page/resource_not_found.php';
 
 class ReservationDelete extends Endpoint
 {
@@ -57,7 +59,7 @@ class ReservationDelete extends Endpoint
             $page = new UnauthorizedPage();
             $page->setPath($this->path);
             echo $page->render();
-            return;
+            exit();
         }
 
         $prenotazione->elimina($this->reservation_id);

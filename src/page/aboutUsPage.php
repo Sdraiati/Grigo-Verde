@@ -8,7 +8,9 @@ class AboutUsPage extends Page
     {
         parent::__construct();
         $this->setTitle('<span lang="en">About Us</span>');
-        $this->setBreadcrumb([]);
+        $this->setBreadcrumb([
+            '<span lang="en">Home</span>' => '',
+        ]);
         $this->addKeywords([""]);
         $this->setPath('/about_us');
     }

@@ -14,7 +14,10 @@ class DettaglioSpazioPage extends Page
     {
         parent::__construct();
         $this->setTitle('Dettaglio Spazio');
-        $this->setBreadcrumb(['Spazi' => 'spazi']);
+        $this->setBreadcrumb([
+            '<span lang="en">Home</span>' => '',
+            'Spazi' => 'spazi'
+        ]);
         $this->setPath('/spazi/spazio');
         $this->addKeywords([]);
 
@@ -81,7 +84,7 @@ class DettaglioSpazioPage extends Page
         $count = count($prenotazioni_data);
         for ($i = 0; $i < $count; $i++) {
             $prenotazione = $prenotazioni_data[$i];
-            $currentUser = $utente->prendi($prenotazione['Username']); 
+            $currentUser = $utente->prendi($prenotazione['Username']);
             $row = str_replace('{{ data inizio }}', $prenotazione['DataInizio'], $rowTemplate);
             $row = str_replace('{{ data fine }}', $prenotazione['DataFine'], $row);
             $row = str_replace('{{ nome }}', $currentUser['Nome'], $row);

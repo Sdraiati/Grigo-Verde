@@ -19,7 +19,10 @@ class PrenotazioneFormPage extends Page
     {
         parent::__construct();
         parent::setTitle('Nuova Prenotazione');
-        $this->setBreadcrumb(['Dashboard' => 'dashboard']);
+        $this->setBreadcrumb([
+            '<span lang="en">Home</span>' => '',
+            'Dashboard' => 'dashboard'
+        ]);
         $this->addKeywords(['']);
 
         $this->reservation_id = $reservation_id;

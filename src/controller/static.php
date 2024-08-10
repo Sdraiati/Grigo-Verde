@@ -5,17 +5,17 @@ include_once 'endpoint.php';
 
 class StaticPage extends Endpoint
 {
-    private $content = null;
+    private $page;
 
     public function __construct($path, $page)
     {
         parent::__construct($path, 'GET');
         $page->setPath($path);
-        $this->content = $page->render('');
+        $this->page = $page;
     }
 
     public function handle()
     {
-        echo $this->content;
+        echo $this->page->render();
     }
 }

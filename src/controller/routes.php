@@ -32,6 +32,9 @@ include_once 'controller/dashboardAmministratore.php';
 include_once 'page/dashboardAmministratorePage.php';
 include_once 'page/editPasswordPage.php';
 include_once 'controller/edit_password.php';
+include_once 'page/dettaglioUtentePage.php';
+include_once 'controller/reservations.php';
+include_once 'controller/delete_user.php';
 
 $about_us = new AboutUsPage();
 $homepage = new HomePage();
@@ -50,7 +53,8 @@ $editUser = new EditUser();
 $logout = new Logout();
 $editPasswordPage = new EditPasswordPage();
 $editPassword = new EditPassword();
-
+$dettaglioUtentePage = new DettaglioUtentePage();
+$deleteUser = new DeleteUser();
 
 $router = new Router();
 
@@ -67,7 +71,7 @@ $router->add(new DashboardDocente());
 $router->add(new DashboardAmministratore());
 $router->add(new StaticPage('spazi/modifica', $editSpacePage));
 $router->add($editSpace);
-$router->add(new StaticPage('dashboard/nuova-prenotazione', $newPrenotazionePage));
+$router->add(new StaticPage('prenotazioni/nuovo', $newPrenotazionePage));
 $router->add(new ReservationNew());
 $router->add(new ReservationDetail());
 $router->add(new ReservationUpdateGet());
@@ -80,3 +84,6 @@ $router->add($editUser);
 $router->add($logout);
 $router->add(new StaticPage('dashboard/modifica-password', $editPasswordPage));
 $router->add($editPassword);
+$router->add(new StaticPage('utenti/utente', $dettaglioUtentePage));
+$router->add(new Reservations());
+$router->add($deleteUser);

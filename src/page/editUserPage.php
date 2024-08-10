@@ -18,6 +18,7 @@ class editUserPage extends Page
         parent::__construct();
         $this->setTitle('Modifica Utente');
         $this->setBreadcrumb([
+            '<span lang="en">Home</span>' => '',
             'Utenti' => 'utenti'
         ]);
         $this->setPath('/utenti/modifica');
@@ -66,7 +67,7 @@ class editUserPage extends Page
         if (!Autenticazione::is_amministratore()) {
             $page = new UnauthorizedPage();
             $page->setPath($this->path);
-            echo $page->render();
+            return $page->render();
         }
 
         $this->fetch();
@@ -121,4 +122,3 @@ class editUserPage extends Page
         return $content;
     }
 }
-

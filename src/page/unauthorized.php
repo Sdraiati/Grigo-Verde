@@ -8,7 +8,9 @@ class UnauthorizedPage extends Page
     {
         parent::__construct();
         $this->setTitle('Non autorizzato');
-        $this->setBreadcrumb([]);
+        $this->setBreadcrumb([
+            '<span lang="en">Home</span>' => '',
+        ]);
         $this->addKeywords([""]);
     }
 

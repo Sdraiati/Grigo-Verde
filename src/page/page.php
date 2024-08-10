@@ -13,17 +13,35 @@ class Page
     protected $titleBreadcrumb = '';
     protected $keywords = ['ricette', 'gustose', 'cucina', 'italiana'];
     protected $path = '/';
-    protected $nav = [
-        '<span lang="en">Home</span>' => '',
-        '<span lang="en">About us</span>' => 'about_us',
-        '<span lang="en">Login</span>' => 'login'
-    ];
     protected $breadcrumb = [];
-
     public function __construct($title = '', $path = '/')
     {
         $this->title = $title;
         $this->path = $path;
+
+        if (!Autenticazione::isLogged()) {
+            $this->nav = [
+                '<span lang="en">Home</span>' => '',
+                '<span>Spazi</span>' => 'spazi',
+                '<span>Prenotazioni</span>' => 'prenotazioni',
+                '<span lang="en">About us</span>' => 'about_us',
+            ];
+        } else if (Autenticazione::is_amministratore()) {
+            $this->nav = [
+                '<span lang="en">Home</span>' => '',
+                '<span>Spazi</span>' => 'spazi',
+                '<span>Utenti</span>' => 'utenti',
+                '<span>Prenotazioni</span>' => 'prenotazioni',
+                '<span lang="en">About us</span>' => 'about_us',
+            ];
+        } else {
+            $this->nav = [
+                '<span lang="en">Home</span>' => '',
+                '<span>Spazi</span>' => 'spazi',
+                '<span>Prenotazioni</span>' => 'prenotazioni',
+                '<span lang="en">About us</span>' => 'about_us',
+            ];
+        }
     }
 
     protected function makeLogin()
@@ -69,11 +87,6 @@ class Page
     public function setPath($path)
     {
         $this->path = $path;
-    }
-
-    protected function setNav($nav)
-    {
-        $this->nav = $nav;
     }
 
     public function setBreadcrumb($breadcrumb)

@@ -19,6 +19,7 @@ class newSpacePage extends Page
         parent::__construct();
         $this->setTitle('Nuovo Spazio');
         $this->setBreadcrumb([
+            '<span lang="en">Home</span>' => '',
             'Spazi' => 'spazi'
         ]);
         $this->setPath('/spazi/nuovo');
@@ -45,7 +46,7 @@ class newSpacePage extends Page
         if (!Autenticazione::is_amministratore()) {
             $page = new UnauthorizedPage();
             $page->setPath($this->path);
-            echo $page->render();
+            return $page->render();
         }
         $content = parent::render();
         $content = str_replace("{{ content }}", $this->getContent('new_space'), $content);

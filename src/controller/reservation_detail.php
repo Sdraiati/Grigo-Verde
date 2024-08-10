@@ -12,7 +12,7 @@ class ReservationDetail extends Endpoint
 
     public function __construct()
     {
-        parent::__construct('prenotazioni/', 'GET');
+        parent::__construct('prenotazioni/dettaglio', 'GET');
     }
 
     public function validate(): bool
@@ -52,7 +52,7 @@ class ReservationDetail extends Endpoint
         }
 
         $page = new PrenotazioneDetailPage($this->reservation_id);
-        $page->setPath('prenotazioni/?prenotazione=' . $this->reservation_id);
+        $page->setPath('prenotazioni/dettaglio?prenotazione=' . $this->reservation_id);
         echo $page->render();
     }
 }

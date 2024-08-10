@@ -24,19 +24,22 @@ class ReferenceItem
         return strtolower(str_replace([' ', '_', '/'], '', $string));
     }
 
-    public function render()
+    public function render($divider)
     {
         $sanitizedPath = $this->sanitize($this->path);
         $sanitizedCurrentPath = $this->sanitize($this->currentPath);
 
-        if (!($this->inBreadcrumb)&&$sanitizedPath === $sanitizedCurrentPath) {
+        if (!($this->inBreadcrumb) && $sanitizedPath === $sanitizedCurrentPath) {
             $content = '<li>';
             $content .= $this->title;
             $content .= '</li>';
             return  $content;
         } else {
-            $content = '<li>';
+            $content = '<li aria-hidden="true">';
             $content .= '<a href="/' . $this->path . '">' . $this->title . '</a>';
+            if ($divider !== '') {
+                $content .= '<span>' . $divider . '</span>';
+            }
             $content .= '</li>';
             return  $content;
         }
@@ -48,6 +51,7 @@ class ReferenceList
     private $items = [];
     private $currentPath;
     private $inBreadcrumb;
+    private $divider = '';
 
     public function __construct($items, $currentPath, $inBreadcrumb = false)
     {
@@ -56,6 +60,11 @@ class ReferenceList
         foreach ($items as $title => $path) {
             $this->addItem($title, $path);
         }
+    }
+
+    protected function setDivider($divider)
+    {
+        $this->divider = $divider;
     }
 
     public function addItem($title, $path)
@@ -67,7 +76,7 @@ class ReferenceList
     {
         $content = '';
         foreach ($this->items as $item) {
-            $content .= $item->render() . PHP_EOL;
+            $content .= $item->render($this->divider) . PHP_EOL;
         }
         return $content;
     }
