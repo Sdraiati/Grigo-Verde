@@ -86,6 +86,9 @@ $tests = [
     'User Already Booked' => function () {
         return test_prenotazione_user_already_booked();
     },
+    'Prendi all Reservations' => function () {
+        return test_prenotazione_prendi_all();
+    },
     'Nuovo Disponibilità' => function () {
         return nuovo_disponibilita();
     },

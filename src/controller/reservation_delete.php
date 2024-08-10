@@ -18,7 +18,7 @@ class ReservationDelete extends Endpoint
 
     public function __construct()
     {
-        parent::__construct('prenotazione/elimina', 'POST');
+        parent::__construct('prenotazioni/elimina', 'POST');
     }
 
     public function validate(): bool

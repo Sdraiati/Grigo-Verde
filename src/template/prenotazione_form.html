@@ -1,8 +1,8 @@
 <h1>{{ title }}</h1>
-<form action="prenotazioni/nuovo" method="post" enctype="multipart/form-data"
-    onsubmit="return validatePrenotazione()">
+<form action="prenotazioni/nuovo" method="post" enctype="multipart/form-data" onsubmit="return validatePrenotazione()">
     <fieldset>
         <legend>Informazioni sulla prenotazione</legend>
+        {{ reservation-id }}
         <label for="giorno">Giorno <span class="required">*</span></label>
         <input type="date" id="giorno" name="giorno" value="{{ giorno }}" required>
         <label for="dalle-ore">Dalle ore <span class="required">*</span></label>

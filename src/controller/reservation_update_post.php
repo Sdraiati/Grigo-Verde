@@ -20,7 +20,7 @@ class ReservationUpdatePost extends Endpoint
 
     public function __construct()
     {
-        parent::__construct('dashboard/prenotazione/modifica', 'POST');
+        parent::__construct('prenotazioni/modifica', 'POST');
     }
 
     public function match($path, $method): bool
@@ -42,16 +42,16 @@ class ReservationUpdatePost extends Endpoint
         );
 
         $page->setTitle('Modifica prenotazione');
-        $page->setPath('dashboard/prenotazione/modifica');
+        $page->setPath('prenotazione/modifica');
         $page->setBreadcrumb([
             '<span lang="en">Home</span>' => '',
             'Dashboard' => 'dashboard',
-            'Dettaglio Prenotazione' => 'prenotazioni/?prenotazione=' . $this->reservation_id,
+            'Dettaglio Prenotazione' => 'prenotazioni/dettaglio?prenotazione=' . $this->reservation_id,
         ]);
         $page = $page->render();
 
-        $page = str_replace("Crea Prenotazione", "Modifica Prenotazione", $page);
-        $page = str_replace("dashboard/nuova-prenotazione", "dashboard/prenotazione/modifica", $page);
+        $page = str_replace("Nuova Prenotazione", "Modifica Prenotazione", $page);
+        $page = str_replace("prenotazioni/nuovo", "prenotazioni/modifica", $page);
 
         echo $page;
     }
@@ -130,7 +130,7 @@ class ReservationUpdatePost extends Endpoint
         $prenotazione = new Prenotazione();
         if (!$prenotazione->is_available($this->post('spazio'), $data_inizio, $data_fine)) {
             $prenotazione->nuovo($reservation['DataInizio'], $reservation['DataFine'], $reservation['Username'], $reservation['Spazio'], $reservation['Descrizione']);
-            $reservation_id = $prenotazione->prendi_by($reservation['DataInizio'], $reservation['DataFine'], $reservation['Spazio']);
+            $reservation_id = $prenotazione->prendi_by($reservation['DataInizio'], $reservation['DataFine'], $reservation['Spazio'])['Id'];
             $this->reservation_id = $reservation_id;
             $this->render_with_error("Lo spazio non è disponibile nell'orario specificato");
             return;

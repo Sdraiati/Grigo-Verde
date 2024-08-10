@@ -13,7 +13,7 @@ class ReservationUpdateGet extends Endpoint
 
     public function __construct()
     {
-        parent::__construct('dashboard/prenotazione/modifica', 'GET');
+        parent::__construct('prenotazioni/modifica', 'GET');
     }
 
     public function validate(): bool
@@ -86,16 +86,16 @@ class ReservationUpdateGet extends Endpoint
         );
 
         $page->setTitle('Modifica prenotazione');
-        $page->setPath('dashboard/prenotazione/modifica');
+        $page->setPath('prenotazione/modifica');
         $page->setBreadcrumb([
             '<span lang="en">Home</span>' => '',
-            'Dashboard' => 'dashboard',
-            'Dettaglio Prenotazione' => 'prenotazioni/?prenotazione=' . $this->reservation_id,
+            '<span lang="en>Dashboard</span>' => 'dashboard',
+            'Dettaglio Prenotazione' => 'prenotazioni/dettaglio?prenotazione=' . $this->reservation_id,
         ]);
         $page = $page->render();
 
         $page = str_replace("Crea Prenotazione", "Modifica Prenotazione", $page);
-        $page = str_replace("dashboard/nuova-prenotazione", "dashboard/prenotazione/modifica", $page);
+        $page = str_replace("prenotazioni/nuovo", "prenotazioni/modifica", $page);
         echo $page;
     }
 }
