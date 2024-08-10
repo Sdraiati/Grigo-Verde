@@ -167,7 +167,7 @@ class Prenotazione extends Model
         return $this->get($query, $params);
     }
 
-    public function prendi_by_user($username)
+    public function prendi_per_utente_time($username)
     {
         $query = "SELECT * FROM " . $this->table . " WHERE Username = ? AND DataInizio > CURRENT_TIME";
         $params = [

@@ -15,7 +15,7 @@ class DashboardDocentePage extends Page
         parent::__construct();
         $this->setTitle('Dashboard Docente');
         $this->setBreadcrumb(['dashboard' => 'docente']);
-        $this->setPath('dashboard/docente');//dashboard/docente
+        $this->setPath('dashboard/docente');
         $this->addKeywords([]);
 
         $this->docente_nome = $docente_nome;
@@ -26,11 +26,11 @@ class DashboardDocentePage extends Page
         $content = parent::render();
         $prenotazione = new Prenotazione();
         $user = new Utente();
-        $prenotazioni = $prenotazione->prendi_by_user($this->docente_nome);
+        $prenotazioni = $prenotazione->prendi_per_utente_time($this->docente_nome);
         $utente = $user->prendi($this->docente_nome);
         if(empty($prenotazioni))
         {
-            $content = str_replace('{{ content }}', "<h1>Non hai ancora fatto prenotazioni.</h1>", $content);
+            $content = str_replace('{{ content }}', "<h1>".$this->docente_nome.", non hai ancora fatto prenotazioni.</h1>", $content);
             return $content;
         }
 
@@ -47,18 +47,25 @@ class DashboardDocentePage extends Page
     protected function setRowTable($prenotazioni_data)
     {
         $rowTemplate = "<tr>
-        <td>{{ data inizio }}</td>
-        <td>{{ data fine }}</td>
-        <td>{{ descrizione }}</td>
+        <td>{{ giorno }}</td>
+        <td>{{ ora inizio }}</td>
+        <td>{{ ora fine }}</td>
+        <td>{{ dettaglio }}</td>
         </tr>";
 
         $rows = "";
         $count = count($prenotazioni_data);
         for ($i = 0; $i < $count; $i++) {
             $prenotazione = $prenotazioni_data[$i];
-            $row = str_replace('{{ data inizio }}', $prenotazione['DataInizio'], $rowTemplate);
-            $row = str_replace('{{ data fine }}', $prenotazione['DataFine'], $row);
-            $row = str_replace('{{ descrizione }}', $prenotazione['Descrizione'], $row);
+            $start_date_time = new DateTime($prenotazione['DataInizio']);
+            $end_date_time = new DateTime($prenotazione['DataFine']);
+            $giorno = $start_date_time->format('Y-m-d');
+            $ora_inizio = $start_date_time->format('H:i');
+            $ora_fine = $end_date_time->format('H:i');
+            $row = str_replace('{{ giorno }}', $giorno, $rowTemplate);
+            $row = str_replace('{{ ora inizio }}', $ora_inizio, $row);
+            $row = str_replace('{{ ora fine }}', $ora_fine, $row);
+            $row = str_replace('{{ dettaglio }}', '<a href="prenotazioni/dettaglio?prenotazione='.$prenotazione['Id'].'">dettaglio</a>', $row);
 
             $rows .= $row;
         }

@@ -14,7 +14,7 @@ class editSpacePage extends Page
     private string $tipo = '';
     private string $error = '';
     private int $n_tavoli = 0;
-    private string $error = '';
+    //private string $error = '';
     public function __construct(
         int $posizione = -1,
         string $nome = "",

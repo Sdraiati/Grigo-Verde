@@ -1,4 +1,4 @@
-<section id="dettagli-docente">
+<section id="dettagli-amministratore">
     <form action="/utenti/modifica" method="GET" onsubmit="return validateLogin()">
         <h1 id='username' name="username"> {{ username }} </h1>
         <p><strong>Nome:</strong> {{ nome }} </p>
@@ -26,6 +26,8 @@
             {{ righe tabella }}
         </tbody>
     </table>
-    <p id="descrizione-tabella">questa tabella mostra le prenotazioni del docente</p>
+    <p id="descrizione-tabella">questa tabella mostra le prenotazioni dell' amministratore</p>
     <p>per creare una nuova prenotazione <a href="/prenotazioni/nuovo">vai qua!</a></p>
+    <p>per creare un nuovo spazio <a href="/spazi/nuovo">vai qua!</a></p>
+    <p>per creare un nuovo utente <a href="/utenti/nuovo">vai qua!</a></p>
 </section>

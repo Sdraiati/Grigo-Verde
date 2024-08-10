@@ -73,23 +73,31 @@ class DettaglioSpazioPage extends Page
     {
         $utente = new Utente();
         $rowTemplate = "<tr>
-        <td>{{ data inizio }}</td>
-        <td>{{ data fine }}</td>
+        <td>{{ giorno }}</td>
+        <td>{{ ora inizio }}</td>
+        <td>{{ ora fine }}</td>
         <td>{{ nome }}</td>
         <td>{{ cognome }}</td>
-        <td>{{ descrizione }}</td>
+        <td>{{ dettaglio }}</td>
         </tr>";
 
         $rows = "";
         $count = count($prenotazioni_data);
         for ($i = 0; $i < $count; $i++) {
             $prenotazione = $prenotazioni_data[$i];
+            $prenotazione = $prenotazioni_data[$i];
+            $start_date_time = new DateTime($prenotazione['DataInizio']);
+            $end_date_time = new DateTime($prenotazione['DataFine']);
+            $giorno = $start_date_time->format('Y-m-d');
+            $ora_inizio = $start_date_time->format('H:i');
+            $ora_fine = $end_date_time->format('H:i');
             $currentUser = $utente->prendi($prenotazione['Username']);
-            $row = str_replace('{{ data inizio }}', $prenotazione['DataInizio'], $rowTemplate);
-            $row = str_replace('{{ data fine }}', $prenotazione['DataFine'], $row);
+            $row = str_replace('{{ giorno }}', $giorno, $rowTemplate);
+            $row = str_replace('{{ ora inizio }}', $ora_inizio, $row);
+            $row = str_replace('{{ ora fine }}', $ora_fine, $row);
             $row = str_replace('{{ nome }}', $currentUser['Nome'], $row);
             $row = str_replace('{{ cognome }}', $currentUser['Cognome'], $row);
-            $row = str_replace('{{ descrizione }}', $prenotazione['Descrizione'], $row);
+            $row = str_replace('{{ dettaglio }}', '<a href="prenotazioni/dettaglio?prenotazione='.$prenotazione['Id'].'">dettaglio</a>', $row);
 
             $rows .= $row;
         }
