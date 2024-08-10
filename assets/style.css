@@ -91,7 +91,6 @@
     #menu {
         border-radius: var(--round-radius);
     }
-
 }
 
 /* --------- TYPOGRAPHY --------- */
@@ -102,7 +101,7 @@
     font-family: Arial, sans-serif;
 }
 
-*:not(html, body, footer, header) {
+*:not(html, body, footer, header, main) {
     max-width: 1200px;
 }
 
@@ -172,6 +171,7 @@ header > * {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 #logoLink img {
@@ -210,6 +210,7 @@ header > * {
 #breadcrumbs ol {
     display: flex;
     gap: 0.5rem;
+    flex-wrap: wrap;
 }
 
 #breadcrumbs li {
@@ -269,6 +270,48 @@ main p {
     color: var(--backgroundColor);
     border: 0.1rem solid var(--backgroundColor);
 }
+
+/* --------- ACTIONS --------- */
+
+.actions-content {
+    margin: 0 auto;
+    display: grid;
+    grid-template-areas: 
+    "title title"
+    "sidebar content";
+    grid-template-columns: 1fr 3fr;
+    gap: 1rem;
+}
+
+.actions-content h1 {
+    grid-area: title;
+}
+
+.actions-content aside {
+    grid-area: sidebar;
+    padding: 1rem;
+    border-radius: var(--round-radius);
+    box-shadow: var(--shadow);
+    height: fit-content;
+    margin-bottom: 1rem;
+}
+
+.actions-content .content {
+    grid-area: content;
+    padding: 0;
+    margin: 0;
+}
+
+@media screen and (max-width: 767px) {
+    .actions-content {
+        display: block;
+    }
+
+    .actions-content aside {
+        grid-area: unset;
+    }
+}
+
 /* --------- FOOTER --------- */
 
 #back-to-top {
@@ -525,4 +568,76 @@ table th, table td {
 
 #tabella-test {
     display: none;
+}
+
+/* --------- Spazi disponibili --------- */
+
+#form_filtri {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#form_filtri form {
+    display: inline;
+    width: auto;
+    height: auto;
+    box-shadow: none;
+}
+
+#form_filtri fieldset {
+    display: inline;
+    padding: 0;
+    margin: 0;
+}
+
+#form_filtri legend {
+    display: inline;
+}
+
+#form_filtri fieldset fieldset legend {
+    display: inline;
+    font-size: 1.2rem;
+}
+
+#form_filtri fieldset fieldset {
+    padding: 0;
+    margin: 0;
+}
+
+#form_filtri input[type="radio"],
+#form_filtri input[type="date"],
+#form_filtri input[type="time"] {
+    width: auto;
+    height: auto;
+}
+
+#form_filtri input[type="radio"] {
+}
+
+#form_filtri input[type="submit"] {
+    width: auto;
+    height: auto;
+}
+
+#lista-spazi ul {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+#lista-spazi img {
+    margin: 0;
+    max-height: 100px;
+    height: 8rem;
+}
+
+#lista-spazi li {
+    list-style-type: none;
+    width: auto;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: var(--round-radius);
+    box-shadow: var(--shadow);
 }
