@@ -67,7 +67,7 @@ $router->add($newSpace);
 $router->add($dettaglioSpazio);
 $router->add(new StaticPage('spazi/modifica', $editSpacePage));
 $router->add($editSpace);
-$router->add(new StaticPage('dashboard/nuova-prenotazione', $newPrenotazionePage));
+$router->add(new StaticPage('prenotazioni/nuovo', $newPrenotazionePage));
 $router->add(new ReservationNew());
 $router->add(new ReservationDetail());
 $router->add(new ReservationUpdateGet());

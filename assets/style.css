@@ -5,12 +5,22 @@
 
 /* --------- COLORS --------- */
 
+:root {
+    --backgroundColor: #fff;
+    --textColor: #333;
+    --oneColor: #335833;
+    --twoColor: #0000FF;
+    --threeColor: #A4C7FF;
+    --errorMessageColor: red;
+}
+
+/*
 @media (prefers-color-scheme: light) {
     :root {
         --textColor: #000;
-        --backgroundColor: #FFF;
-        --primaryColor: #268700;
-        --secondaryColor: #73dec1;
+        --backgroundColor: #333;
+        --oneColor: #268700;
+        --twoColor: #73dec1;
         --errorMessageColor: red;
     }
 }
@@ -19,15 +29,16 @@
     :root {
         --textColor: #FFFFFF;
         --backgroundColor: #000000;
-        --primaryColor: #268700;
-        --secondaryColor: #73dec1;
+        --oneColor: #268700;
+        --twoColor: #73dec1;
         --errorMessageColor: #ffa0ff;
     }
 }
+*/
 
 :root {
     --round-radius: 0.4rem;
-    --shadow: 0 0 0.4rem 0.01rem var(--secondaryColor);
+    --shadow: 0 0 0.3rem 0 var(--oneColor);
 }
 
 /* --------- MOBILE BREAKPOINT --------- */
@@ -97,7 +108,7 @@
 
 h1 {
     line-height: calc(1.5 * var(--heading1Size));
-    color: var(--primaryColor);
+    color: var(--oneColor);
     margin-bottom: 1rem;
     text-align: center;
     font-size: var(--heading1Size);
@@ -105,19 +116,19 @@ h1 {
 
 h2 {
     line-height: calc(1.5 * var(--heading2Size));
-    color: var(--primaryColor);
+    color: var(--oneColor);
     margin-bottom: 1rem;
     font-size: var(--heading2Size);
 }
 
 a {
-    color: var(--primaryColor);
+    color: var(--twoColor);
     padding: 0.3rem;
     border-radius: var(--round-radius);
 }
 
 a:visited {
-    color: var(--textColor);
+    color: var(--oneColor);
 }
 
 .hidden {
@@ -138,19 +149,18 @@ a:visited {
 
 
 header {
-    background-color: var(--primaryColor);
+    padding-top: 0.2rem;
+    background-color: var(--oneColor);
     color: var(--backgroundColor);
     font-size: 150%;
 }
 
 header a {
-    color: var(--primaryColor);
-    background-color: var(--backgroundColor);
+    color: var(--threeColor);
     padding: calc(var(--textSize) / 1.5) calc(2 * var(--textSize));
 }
 
 header a:visited {
-    background-color: var(--primaryColor);
     color: var(--backgroundColor);
 }
 
@@ -176,7 +186,7 @@ header > * {
     text-decoration: none;
     font-weight: bold;
     color: var(--backgroundColor);
-    background-color: var(--primaryColor);
+    background-color: var(--oneColor);
 }
 
 #loginLink {
@@ -203,7 +213,7 @@ header > * {
 }
 
 #breadcrumbs li {
-   /* color: var(--primaryColor); */
+   /* color: var(--oneColor); */
     list-style: none;
 }
 
@@ -255,7 +265,7 @@ main p {
     font-size: 1em;
     z-index: 1000;
     text-align: center;
-    background-color: var(--primaryColor);
+    background-color: var(--oneColor);
     color: var(--backgroundColor);
     border: 0.1rem solid var(--backgroundColor);
 }
@@ -270,7 +280,7 @@ main p {
 }
 
 #back-to-top a {
-    background-color: var(--primaryColor);
+    background-color: var(--oneColor);
     color: var(--backgroundColor);
     padding: 1rem;
     border-radius: 50%;
@@ -281,7 +291,7 @@ main p {
 footer {
     text-align: center;
     padding: 1rem;
-    background-color: var(--primaryColor);
+    background-color: var(--oneColor);
     color: var(--backgroundColor);
     margin: 3rem 0 0 0;
 }
@@ -326,7 +336,7 @@ input[type="password"] {
     width: 98%;
     padding: 0.5rem;
     margin-bottom: 1rem;
-    border: 0.1rem solid var(--primaryColor);
+    border: 0.1rem solid var(--oneColor);
     border-radius: var(--round-radius);
     background-color: var(--backgroundColor);
     color: var(--textColor);
@@ -343,7 +353,7 @@ input[type="checkbox"] {
 input[type="submit"] {
     width: 98%;
     padding: 1rem;
-    background-color: var(--primaryColor);
+    background-color: var(--oneColor);
     color: var(--backgroundColor);
     border: none;
     border-radius: var(--round-radius);
@@ -353,7 +363,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: var(--primaryColor);
+    background-color: var(--oneColor);
 }
 
 .mostra-password + label {
