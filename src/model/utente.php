@@ -92,8 +92,8 @@ class Utente extends Model
             $query = $query . " WHERE ";
         }
         for ($i=0; $i < count($dictionary); $i++) { 
-            $query = $query . $dictionary[$i]["Table"] . " = ?";
-            array_push($params, ['type' => 's', 'value' => $dictionary[$i]["Value"]]);
+            $query = $query . $dictionary[$i]["Table"] . " LIKE ?";
+            array_push($params, ['type' => 's', 'value' => '%' . $dictionary[$i]["Value"] . '%']);
             if ($i < count($dictionary) - 1) {
                 $query = $query . " AND ";
             }
