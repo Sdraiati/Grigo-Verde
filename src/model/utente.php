@@ -83,6 +83,24 @@ class Utente extends Model
         return $this->get($query, $params);
     }
 
+    public function prendi_parametrizzata($dictionary)
+    {
+        $query = "SELECT * FROM " . $this->table ;
+        $params = [];
+
+        if (count($dictionary) > 0) {
+            $query = $query . " WHERE ";
+        }
+        for ($i=0; $i < count($dictionary); $i++) { 
+            $query = $query . $dictionary[$i]["Table"] . " = ?";
+            array_push($params, ['type' => 's', 'value' => $dictionary[$i]["Value"]]);
+            if ($i < count($dictionary) - 1) {
+                $query = $query . " AND ";
+            }
+        }
+        return $this->get_all($query, $params);
+    }
+
     public function check_password($username, $password)
     {
         $query = "SELECT Password FROM " . $this->table . " WHERE Username = ?";

@@ -14,29 +14,33 @@ class UtenteEndpoint extends Endpoint
 
     public function handle()
     {
-        echo "ciao mondo";
 
         $ruolo = "";
+        $username = "";
         $nome = "";
         $cognome = "";
-        $nome_utente = "";
 
-        if (isset($_GET['ruolo'])) {
-            $ruolo = $_GET['tipo'];
+        if (isset($_GET['Ruolo'])) {
+            $ruolo = $_GET['Ruolo'];
         }
-        if (isset($_GET['nome'])) {
-            $ruolo = $_GET['nome'];
+        if (isset($_GET['Nome'])) {
+            $nome = $_GET['Nome'];
         }
-        if (isset($_GET['cognome'])) {
-            $ruolo = $_GET['cognome'];
+        if (isset($_GET['Cognome'])) {
+            $cognome = $_GET['Cognome'];
         } 
-        if (isset($_GET['nome-utente'])) {
-            $ruolo = $_GET['nome-utente'];
+        if (isset($_GET['Username'])) {
+            $username = $_GET['Username'];
         }
 
-        // $page = new VisualizzazioneSpaziPage($tipo, $data_inizio, $data_fine, $error);
-        // $page->setPath('spazi');
-        // echo $page->render();
+        // DEBUG
+        // var_dump($ruolo);
+        // var_dump($username);
+        // var_dump($nome);
+        // var_dump($cognome);
+
+        $page = new VisualizzazioneUtentiPage($ruolo, $username, $nome, $cognome);
+        echo $page->render();
     }
 
     public function match($path, $method): bool

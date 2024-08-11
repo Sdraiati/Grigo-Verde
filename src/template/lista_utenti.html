@@ -8,22 +8,22 @@
                 <fieldset>
                     <legend>Ruolo</legend>
                     <label for="tipo_verde">Docente</label>
-                    <input type="radio" id="ruolo_docente" name="ruolo" value="docente" aria-label="docente" {{ checked-docente }}>
+                    <input type="radio" id="ruolo_docente" name="Ruolo" value="Docente" aria-label="docente" {{ checked-docente }}>
                     <br>
                     <label for="tipo_grigio">Amministratore</label>
-                    <input type="radio" id="ruolo_amministratore" name="ruolo" value="amministratore" aria-label="amministratore" {{ checked-amministratore }}>
+                    <input type="radio" id="ruolo_amministratore" name="Ruolo" value="Amministratore" aria-label="amministratore" {{ checked-amministratore }}>
                 </fieldset>
                 <br>
-                <label for="data"> giorno </label>
-                <input type="date" id="data" name="data" {{ data }} />
+                <label for="username"> nome utente </label>
+                <input type="text" id="username" name="Username" {{ username }} />
                 <br>
-                <label for="orario_inizio"> dalle </label>
-                <input type="time" id="orario_inizio" name="orario_inizio" {{ start }}>
+                <label for="nome"> nome </label>
+                <input type="text" id="nome" name="Nome" {{ nome }} />
                 <br>
-                <label for="orario_fine"> alle </label>
-                <input type="time" id="orario_fine" name="orario_fine" {{ end }}>
+                <label for="cognome"> cognome </label>
+                <input type="text" id="cognome" name="Cognome" {{ cognome }} />
                 <br>
-                <div class="errore">  </div>
+                <div id="error_msg" class="errore">  </div>
                 <input type="submit" value="applica filtri"> <br>
             </fieldset>
         </form>
