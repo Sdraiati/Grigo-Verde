@@ -11,9 +11,9 @@ class PrenotazionePage extends Page
         <tr>
             <td scope="col">{{ spazio }}</td>
             <td scope="col">{{ nome }} {{ cognome }}</td>
-            <td scope="col">{{ data }}</td>
-            <td scope="col">{{ inizio }}</td>
-            <td scope="col">{{ fine }}</td>
+            <td scope="col"><time datetime="{{ data }}">{{ data }}</time></td>
+            <td scope="col"><time>{{ inizio }}</time></td>
+            <td scope="col"><time>{{ fine }}</time></td>
             <td scope="col"><a href="prenotazioni/dettaglio?prenotazione={{ id }}">dettaglio</a></td>
         </tr>';
 
@@ -48,7 +48,7 @@ class PrenotazionePage extends Page
         foreach ($reservations as $res) {
             $start_date_time = new DateTime($res['DataInizio']);
             $end_date_time = new DateTime($res['DataFine']);
-            $giorno = $start_date_time->format('Y-m-d');
+            $giorno = $start_date_time->format('d/m/Y');
             $ora_inizio = $start_date_time->format('H:i');
             $ora_fine = $end_date_time->format('H:i');
             $res['Giorno'] = $giorno;

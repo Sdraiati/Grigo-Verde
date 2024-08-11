@@ -1,20 +1,27 @@
-<section>
+<div class="actions-content">
     <h1>Dettaglio prenotazione</h1>
-    <ul>
-        <li>Giorno: <strong> {{ giorno }} </strong></li>
-        <li>Dalle ore: <strong> {{ ora_inizio }} </strong></li>
-        <li>Alle ore: <strong> {{ ora_fine }} </strong></li>
-        <li>A nome di: <strong> {{ nome }} {{ cognome }}</strong></li>
-        <li>Nome dell'aula prenotata: <strong> {{ nome_aula }} </strong></li>
-        <li>Nota: <strong> {{ descrizione }} </strong></li>
-    </ul>
 
-    <form action="prenotazione/elimina" method="post">
-        <input type="hidden" name="prenotazione" value="{{ id_prenotazione }}">
-        <input type="submit" value="Elimina prenotazione">
-    </form>
-    <form action="dashboard/prenotazione/modifica" method="get">
-        <input type="hidden" name="prenotazione" value="{{ id_prenotazione }}">
-        <input type="submit" value="Modifica prenotazione">
-    </form>
-</section>
+    <aside>
+        <h2> Operazioni </h2>
+        <form action="prenotazioni/elimina" method="post">
+            <input type="hidden" name="prenotazione" value="{{ id_prenotazione }}">
+            <input type="submit" value="Elimina prenotazione">
+        </form>
+        <form action="prenotazioni/modifica" method="get">
+            <input type="hidden" name="prenotazione" value="{{ id_prenotazione }}">
+            <input type="submit" value="Modifica prenotazione">
+        </form>
+    </aside>
+
+    <section id="content">
+        <ul>
+            <li>Giorno: <strong><time datetime="{{ giorno }}">{{ giorno }}</time></strong></li>
+            <li>Dalle ore: <strong><time>{{ ora_inizio }}</time></strong></li>
+            <li>Alle ore: <strong><time>{{ ora_fine }}<time></strong></li>
+            <li>A nome di: <strong> {{ nome }} {{ cognome }}</strong></li>
+            <li>Nome dell'aula prenotata: <strong> {{ nome_aula }} </strong></li>
+            <li>Nota: <strong> {{ descrizione }} </strong></li>
+        </ul>
+
+    </section>
+</div>

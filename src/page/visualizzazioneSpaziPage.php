@@ -8,16 +8,20 @@ include_once 'model/prenotazione.php';
 // classe item
 class SpazioItem
 {
+    static private $template = '<li> 
+            <p>{{ Nome }}</p> 
+            <img src="{{ Byte }}" alt=""> 
+            <a href="spazi/spazio?spazio_nome={{ Nome }}"> visualizza dettaglio </a> 
+        </li>';
 
     public function render($values)
     {
-        $item = '<li>' . $values["Nome"];
+        $item = str_replace('{{ Nome }}', $values["Nome"], self::$template);
         if ($values["Byte"]) {
-            $item = $item . '<img src="' . $values["Byte"] . ' alt="">';
+            $item = str_replace('{{ Byte }}', $values["Byte"], $item);
         } else {
-            $item = $item . '<img src="assets/default_spazio_image.png" alt="">';
+            $item = str_replace('{{ Byte }}', 'assets/default_spazio_image.png', $item);
         }
-        $item = $item . ' <a href="spazi/spazio?spazio_nome=' . $values["Nome"]. '"> visualizza dettaglio </a> </li>';
         return $item;
     }
 }
@@ -172,8 +176,6 @@ class VisualizzazioneSpaziPage extends Page
             $content = str_replace("{{ content }}", $intestazione_pagina, $content);
         }
 
-        $content = str_replace("href=\"/\"", "href=\"#\"", $content);   // todo: check if and why this is needed (this should never be needed)
-        $content = str_replace('{{ base_path }}', BASE_URL, $content);  // todo: check if and why this is needed
         if ($this->error) {
             $content = str_replace("{{ error }}", $this->error($this->error), $content);            // idem as above
         } else {

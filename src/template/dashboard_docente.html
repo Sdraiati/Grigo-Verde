@@ -1,0 +1,40 @@
+<div class="actions-content">
+    <h1 id='username' name="username"> Benvenuto {{ nome }} {{ cognome }}</h1>
+
+    <aside>
+        <h2> Operazioni </h2>
+        <form action="prenotazioni/nuovo" method="GET">
+            <input type="submit" value="Nuova prenotazione">
+        </form>
+        <form action="utenti/modifica" method="get">
+            <input type="hidden" name="username" value="{{ username }}">
+            <input type="submit" value="Modifica Utente">
+        </form>
+        <form action="logout" method="GET">
+            <input type="submit" value="Logout">
+        </form>
+    </aside>
+
+    <section id="content">
+        <h2>Prenotazioni</h2>
+        <p id="descrizione-tabella" class="hidden">
+            Tabella delle tue prenotazioni future degli spazi verdi.
+            Ci sono 4 campi: il giorno, l'ora di inizio, l'ora di fine e un link
+            per visualizzare i dettagli della prenotazione.
+        </p>
+        <table aria-describedby="descrizione-tabella">
+            <caption>Tabella delle tue prenotazioni.</caption>
+            <thead>
+                <tr>
+                    <th abbr="il" scope='col'>Giorno</th>
+                    <th abbr="dalle" scope='col'>Orario Inizio</th>
+                    <th abbr="alle" scope='col'>Orario Fine</th>
+                    <th abbr="link" scope='col'>Dettaglio</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ righe tabella }}
+            </tbody>
+        </table>
+    </section>
+</div>

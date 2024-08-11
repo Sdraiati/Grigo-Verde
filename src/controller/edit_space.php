@@ -3,6 +3,7 @@ require_once 'endpoint.php';
 $project_root = dirname(__FILE__, 2);
 include_once $project_root . '/model/spazio.php';
 include_once $project_root . '/model/immagine.php';
+require_once 'message.php';
 
 class EditSpace extends Endpoint
 {
@@ -15,21 +16,6 @@ class EditSpace extends Endpoint
     public function __construct()
     {
         parent::__construct('spazi/modifica', 'POST');
-    }
-
-    protected function render_new_page()
-    {
-        $page = new NewSpacePage(
-            $this->posizione,
-            $this->nome,
-            $this->descrizione,
-            $this->tipo,
-            $this->n_tavoli,
-            "Inserire tutti i campi"
-        );
-        $page->setPath("spazi/modifica");
-
-        echo $page->render();
     }
 
     protected function render_edit_page_with_error($error)
@@ -82,7 +68,6 @@ class EditSpace extends Endpoint
             }
 
             $spazio->modifica($this->posizione, $this->nome, $this->descrizione, $this->tipo, $this->n_tavoli);
-            echo "Spazio modificato"; // TODO: reindirizzare al dettaglio dello spazio?
 
             $uploadedFiles = $_FILES;
             $descriptions = [];
@@ -163,7 +148,9 @@ class EditSpace extends Endpoint
 
                 fclose($fp);
             }
-            echo "Immagini salvate";
         }
+
+        Message::set("Spazio modificato con successo");
+        $this->redirect("spazi/spazio?spazio_nome=" . $this->nome);
     }
 }

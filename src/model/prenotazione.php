@@ -54,7 +54,9 @@ class Prenotazione extends Model
 
     public function prendi($spazio)
     {
-        $query = "SELECT * FROM " . $this->table . " WHERE Spazio = ?";
+        $query = "SELECT * FROM " . $this->table . " 
+                    WHERE Spazio = ? 
+                    ORDER BY DataFine ASC";
         $params = [
             ['type' => 'i', 'value' => $spazio]
         ];
@@ -62,10 +64,12 @@ class Prenotazione extends Model
         return $this->get_all($query, $params);
     }
 
-    public function prendi_per_intervallo($dataInizio, $dataFine) 
+    public function prendi_per_intervallo($dataInizio, $dataFine)
     {
         // dataInizio e dataFine devono essere nel formato: YYYY-MM-DD HH:SS:MM
-        $query = 'SELECT * FROM PRENOTAZIONE WHERE DataInizio >= ? AND DataFine <= ? ORDER BY PRENOTAZIONE.Spazio';
+        $query = 'SELECT * FROM PRENOTAZIONE 
+                    WHERE DataInizio >= ? AND DataFine <= ? 
+                    ORDER BY PRENOTAZIONE.DataFine ASC';
         $params = [
             ['type' => 's', 'value' => $dataInizio],
             ['type' => 's', 'value' => $dataFine],
@@ -78,7 +82,9 @@ class Prenotazione extends Model
     {
         $endDate = date('Y-m-d H:i:s', strtotime($day . ' +1 week'));
 
-        $query = "SELECT * FROM " . $this->table . " WHERE Spazio = ? AND DataFine >= ? AND DataInizio < ?";
+        $query = "SELECT * FROM " . $this->table . " 
+                    WHERE Spazio = ? AND DataFine >= ? AND DataInizio < ? 
+                    ORDER BY DataFine ASC";
         $params = [
             ['type' => 'i', 'value' => $spazio],
             ['type' => 's', 'value' => $day],
@@ -91,12 +97,15 @@ class Prenotazione extends Model
     public function prendi_per_utente($username, $day = NULL)
     {
         if ($day == NULL) {
-            $query = "SELECT * FROM " . $this->table . " WHERE Username = ?";
+            $query = "SELECT * FROM " . $this->table . " 
+                        WHERE Username = ? ORDER BY DataFine ASC";
             $params = [
                 ['type' => 's', 'value' => $username]
             ];
         } else {
-            $query = "SELECT * FROM " . $this->table . " WHERE Username = ? AND DataFine >= ?";
+            $query = "SELECT * FROM " . $this->table . " 
+                        WHERE Username = ? AND DataFine >= ? 
+                        ORDER BY DataFine ASC";
             $params = [
                 ['type' => 's', 'value' => $username],
                 ['type' => 's', 'value' => $day]
@@ -109,7 +118,10 @@ class Prenotazione extends Model
     public function is_available($spazio, $begin_time, $end_time)
     {
         // check if there is no other booking in the same time
-        $query = "SELECT * FROM " . $this->table . " WHERE Spazio = ? AND ((DataInizio <= ? AND DataFine > ?) OR (DataInizio < ? AND DataFine >= ?) OR (DataInizio > ? AND DataFine < ?))";
+        $query = "SELECT * FROM " . $this->table . " 
+                    WHERE Spazio = ? AND ((DataInizio <= ? AND DataFine > ?) 
+                        OR (DataInizio < ? AND DataFine >= ?) 
+                        OR (DataInizio > ? AND DataFine < ?))";
         $params = [
             ['type' => 'i', 'value' => $spazio],
             ['type' => 's', 'value' => $begin_time],
@@ -127,7 +139,11 @@ class Prenotazione extends Model
     public function user_already_booked($username, $begin_time, $end_time)
     {
         // check if user has no other booking in the same time
-        $query = "SELECT * FROM " . $this->table . " WHERE Username = ? AND ((DataInizio <= ? AND DataFine > ?) OR (DataInizio < ? AND DataFine >= ?) OR (DataInizio > ? AND DataFine < ?))";
+        $query = "SELECT * FROM " . $this->table . " 
+                    WHERE Username = ? 
+                    AND ((DataInizio <= ? AND DataFine > ?) 
+                        OR (DataInizio < ? AND DataFine >= ?) 
+                        OR (DataInizio > ? AND DataFine < ?))";
         $params = [
             ['type' => 's', 'value' => $username],
             ['type' => 's', 'value' => $begin_time],
@@ -144,10 +160,13 @@ class Prenotazione extends Model
 
     public function prendi_by_id($res_id)
     {
-        $query = "SELECT DataInizio, DataFine, U.Nome, U.Cognome, S.Nome AS NomeSpazio, PRENOTAZIONE.Descrizione, PRENOTAZIONE.Spazio, U.Username FROM " . $this->table . " 
-                    JOIN SPAZIO AS S ON PRENOTAZIONE.Spazio = S.Posizione
-                    JOIN UTENTE AS U ON PRENOTAZIONE.Username = U.Username
-                    WHERE PRENOTAZIONE.Id = ?";
+        $query = "SELECT DataInizio, DataFine, P.Descrizione, P.Spazio, 
+                        U.Nome, U.Cognome, U.Username,
+                        S.Nome AS NomeSpazio 
+                    FROM " . $this->table . " AS P
+                    JOIN SPAZIO AS S ON P.Spazio = S.Posizione
+                    JOIN UTENTE AS U ON P.Username = U.Username
+                    WHERE P.Id = ?";
         $params = [
             ['type' => 'i', 'value' => $res_id]
         ];
@@ -157,7 +176,8 @@ class Prenotazione extends Model
 
     public function prendi_by($begin_time, $end_time, $space)
     {
-        $query = "SELECT * FROM " . $this->table . " WHERE Spazio = ? AND DataInizio = ? AND DataFine = ?";
+        $query = "SELECT * FROM " . $this->table . " 
+                    WHERE Spazio = ? AND DataInizio = ? AND DataFine = ?";
         $params = [
             ['type' => 'i', 'value' => $space],
             ['type' => 's', 'value' => $begin_time],
@@ -165,6 +185,17 @@ class Prenotazione extends Model
         ];
 
         return $this->get($query, $params);
+    }
+
+    public function prendi_per_utente_time($username)
+    {
+        $query = "SELECT * FROM " . $this->table . " 
+                    WHERE Username = ? AND DataInizio > CURRENT_TIME";
+        $params = [
+            ['type' => 's', 'value' => $username],
+        ];
+
+        return $this->get_all($query, $params);
     }
 
     public function prendi_all()

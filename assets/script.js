@@ -10,10 +10,17 @@ document.addEventListener("DOMContentLoaded", function(_) {
         }
     }
 
-    let message = document.getElementById("message");
-    if (message) {
+    let messageDiv = document.getElementById('message');
+    if (messageDiv) {
         setTimeout(function() {
-            message.remove();
+            messageDiv.classList.add('fade-out');
+
+            setTimeout(function() {
+                messageDiv.removeAttribute('id');
+                messageDiv.classList.remove('fade-out');
+                messageDiv.classList.add('helper');
+            }, 1000);
+
         }, 3000);
     }
 })

@@ -6,22 +6,27 @@
     <p><strong>Immagine:</strong> {{ immagine }} </p>
 </section>
 
-<section id="prenotazioni">
+<section id="content">
     <h2>Prenotazioni</h2>
+    <p id="descrizione-tabella" class="hidden">
+        Tabella delle tue prenotazioni future dello spazio {{ nome spazio }}.
+        Ci sono 5 campi: il nome di chi ha effettuato la prenotazione,
+        il giorno, l'ora di inizio, l'ora di fine e un link
+        per visualizzare i dettagli della prenotazione.
+    </p>
     <table aria-describedby="descrizione-tabella">
         <caption>Informazioni sulle prenotazioni</caption>
         <thead>
             <tr>
-                <th scope='col'>Data Inizio</th>
-                <th scope='col'>Data Fine</th>
-                <th scope='col'>Nome</th>
-                <th scope='col'>Cognome</th>
-                <th scope='col'>Descrizione</th>
+                <th abbr="nome" scope='col'>Nome e cognome</th>
+                <th abbr="il" scope='col'>Giorno</th>
+                <th abbr="dalle" scope='col'>Orario Inizio</th>
+                <th abbr="alle" scope='col'>Orario Fine</th>
+                <th abbr="link" scope='col'>Dettaglio</th>
             </tr>
         </thead>
         <tbody>
             {{ righe tabella }}
         </tbody>
     </table>
-    <p id="descrizione-tabella">questa tabella mostra le prenotazioni per lo spazio</p>
 </section>

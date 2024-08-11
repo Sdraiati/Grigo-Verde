@@ -29,9 +29,7 @@ abstract class Endpoint
         } else if (isset($_POST[$param])) {
             return $this->sanitizeInput($_POST[$param]);
         } else {
-            // TODO: return a page with the error
-            http_response_code(400);
-            echo 'Error Missing parameter: ' . $param;
+            throw new Exception('Error Missing parameter: ' . $param);
         }
     }
 
@@ -45,9 +43,7 @@ abstract class Endpoint
         } else if (isset($_GET[$param])) {
             return $this->sanitizeInput($_GET[$param]);
         } else {
-            // TODO: return a page with the error
-            http_response_code(400);
-            echo 'Error Missing parameter: ' . $param;
+            throw new Exception('Error Missing parameter: ' . $param);
         }
     }
 
@@ -59,6 +55,7 @@ abstract class Endpoint
 
     public function match($path, $method): bool
     {
+        //echo "| ".BASE_URL . $this->path." == ".$path ." |";
         return BASE_URL . $this->path === $path && $this->method === $method;
     }
 

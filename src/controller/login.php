@@ -1,6 +1,8 @@
 <?php
 require_once 'endpoint.php';
 require_once 'autenticazione.php';
+require_once 'message.php';
+
 class Login extends Endpoint
 {
     public string $username = '';
@@ -29,6 +31,12 @@ class Login extends Endpoint
         return str_contains($input, ' ');
     }
 
+    public function render_login_page_with_error($error)
+    {
+        $page = new LoginPage($this->username, $this->password, $error);
+        $page->setPath("login");
+        echo $page->render();
+    }
 
     public function handle(): void
     {
@@ -36,19 +44,16 @@ class Login extends Endpoint
         $password = $this->post('password');
 
         if (!$this->validate()) {
-            $page = new LoginPage($this->username, $this->password, "Inserire username e password");
-            echo $page->render();
+            $this->render_login_page_with_error("Inserire username e password");
+            return;
         } elseif ($this->containSpace($username) || $this->containSpace($password)) {
-            $page = new LoginPage($this->username, $this->password, "Username e password non possono contenere spazi");
-            echo $page->render();
-        } elseif (Autenticazione::login($username, $password)) {
-            $_SESSION['message'] = "Benvenuto $username!";
-            echo "Pagina utente";
-            // $this->redirect('dashboard')
-        } else {
-            $page = new LoginPage($this->username, $this->password, "Username o password errati");
-            $page->setPath("login");
-            echo $page->render();
+            $this->render_login_page_with_error("Username e password non possono contenere spazi");
+            return;
+        } elseif (!Autenticazione::login($username, $password)) {
+            $this->render_login_page_with_error("Username o password errati");
+            return;
         }
+        Message::set("Login effettuato con successo");
+        $this->redirect('dashboard');
     }
 }

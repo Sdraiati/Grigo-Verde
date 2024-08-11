@@ -7,6 +7,10 @@ require_once $project_root . '/model/disponibilità.php';
 require_once $project_root . '/page/prenotazioneFormPage.php';
 require_once $project_root . '/page/unauthorized.php';
 require_once $project_root . '/page/resource_not_found.php';
+require_once $project_root . '/page/unauthorized.php';
+require_once $project_root . '/page/resource_not_found.php';
+require_once 'message.php';
+
 
 class ReservationDelete extends Endpoint
 {
@@ -14,7 +18,7 @@ class ReservationDelete extends Endpoint
 
     public function __construct()
     {
-        parent::__construct('prenotazione/elimina', 'POST');
+        parent::__construct('prenotazioni/elimina', 'POST');
     }
 
     public function validate(): bool
@@ -61,6 +65,7 @@ class ReservationDelete extends Endpoint
         }
 
         $prenotazione->elimina($this->reservation_id);
+        Message::set("Prenotazione cancellata con successo");
         $this->redirect('dashboard');
     }
 }

@@ -74,11 +74,13 @@ class Autenticazione
         }
         $_SESSION = [];
     }
+
     public static function isLogged(): bool
     {
         self::ensureSessionStarted();
         return isset($_SESSION['username']);
     }
+
     public static function getLoggedUser()
     {
         self::ensureSessionStarted();
@@ -101,4 +103,3 @@ class Autenticazione
         return false;
     }
 }
-

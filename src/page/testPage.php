@@ -19,7 +19,7 @@ class TestItem
         $result = call_user_func($this->fn);
 
         // Determine if the test passed or failed
-        $status = $result ? 'Passed' : 'Failed';
+        $status = $result ? 'Passato' : 'Fallito';
         $statusClass = $result ? 'passed' : 'failed';
 
         // Return the HTML row as a string
