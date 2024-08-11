@@ -1,17 +1,17 @@
 <div class="actions-content">
-    <h1> Spazi disponibili </h1>
+    <h1> Utenti </h1>
 
     <aside id="form_filtri">
-        <form action="spazi" method="get" onsubmit="return validateDate()">
+        <form action="utenti" method="get" onsubmit="return validateFiltriUtente()">
             <fieldset>
                 <legend>Filtri</legend>
                 <fieldset>
-                    <legend>Tipo</legend>
-                    <label for="tipo_verde">Verde</label>
-                    <input type="radio" id="tipo_verde" name="tipo" value="verde" aria-label="verde" {{ checked-verde }}>
+                    <legend>Ruolo</legend>
+                    <label for="tipo_verde">Docente</label>
+                    <input type="radio" id="ruolo_docente" name="ruolo" value="docente" aria-label="docente" {{ checked-docente }}>
                     <br>
-                    <label for="tipo_grigio">Grigio</label>
-                    <input type="radio" id="tipo_grigio" name="tipo" value="grigio" aria-label="grigio" {{ checked-grigio }}>
+                    <label for="tipo_grigio">Amministratore</label>
+                    <input type="radio" id="ruolo_amministratore" name="ruolo" value="amministratore" aria-label="amministratore" {{ checked-amministratore }}>
                 </fieldset>
                 <br>
                 <label for="data"> giorno </label>
@@ -23,18 +23,19 @@
                 <label for="orario_fine"> alle </label>
                 <input type="time" id="orario_fine" name="orario_fine" {{ end }}>
                 <br>
-                <div id="error_msg" class="errore">  </div>
+                <div class="errore">  </div>
                 <input type="submit" value="applica filtri"> <br>
             </fieldset>
         </form>
 
         <!-- questo form si potrebbe rendere hidden quando non ci sono dei filtri e visibile quando ci sono filtri. -->
-        <form action="spazi" method="get">
+        <form action="utenti" method="get">
             <input type="submit" value="rimuovi filtri">
         </form>
     </aside>
 
-    <ul class="content" id="lista-spazi">
+    <ul class="content" id="lista-utenti">
         {{ lista }}
     </ul>
 </div>
+

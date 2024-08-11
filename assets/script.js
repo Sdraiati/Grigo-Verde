@@ -394,6 +394,7 @@ function validateDate() {
   let error = "";
   let valid = false;
 
+
   if (data != "" || start != "" || end != "") { // se almeno uno di questi campi è selezionato.
     if (data == "" || start == "" || end == "") { // se solo un campo dovesse essere vuoto
         error = "Nessun campo data o ora può essere lasciato vuoto.";
@@ -405,7 +406,11 @@ function validateDate() {
   } else {
     valid = true;
   }
-
-  if (error != "") error_div.innerText = error; 
+  console.log(error);
+  if (error != "" && error_div) error_div.innerText = error; 
   return valid;
+}
+
+function validateFiltriUtente() {
+    console.log("valida form filtri per la ricerca utente");
 }

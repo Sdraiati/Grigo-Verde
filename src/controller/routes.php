@@ -34,6 +34,7 @@ include_once 'controller/edit_password.php';
 include_once 'page/dettaglioUtentePage.php';
 include_once 'controller/reservations.php';
 include_once 'controller/delete_user.php';
+include_once 'controller/utenti.php';
 
 $about_us = new AboutUsPage();
 $homepage = new HomePage();
@@ -53,6 +54,7 @@ $editPasswordPage = new EditPasswordPage();
 $editPassword = new EditPassword();
 $dettaglioUtentePage = new DettaglioUtentePage();
 $deleteUser = new DeleteUser();
+$listaUtenti = new UtenteEndpoint();
 
 $router = new Router();
 
@@ -84,3 +86,4 @@ $router->add(new StaticPage('utenti/utente', $dettaglioUtentePage));
 $router->add(new Reservations());
 $router->add($deleteUser);
 $router->add(new LoginGet());
+$router->add($listaUtenti);
