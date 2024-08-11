@@ -87,7 +87,6 @@ class VisualizzazioneUtentiPage extends Page
 
         // lista degli utenti 
         $query_result = $this->filtra_utenti($dictionary);
-        var_dump($query_result);
 
         if ($query_result) {
             $lista_utenti = "";
