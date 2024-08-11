@@ -1,11 +1,11 @@
 <?php
 
 include_once 'page.php';
-include_once 'model/spazio.php';
-include_once 'model/prenotazione.php';
-include_once 'model/utente.php';
-include_once 'model/immagine.php';
 $project_root = dirname(__FILE__, 2);
+include_once $project_root . '/model/spazio.php';
+include_once $project_root . '/model/prenotazione.php';
+include_once $project_root . '/model/utente.php';
+include_once $project_root . '/model/immagine.php';
 require_once $project_root . '/model/prenotazione.php';
 
 class DashboardAmministratorePage extends Page

@@ -41,7 +41,7 @@ class editSpacePage extends Page
     }
     private function fetch(): void
     {
-        if (isset($_GET['posizione'])) {
+        if (isset($_GET['posizione'])) { // todo: html injection / some other injection!
             $this->posizione = intval($_GET['posizione']);
         }
 
