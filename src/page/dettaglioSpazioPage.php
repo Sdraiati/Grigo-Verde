@@ -1,10 +1,12 @@
 <?php
 
 include_once 'page.php';
-include_once 'model/spazio.php';
-include_once 'model/prenotazione.php';
-include_once 'model/utente.php';
-include_once 'model/immagine.php';
+$project_root = dirname(__FILE__, 2);
+include_once $project_root . '/model/spazio.php';
+include_once $project_root . '/model/prenotazione.php';
+include_once $project_root . '/model/utente.php';
+include_once $project_root . '/model/immagine.php';
+include_once $project_root . '/controller/autenticazione.php';
 
 class DettaglioSpazioPage extends Page
 {
@@ -48,6 +50,7 @@ class DettaglioSpazioPage extends Page
         $content_2 = str_replace('{{ descrizione spazio }}', $spazio_data['Descrizione'], $content_2);
         $content_2 = str_replace('{{ tipo spazio }}', $spazio_data['Tipo'], $content_2);
         $content_2 = str_replace('{{ numero tavoli spazio }}', $spazio_data['N_tavoli'], $content_2);
+        $content_2 = str_replace('{{ posizione }}', $spazio_data['Posizione'], $content_2);
 
         if (!empty($anteprima)) {
             $content_2 = str_replace('{{ immagine }}', "<img src='" . $src . "' alt='" . $alt . "' />", $content_2);
@@ -72,6 +75,19 @@ class DettaglioSpazioPage extends Page
         $rows = $this->setRowTable($prenotazioni_data);
         $content_2 = str_replace('{{ righe tabella }}', $rows, $content_2);
         $content = str_replace('{{ content }}', $content_2, $content);
+
+
+        if (!Autenticazione::isLogged()) {
+            $content = str_replace('class="actions-content"', '', $content);
+            $content = preg_replace('/<aside>.*<\/aside>/s', '', $content);
+        } else if (!Autenticazione::is_amministratore()) {
+            $content = preg_replace(
+                '/<form action="spazi\/modifica".*?<\/form>\s*<form action="spazi\/elimina".*?<\/form>/s',
+                '',
+                $content
+            );
+        }
+
         return $content;
     }
 

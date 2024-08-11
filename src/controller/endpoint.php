@@ -53,6 +53,19 @@ abstract class Endpoint
         exit();
     }
 
+    protected function getCurrentPath()
+    {
+        $uri = parse_url($_SERVER['REQUEST_URI']);
+
+        if (isset($uri['path'])) {
+            $path = $uri['path'];
+        }
+        if (isset($uri['query'])) {
+            $path .= '?' . $uri['query'];
+        }
+        return ltrim($path, '/');
+    }
+
     public function match($path, $method): bool
     {
         //echo "| ".BASE_URL . $this->path." == ".$path ." |";

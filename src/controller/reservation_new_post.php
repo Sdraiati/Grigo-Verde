@@ -7,7 +7,7 @@ require_once $project_root . '/model/disponibilità.php';
 require_once $project_root . '/page/prenotazioneFormPage.php';
 require_once 'message.php';
 
-class ReservationNew extends Endpoint
+class ReservationNewPost extends Endpoint
 {
     private $giorno;
     private $dalle_ore;
