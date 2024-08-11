@@ -392,18 +392,17 @@ function validateDate() {
   let end = document.getElementById("orario_fine").value;
   let error_div = document.getElementById("error_msg");
   let error = "";
+  let valid = false;
 
   if (data != "" || start != "" || end != "") { // se almeno uno di questi campi è selezionato.
     if (data == "" || start == "" || end == "") { // se solo un campo dovesse essere vuoto
         error = "Nessun campo data o ora può essere lasciato vuoto.";
-        error_div.innerText = error;
-        return false;
     } else if (start >= end) {
         error = "Orario di inizio e di fine devono essere rispettivamente l'uno minore o uguale dell'altro bitch.";
-        error_div.innerText = error;
-        return false;
+    } else { 
+        valid = true; 
     } 
-    return true;
   }
-  return false;
+  if (error != "") error_div.innerText = error; 
+  return valid;
 }
