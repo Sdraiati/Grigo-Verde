@@ -16,7 +16,9 @@ document.addEventListener("DOMContentLoaded", function(_) {
             messageDiv.classList.add('fade-out');
 
             setTimeout(function() {
-                messageDiv.remove();
+                messageDiv.removeAttribute('id');
+                messageDiv.classList.remove('fade-out');
+                messageDiv.classList.add('helper');
             }, 1000);
 
         }, 3000);
