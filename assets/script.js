@@ -384,3 +384,26 @@ function validatePassword() {
     }
     return isPasswordValid;
 }
+
+function validateDate() {
+  // validare l'input dei form all'interno dei date e time picker.
+  let data = document.getElementById("data").value;
+  let start = document.getElementById("orario_inizio").value;
+  let end = document.getElementById("orario_fine").value;
+  let error_div = document.getElementById("error_msg");
+  let error = "";
+
+  if (data != "" || start != "" || end != "") { // se almeno uno di questi campi è selezionato.
+    if (data == "" || start == "" || end == "") { // se solo un campo dovesse essere vuoto
+        error = "Nessun campo data o ora può essere lasciato vuoto.";
+        error_div.innerText = error;
+        return false;
+    } else if (start >= end) {
+        error = "Orario di inizio e di fine devono essere rispettivamente l'uno minore o uguale dell'altro bitch.";
+        error_div.innerText = error;
+        return false;
+    } 
+    return true;
+  }
+  return false;
+}
