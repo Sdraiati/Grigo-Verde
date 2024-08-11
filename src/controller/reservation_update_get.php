@@ -42,9 +42,6 @@ class ReservationUpdateGet extends Endpoint
                 'Devi effettuare il login per accedere a questa pagina'
             );
             $page->setPath("login");
-            // TODO: here we could do something like 
-            // _SESSION('redirect') = 'dashboard/prenotazione/modifica?prenotazione=...';
-
             echo $page->render();
             return;
         }
@@ -89,7 +86,7 @@ class ReservationUpdateGet extends Endpoint
         $page->setPath('prenotazione/modifica');
         $page->setBreadcrumb([
             '<span lang="en">Home</span>' => '',
-            '<span lang="en>Dashboard</span>' => 'dashboard',
+            'Cruscotto' => 'cruscotto',
             'Dettaglio Prenotazione' => 'prenotazioni/dettaglio?prenotazione=' . $this->reservation_id,
         ]);
         $page = $page->render();

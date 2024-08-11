@@ -10,7 +10,7 @@ class EditPassword extends Endpoint
 {
     public function __construct()
     {
-        parent::__construct('dashboard/modifica-password', 'POST');
+        parent::__construct('cruscotto/modifica-password', 'POST');
     }
 
     public function validate($password): bool
@@ -31,7 +31,6 @@ class EditPassword extends Endpoint
         $utente = new Utente();
         $utente->modifica_password($username, $password);
         Message::set("Password modificata con successo");
-        $this->redirect('dashboard');
+        $this->redirect('cruscotto');
     }
 }
-

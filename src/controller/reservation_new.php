@@ -105,6 +105,6 @@ class ReservationNew extends Endpoint
         }
 
         Message::set("Prenotazione creata con successo");
-        $this->redirect('dashboard');
+        $this->redirect('cruscotto');
     }
 }

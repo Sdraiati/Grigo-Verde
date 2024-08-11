@@ -13,11 +13,11 @@ class DashboardDocentePage extends Page
     public function __construct(string $docente_nome = '')
     {
         parent::__construct();
-        $this->setTitle('Dashboard');
+        $this->setTitle('Cruscotto');
         $this->setBreadcrumb([
             '<span lang="en">Home</span>' => '',
         ]);
-        $this->setPath('dashboard');
+        $this->setPath('cruscotto');
         $this->addKeywords([]);
 
         $this->docente_nome = $docente_nome;

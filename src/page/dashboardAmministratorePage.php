@@ -15,11 +15,11 @@ class DashboardAmministratorePage extends Page
     public function __construct(string $amministratore_nome = '')
     {
         parent::__construct();
-        $this->setTitle('Dashboard');
+        $this->setTitle('Cruscotto');
         $this->setBreadcrumb([
             '<span lang="en">Home</span>' => '',
         ]);
-        $this->setPath('dashboard');
+        $this->setPath('cruscotto');
         $this->addKeywords([]);
 
         $this->amministratore_nome = $amministratore_nome;
@@ -43,7 +43,7 @@ class DashboardAmministratorePage extends Page
             $content = str_replace('{{ content }}', $content_2, $content);
             return $content;
         }
-        
+
         $rows = $this->setRowTable($prenotazioni);
         $content_2 = str_replace('{{ righe tabella }}', $rows, $content_2);
         $content = str_replace('{{ content }}', $content_2, $content);

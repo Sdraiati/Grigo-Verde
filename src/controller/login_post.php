@@ -3,7 +3,7 @@ require_once 'endpoint.php';
 require_once 'autenticazione.php';
 require_once 'message.php';
 
-class Login extends Endpoint
+class LoginPost extends Endpoint
 {
     public string $username = '';
     public string $password = '';
@@ -54,6 +54,10 @@ class Login extends Endpoint
             return;
         }
         Message::set("Login effettuato con successo");
-        $this->redirect('dashboard');
+        $redirect = Message::getRedirect();
+        if ($redirect === '') {
+            $redirect = 'cruscotto';
+        }
+        $this->redirect($redirect);
     }
 }

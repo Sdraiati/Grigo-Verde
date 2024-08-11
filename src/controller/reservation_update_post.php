@@ -45,7 +45,7 @@ class ReservationUpdatePost extends Endpoint
         $page->setPath('prenotazione/modifica');
         $page->setBreadcrumb([
             '<span lang="en">Home</span>' => '',
-            'Dashboard' => 'dashboard',
+            'Cruscotto' => 'cruscotto',
             'Dettaglio Prenotazione' => 'prenotazioni/dettaglio?prenotazione=' . $this->reservation_id,
         ]);
         $page = $page->render();
@@ -152,6 +152,6 @@ class ReservationUpdatePost extends Endpoint
         }
 
         Message::set("Prenotazione aggiornata con successo");
-        $this->redirect('dashboard');
+        $this->redirect('cruscotto');
     }
 }

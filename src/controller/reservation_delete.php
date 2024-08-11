@@ -66,6 +66,6 @@ class ReservationDelete extends Endpoint
 
         $prenotazione->elimina($this->reservation_id);
         Message::set("Prenotazione cancellata con successo");
-        $this->redirect('dashboard');
+        $this->redirect('cruscotto');
     }
 }

@@ -74,7 +74,6 @@ class EditUser extends Endpoint
 
         $utente->modifica($this->username, $this->nome, $this->cognome, $this->ruolo, $this->password);
         Message::set("Utente modificato con successo");
-        $this->redirect('dashboard');
+        $this->redirect('cruscotto');
     }
 }
-
