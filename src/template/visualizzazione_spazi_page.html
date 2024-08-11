@@ -2,17 +2,16 @@
     <h1> Spazi disponibili </h1>
 
     <aside id="form_filtri">
-        <form action="spazi" method="get">
+        <form action="spazi" method="get" onsubmit="return validateDate()">
             <fieldset>
                 <legend>Filtri</legend>
                 <fieldset>
                     <legend>Tipo</legend>
                     <label for="tipo_verde">Verde</label>
-                    <input type="radio" id="tipo_verde" name="tipo" value="verde" aria-label="verde" {{ checked-verde }}>
+                    <input type="radio" id="tipo_verde" name="tipo" value="verde" aria-label="verde" {{ checked-verde }}>
                     <br>
                     <label for="tipo_grigio">Grigio</label>
-                    <input type="radio" id="tipo_grigio" name="tipo" value="grigio" aria-label="grigio" {{
-                        checked-grigio }}>
+                    <input type="radio" id="tipo_grigio" name="tipo" value="grigio" aria-label="grigio" {{ checked-grigio }}>
                 </fieldset>
                 <br>
                 <label for="data"> giorno </label>
@@ -24,7 +23,7 @@
                 <label for="orario_fine"> alle </label>
                 <input type="time" id="orario_fine" name="orario_fine" {{ end }}>
                 <br>
-                {{ error }}
+                <div id="error_msg">  </div>
                 <input type="submit" value="applica filtri"> <br>
             </fieldset>
         </form>
