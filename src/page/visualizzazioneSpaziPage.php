@@ -137,7 +137,7 @@ class VisualizzazioneSpaziPage extends Page
         // Renderizzare i filtri attivi se ce ne sono. 
         if ($this->tipo != "") {
             $repl = "{{ checked-" . $this->tipo . " }}";
-            $intestazione_pagina = str_replace($repl, 'checked', $intestazione_pagina);
+            $intestazione_pagina = str_replace($repl, "checked", $intestazione_pagina);
         }
 
         if ($this->data_inizio != "" && $this->data_fine != "") {
