@@ -42,6 +42,7 @@
 :root {
     --round-radius: 0.4rem;
     --shadow: 0 0 0.3rem 0 var(--oneColor);
+    --border: solid var(--errorMessageColor);
 }
 
 /* --------- MOBILE BREAKPOINT --------- */
@@ -156,6 +157,7 @@ header {
     background-color: var(--oneColor);
     color: var(--backgroundColor);
     font-size: 150%;
+    border-bottom: 0.2rem var(--border);
 }
 
 header a {
@@ -172,7 +174,6 @@ header > * {
 }
 
 #logo-login {
-    padding: 0.2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -180,8 +181,11 @@ header > * {
 }
 
 #logoLink img {
+    background-color: var(--errorMessageColor);
     max-width: 3rem;
     margin-right: 0.5rem;
+    padding: 0.2rem;
+    border-radius: var(--round-radius);
 }
 
 #logoLink a {
@@ -205,7 +209,6 @@ header > * {
 }
 
 #menu ul {
-    list-style: none;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -217,11 +220,20 @@ header > * {
     margin: 0 auto;
 }
 
+#menu li::marker {
+    color: var(--errorMessageColor);
+}
+
+#menu a {
+    padding: 0.3rem 0;
+}
+
 #breadcrumbs ol {
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
     padding-bottom: 0.1rem;
+    margin: 0;
 }
 
 #breadcrumbs li {
@@ -348,7 +360,7 @@ main p {
     padding: 1rem;
     border-radius: 50%;
     cursor: pointer;
-    border: 0.1rem solid var(--backgroundColor);
+    border: 0.1rem var(--border);
 }
 
 footer {
@@ -357,6 +369,7 @@ footer {
     background-color: var(--oneColor);
     color: var(--backgroundColor);
     margin: 3rem 0 0 0;
+    border-top: 0.2rem var(--border);
 }
 
 /* --------- FORMS --------- */
@@ -399,7 +412,7 @@ input[type="password"] {
     width: 98%;
     padding: 0.5rem;
     margin-bottom: 1rem;
-    border: 0.1rem solid var(--oneColor);
+    border: 0.1rem var(--border);
     border-radius: var(--round-radius);
     background-color: var(--backgroundColor);
     color: var(--textColor);
