@@ -33,12 +33,6 @@ class UtenteEndpoint extends Endpoint
             $username = $_GET['Username'];
         }
 
-        // DEBUG
-        // var_dump($ruolo);
-        // var_dump($username);
-        // var_dump($nome);
-        // var_dump($cognome);
-
         $page = new VisualizzazioneUtentiPage($ruolo, $username, $nome, $cognome);
         echo $page->render();
     }
