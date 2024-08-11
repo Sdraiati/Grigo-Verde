@@ -402,7 +402,10 @@ function validateDate() {
     } else { 
         valid = true; 
     } 
+  } else {
+    valid = true;
   }
+
   if (error != "") error_div.innerText = error; 
   return valid;
 }
