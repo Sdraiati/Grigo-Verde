@@ -72,16 +72,20 @@ class VisualizzazioneUtentiPage extends Page
         $dictionary = [];
         if ($this->ruolo != "") {
             $repl = "{{ checked-" . $this->ruolo . " }}";
+            var_dump($repl);
             $intestazione_pagina = str_replace($repl, "checked", $intestazione_pagina);
             array_push($dictionary, ["Table" => "Ruolo", "Value" => $this->ruolo]);
         }
         if ($this->username != "") {
+            $intestazione_pagina = str_replace("{{ username }}", 'value="' . $this->username.'"', $intestazione_pagina);
             array_push($dictionary, ["Table" => "Username", "Value" => $this->username]);
         }
         if ($this->nome != "") {
+            $intestazione_pagina = str_replace("{{ nome }}", 'value="' . $this->nome .'"', $intestazione_pagina);
             array_push($dictionary, ["Table" => "Nome", "Value" => $this->nome]);
         } 
         if ($this->cognome != "") {
+            $intestazione_pagina = str_replace("{{ cognome }}", 'value="' . $this->cognome.'"', $intestazione_pagina);
             array_push($dictionary, ["Table" => "Cognome", "Value" => $this->cognome]);
         }
 
