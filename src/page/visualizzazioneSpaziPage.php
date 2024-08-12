@@ -9,7 +9,7 @@ include_once 'model/prenotazione.php';
 class SpazioItem
 {
     static private $template = '<li> 
-            <p>{{ Nome }}</p> 
+            <p class="title">{{ Nome }}</p> 
             <img src="{{ Byte }}" alt=""> 
             <a href="spazi/spazio?spazio_nome={{ Nome }}"> visualizza dettaglio </a> 
         </li>';

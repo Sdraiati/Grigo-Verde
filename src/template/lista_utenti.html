@@ -8,10 +8,12 @@
                 <fieldset>
                     <legend>Ruolo</legend>
                     <label for="ruolo_docente">Docente</label>
-                    <input type="radio" id="ruolo_docente" name="Ruolo" value="Docente" aria-label="docente" {{ checked-Docente }}>
+                    <input type="radio" id="ruolo_docente" name="Ruolo" value="Docente" aria-label="docente" {{
+                        checked-Docente }}>
                     <br>
                     <label for="ruolo_amministratore">Amministratore</label>
-                    <input type="radio" id="ruolo_amministratore" name="Ruolo" value="Amministratore" aria-label="amministratore" {{ checked-Amministratore }}>
+                    <input type="radio" id="ruolo_amministratore" name="Ruolo" value="Amministratore"
+                        aria-label="amministratore" {{ checked-Amministratore }}>
                 </fieldset>
                 <br>
                 <label for="username"> nome utente </label>
@@ -23,19 +25,17 @@
                 <label for="cognome"> cognome </label>
                 <input type="text" id="cognome" name="Cognome" {{ cognome }} />
                 <br>
-                <div id="error_msg" class="errore">  </div>
-                <input type="submit" value="applica filtri"> <br>
+                <div id="error_msg" class="errore"> </div>
             </fieldset>
+            <input type="submit" value="applica filtri">
         </form>
 
-        <!-- questo form si potrebbe rendere hidden quando non ci sono dei filtri e visibile quando ci sono filtri. -->
         <form action="utenti" method="get">
-            <input type="submit" value="rimuovi filtri">
+            <input type="submit" value="cancella filtri">
         </form>
     </aside>
 
-    <ul class="content" id="lista-utenti">
+    <ul class="content large-cards" id="lista">
         {{ lista }}
     </ul>
 </div>
-

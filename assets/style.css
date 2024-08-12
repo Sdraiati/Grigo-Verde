@@ -329,6 +329,7 @@ main p {
 
 .actions-content aside form {
     box-shadow: none;
+    padding: 0.7rem 1.5rem;
 }
 
 .actions-content .content {
@@ -621,40 +622,17 @@ table tbody .passed {
     color: var(--errorMessageColor);
 }
 
-/* --------- Spazi disponibili --------- */
-
-#form_filtri {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-#form_filtri form {
-    display: inline;
-    width: auto;
-    height: auto;
-    box-shadow: none;
-}
+/* --------- Spazi disponibili / Utenti --------- */
 
 #form_filtri fieldset {
     display: inline;
     padding: 0;
     margin: 0;
-}
-
-#form_filtri legend {
-    display: inline;
-}
-
-#form_filtri fieldset fieldset {
-    padding: 0;
-    margin: 0;
+    width: 100%;
 }
 
 #form_filtri fieldset fieldset legend {
     font-size: var(--textSize);
-    display: inline;
 }
 
 
@@ -663,19 +641,7 @@ table tbody .passed {
     display: inline;
 }
 
-#form_filtri input[type="radio"],
-#form_filtri input[type="date"],
-#form_filtri input[type="time"] {
-    width: auto;
-    height: auto;
-}
-
-#form_filtri input[type="submit"] {
-    width: auto;
-    height: auto;
-}
-
-#lista-spazi {
+#lista {
     list-style: none;
     display: flex;
     flex-flow: row wrap;
@@ -684,7 +650,7 @@ table tbody .passed {
     height: auto;
 }
 
-#lista-spazi li {
+#lista li {
     flex: 1 1 150px;
     height: auto;
     padding: 1rem;
@@ -694,14 +660,18 @@ table tbody .passed {
     flex-direction: column;
 }
 
-#lista-spazi li > * {
+#lista.large-cards li {
+    flex: 1 1 200px;
+}
+
+#lista li > * {
     margin: 0 auto;
 }
 
-#lista-spazi p {
+.title {
     font-weight: bold;
 }
 
-#lista-spazi img {
+#lista img {
     height: 8rem;
 }
