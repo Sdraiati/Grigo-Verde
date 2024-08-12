@@ -39,7 +39,7 @@ class DashboardAmministratorePage extends Page
         $content_2 = str_replace('{{ cognome }}', $utente['Cognome'], $content_2);
 
         if (empty($prenotazioni)) {
-            $content_2 = preg_replace('/<section id="content">.*<\/section>/s', "<h1>" . $this->amministratore_nome . ", non hai ancora fatto prenotazioni.</h1>", $content_2);
+            $content_2 = preg_replace('/<p id="descrizione-tabella".*<\/table>/s', "<p>Non hai ancora fatto prenotazioni.</p>", $content_2);
             $content = str_replace('{{ content }}', $content_2, $content);
             return $content;
         }
