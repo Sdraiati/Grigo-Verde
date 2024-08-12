@@ -351,8 +351,10 @@ main p {
 /* --------- FOOTER --------- */
 
 #back-to-top {
-    display: block;
     line-height: 1rem;
+    position: fixed;
+    bottom: 6rem;
+    right: 1rem;
 }
 
 #back-to-top a {
@@ -362,12 +364,6 @@ main p {
     border-radius: 50%;
     cursor: pointer;
     border: 0.1rem var(--border);
-}
-
-.bottom-right {
-    position: fixed;
-    bottom: 6rem;
-    right: 1rem;
 }
 
 footer {

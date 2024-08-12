@@ -269,15 +269,10 @@ main p {
 /* --------- FOOTER --------- */
 
 #back-to-top {
-    display: none;
     line-height: 1rem;
     position: fixed;
     bottom: 6rem;
     right: 1rem;
-}
-
-#back-to-top{
-    display: none !important;
 }
 
 #back-to-top a {

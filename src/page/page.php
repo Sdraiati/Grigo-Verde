@@ -107,7 +107,7 @@ class Page
     // TODO: check circular reference
     protected function takeOffCircularReference($content)
     {
-        return str_replace('href="' . $this->path . '"', 'href="#"', $content);
+        return str_replace('href="' . $this->path . '"', 'href="' . $this->path . '#"', $content);
     }
 
     // path is the path of the page, which is used to skip the navbar and jump

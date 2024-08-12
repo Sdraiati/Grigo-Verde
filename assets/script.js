@@ -6,11 +6,9 @@ document.addEventListener("DOMContentLoaded", function(_) {
     window.onscroll = function() { scrollFunction() };
     function scrollFunction() {
         if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            back_to_top_button.classList.remove("helper");
-            back_to_top_button.classList.remove("bottom-right");
+            back_to_top_button.classList.remove("hidden");
         } else {
-            back_to_top_button.classList.add("helper");
-            back_to_top_button.classList.add("bottom-right");
+            back_to_top_button.classList.add("hidden");
         }
     }
 
