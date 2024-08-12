@@ -47,7 +47,7 @@
 
 /* --------- MOBILE BREAKPOINT --------- */
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 600px) {
     :root {
         --textSize: 1rem;
         --heading1Size: 2rem;
@@ -59,7 +59,7 @@
 
 /* --------- TABLET BREAKPOINT --------- */
 
-@media screen and (min-width: 768px) and (max-width: 1023px) {
+@media screen and (min-width: 601px) and (max-width: 900px) {
     :root {
         --textSize: 1.1rem;
         --heading1Size: 2.5rem;
@@ -71,7 +71,7 @@
 
 /* --------- LAPTOP BREAKPOINT --------- */
 
-@media screen and (min-width: 1024px) and (max-width: 1200px) {
+@media screen and (min-width: 901px) and (max-width: 1200px) {
     :root {
         --textSize: 1.3rem;
         --heading1Size: 3rem;
@@ -143,12 +143,14 @@ a:visited {
 
 .helper {
     position: absolute;
-    top: -999px;
-    left: 0px;
+    left: -999em;
 }
 
 .helper:focus {
-    top: 0px;
+    top: 0;
+    left: 0;
+    color: var(--oneColor);
+    background-color: var(--backgroundColor);
 }
 
 
@@ -334,7 +336,7 @@ main p {
     margin: 0;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 600px) {
     .actions-content {
         display: block;
     }
@@ -412,7 +414,7 @@ input[type="password"] {
     width: 98%;
     padding: 0.5rem;
     margin-bottom: 1rem;
-    border: 0.1rem var(--border);
+    border: 0.1rem solid var(--oneColor);
     border-radius: var(--round-radius);
     background-color: var(--backgroundColor);
     color: var(--textColor);
@@ -700,6 +702,5 @@ table tbody .passed {
 }
 
 #lista-spazi img {
-    max-height: 100px;
     height: 8rem;
 }
