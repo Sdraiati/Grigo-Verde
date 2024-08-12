@@ -20,7 +20,7 @@ class newSpacePage extends Page
         $this->setTitle('Nuovo Spazio');
         $this->setBreadcrumb([
             '<span lang="en">Home</span>' => '',
-            'Spazi' => 'spazi'
+            'Cruscotto' => 'cruscotto'
         ]);
         $this->setPath('/spazi/nuovo');
         $this->addKeywords([""]);

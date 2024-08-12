@@ -351,11 +351,8 @@ main p {
 /* --------- FOOTER --------- */
 
 #back-to-top {
-    display: none;
+    display: block;
     line-height: 1rem;
-    position: fixed;
-    bottom: 6rem;
-    right: 1rem;
 }
 
 #back-to-top a {
@@ -365,6 +362,12 @@ main p {
     border-radius: 50%;
     cursor: pointer;
     border: 0.1rem var(--border);
+}
+
+.bottom-right {
+    position: fixed;
+    bottom: 6rem;
+    right: 1rem;
 }
 
 footer {
@@ -645,9 +648,10 @@ table tbody .passed {
     list-style: none;
     display: flex;
     flex-flow: row wrap;
-    align-items: flex-start;
-    gap: 1rem;
+    align-items: baseline;
     height: auto;
+    justify-content: start;
+    gap: 1rem;
 }
 
 #lista li {

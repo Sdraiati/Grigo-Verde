@@ -16,6 +16,7 @@ class Page
     protected $path = '/';
     protected $breadcrumb = [];
     private $nav;
+    protected $description = '';
     public function __construct($title = '', $path = '/')
     {
         $this->title = $title;
@@ -46,6 +47,11 @@ class Page
                 '<span lang="en">About us</span>' => 'about_us',
             ];
         }
+    }
+
+    protected function setDescription($description)
+    {
+        $this->description = $description;
     }
 
     protected function makeLogin()
@@ -112,7 +118,7 @@ class Page
         $content = str_replace('{{ base_path }}', BASE_URL, $content);
         $content = str_replace('{{ title }}', $this->title . ' - Grigo Verde', $content);
         $content = str_replace('{{ login }}', $this->makeLogin(), $content);
-        $content = str_replace('{{ description }}', 'This is a description', $content);
+        $content = str_replace('{{ description }}', $this->description, $content);
         $content = str_replace('{{ keywords }}', implode(', ', $this->keywords), $content);
         $content = str_replace('{{ page_path }}', $this->path, $content);
 

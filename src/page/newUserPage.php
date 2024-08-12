@@ -19,7 +19,7 @@ class newUserPage extends Page
         $this->setTitle('Nuovo Utente');
         $this->setBreadcrumb([
             '<span lang="en">Home</span>' => '',
-            'Utenti' => 'utenti'
+            'Cruscotto' => 'cruscotto'
         ]);
         $this->setPath('/utenti/nuovo');
         $this->addKeywords([""]);
