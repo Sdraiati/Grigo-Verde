@@ -7,10 +7,12 @@ include_once $project_root . '/model/prenotazione.php';
 include_once $project_root . '/model/utente.php';
 include_once $project_root . '/model/immagine.php';
 include_once $project_root . '/controller/autenticazione.php';
+include_once 'model/disponibilità.php';
 
 class DettaglioSpazioPage extends Page
 {
     private string $spazio_nome = "";
+    private string $tab_disp = "";
 
     public function __construct(string $spazio_nome = '')
     {
@@ -31,7 +33,9 @@ class DettaglioSpazioPage extends Page
         $content = parent::render();
         $image = new Immagine();
         $spazio = new Spazio();
+
         $spazio_data = $spazio->prendi_per_nome($this->spazio_nome);
+
         if (empty($spazio_data)) {
             $content = str_replace('{{ content }}', "<h1>Questo spazio non esiste</h1>", $content);
             return $content;
@@ -66,14 +70,29 @@ class DettaglioSpazioPage extends Page
 
         if (empty($prenotazioni_data)) {
             $content_2 = preg_replace(
-                '/<p id="descrizione-tabella".*?<\/table>/s',
+                '/<p id="descrizione-tabella-prenotazioni".*?<\/table>/s',
                 "<p>Non ci sono prenotazioni per questo spazio.</p>",
                 $content_2
             );
         }
 
-        $rows = $this->setRowTable($prenotazioni_data);
-        $content_2 = str_replace('{{ righe tabella }}', $rows, $content_2);
+        $disponibilità = new Disponibilita();
+        $lista_disponibilità = $disponibilità->prendi($spazio_data['Posizione']);
+        if (empty($lista_disponibilità)) {
+            $content_2 = preg_replace(
+                '/<p id="descrizione-tabella-disponibilità".*?<\/table>/s',
+                "<p>Non ci sono disponibilità per questo spazio.</p>",
+                $content_2
+            );
+        }
+
+        $rows = $this->setRowTablePrenotazioni($prenotazioni_data);
+        $content_2 = str_replace('{{ righe tabella prenotazioni }}', $rows, $content_2);
+
+        $rows = $this->setRowTableDisponibilita($lista_disponibilità);
+        $content_2 = str_replace('{{ righe tabella disponibilità }}', $rows, $content_2);
+
+
         $content = str_replace('{{ content }}', $content_2, $content);
 
 
@@ -91,7 +110,7 @@ class DettaglioSpazioPage extends Page
         return $content;
     }
 
-    protected function setRowTable($prenotazioni_data)
+    protected function setRowTablePrenotazioni($prenotazioni_data)
     {
         $utente = new Utente();
         $rowTemplate = '<tr>
@@ -120,6 +139,35 @@ class DettaglioSpazioPage extends Page
             $row = str_replace('{{ inizio }}', $ora_inizio, $row);
             $row = str_replace('{{ fine }}', $ora_fine, $row);
             $row = str_replace('{{ id }}', $prenotazione['Id'], $row);
+
+            $rows .= $row;
+        }
+
+        return $rows;
+    }
+
+    protected function setRowTableDisponibilita($lista_disponibilità)
+    {
+        $rowTemplate = '<tr>
+                <td>{{ mese }}</td>
+                <td scope="col">{{ giorno }}</td>
+                <td scope="col"><time>{{ inizio }}</time></td>
+                <td scope="col"><time>{{ fine }}</time></td>
+            </tr>';
+
+        $rows = "";
+        $count = count($lista_disponibilità);
+
+        for ($i = 0; $i < $count; $i++) {
+            $disponibilità = $lista_disponibilità[$i];
+            $start_date_time = new DateTime($disponibilità['Orario_apertura']);
+            $end_date_time = new DateTime($disponibilità['Orario_chiusura']);
+            $ora_inizio = $start_date_time->format('H:i');
+            $ora_fine = $end_date_time->format('H:i');
+            $row = str_replace('{{ mese }}', $disponibilità['Mese'], $rowTemplate);
+            $row = str_replace('{{ giorno }}', $disponibilità['Giorno_settimana'], $row);
+            $row = str_replace('{{ inizio }}', $ora_inizio, $row);
+            $row = str_replace('{{ fine }}', $ora_fine, $row);
 
             $rows .= $row;
         }

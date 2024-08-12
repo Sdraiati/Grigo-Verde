@@ -11,7 +11,7 @@ class UtenteItem
             <p>{{ Username }}</p> 
             <p>{{ Nome }}</p> 
             <p>{{ Cognome }}</p> 
-            <a href="spazi/spazio?spazio_nome="> visualizza dettaglio </a> 
+            <a href="utenti/utente?username={{ Username }}"> visualizza dettaglio </a> 
         </li>';
 
     public function render($values)
@@ -40,7 +40,7 @@ class VisualizzazioneUtentiPage extends Page
             '<span lang="en">Home</span>' => '',
         ]);
         $this->addKeywords([""]);
-        $this->setPath('/utenti');
+        $this->setPath('utenti');
 
         $this->ruolo = $ruolo;
         $this->username = $username;
@@ -57,7 +57,8 @@ class VisualizzazioneUtentiPage extends Page
 
     // }
 
-    private function filtra_utenti($dictionary) {
+    private function filtra_utenti($dictionary)
+    {
         $model_utente = new Utente();
         $result = $model_utente->prendi_parametrizzata($dictionary);
         return $result;
@@ -76,15 +77,15 @@ class VisualizzazioneUtentiPage extends Page
             array_push($dictionary, ["Table" => "Ruolo", "Value" => $this->ruolo]);
         }
         if ($this->username != "") {
-            $intestazione_pagina = str_replace("{{ username }}", 'value="' . $this->username.'"', $intestazione_pagina);
+            $intestazione_pagina = str_replace("{{ username }}", 'value="' . $this->username . '"', $intestazione_pagina);
             array_push($dictionary, ["Table" => "Username", "Value" => $this->username]);
         }
         if ($this->nome != "") {
-            $intestazione_pagina = str_replace("{{ nome }}", 'value="' . $this->nome .'"', $intestazione_pagina);
+            $intestazione_pagina = str_replace("{{ nome }}", 'value="' . $this->nome . '"', $intestazione_pagina);
             array_push($dictionary, ["Table" => "Nome", "Value" => $this->nome]);
-        } 
+        }
         if ($this->cognome != "") {
-            $intestazione_pagina = str_replace("{{ cognome }}", 'value="' . $this->cognome.'"', $intestazione_pagina);
+            $intestazione_pagina = str_replace("{{ cognome }}", 'value="' . $this->cognome . '"', $intestazione_pagina);
             array_push($dictionary, ["Table" => "Cognome", "Value" => $this->cognome]);
         }
 
