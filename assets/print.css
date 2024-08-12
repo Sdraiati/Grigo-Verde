@@ -1,44 +1,14 @@
-/*##############################
-#           General            #
-##############################*/
 
-
-/* --------- COLORS --------- */
 
 :root {
     --threeColor-rgb: 115, 222, 193;
     --backgroundColor: #fff;
-    --textColor: #333;
-    --oneColor: #335833;
-    --twoColor: #0000FF;
+    --textColor: #000000;
+    --oneColor: #000000;
+    --twoColor: #000000;
     --threeColor: rgb(var(--threeColor-rgb));
-    --errorMessageColor: red;
-    --base-url:" POLLO ";
+    --errorMessageColor: rgb(0, 0, 0);
 }
-
-/*
-@media (prefers-color-scheme: light) {
-    :root {
-        --textColor: #000;
-        --backgroundColor: #333;
-        --oneColor: #268700;
-        --twoColor: #73dec1;
-        --errorMessageColor: red;
-        --shadow: 0 0 0.4rem 0.01rem var(--secondaryColor);
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --textColor: #FFFFFF;
-        --backgroundColor: #000000;
-        --oneColor: #268700;
-        --twoColor: #73dec1;
-        --errorMessageColor: #ffa0ff;
-        --shadow: 0 0 0.4rem 0.01rem var(--secondaryColor);
-    }
-}
-*/
 
 :root {
     --round-radius: 0.4rem;
@@ -46,64 +16,10 @@
     --border: solid var(--errorMessageColor);
 }
 
-/* --------- MOBILE BREAKPOINT --------- */
-
-@media screen and (max-width: 600px) {
-    :root {
-        --textSize: 1rem;
-        --heading1Size: 2rem;
-        --heading2Size: 1.3rem;
-        --shortContent: 100%;
-        --content: 100%;
-    }
-}
-
-/* --------- TABLET BREAKPOINT --------- */
-
-@media screen and (min-width: 601px) and (max-width: 900px) {
-    :root {
-        --textSize: 1.1rem;
-        --heading1Size: 2.5rem;
-        --heading2Size: 1.5rem;
-        --shortContent: 55%;
-        --content: 90%;
-    }
-}
-
-/* --------- LAPTOP BREAKPOINT --------- */
-
-@media screen and (min-width: 901px) and (max-width: 1200px) {
-    :root {
-        --textSize: 1.3rem;
-        --heading1Size: 3rem;
-        --heading2Size: 1.8rem;
-        --shortContent: 42%;
-        --content: 80%;
-    }
-}
-
-/* --------- BIG SCREEN BREAKPOINT --------- */
-
-@media screen and (min-width: 1201px) {
-    :root {
-        --textSize: 1.5rem;
-        --heading1Size: 3.5rem;
-        --heading2Size: 2rem;
-        --shortContent: 36%;
-        --content: 70%;
-    }
-
-    #menu {
-        border-radius: var(--round-radius);
-    }
-}
-
-/* --------- TYPOGRAPHY --------- */
-
 * {
     box-sizing: border-box;
     line-height: calc(1.5 * var(--textSize));
-    font-family: Arial, sans-serif;
+    font-family: "Times New Roman", serif;
 }
 
 *:not(html, body, footer, header, main) {
@@ -128,7 +44,6 @@ h2 {
 
 a {
     color: var(--twoColor);
-/*    padding: 0.3rem; */
     border-radius: var(--round-radius);
 }
 
@@ -136,11 +51,24 @@ a:visited {
     color: var(--oneColor);
 }
 
+a[href*="://"]::after,
+a:not([href^="/"])::after
+{
+    content: " [" var(--base-url)"/"attr(href) "]";
+}
+
+a[href^="/"]:not([href*="://"])::after {
+  
+  content: " [" attr(href) "]";
+}
+/*
+a::after{
+    content: " [" var(--base-url) "]";
+}*/
+
 .hidden {
     display: none;
 }
-
-/* --------- HEADER --------- */
 
 .helper {
     position: absolute;
@@ -329,7 +257,6 @@ main p {
 
 .actions-content aside form {
     box-shadow: none;
-    padding: 0.7rem 1.5rem;
 }
 
 .actions-content .content {
@@ -338,15 +265,6 @@ main p {
     margin: 0;
 }
 
-@media screen and (max-width: 600px) {
-    .actions-content {
-        display: block;
-    }
-
-    .actions-content aside {
-        grid-area: unset;
-    }
-}
 
 /* --------- FOOTER --------- */
 
@@ -356,6 +274,10 @@ main p {
     position: fixed;
     bottom: 6rem;
     right: 1rem;
+}
+
+#back-to-top{
+    display: none !important;
 }
 
 #back-to-top a {
@@ -503,113 +425,6 @@ table td a {
     font-style: italic;
 }
 
-
-@media screen and (min-width: 1024px) {
-    #scelta-progetto {
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-        align-items: center;
-        grid-gap: 0 3rem;
-        grid-template-areas: 
-            "title img"
-            "text img"
-            "sign img";
-        margin-bottom: 3rem;
-    }
-
-    #scelta-progetto h2 {
-        grid-area: title;
-    }
-
-    #scelta-progetto p {
-        grid-area: text;
-        margin-bottom: 0;
-    }
-    #scelta-progetto .signature {
-        grid-area: sign;
-    }
-
-    #scelta-progetto img {
-        max-width: 100%;
-        grid-area: img;
-    }
-
-    #aule-verdi {
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-        grid-gap: 0 3rem;
-        align-items: center;
-        grid-template-areas: 
-            "title img1"
-            "p1 img1"
-            "p2 img2"
-            "p3 img2"
-            "img3 img3";
-    }
-
-    #aule-verdi h2 {
-        grid-area: title;
-    }
-
-    #aule-verdi p:nth-of-type(1) {
-        grid-area: p1;
-    }
-
-    #aule-verdi p:nth-of-type(2) {
-        grid-area: p2;
-    }
-
-    #aule-verdi p:nth-of-type(3) {
-        grid-area: p3;
-    }
-
-    #aule-verdi img:nth-of-type(1) {
-        grid-area: img1;
-    }
-
-    #aule-verdi img:nth-of-type(2) {
-        grid-area: img2;
-    }
-
-    #aule-verdi img:nth-of-type(3) {
-        grid-area: img3;
-        margin: 0 auto 1rem auto;
-    }
-
-    #arte-natura {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 0 3rem;
-        align-items: center;
-        grid-template-areas: 
-            "title img"
-            "p1 img"
-            "p2 img"
-            "p3 img";
-    }
-
-    #arte-natura h2 {
-        grid-area: title;
-    }
-
-    #arte-natura p:nth-of-type(1) {
-        grid-area: p1;
-    }
-
-    #arte-natura p:nth-of-type(2) {
-        grid-area: p2;
-    }
-
-    #arte-natura p:nth-of-type(3) {
-        grid-area: p3;
-    }
-
-    #arte-natura img {
-        grid-area: img;
-        max-width: 100%;
-    }
-}
-
 /* --------- TEST PAGE --------- */
 
 table tbody .passed {
@@ -622,17 +437,40 @@ table tbody .passed {
     color: var(--errorMessageColor);
 }
 
-/* --------- Spazi disponibili / Utenti --------- */
+/* --------- Spazi disponibili --------- */
+
+#form_filtri {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#form_filtri form {
+    display: inline;
+    width: auto;
+    height: auto;
+    box-shadow: none;
+}
 
 #form_filtri fieldset {
     display: inline;
     padding: 0;
     margin: 0;
-    width: 100%;
+}
+
+#form_filtri legend {
+    display: inline;
+}
+
+#form_filtri fieldset fieldset {
+    padding: 0;
+    margin: 0;
 }
 
 #form_filtri fieldset fieldset legend {
     font-size: var(--textSize);
+    display: inline;
 }
 
 
@@ -641,7 +479,19 @@ table tbody .passed {
     display: inline;
 }
 
-#lista {
+#form_filtri input[type="radio"],
+#form_filtri input[type="date"],
+#form_filtri input[type="time"] {
+    width: auto;
+    height: auto;
+}
+
+#form_filtri input[type="submit"] {
+    width: auto;
+    height: auto;
+}
+
+#lista-spazi {
     list-style: none;
     display: flex;
     flex-flow: row wrap;
@@ -650,7 +500,7 @@ table tbody .passed {
     height: auto;
 }
 
-#lista li {
+#lista-spazi li {
     flex: 1 1 150px;
     height: auto;
     padding: 1rem;
@@ -660,18 +510,14 @@ table tbody .passed {
     flex-direction: column;
 }
 
-#lista.large-cards li {
-    flex: 1 1 200px;
-}
-
-#lista li > * {
+#lista-spazi li > * {
     margin: 0 auto;
 }
 
-.title {
+#lista-spazi p {
     font-weight: bold;
 }
 
-#lista img {
+#lista-spazi img {
     height: 8rem;
 }

@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(_) {
+    const baseUrl = String(window.location.origin);
+    document.documentElement.style.setProperty('--base-url', `"${baseUrl}"`);
     // Back to top button
     let back_to_top_button = document.getElementById("back-to-top");
     window.onscroll = function() { scrollFunction() };

@@ -8,10 +8,10 @@ include_once 'model/utente.php';
 class UtenteItem
 {
     static private $template = '<li> 
-            <p>{{ Username }}</p> 
-            <p>{{ Nome }}</p> 
-            <p>{{ Cognome }}</p> 
-            <a href="utenti/utente?username={{ Username }}"> visualizza dettaglio </a> 
+            <p>nome utente: <span class="title">{{ Username }}</span></p> 
+            <p>nome: <span class="title">{{ Nome }}</span></p> 
+            <p>cognome: <span class="title">{{ Cognome }}</span></p> 
+            <a href="utenti/utente?username={{ Username }}">dettaglio</a> 
         </li>';
 
     public function render($values)
