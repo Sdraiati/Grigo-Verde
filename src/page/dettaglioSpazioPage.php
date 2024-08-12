@@ -81,7 +81,7 @@ class DettaglioSpazioPage extends Page
         if (empty($lista_disponibilità)) {
             $content_2 = preg_replace(
                 '/<p id="descrizione-tabella-disponibilità".*?<\/table>/s',
-                "<p>Non ci sono prenotazioni per questo spazio.</p>",
+                "<p>Non ci sono disponibilità per questo spazio.</p>",
                 $content_2
             );
         }
