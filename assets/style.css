@@ -351,7 +351,6 @@ main p {
 /* --------- FOOTER --------- */
 
 #back-to-top {
-    display: none;
     line-height: 1rem;
     position: fixed;
     bottom: 6rem;
@@ -645,9 +644,10 @@ table tbody .passed {
     list-style: none;
     display: flex;
     flex-flow: row wrap;
-    align-items: flex-start;
-    gap: 1rem;
+    align-items: baseline;
     height: auto;
+    justify-content: start;
+    gap: 1rem;
 }
 
 #lista li {

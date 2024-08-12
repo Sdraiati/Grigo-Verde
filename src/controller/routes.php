@@ -40,7 +40,7 @@ include_once $project_root . '/controller/home.php';
 
 $router = new Router();
 
-// $router->add(new Test());
+$router->add(new Test());
 $router->add(new StaticPage('about_us', new AboutUsPage()));
 $router->add(new LoginPost());
 $router->add(new SpazioEndpoint());

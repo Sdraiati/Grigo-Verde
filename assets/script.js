@@ -6,9 +6,9 @@ document.addEventListener("DOMContentLoaded", function(_) {
     window.onscroll = function() { scrollFunction() };
     function scrollFunction() {
         if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            back_to_top_button.style.display = "block";
+            back_to_top_button.classList.remove("hidden");
         } else {
-            back_to_top_button.style.display = "none";
+            back_to_top_button.classList.add("hidden");
         }
     }
 
@@ -388,29 +388,29 @@ function validatePassword() {
 }
 
 function validateDate() {
-  // validare l'input dei form all'interno dei date e time picker.
-  let data = document.getElementById("data").value;
-  let start = document.getElementById("orario_inizio").value;
-  let end = document.getElementById("orario_fine").value;
-  let error_div = document.getElementById("error_msg");
-  let error = "";
-  let valid = false;
+    // validare l'input dei form all'interno dei date e time picker.
+    let data = document.getElementById("data").value;
+    let start = document.getElementById("orario_inizio").value;
+    let end = document.getElementById("orario_fine").value;
+    let error_div = document.getElementById("error_msg");
+    let error = "";
+    let valid = false;
 
 
-  if (data != "" || start != "" || end != "") { // se almeno uno di questi campi è selezionato.
-    if (data == "" || start == "" || end == "") { // se solo un campo dovesse essere vuoto
-        error = "Nessun campo data o ora può essere lasciato vuoto.";
-    } else if (start >= end) {
-        error = "Orario di inizio e di fine devono essere rispettivamente l'uno minore o uguale dell'altro bitch.";
-    } else { 
-        valid = true; 
-    } 
-  } else {
-    valid = true;
-  }
-  console.log(error);
-  if (error != "" && error_div) error_div.innerText = error; 
-  return valid;
+    if (data != "" || start != "" || end != "") { // se almeno uno di questi campi è selezionato.
+        if (data == "" || start == "" || end == "") { // se solo un campo dovesse essere vuoto
+            error = "Nessun campo data o ora può essere lasciato vuoto.";
+        } else if (start >= end) {
+            error = "Orario di inizio e di fine devono essere rispettivamente l'uno minore o uguale dell'altro bitch.";
+        } else {
+            valid = true;
+        }
+    } else {
+        valid = true;
+    }
+    console.log(error);
+    if (error != "" && error_div) error_div.innerText = error;
+    return valid;
 }
 
 function validateFiltriUtente() {
