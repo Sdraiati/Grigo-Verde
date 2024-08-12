@@ -72,7 +72,6 @@ class VisualizzazioneUtentiPage extends Page
         $dictionary = [];
         if ($this->ruolo != "") {
             $repl = "{{ checked-" . $this->ruolo . " }}";
-            var_dump($repl);
             $intestazione_pagina = str_replace($repl, "checked", $intestazione_pagina);
             array_push($dictionary, ["Table" => "Ruolo", "Value" => $this->ruolo]);
         }
