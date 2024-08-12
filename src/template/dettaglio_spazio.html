@@ -19,15 +19,15 @@
 
     <div id="content">
         <h2>Informazioni</h2>
-        <p><strong>Tipo:</strong> {{ tipo spazio }} </p>
-        <p><strong>Descrizione:</strong> {{ descrizione spazio }} </p>
-        <p><strong>Numero di Tavoli:</strong> {{ numero tavoli spazio }} </p>
-        <p><strong>Immagine:</strong> {{ immagine }} </p>
+        <p><b>Tipo:</b> {{ tipo spazio }} </p>
+        <p><b>Descrizione:</b> {{ descrizione spazio }} </p>
+        <p><b>Numero di Tavoli:</b> {{ numero tavoli spazio }} </p>
+        <p><b>Immagine:</b> {{ immagine }} </p>
         </section>
 
         <section id="content">
             <h2>Prenotazioni</h2>
-            <p id="descrizione-tabella" class="helper">
+            <p id="descrizione-tabella-prenotazioni" class="helper">
                 Tabella delle tue prenotazioni future dello spazio {{ nome spazio }}.
                 Ci sono 5 campi: il nome di chi ha effettuato la prenotazione,
                 il giorno, l'ora di inizio, l'ora di fine e un link
@@ -45,7 +45,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{ righe tabella }}
+                    {{ righe tabella prenotazioni }}
+                </tbody>
+            </table>
+
+            <h2>Disponibilità</h2>
+            <p id="descrizione-tabella-disponibilità" class="helper">
+                Tabella delle tue disponibilità dello spazio {{ nome spazio }}.
+                Ci sono 4 campi: il Mese ,il giorno della settimana, l'ora di inizio, l'ora di Fine
+                delle diponibilità.
+            </p>
+            <table aria-describedby="descrizione-tabella-disponibilità">
+                <caption>Informazioni sulle disponibilità</caption>
+                <thead>
+                    <tr>
+                        <th abbr="mese" scope='col'>Mese</th>
+                        <th abbr="il" scope='col'>Giorno</th>
+                        <th abbr="dalle" scope='col'>Orario Inizio</th>
+                        <th abbr="alle" scope='col'>Orario Fine</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ righe tabella disponibilità }}
                 </tbody>
             </table>
         </section>

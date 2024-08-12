@@ -1,10 +1,10 @@
 <section xmlns="http://www.w3.org/1999/html">
     <h1> Dettaglio utente</h1>
     <ul>
-        <li><strong>Nome:</strong> {{ nome }}</li>
-        <li><strong>Cognome:</strong> {{ cognome }}</li>
-        <li><strong>Ruolo:</strong> {{ ruolo }}</li>
-        <li><strong>Nome utente:</strong> {{ username }}</li>
+        <li><b>Nome:</b> {{ nome }}</li>
+        <li><b>Cognome:</b> {{ cognome }}</li>
+        <li><b>Ruolo:</b> {{ ruolo }}</li>
+        <li><b>Nome utente:</b> {{ username }}</li>
     </ul>
     <form action="/utenti/modifica?username={{ username }}">
         <input type="hidden" name="username" value="{{ username }}">
