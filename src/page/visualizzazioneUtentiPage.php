@@ -105,7 +105,7 @@ class VisualizzazioneUtentiPage extends Page
             $intestazione_pagina = str_replace("{{ lista }}", $lista_utenti, $intestazione_pagina);
             $content = str_replace("{{ content }}", $intestazione_pagina, $content);
         } else {
-            $messaggio = " <p> non sono stati trovai degli spazi corrispondenti ai parametri della ricerca <p>";
+            $messaggio = " <p> Non sono stati trovai degli utenti corrispondenti ai parametri della ricerca <p>";
             $intestazione_pagina = str_replace("{{ lista }}", $messaggio, $intestazione_pagina);
             $content = str_replace("{{ content }}", $intestazione_pagina, $content);
         }
