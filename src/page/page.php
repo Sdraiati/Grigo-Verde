@@ -57,7 +57,7 @@ class Page
     protected function makeLogin()
     {
         if (Autenticazione::isLogged()) {
-            return '<a href="cruscotto">Cruscotto</a>';
+            return '<a href="cruscotto">' . Autenticazione::getLoggedUser() . '</a>';
         } else {
             return '<a href="login"><span lang="en">Login</span></a>';
         }
