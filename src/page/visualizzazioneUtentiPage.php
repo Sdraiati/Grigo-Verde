@@ -116,6 +116,7 @@ class VisualizzazioneUtentiPage extends Page
         } else {
             $content = str_replace("{{ error }}", '', $content);            // todo: check if and why this is needed
         }
+        $content = preg_replace('/{{.*?}}/', '', $content); // remove all other placeholders
         return $content;
     }
 }
