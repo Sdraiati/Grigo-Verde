@@ -6,11 +6,11 @@
         <li><b>Ruolo:</b> {{ ruolo }}</li>
         <li><b>Nome utente:</b> {{ username }}</li>
     </ul>
-    <form action="/utenti/modifica?username={{ username }}">
+    <form action="utenti/modifica?username={{ username }}">
         <input type="hidden" name="username" value="{{ username }}">
         <input type="submit" value="Modifica utente">
     </form>
-    <form action="/utenti/elimina">
+    <form action="utenti/elimina">
         <input type="hidden" name="username" value="{{ username }}">
         <input type="submit" value="Elimina utente">
     </form>

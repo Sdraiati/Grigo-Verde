@@ -32,15 +32,7 @@ class Message
         }
 
         if (isset($_SERVER['HTTP_REFERER'])) {
-            $uri = parse_url($_SERVER['HTTP_REFERER']);
-
-            if (isset($uri['path'])) {
-                $path = $uri['path'];
-            }
-            if (isset($uri['query'])) {
-                $path .= '?' . $uri['query'];
-            }
-            $path = ltrim($path, '/');
+            $path = str_replace(BASE_URL, '', $_SERVER['HTTP_REFERER']);
         } else {
             $path = '';
         }
