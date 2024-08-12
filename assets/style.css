@@ -12,8 +12,7 @@
     --oneColor: #335833;
     --twoColor: #0000FF;
     --threeColor: rgb(var(--threeColor-rgb));
-    --errorMessageColor: red;
-    --base-url:" POLLO ";
+    --errorMessageColor: #e22c2f;
 }
 
 /*
