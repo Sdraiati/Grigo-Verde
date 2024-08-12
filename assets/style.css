@@ -13,6 +13,7 @@
     --twoColor: #0000FF;
     --threeColor: rgb(var(--threeColor-rgb));
     --errorMessageColor: red;
+    --base-url:" POLLO ";
 }
 
 /*

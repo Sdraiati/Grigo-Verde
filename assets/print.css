@@ -8,7 +8,6 @@
     --twoColor: #000000;
     --threeColor: rgb(var(--threeColor-rgb));
     --errorMessageColor: rgb(0, 0, 0);
-    --base-url:" POLLO ";
 }
 
 :root {
@@ -55,16 +54,16 @@ a:visited {
 a[href*="://"]::after,
 a:not([href^="/"])::after
 {
-    content: " (" var(--base-url) attr(href) ")";
+    content: " [" var(--base-url)"/"attr(href) "]";
 }
 
 a[href^="/"]:not([href*="://"])::after {
   
-  content: " (" attr(href) ")";
+  content: " [" attr(href) "]";
 }
 /*
 a::after{
-    content: " (" var(--base-url) attr(href) ")";
+    content: " [" var(--base-url) "]";
 }*/
 
 .hidden {
@@ -275,6 +274,10 @@ main p {
     position: fixed;
     bottom: 6rem;
     right: 1rem;
+}
+
+#back-to-top{
+    display: none !important;
 }
 
 #back-to-top a {
