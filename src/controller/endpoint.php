@@ -78,7 +78,7 @@ abstract class Endpoint
             $endpoint .= '?' . $uri['query'];
         }
 
-        return rtrim($endpoint, '/') === $path && $this->method === $method;
+        return "/".rtrim($endpoint, '/') === $path && $this->method === $method;
     }
 
     abstract public function handle();
