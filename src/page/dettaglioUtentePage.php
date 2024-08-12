@@ -13,6 +13,7 @@ class DettaglioUtentePage extends Page
     private string $ruolo = '';
     private Prenotazione $prenotazione;
     private Spazio $spazio;
+    private Utente $utente;
 
     public function __construct()
     {
@@ -96,15 +97,18 @@ class DettaglioUtentePage extends Page
             return $page->render();
         }
         if (!Autenticazione::is_amministratore()) {
-            return "Non hai i permessi per accedere a questa pagina"; //TODO: 403 forbidden page
-        }
-        if(empty($this->utente->prendi($this->username))) {
-            return "Utente non esistente";
+            $page = new UnauthorizedPage();
+            $page->setPath($this->path);
+            return $page->render();
         }
 
         $this->fetch();
-
         $content = parent::render();
+
+        if(empty($this->utente->prendi($this->username))) {
+            $content = str_replace("{{ content }}", $this->error("Utente non esistente"), $content);
+        }
+
         $content = str_replace("{{ content }}", $this->getContent('dettaglio_utente'), $content);
         $content = str_replace("{{ username }}", $this->username, $content);
         $content = str_replace("{{ nome }}", $this->nome, $content);
