@@ -5,8 +5,9 @@ $project_root = dirname(__FILE__, 2);
 require_once $project_root . '/model/prenotazione.php';
 require_once $project_root . '/model/disponibilità.php';
 require_once $project_root . '/page/prenotazioneFormPage.php';
+require_once 'message.php';
 
-class ReservationNew extends Endpoint
+class ReservationNewPost extends Endpoint
 {
     private $giorno;
     private $dalle_ore;
@@ -103,6 +104,7 @@ class ReservationNew extends Endpoint
             $this->render_with_error("Errore nella creazione della prenotazione");
         }
 
-        $this->redirect('dashboard');
+        Message::set("Prenotazione creata con successo");
+        $this->redirect('cruscotto');
     }
 }

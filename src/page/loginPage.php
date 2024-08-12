@@ -1,7 +1,6 @@
 <?php
 include_once 'page.php';
 $project_root = dirname(__FILE__, 2);
-include_once 'controller/login.php';
 class loginPage extends Page
 {
     protected string $username = '';
@@ -15,7 +14,7 @@ class loginPage extends Page
             '<span lang="en">Home</span>' => '',
         ]);
         $this->addKeywords([""]);
-        $this->setPath('/login');
+        $this->setPath('login');
 
         $this->username = $username;
         $this->password = $password;

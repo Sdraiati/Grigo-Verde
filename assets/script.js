@@ -9,6 +9,20 @@ document.addEventListener("DOMContentLoaded", function(_) {
             back_to_top_button.style.display = "none";
         }
     }
+
+    let messageDiv = document.getElementById('message');
+    if (messageDiv) {
+        setTimeout(function() {
+            messageDiv.classList.add('fade-out');
+
+            setTimeout(function() {
+                messageDiv.removeAttribute('id');
+                messageDiv.classList.remove('fade-out');
+                messageDiv.classList.add('helper');
+            }, 1000);
+
+        }, 3000);
+    }
 })
 
 function toggleView(name = "password") {
@@ -320,8 +334,7 @@ function validatePrenotazione() {
     return true;
 }
 
-function validateNewUser()
-{
+function validateNewUser() {
     let username = document.getElementsByName("username")[0].value;
     let nome = document.getElementsByName("nome")[0].value;
     let cognome = document.getElementsByName("cognome")[0].value;
@@ -330,8 +343,7 @@ function validateNewUser()
     let ruolo_element = document.getElementsByName("ruolo")[0];
     removeErrorDivs();
 
-    if(ruolo !== "Amministratore" && ruolo !== "Docente")
-    {
+    if (ruolo !== "Amministratore" && ruolo !== "Docente") {
         insertErrorMessage(ruolo_element, "Il ruolo deve essere Amministratore o Docente.");
         return false;
     }
@@ -350,28 +362,55 @@ function validateNewUser()
     return isUsernameValid && isPasswordValid && isNomeValid && isCognomeValid;
 }
 
-function showEditPassword()
-{
+function showEditPassword() {
     let fieldset = document.getElementById("password-fields");
     fieldset.classList.remove("hidden");
     fieldset.disabled = false;
 }
 
-function validatePassword()
-{
+function validatePassword() {
     let password = document.getElementsByName("password")[0].value;
     let password_element = document.getElementsByName("password")[0];
     // check if fieldset with id password-fields is enabled
     let password_fieldset = document.getElementById("password-fields");
-    if(password_fieldset && !password_fieldset.disabled)
+    if (password_fieldset && !password_fieldset.disabled)
         isPasswordValid = validateString(password_element, password, 4, 100, true, true);
     //check if the password corresponds to the value in conferma password
     let conferma_password = document.getElementsByName("conferma_password")[0].value;
     let conferma_password_element = document.getElementsByName("conferma_password")[0];
-    if(password !== conferma_password)
-    {
+    if (password !== conferma_password) {
         insertErrorMessage(conferma_password_element, "Le password non corrispondono.");
         return false;
     }
     return isPasswordValid;
+}
+
+function validateDate() {
+  // validare l'input dei form all'interno dei date e time picker.
+  let data = document.getElementById("data").value;
+  let start = document.getElementById("orario_inizio").value;
+  let end = document.getElementById("orario_fine").value;
+  let error_div = document.getElementById("error_msg");
+  let error = "";
+  let valid = false;
+
+
+  if (data != "" || start != "" || end != "") { // se almeno uno di questi campi è selezionato.
+    if (data == "" || start == "" || end == "") { // se solo un campo dovesse essere vuoto
+        error = "Nessun campo data o ora può essere lasciato vuoto.";
+    } else if (start >= end) {
+        error = "Orario di inizio e di fine devono essere rispettivamente l'uno minore o uguale dell'altro bitch.";
+    } else { 
+        valid = true; 
+    } 
+  } else {
+    valid = true;
+  }
+  console.log(error);
+  if (error != "" && error_div) error_div.innerText = error; 
+  return valid;
+}
+
+function validateFiltriUtente() {
+    console.log("valida form filtri per la ricerca utente");
 }

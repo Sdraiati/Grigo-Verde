@@ -3,11 +3,11 @@
 
     <aside>
         <h2> Operazioni </h2>
-        <form action="prenotazione/elimina" method="post">
+        <form action="prenotazioni/elimina" method="post">
             <input type="hidden" name="prenotazione" value="{{ id_prenotazione }}">
             <input type="submit" value="Elimina prenotazione">
         </form>
-        <form action="dashboard/prenotazione/modifica" method="get">
+        <form action="prenotazioni/modifica" method="get">
             <input type="hidden" name="prenotazione" value="{{ id_prenotazione }}">
             <input type="submit" value="Modifica prenotazione">
         </form>

@@ -1,25 +1,28 @@
 <?php
 require_once 'endpoint.php';
+require_once 'message.php';
+require_once 'autenticazione.php';
 $project_root = dirname(__FILE__, 2);
-include_once $project_root . '/model/utente.php';
+include_once $project_root . '/model/spazio.php';
+include_once $project_root . '/page/unauthorized.php';
 
 class DeleteUser extends Endpoint
 {
-    private string $username = '';
+    private string $posizione;
 
     public function __construct()
     {
-        parent::__construct('utenti/elimina', 'POST');
+        parent::__construct('spazi/elimina', 'POST');
     }
 
     public function validate(): bool
     {
         try {
-            $this->username = $this->post('username');
-            return true;
+            $this->posizione = $this->post('posizione');
         } catch (Exception $e) {
             return false;
         }
+        return true;
     }
 
     public function handle(): void
@@ -30,9 +33,10 @@ class DeleteUser extends Endpoint
             $page->render();
         }
 
-        $utente = new Utente();
+        $spazio = new Spazio();
+
         try {
-            $utente->elimina($this->username);
+            $spazio->elimina($this->posizione);
         } catch (Exception $e) {
         }
         $this->redirect('cruscotto');

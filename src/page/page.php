@@ -6,6 +6,7 @@ include_once 'referenceList.php';
 include_once 'breadcrumb.php';
 include_once $project_root . '/controller/autenticazione.php';
 require_once $project_root . '/page/resource_not_found.php';
+require_once $project_root . '/controller/message.php';
 
 class Page
 {
@@ -30,18 +31,18 @@ class Page
         } else if (Autenticazione::is_amministratore()) {
             $this->nav = [
                 '<span lang="en">Home</span>' => '',
-                '<span lang="en">Dashboard</span>' => 'dashboard',
-                '<span>Spazi</span>' => 'spazi',
-                '<span>Utenti</span>' => 'utenti',
-                '<span>Prenotazioni</span>' => 'prenotazioni',
+                'Cruscotto' => 'cruscotto',
+                'Spazi' => 'spazi',
+                'Utenti' => 'utenti',
+                'Prenotazioni' => 'prenotazioni',
                 '<span lang="en">About us</span>' => 'about_us',
             ];
         } else {
             $this->nav = [
                 '<span lang="en">Home</span>' => '',
-                '<span lang="en">Dashboard</span>' => 'dashboard',
-                '<span>Spazi</span>' => 'spazi',
-                '<span>Prenotazioni</span>' => 'prenotazioni',
+                'Cruscotto' => 'cruscotto',
+                'Spazi' => 'spazi',
+                'Prenotazioni' => 'prenotazioni',
                 '<span lang="en">About us</span>' => 'about_us',
             ];
         }
@@ -50,7 +51,7 @@ class Page
     protected function makeLogin()
     {
         if (Autenticazione::isLogged()) {
-            return '<a href="dashboard"><span lang="en">Dashboard</span></a>';
+            return '<a href="cruscotto">Cruscotto</a>';
         } else {
             return '<a href="login"><span lang="en">Login</span></a>';
         }
@@ -121,6 +122,8 @@ class Page
 
         $breadcrumb = new Breadcrumb($this->breadcrumb, $this->titleBreadcrumb);
         $content = str_replace('{{ breadcrumbs }}', $breadcrumb->render(), $content);
+
+        $content = str_replace('{{ message }}', Message::get(), $content);
         $content = $this->takeOffCircularReference($content);
 
         return $content;

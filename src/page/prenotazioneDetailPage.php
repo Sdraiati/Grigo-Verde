@@ -46,7 +46,8 @@ class PrenotazioneDetailPage extends Page
         $content = str_replace("{{ id_prenotazione }}", $this->reservation_id, $content);
 
         if (!Autenticazione::isLogged() || (Autenticazione::getLoggedUser() !== $reservation['Username'] && !Autenticazione::is_amministratore())) {
-            $content = preg_replace('/<form.*?<\/form>/is', '', $content);
+            $content = preg_replace('/<aside.*?<\/aside>/is', '', $content);
+            $content = str_replace('class="actions-content"', '', $content);
         }
 
         return $content;

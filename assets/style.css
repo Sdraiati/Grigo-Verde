@@ -42,11 +42,12 @@
 :root {
     --round-radius: 0.4rem;
     --shadow: 0 0 0.3rem 0 var(--oneColor);
+    --border: solid var(--errorMessageColor);
 }
 
 /* --------- MOBILE BREAKPOINT --------- */
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 600px) {
     :root {
         --textSize: 1rem;
         --heading1Size: 2rem;
@@ -58,7 +59,7 @@
 
 /* --------- TABLET BREAKPOINT --------- */
 
-@media screen and (min-width: 768px) and (max-width: 1023px) {
+@media screen and (min-width: 601px) and (max-width: 900px) {
     :root {
         --textSize: 1.1rem;
         --heading1Size: 2.5rem;
@@ -70,7 +71,7 @@
 
 /* --------- LAPTOP BREAKPOINT --------- */
 
-@media screen and (min-width: 1024px) and (max-width: 1200px) {
+@media screen and (min-width: 901px) and (max-width: 1200px) {
     :root {
         --textSize: 1.3rem;
         --heading1Size: 3rem;
@@ -121,6 +122,7 @@ h2 {
     color: var(--oneColor);
     margin-bottom: 1rem;
     font-size: var(--heading2Size);
+    text-align: center;
 }
 
 a {
@@ -141,12 +143,14 @@ a:visited {
 
 .helper {
     position: absolute;
-    top: -999px;
-    left: 0px;
+    left: -999em;
 }
 
 .helper:focus {
-    top: 0px;
+    top: 0;
+    left: 0;
+    color: var(--oneColor);
+    background-color: var(--backgroundColor);
 }
 
 
@@ -155,10 +159,11 @@ header {
     background-color: var(--oneColor);
     color: var(--backgroundColor);
     font-size: 150%;
+    border-bottom: 0.2rem var(--border);
 }
 
 header a {
-    color: var(--threeColor);
+    color: var(--backgroundColor);
     padding: calc(var(--textSize) / 1.5) calc(2 * var(--textSize));
 }
 
@@ -171,7 +176,6 @@ header > * {
 }
 
 #logo-login {
-    padding: 0.2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -179,8 +183,11 @@ header > * {
 }
 
 #logoLink img {
+    background-color: var(--errorMessageColor);
     max-width: 3rem;
     margin-right: 0.5rem;
+    padding: 0.2rem;
+    border-radius: var(--round-radius);
 }
 
 #logoLink a {
@@ -204,7 +211,6 @@ header > * {
 }
 
 #menu ul {
-    list-style: none;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -216,11 +222,20 @@ header > * {
     margin: 0 auto;
 }
 
+#menu li::marker {
+    color: var(--errorMessageColor);
+}
+
+#menu a {
+    padding: 0.3rem 0;
+}
+
 #breadcrumbs ol {
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
     padding-bottom: 0.1rem;
+    margin: 0;
 }
 
 #breadcrumbs li {
@@ -276,9 +291,14 @@ main p {
     font-size: 1em;
     z-index: 1000;
     text-align: center;
-    background-color: var(--primaryColor);
-    color: var(--backgroundColor);
-    border: 0.1rem solid var(--backgroundColor);
+    background-color: var(--backgroundColor);
+    color: var(--oneColor);
+    box-shadow: var(--shadow);
+    transition: opacity 1s ease-out;
+}
+
+#message.fade-out {
+    opacity: 0;
 }
 
 /* --------- ACTIONS --------- */
@@ -316,7 +336,7 @@ main p {
     margin: 0;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 600px) {
     .actions-content {
         display: block;
     }
@@ -342,7 +362,7 @@ main p {
     padding: 1rem;
     border-radius: 50%;
     cursor: pointer;
-    border: 0.1rem solid var(--backgroundColor);
+    border: 0.1rem var(--border);
 }
 
 footer {
@@ -351,6 +371,7 @@ footer {
     background-color: var(--oneColor);
     color: var(--backgroundColor);
     margin: 3rem 0 0 0;
+    border-top: 0.2rem var(--border);
 }
 
 /* --------- FORMS --------- */
@@ -469,6 +490,10 @@ table tr:nth-of-type(even) {
     background-color: rgba(var(--threeColor-rgb), 1);
 }
 
+table td a {
+    padding: 0.3rem;
+}
+
 /* --------- ABOUT US PAGE --------- */
 
 .signature {
@@ -546,7 +571,7 @@ table tr:nth-of-type(even) {
 
     #aule-verdi img:nth-of-type(3) {
         grid-area: img3;
-        margin: 0 auto;
+        margin: 0 auto 1rem auto;
     }
 
     #arte-natura {
@@ -555,7 +580,7 @@ table tr:nth-of-type(even) {
         grid-gap: 0 3rem;
         align-items: center;
         grid-template-areas: 
-            "title title"
+            "title img"
             "p1 img"
             "p2 img"
             "p3 img";
@@ -677,6 +702,5 @@ table tbody .passed {
 }
 
 #lista-spazi img {
-    max-height: 100px;
     height: 8rem;
 }

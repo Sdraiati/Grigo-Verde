@@ -2,6 +2,8 @@
 require_once 'endpoint.php';
 $project_root = dirname(__FILE__, 2);
 include_once $project_root . '/model/utente.php';
+require_once 'message.php';
+
 
 class NewUser extends Endpoint
 {
@@ -29,6 +31,20 @@ class NewUser extends Endpoint
         return true;
     }
 
+    public function render_page_error($message): void
+    {
+        $page = new NewUserPage(
+            $this->username,
+            $this->password,
+            $this->nome,
+            $this->cognome,
+            $this->ruolo,
+            $message
+        );
+        $page->setPath('utenti/nuovo');
+        echo $page->render();
+    }
+
     public function handle(): void
     {
         $this->username = $this->post('username');
@@ -38,31 +54,16 @@ class NewUser extends Endpoint
         $this->ruolo = $this->post('ruolo');
 
         if (!$this->validate($this->username, $this->password, $this->nome, $this->cognome, $this->ruolo)) {
-            $page = new NewUserPage(
-                $this->username,
-                $this->password,
-                $this->nome,
-                $this->cognome,
-                $this->ruolo,
-                "Inserire tutti i campi"
-            );
-            echo $page->render();
-        } else {
-            $utente = new Utente();
-            if ($utente->prendi($this->username) !== null) {
-                $page = new NewUserPage(
-                    $this->username,
-                    $this->password,
-                    $this->nome,
-                    $this->cognome,
-                    $this->ruolo,
-                    "Nome utente già esistente, sceglierne un altro"
-                );
-                echo $page->render();
-            } else {
-                $utente->nuovo($this->username, $this->nome, $this->cognome, $this->ruolo, $this->password);
-                echo "Utente creato con successo";
-            }
+            $this->render_page_error("Inserire tutti i campi");
+            return;
         }
+        $utente = new Utente();
+        if ($utente->prendi($this->username) !== null) {
+            $this->render_page_error("<span lang='en'>Username</span> già esistente, sceglierne un altro");
+            return;
+        }
+        $utente->nuovo($this->username, $this->nome, $this->cognome, $this->ruolo, $this->password);
+        Message::set("Utente creato con successo");
+        $this->redirect('utenti');
     }
 }

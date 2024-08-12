@@ -3,6 +3,8 @@ require_once 'endpoint.php';
 $project_root = dirname(__FILE__, 2);
 include_once $project_root . '/model/spazio.php';
 include_once $project_root . '/model/immagine.php';
+require_once 'message.php';
+
 
 class NewSpace extends Endpoint
 {
@@ -124,7 +126,8 @@ class NewSpace extends Endpoint
 
             fclose($fp);
         }
-        // echo "Immagini salvate";
+
+        Message::set("Spazio creato con successo");
+        $this->redirect("spazi/spazio?spazio_nome=" . $this->nome);
     }
-    // $this->redirect("dettaglio-spazio?spazio_nome=...); TODO
 }

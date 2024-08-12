@@ -13,9 +13,9 @@ class editPasswordPage extends Page
         $this->setTitle('Modifica Password');
         $this->setBreadcrumb([
             '<span lang="en">Home</span>' => '',
-            '<span lang="en">Dashboard</span>' => 'dashboard'
+            'Cruscotto' => 'cruscotto',
         ]);
-        $this->setPath('/dashboard/modifica-password');
+        $this->setPath('/cruscotto/modifica-password');
         $this->addKeywords([""]);
 
         $this->error = $error;
@@ -42,4 +42,3 @@ class editPasswordPage extends Page
         return $content;
     }
 }
-

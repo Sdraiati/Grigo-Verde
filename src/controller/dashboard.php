@@ -8,7 +8,7 @@ class Dashboard extends Endpoint
     private string $nome = "";
     public function __construct()
     {
-        parent::__construct('dashboard', 'GET');
+        parent::__construct('cruscotto', 'GET');
     }
 
     public function validate(): bool
@@ -28,12 +28,12 @@ class Dashboard extends Endpoint
         if ($this->validate()) {
             if (!$auth->is_amministratore()) {
                 $page = new DashboardDocentePage($this->nome);
-                $page->setPath("dashboard");
+                $page->setPath("cruscotto");
                 echo $page->render();
                 return;
             }
             $page = new DashboardAmministratorePage($this->nome);
-            $page->setPath("dashboard");
+            $page->setPath("cruscotto");
             echo $page->render();
             return;
         } else {

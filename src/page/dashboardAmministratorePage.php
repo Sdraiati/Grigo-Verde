@@ -1,11 +1,11 @@
 <?php
 
 include_once 'page.php';
-include_once 'model/spazio.php';
-include_once 'model/prenotazione.php';
-include_once 'model/utente.php';
-include_once 'model/immagine.php';
 $project_root = dirname(__FILE__, 2);
+include_once $project_root . '/model/spazio.php';
+include_once $project_root . '/model/prenotazione.php';
+include_once $project_root . '/model/utente.php';
+include_once $project_root . '/model/immagine.php';
 require_once $project_root . '/model/prenotazione.php';
 
 class DashboardAmministratorePage extends Page
@@ -15,11 +15,11 @@ class DashboardAmministratorePage extends Page
     public function __construct(string $amministratore_nome = '')
     {
         parent::__construct();
-        $this->setTitle('Dashboard');
+        $this->setTitle('Cruscotto');
         $this->setBreadcrumb([
             '<span lang="en">Home</span>' => '',
         ]);
-        $this->setPath('dashboard');
+        $this->setPath('cruscotto');
         $this->addKeywords([]);
 
         $this->amministratore_nome = $amministratore_nome;
@@ -43,7 +43,7 @@ class DashboardAmministratorePage extends Page
             $content = str_replace('{{ content }}', $content_2, $content);
             return $content;
         }
-        
+
         $rows = $this->setRowTable($prenotazioni);
         $content_2 = str_replace('{{ righe tabella }}', $rows, $content_2);
         $content = str_replace('{{ content }}', $content_2, $content);

@@ -1,0 +1,41 @@
+<div class="actions-content">
+    <h1> Utenti </h1>
+
+    <aside id="form_filtri">
+        <form action="utenti" method="get" onsubmit="return validateFiltriUtente()">
+            <fieldset>
+                <legend>Filtri</legend>
+                <fieldset>
+                    <legend>Ruolo</legend>
+                    <label for="tipo_verde">Docente</label>
+                    <input type="radio" id="ruolo_docente" name="Ruolo" value="Docente" aria-label="docente" {{ checked-Docente }}>
+                    <br>
+                    <label for="tipo_grigio">Amministratore</label>
+                    <input type="radio" id="ruolo_amministratore" name="Ruolo" value="Amministratore" aria-label="amministratore" {{ checked-Amministratore }}>
+                </fieldset>
+                <br>
+                <label for="username"> nome utente </label>
+                <input type="text" id="username" name="Username" {{ username }} />
+                <br>
+                <label for="nome"> nome </label>
+                <input type="text" id="nome" name="Nome" {{ nome }} />
+                <br>
+                <label for="cognome"> cognome </label>
+                <input type="text" id="cognome" name="Cognome" {{ cognome }} />
+                <br>
+                <div id="error_msg" class="errore">  </div>
+                <input type="submit" value="applica filtri"> <br>
+            </fieldset>
+        </form>
+
+        <!-- questo form si potrebbe rendere hidden quando non ci sono dei filtri e visibile quando ci sono filtri. -->
+        <form action="utenti" method="get">
+            <input type="submit" value="rimuovi filtri">
+        </form>
+    </aside>
+
+    <ul class="content" id="lista-utenti">
+        {{ lista }}
+    </ul>
+</div>
+

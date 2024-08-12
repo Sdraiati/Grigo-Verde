@@ -21,7 +21,7 @@ class PrenotazioneFormPage extends Page
         parent::setTitle('Nuova Prenotazione');
         $this->setBreadcrumb([
             '<span lang="en">Home</span>' => '',
-            'Dashboard' => 'dashboard'
+            'Cruscotto' => 'cruscotto',
         ]);
         $this->addKeywords(['']);
 
