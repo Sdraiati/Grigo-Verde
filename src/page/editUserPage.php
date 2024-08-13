@@ -4,6 +4,7 @@ include_once 'loginPage.php';
 $project_root = dirname(__FILE__, 2);
 include_once 'model/utente.php';
 require_once $project_root . '/page/unauthorized.php';
+require_once $project_root . '/page/resource_not_found.php';
 
 class editUserPage extends Page
 {
@@ -19,9 +20,9 @@ class editUserPage extends Page
         $this->setTitle('Modifica Utente');
         $this->setBreadcrumb([
             '<span lang="en">Home</span>' => '',
-            'Utenti' => 'utenti'
+            'Utenti' => 'utenti',
+            'Utenti' => 'utenti/utente?username=' . $username,
         ]);
-        $this->setPath('/utenti/modifica');
         $this->addKeywords([""]);
 
         $this->username = $username;
@@ -31,10 +32,14 @@ class editUserPage extends Page
         $this->error = $error;
     }
 
-    public function fetch(): void
+    public function fetch(): array
     {
         if (isset($_GET['username'])) {
             $this->username = $_GET['username'];
+        } else {
+            $page = new ResourceNotFoundPage();
+            $page->setPath($this->path);
+            return [false, $page->render()];
         }
 
         if (
@@ -49,9 +54,12 @@ class editUserPage extends Page
                 $this->cognome = $result['Cognome'];
                 $this->ruolo = $result['Ruolo'];
             } else {
-                $this->error = "Utente non esistente";
+                $page = new ResourceNotFoundPage();
+                $page->setPath($this->path);
+                return [false, $page->render()];
             }
         }
+        return [true, ''];
     }
 
     public function render(): string
@@ -70,7 +78,10 @@ class editUserPage extends Page
             return $page->render();
         }
 
-        $this->fetch();
+        $res = $this->fetch();
+        if (!$res[0]) {
+            return $res[1];
+        }
 
         $content = parent::render();
         $content = str_replace("{{ content }}", $this->getContent('new_user'), $content);

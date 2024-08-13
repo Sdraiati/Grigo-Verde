@@ -86,7 +86,7 @@ class ReservationUpdateGet extends Endpoint
         $page->setPath('prenotazione/modifica');
         $page->setBreadcrumb([
             '<span lang="en">Home</span>' => '',
-            'Cruscotto' => 'cruscotto',
+            'Prenotazioni' => 'prenotazioni',
             'Dettaglio Prenotazione' => 'prenotazioni/dettaglio?prenotazione=' . $this->reservation_id,
         ]);
         $page = $page->render();

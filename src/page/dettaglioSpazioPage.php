@@ -57,7 +57,7 @@ class DettaglioSpazioPage extends Page
         $content_2 = str_replace('{{ posizione }}', $spazio_data['Posizione'], $content_2);
 
         if (!empty($anteprima)) {
-            $content_2 = str_replace('{{ immagine }}', "<img src='" . $src . "' alt='" . $alt . "' />", $content_2);
+            $content_2 = str_replace('{{ immagine }}', "<img src='" . $src . "' alt='" . $alt . "'>", $content_2);
         } else {
             $content_2 = str_replace('{{ immagine }}', "nessun'immagine", $content_2);
         }

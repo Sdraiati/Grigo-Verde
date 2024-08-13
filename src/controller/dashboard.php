@@ -29,7 +29,8 @@ class Dashboard extends Endpoint
             if (!$auth->is_amministratore()) {
                 $page = new DashboardDocentePage($this->nome);
                 $page->setPath("cruscotto");
-                echo $page->render();
+                $html = $page->render();
+                echo $html;
                 return;
             }
             $page = new DashboardAmministratorePage($this->nome);

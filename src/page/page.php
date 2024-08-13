@@ -16,6 +16,7 @@ class Page
     protected $path = '/';
     protected $breadcrumb = [];
     private $nav;
+    protected $description = '';
     public function __construct($title = '', $path = '/')
     {
         $this->title = $title;
@@ -48,10 +49,15 @@ class Page
         }
     }
 
+    protected function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
     protected function makeLogin()
     {
         if (Autenticazione::isLogged()) {
-            return '<a href="cruscotto">Cruscotto</a>';
+            return '<a href="cruscotto">' . Autenticazione::getLoggedUser() . '</a>';
         } else {
             return '<a href="login"><span lang="en">Login</span></a>';
         }
@@ -101,7 +107,7 @@ class Page
     // TODO: check circular reference
     protected function takeOffCircularReference($content)
     {
-        return str_replace('href="' . $this->path . '"', 'href="#"', $content);
+        return str_replace('href="' . $this->path . '"', 'href="' . $this->path . '#"', $content);
     }
 
     // path is the path of the page, which is used to skip the navbar and jump
@@ -112,7 +118,7 @@ class Page
         $content = str_replace('{{ base_path }}', BASE_URL, $content);
         $content = str_replace('{{ title }}', $this->title . ' - Grigo Verde', $content);
         $content = str_replace('{{ login }}', $this->makeLogin(), $content);
-        $content = str_replace('{{ description }}', 'This is a description', $content);
+        $content = str_replace('{{ description }}', $this->description, $content);
         $content = str_replace('{{ keywords }}', implode(', ', $this->keywords), $content);
         $content = str_replace('{{ page_path }}', $this->path, $content);
 
