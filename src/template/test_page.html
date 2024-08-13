@@ -1,0 +1,19 @@
+<h1> Test Page </h1>
+
+<table aria-describedby="tabella-test">
+    <caption>Tabella dei test</caption>
+    <thead>
+        <tr>
+            <th>Nome del test</th>
+            <th>Risultato del test</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{ tests }}
+    </tbody>
+</table>
+
+<span id="tabella-test" class="helper">
+    Si tratta di una tabella dei test delle funzionalità implementate dal
+    <span lang="en">backend</span>. Ogni riga della tabella rappresenta un test.
+</span>

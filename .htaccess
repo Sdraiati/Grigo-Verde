@@ -2,14 +2,21 @@
     RewriteEngine On
 
     # Check if requested URI ends with .js or .css
-    RewriteCond %{REQUEST_URI} \.(js|css)$ [NC]
-    RewriteRule ^(.+\/)?([^\/]+)\.(css)$ views/$2.$3 [L]
-        RewriteRule ^(.+\/)?([^\/]+)\.(js)$ assets/js/$2.$3 [L]
+    RewriteCond %{REQUEST_URI} \.(js)$ [NC]
+    RewriteRule ^(.+\/)?([^\/]+)\.(js)$ assets/$2.$3 [L]
+
+    # Check if requested URI ends with .css
+    RewriteCond %{REQUEST_URI} \.(css)$ [NC]
+    RewriteRule ^(.+\/)?([^\/]+)\.(css)$ assets/$2.$3 [L]
 
     # Check if requested URI ends with .png, .jpg, .jpeg, .gif
-    RewriteCond %{REQUEST_URI} \.(png|jpg|jpeg|gif|svg)$ [NC]
-    RewriteRule ^(.+\/)?([^\/]+)\.(png|jpg|jpeg|gif|svg)$ assets/img/$2.$3 [L]
+    RewriteCond %{REQUEST_URI} \.(png|jpg|jpeg|gif|svg|ico)$ [NC]
+    RewriteRule ^(.+\/)?([^\/]+)\.(png|jpg|jpeg|gif|svg|ico)$ assets/$2.$3 [L]
 
    # If the above condition is not met, redirect to index.php
-	RewriteRule ^ index.php [L]
+	RewriteRule ^ src/index.php [L]
+
+    RewriteBase /
+    RewriteRule ^(.*)$ /$1 [L]
+    
 </IfModule>

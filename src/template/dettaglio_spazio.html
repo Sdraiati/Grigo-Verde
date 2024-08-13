@@ -1,0 +1,77 @@
+<div class="actions-content">
+    <h1> {{ nome spazio }} </h1>
+
+    <aside>
+        <h2> Operazioni </h2>
+        <form action="spazi/modifica" method="GET">
+            <input type="numeric" name="posizione" value="{{ posizione }}" class="hidden">
+            <input type="submit" value="Modifica spazio">
+        </form>
+        <form action="spazi/elimina" method="POST">
+            <input type="numeric" name="posizione" value="{{ posizione }}" class="hidden">
+            <input type="submit" value="Elimina spazio">
+        </form>
+        <form action="prenotazioni/nuovo" method="GET">
+            <input type="numeric" name="posizione" value="{{ posizione }}" class="hidden">
+            <input type="submit" value="Nuova prenotazione">
+        </form>
+    </aside>
+
+    <div id="right">
+        <section>
+            <h2>Informazioni</h2>
+            <p><b>Tipo:</b> {{ tipo spazio }} </p>
+            <p><b>Descrizione:</b> {{ descrizione spazio }} </p>
+            <p><b>Numero di Tavoli:</b> {{ numero tavoli spazio }} </p>
+            <p><b>Immagine:</b> {{ immagine }} </p>
+        </section>
+
+        <section>
+            <h2>Prenotazioni</h2>
+            <p id="descrizione-tabella-prenotazioni" class="helper">
+                Tabella delle tue prenotazioni future dello spazio {{ nome spazio }}.
+                Ci sono 5 campi: il nome di chi ha effettuato la prenotazione,
+                il giorno, l'ora di inizio, l'ora di fine e un link
+                per visualizzare i dettagli della prenotazione.
+            </p>
+            <table aria-describedby="descrizione-tabella">
+                <caption>Informazioni sulle prenotazioni</caption>
+                <thead>
+                    <tr>
+                        <th abbr="nome" scope='col'>Nome e cognome</th>
+                        <th abbr="il" scope='col'>Giorno</th>
+                        <th abbr="dalle" scope='col'>Orario Inizio</th>
+                        <th abbr="alle" scope='col'>Orario Fine</th>
+                        <th abbr="link" scope='col'>Dettaglio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ righe tabella prenotazioni }}
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Disponibilità</h2>
+            <p id="descrizione-tabella-disponibilità" class="helper">
+                Tabella delle disponibilità dello spazio {{ nome spazio }}.
+                Ci sono 4 campi: il mese, il giorno della settimana, l'ora di
+                apertura e l'ora di chiusura dello spazio.
+            </p>
+            <table aria-describedby="descrizione-tabella-disponibilità">
+                <caption>Informazioni sulle disponibilità</caption>
+                <thead>
+                    <tr>
+                        <th abbr="aperto a" scope='col'>Mese</th>
+                        <th abbr="di" scope='col'>Giorno</th>
+                        <th abbr="dalle" scope='col'>Orario apertura</th>
+                        <th abbr="alle" scope='col'>Orario chiusura</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ righe tabella disponibilità }}
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>

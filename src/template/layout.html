@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="it" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>{{ title }}</title>
+
+    <base href="{{ base_path }}">
+
+    <meta name="description" content="{{ description }}">
+    <meta name="keywords" content="{{ keywords }}">
+    <meta name="author" content="Grigo Verde">
+
+    <link rel="stylesheet" href="print.css" media="print">
+    <link rel="stylesheet" href="style.css" media="screen">
+
+
+    <link rel="shortcut icon" type="image/png" href="favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <header>
+        <a href="{{ page_path }}#content" class="helper">Vai al contenuto</a>
+
+        <div id="logo-login">
+            <nav id="logoLink">
+                <a href="">
+                    <img src="logo.png" alt="Il logo di Grigo Verde: una G da Grigoletti verde, decorata dalla natura.">
+                    Grigo Verde
+                </a>
+            </nav>
+
+            <nav id="loginLink" aria-label="Area riservata">
+                {{ login }}
+            </nav>
+        </div>
+
+        <nav id="menu" aria-label="Barra di navigazione">
+            <ul>
+                {{ menu }}
+            </ul>
+        </nav>
+
+        <nav id="breadcrumbs" aria-label="Percorso">
+            <ol>
+                {{ breadcrumbs }}
+            </ol>
+        </nav>
+    </header>
+
+    <main id="content">
+        {{ message }}
+        {{ content }}
+        <div id="back-to-top" class="hidden">
+            <a href="{{ page_path }}#">Su</a>
+        </div>
+    </main>
+
+    <footer id="pageFooter">Grigo Verde <span lang="en">Software - All rights reserved</span>.</footer>
+</body>
+
+</html>

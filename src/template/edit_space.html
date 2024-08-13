@@ -1,0 +1,30 @@
+<div class="container">
+    <h1>Modifica Spazio</h1>
+    <form action="spazi/modifica" method="post" enctype="multipart/form-data" onsubmit="return validateNewSpace()">
+        <fieldset>
+            <input type="hidden" id="posizione_hidden" name="posizione" value="{{ posizione }}">
+            <label for="nome">Nome <span class="required" aria-hidden="true">*</span></label></label>
+            <p class="describer"  id="nomeHelp">Nome che identifica univocamente lo spazio.</p>
+            <input type="text" id="nome" name="nome" value="{{ nome }}" aria-describedby="nomeHelp" required>
+            <label for="descrizione">Descrizione</label>
+            <textarea id="descrizione" name="descrizione">{{ descrizione }}</textarea>
+            <label for="tipo">Tipo <span class="required" aria-hidden="true">*</span></label></label>
+            <select id="tipo" name="tipo" required>
+                <option value="" disabled {{ selectedDefault }}>Seleziona un tipo</option>
+                <option {{ selectedVerde }} value="Aula verde">Aula verde</option>
+                <option {{ selectedRicreativo }} value="Spazio ricreativo">Spazio ricreativo</option>
+            </select>
+            <label for="n_tavoli">Numero di Tavoli</label>
+            <input type="number" id="n_tavoli" name="n_tavoli" value="{{ n_tavoli }}" min="0">
+        </fieldset>
+        {{ error }}
+        <fieldset>
+            <legend id="add_image">Aggiungi immagini</legend>
+            {{ images }}
+            {{ add_image_button }}
+        </fieldset>
+        <div>
+            <input type="submit" value="Modifica Spazio">
+        </div>
+    </form>
+</div>
