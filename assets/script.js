@@ -414,12 +414,21 @@ function validateDate() {
 }
 
 function validateFiltriUtente() {
-  let username = document.getElementById("username").value;
-  let nome = document.getElementById("nome").value;
-  let cognome = document.getElementById("cognom").value;
   let error_div = document.getElementById("error_msg");
+  let valid = true;
+  const values = [
+    document.getElementById("username").value,
+    document.getElementById("nome").value,
+    document.getElementById("cognome").value,
+  ];
+  const specialCharPattern = /[{}\[\]|`¬¦!"£$%^&*<>:;#~_\-+=,@]/;
 
-  console.log(username);
-  console.log(nome);
-  console.log(cognome);
+  values.forEach((item) => {
+    valid = specialCharPattern.test(item);
+  });
+
+  if (!valid) {
+    error_div.innerText = "Nessun campo testuale puà contenere caratteri speciali";
+  }
+  return valid;
 }
