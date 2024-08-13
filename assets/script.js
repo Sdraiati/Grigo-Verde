@@ -415,7 +415,6 @@ function validateDate() {
 
 function validateFiltriUtente() {
   let error_div = document.getElementById("error_msg");
-  let valid = true;
   const values = [
     document.getElementById("username").value,
     document.getElementById("nome").value,
@@ -423,12 +422,11 @@ function validateFiltriUtente() {
   ];
   const specialCharPattern = /[{}\[\]|`¬¦!"£$%^&*<>:;#~_\-+=,@]/;
 
-  values.forEach((item) => {
-    valid = specialCharPattern.test(item);
-  });
-
-  if (!valid) {
-    error_div.innerText = "Nessun campo testuale può contenere caratteri speciali";
+  for (let i = 0; i < values.length; i++) {
+    if (specialCharPattern.test(values[i])) {
+        error_div.innerText = "Nessun campo testuale può contenere caratteri speciali";
+        return false;
+    }
   }
-  return valid;
+  return true;
 }
