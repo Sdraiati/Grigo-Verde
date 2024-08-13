@@ -17,15 +17,16 @@
         </form>
     </aside>
 
-    <div id="content">
-        <h2>Informazioni</h2>
-        <p><b>Tipo:</b> {{ tipo spazio }} </p>
-        <p><b>Descrizione:</b> {{ descrizione spazio }} </p>
-        <p><b>Numero di Tavoli:</b> {{ numero tavoli spazio }} </p>
-        <p><b>Immagine:</b> {{ immagine }} </p>
+    <div id="right">
+        <section>
+            <h2>Informazioni</h2>
+            <p><b>Tipo:</b> {{ tipo spazio }} </p>
+            <p><b>Descrizione:</b> {{ descrizione spazio }} </p>
+            <p><b>Numero di Tavoli:</b> {{ numero tavoli spazio }} </p>
+            <p><b>Immagine:</b> {{ immagine }} </p>
         </section>
 
-        <section id="content">
+        <section>
             <h2>Prenotazioni</h2>
             <p id="descrizione-tabella-prenotazioni" class="helper">
                 Tabella delle tue prenotazioni future dello spazio {{ nome spazio }}.
@@ -48,7 +49,9 @@
                     {{ righe tabella prenotazioni }}
                 </tbody>
             </table>
+        </section>
 
+        <section>
             <h2>Disponibilità</h2>
             <p id="descrizione-tabella-disponibilità" class="helper">
                 Tabella delle disponibilità dello spazio {{ nome spazio }}.
