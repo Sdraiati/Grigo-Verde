@@ -414,5 +414,12 @@ function validateDate() {
 }
 
 function validateFiltriUtente() {
-    console.log("valida form filtri per la ricerca utente");
+  let username = document.getElementById("username").value;
+  let nome = document.getElementById("nome").value;
+  let cognome = document.getElementById("cognom").value;
+  let error_div = document.getElementById("error_msg");
+
+  console.log(username);
+  console.log(nome);
+  console.log(cognome);
 }
