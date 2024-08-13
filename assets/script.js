@@ -428,7 +428,7 @@ function validateFiltriUtente() {
   });
 
   if (!valid) {
-    error_div.innerText = "Nessun campo testuale puà contenere caratteri speciali";
+    error_div.innerText = "Nessun campo testuale può contenere caratteri speciali";
   }
   return valid;
 }
