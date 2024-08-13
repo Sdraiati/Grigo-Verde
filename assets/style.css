@@ -47,7 +47,7 @@
 
 /* --------- MOBILE BREAKPOINT --------- */
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
     :root {
         --textSize: 1rem;
         --heading1Size: 2rem;
@@ -59,7 +59,7 @@
 
 /* --------- TABLET BREAKPOINT --------- */
 
-@media screen and (min-width: 601px) and (max-width: 900px) {
+@media screen and (min-width: 701px) and (max-width: 900px) {
     :root {
         --textSize: 1.1rem;
         --heading1Size: 2.5rem;
@@ -100,9 +100,9 @@
 /* --------- TYPOGRAPHY --------- */
 
 * {
-    box-sizing: border-box;
-    line-height: calc(1.5 * var(--textSize));
     font-family: Arial, sans-serif;
+    line-height: calc(1.5 * var(--textSize));
+    box-sizing: border-box;
 }
 
 *:not(html, body, footer, header, main) {
@@ -211,6 +211,7 @@ header > * {
 }
 
 #menu ul {
+    list-style: none;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -222,14 +223,6 @@ header > * {
     margin: 0 auto;
 }
 
-#menu li::marker {
-    color: var(--errorMessageColor);
-}
-
-#menu a {
-    padding: 0.3rem 0;
-}
-
 #breadcrumbs ol {
     display: flex;
     gap: 0.5rem;
@@ -239,7 +232,6 @@ header > * {
 }
 
 #breadcrumbs li {
-   /* color: var(--oneColor); */
     list-style: none;
 }
 
@@ -337,13 +329,17 @@ main p {
     margin: 0;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
     .actions-content {
         display: block;
     }
 
     .actions-content aside {
         grid-area: unset;
+    }
+
+    main {
+        padding: 0.2rem;
     }
 }
 
@@ -406,6 +402,7 @@ input {
 
 form input[type="date"],
 form input[type="time"],
+form input[type="button"],
 input[type="text"],
 input[type="number"],
 textarea,
@@ -473,7 +470,6 @@ table {
 
 table th, table td {
     padding: 0.8rem;
-    text-align: left;
     border-bottom: 0.1rem solid var(--textColor);
     border-right: 0.1rem solid var(--textColor);
 }
@@ -492,6 +488,22 @@ table tr:nth-of-type(even) {
 
 table td a {
     padding: 0.3rem;
+}
+
+@media screen and (max-width: 600px) {
+    table th, table td {
+        padding: 0.5rem 0.1rem;
+    }
+
+    table th:first-of-type, table td:first-of-type {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    table {
+        font-size: 80%;
+    }
 }
 
 /* --------- ABOUT US PAGE --------- */

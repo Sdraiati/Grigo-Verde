@@ -1,12 +1,13 @@
 <div class="container">
     <h1>{{ operazione }} Utente</h1>
-    <form action="{{ action }}" method="post" onsubmit="return validateNewUser()">
+    <form action="{{ action }}" method="post" onsubmit="return validateNewUser()" class="short-content">
         <fieldset>
             <legend>Informazioni relative all'utente</legend>
             <label for="nome">Nome <span class="required" aria-hidden="true">*</span></label>
             <input type="text" id="nome" name="nome" placeholder="Inserire il nome" value="{{ nome }}" required>
             <label for="cognome">Cognome <span class="required" aria-hidden="true">*</span></label>
-            <input type="text" id="cognome" name="cognome" placeholder="Inserire il cognome" value="{{ cognome }}" required>
+            <input type="text" id="cognome" name="cognome" placeholder="Inserire il cognome" value="{{ cognome }}"
+                required>
             <label for="ruolo">Ruolo <span class="required" aria-hidden="true">*</span></label>
             <select id="ruolo" name="ruolo" required>
                 <option value="" disabled {{ selectedDefault }}>Seleziona un ruolo</option>
@@ -20,15 +21,17 @@
         <fieldset id="password-fields" {{ hide-password-fields }}>
             <legend>Impostazione <span lang="en">Password</span></legend>
             <label for="password"><span lang="en">Password</span> <span class="required"
-                                                                        aria-hidden="true">*</span></label>
-            <input type="password" id="password" name="password" placeholder="Inserire una password" {{ password-required }}>
+                    aria-hidden="true">*</span></label>
+            <input type="password" id="password" name="password" placeholder="Inserire una password" {{
+                password-required }}>
             <input id="mostra-password" type="checkbox" class="mostra-password" onclick="toggleView()">
             <label for="mostra-password">Mostra <span lang="en">Password</span></label>
             <label for="conferma_password"><span lang="en">Conferma Password</span> <span class="required"
-                                                                                          aria-hidden="true">*</span></label>
-            <input type="password" id="conferma_password" name="conferma_password"
-                   placeholder="Conferma la password" {{ password-required }}>
-            <input id="mostra-conferma" type="checkbox" class="mostra-password" onclick="toggleView('conferma_password')">
+                    aria-hidden="true">*</span></label>
+            <input type="password" id="conferma_password" name="conferma_password" placeholder="Conferma la password" {{
+                password-required }}>
+            <input id="mostra-conferma" type="checkbox" class="mostra-password"
+                onclick="toggleView('conferma_password')">
             <label for="mostra-conferma">Mostra <span lang="en">Password</span></label>
         </fieldset>
         {{ edit_password_button }}
