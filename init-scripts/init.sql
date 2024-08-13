@@ -45,7 +45,7 @@ CREATE TABLE DISPONIBILITA (
     Giorno_settimana ENUM('Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato', 'Domenica'),
     Orario_apertura TIME,
     Orario_chiusura TIME,
-    FOREIGN KEY (Spazio) REFERENCES SPAZIO(Posizione)
+    FOREIGN KEY (Spazio) REFERENCES SPAZIO(Posizione) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('user', '$2y$10$jUmfsNGBXq5IUXDQ1fUSOuGAM7KIdwN6I.lxyJWNyysqns.pAP0pe', 'user', 'user', 'Docente');
