@@ -57,7 +57,7 @@ INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('username'
 -- SPAZIO 
 INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (1, 'tiglio', "un' aula verde vicino alle palestre di ginnastica", 'verde', 20);
 INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (2, 'ginepro', "un' aula verde vicino alle palestre di ginnastica", 'verde', 20);
-INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (3, 'tiglio', "un' aula verde vicino alla statua", 'verde', 20);
+INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (3, 'acero', "un' aula verde vicino alla statua", 'verde', 20);
 INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (4, 'pino', '', 'grigio', 10);
 INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (5, 'aceri', '', 'grigio', 10);
 INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (6, 'magnolie', '', 'verde', 10);
@@ -75,6 +75,7 @@ INSERT INTO DISPONIBILITA (Spazio, Mese, Giorno_settimana, Orario_apertura, Orar
 INSERT INTO DISPONIBILITA (Spazio, Mese, Giorno_settimana, Orario_apertura, Orario_chiusura) VALUES (1, 'Settembre', 'Martedì', '08:00:00', '18:00:00');
 INSERT INTO DISPONIBILITA (Spazio, Mese, Giorno_settimana, Orario_apertura, Orario_chiusura) VALUES (1, 'Settembre', 'Mercoledì', '08:00:00', '18:00:00');
 INSERT INTO DISPONIBILITA (Spazio, Mese, Giorno_settimana, Orario_apertura, Orario_chiusura) VALUES (1, 'Settembre', 'Giovedì', '08:00:00', '18:00:00');
+INSERT INTO DISPONIBILITA (Spazio, Mese, Giorno_settimana, Orario_apertura, Orario_chiusura) VALUES (1, 'Settembre', 'Venerdì', '08:00:00', '18:00:00');
 INSERT INTO DISPONIBILITA (Spazio, Mese, Giorno_settimana, Orario_apertura, Orario_chiusura) VALUES (2, 'Agosto', 'Lunedì', '08:00:00', '18:00:00');
 INSERT INTO DISPONIBILITA (Spazio, Mese, Giorno_settimana, Orario_apertura, Orario_chiusura) VALUES (2, 'Agosto', 'Martedì', '08:00:00', '18:00:00');
 INSERT INTO DISPONIBILITA (Spazio, Mese, Giorno_settimana, Orario_apertura, Orario_chiusura) VALUES (2, 'Agosto', 'Mercoledì', '08:00:00', '18:00:00');
@@ -172,6 +173,7 @@ INSERT INTO DISPONIBILITA (Spazio, Mese, Giorno_settimana, Orario_apertura, Orar
 -- INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-08-16 14:00:00', '2024-08-16 16:00:00', 'user', 2, 'attivita didattica');
 
 -- PRENOTAZIONI 
+-- INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-08-15 12:00:00', '2024-08-15 16:00:00', 'user', 1, 'napoleone');
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-01 12:00:00', '2024-09-01 16:00:00', 'user', 1, 'napoleone');
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-05 11:00:00', '2024-09-05 13:00:00', 'user', 1, 'napoleone');
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-22 14:00:00', '2024-09-22 16:00:00', 'user', 1, 'napoleone');
