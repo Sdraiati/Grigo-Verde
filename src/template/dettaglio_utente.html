@@ -1,39 +1,47 @@
-<section xmlns="http://www.w3.org/1999/html">
+<div class="actions-content">
     <h1> Dettaglio utente</h1>
-    <ul>
-        <li><b>Nome:</b> {{ nome }}</li>
-        <li><b>Cognome:</b> {{ cognome }}</li>
-        <li><b>Ruolo:</b> {{ ruolo }}</li>
-        <li><b>Nome utente:</b> {{ username }}</li>
-    </ul>
-    <form action="utenti/modifica?username={{ username }}">
-        <input type="hidden" name="username" value="{{ username }}">
-        <input type="submit" value="Modifica utente">
-    </form>
-    <form action="utenti/elimina">
-        <input type="hidden" name="username" value="{{ username }}">
-        <input type="submit" value="Elimina utente">
-    </form>
-</section>
-<section>
-    <h2>Prenotazioni</h2>
-    <p>Prenotazioni effettate dall'utente.</p>
-    <p id="descrizione tabella" class="helper">La tabella mostra le prenotazioni effettuate dall'utente {{ username }}.
-        Ha 5 campi, ovvero: spazio prenotato, giorno della prenotazione, orario di inizio, orario di fine e un link per
-        accedere alla pagina di dettaglio della prenotazione.</p>
-    <table aria-describedby="descrizione-tabella">
-        <caption>Informazioni sulle prenotazioni</caption>
-        <thead>
-            <tr>
-                <th scope="col">Spazio</th>
-                <th scope="col">Giorno</th>
-                <th scope="col">Orario di inizio</th>
-                <th scope="col">Orario di fine</th>
-                <th scope="col">Dettaglio</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{ table-rows }}
-        </tbody>
-    </table>
-</section>
+
+    <aside>
+        <h2>Operazioni</h2>
+        <form action="utenti/modifica?username={{ username }}">
+            <input type="hidden" name="username" value="{{ username }}">
+            <input type="submit" value="Modifica utente">
+        </form>
+        <form action="utenti/elimina">
+            <input type="hidden" name="username" value="{{ username }}">
+            <input type="submit" value="Elimina utente">
+        </form>
+    </aside>
+    <div id="right">
+        <section>
+            <h2>Informazioni</h2>
+            <p><b>Nome:</b> {{ nome }}</p>
+            <p><b>Cognome:</b> {{ cognome }}</p>
+            <p><b>Ruolo:</b> {{ ruolo }}</p>
+            <p><b>Nome utente:</b> {{ username }}</p>
+        </section>
+
+        <section>
+            <h2>Prenotazioni</h2>
+            <p>Prenotazioni effettate dall'utente.</p>
+            <p id="descrizione-tabella" class="helper">La tabella mostra le prenotazioni effettuate dall'utente {{ username }}.
+                Ha 5 campi, ovvero: spazio prenotato, giorno della prenotazione, orario di inizio, orario di fine e un link per
+                accedere alla pagina di dettaglio della prenotazione.</p>
+            <table aria-describedby="descrizione-tabella">
+                <caption>Informazioni sulle prenotazioni</caption>
+                <thead>
+                <tr>
+                    <th scope="col">Spazio</th>
+                    <th scope="col">Giorno</th>
+                    <th scope="col">Orario di inizio</th>
+                    <th scope="col">Orario di fine</th>
+                    <th scope="col">Dettaglio</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{ table-rows }}
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>

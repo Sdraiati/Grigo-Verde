@@ -70,7 +70,7 @@ class DettaglioUtentePage extends Page
             $row .= '<tr>';
 
             $nome_spazio = $this->spazio->prendi($prenotazione['Spazio'])['Nome'];
-            $row .= '<td headers="spazio" data-title="nome spazio">' . $nome_spazio . '</td>';
+            $row .= '<td data-title="nome spazio">' . $nome_spazio . '</td>';
 
             $startDateInfo = $this->getDateInfo($prenotazione['DataInizio']);
             $endDateInfo = $this->getDateInfo($prenotazione['DataFine']);
