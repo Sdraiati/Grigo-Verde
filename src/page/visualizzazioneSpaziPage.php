@@ -18,7 +18,9 @@ class SpazioItem
     {
         $item = str_replace('{{ Nome }}', $values["Nome"], self::$template);
         if ($values["Byte"]) {
-            $item = str_replace('{{ Byte }}', $values["Byte"], $item);
+            $mime_type = $values['Mime_type'];
+            $src = 'data:' . $mime_type . ';base64,' . $values['Byte'];
+            $item = str_replace('{{ Byte }}', $src, $item);
             $item = str_replace('{{ Alt }}', $values["Alt"], $item);
         } else {
             $item = str_replace('{{ Byte }}', 'assets/default_spazio_image.png', $item);
@@ -167,6 +169,8 @@ class VisualizzazioneSpaziPage extends Page
                 $values["Posizione"] = ($query_result[$i]["Posizione"]);
                 $values["Nome"] = ($query_result[$i]["Nome"]);
                 $values["Byte"] = ($query_result[$i]["Byte"]);
+                $values["Alt"] = ($query_result[$i]["Alt"]);
+                $values["Mime_type"] = ($query_result[$i]["Mime_type"]);
                 $lista_spazi = $lista_spazi . $spazioItem->render($values);
             }
 
