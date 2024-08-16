@@ -1,3 +1,5 @@
+let imgCount = 0;
+let availabilityCount = 0;
 document.addEventListener("DOMContentLoaded", function(_) {
     const baseUrl = String(window.location.origin);
     document.documentElement.style.setProperty('--base-url', `"${baseUrl}"`);
@@ -24,6 +26,10 @@ document.addEventListener("DOMContentLoaded", function(_) {
             }, 1000);
 
         }, 3000);
+    }
+    // Sincronizza la variabile availabilityCount con il valore dal campo nascosto
+    if(document.getElementById("availabilityCount")) {
+        availabilityCount = parseInt(document.getElementById("availabilityCount").value, 10) || 0;
     }
 })
 
@@ -60,7 +66,6 @@ function removeErrorDivs() {
 function validateString(element, str, min = Number.MIN_SAFE_INTEGER, max = Number.MAX_SAFE_INTEGER, show_char_number = false, spaces = false) {
     const specialCharPattern = /[{}\[\]|`¬¦!"£$%^&*<>:;#~_\-+=,@]/;
     if (str === '') {
-        console.log("metto errore");
         insertErrorMessage(element, "Il campo non può essere vuoto.");
         return false;
     }
@@ -173,7 +178,8 @@ function validateNewSpace() {
 
     let isNomeValid = validateString(fieldset_element, nome, 2, 70, true, true);
     let isImageValid = validateImage();
-    return isNomeValid && isImageValid;
+    let isAvailabilityValid = validateAvailability();
+    return isNomeValid && isImageValid && isAvailabilityValid;
 }
 
 function removeImage(num) {
@@ -191,8 +197,6 @@ function removeImage(num) {
         fieldset.appendChild(add_image_button);
     }
 }
-
-let imgCount = 0;
 function addImage() {
     //check if the image is already present
     let images = document.getElementsByClassName("image");
@@ -408,7 +412,6 @@ function validateDate() {
     } else {
         valid = true;
     }
-    console.log(error);
     if (error != "" && error_div) error_div.innerText = error;
     return valid;
 }
@@ -429,4 +432,220 @@ function validateFiltriUtente() {
     }
   }
   return true;
+}
+
+function addMonth(div) {
+    let month_label = document.createElement("label");
+    month_label.htmlFor = `availability_month_${availabilityCount}`;
+    month_label.innerHTML = "Seleziona i mesi";
+
+    let month_div = document.createElement("div");
+    month_div.id = `availability_month_${availabilityCount}`;
+
+    let months = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto",
+        "Settembre", "Ottobre", "Novembre", "Dicembre"];
+    for (let i = 0; i < months.length; i++) {
+        let option = document.createElement("input");
+        option.type = "checkbox";
+        option.name = months[i] + '_' + availabilityCount;
+        option.name = "availability_month_" + availabilityCount + "[]";
+        option.value = months[i];
+
+        let label = document.createElement("label");
+        label.htmlFor = months[i];
+        label.innerHTML = months[i];
+
+        month_div.appendChild(option);
+        month_div.appendChild(label);
+    }
+
+    div.appendChild(month_label);
+    div.appendChild(month_div);
+}
+
+function addWeekDay(div) {
+    let day_label = document.createElement("label");
+    day_label.htmlFor = `availability_day_${availabilityCount}`;
+    day_label.innerHTML = "Seleziona i giorni";
+
+    let day_div = document.createElement("div");
+    day_div.id = `availability_day_${availabilityCount}`;
+
+    let week_days = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"];
+    for (let i = 0; i < week_days.length; i++) {
+        let option = document.createElement("input");
+        option.type = "checkbox";
+        option.name = "availability_day_" + availabilityCount + "[]";
+        option.value = week_days[i];
+
+        let label = document.createElement("label");
+        label.htmlFor = week_days[i];
+        label.innerHTML = week_days[i];
+
+        day_div.appendChild(option);
+        day_div.appendChild(label);
+    }
+
+    div.appendChild(day_label);
+    div.appendChild(day_div);
+}
+
+function addHour(div) {
+    let start_hour_label = document.createElement("label");
+    start_hour_label.htmlFor = `availability_start_hour_${availabilityCount}`;
+    start_hour_label.innerHTML = "Inserisci l'ora di inizio";
+    let start_hour_input = document.createElement("input");
+    start_hour_input.type = "time";
+    start_hour_input.name = `availability_start_hour_${availabilityCount}`;
+    start_hour_input.id = `availability_start_hour_${availabilityCount}`;
+    start_hour_input.required = true;
+
+    let end_hour_label = document.createElement("label");
+    end_hour_label.htmlFor = `availability_end_hour_${availabilityCount}`;
+    end_hour_label.innerHTML = "Inserisci l'ora di fine";
+    let end_hour_input = document.createElement("input");
+    end_hour_input.type = "time";
+    end_hour_input.name = `availability_end_hour_${availabilityCount}`;
+    end_hour_input.id = `availability_end_hour_${availabilityCount}`;
+    end_hour_input.required = true;
+
+    div.appendChild(start_hour_label);
+    div.appendChild(start_hour_input);
+    div.appendChild(end_hour_label);
+    div.appendChild(end_hour_input);
+}
+
+function validateAvailability() {
+    removeErrorDivs();
+
+    let availability_divs = document.getElementsByClassName("availability");
+    if (availability_divs.length === 0) {
+        return true;
+    }
+
+    let availabilityTimes = [];
+
+    for (let i = 0; i < availability_divs.length; i++) {
+        let month_div = document.getElementById(`availability_month_${i}`);
+        let day_div = document.getElementById(`availability_day_${i}`);
+        let start_hour = document.getElementById(`availability_start_hour_${i}`);
+        let end_hour = document.getElementById(`availability_end_hour_${i}`);
+
+        if (!month_div || !day_div || !start_hour || !end_hour) {
+            insertErrorMessage(availability_divs[i], "Compila tutti i campi.");
+            return false;
+        }
+
+        let months_checked = month_div.querySelectorAll('input[type="checkbox"]:checked');
+        if (months_checked.length === 0) {
+            insertErrorMessage(month_div, "Selezionare almeno un mese.");
+            return false;
+        }
+        let days_checked = day_div.querySelectorAll('input[type="checkbox"]:checked');
+        if (days_checked.length === 0) {
+            insertErrorMessage(day_div, "Selezionare almeno un giorno.");
+            return false;
+        }
+        if (start_hour.value === "") {
+            insertErrorMessage(start_hour, "Selezionare un'ora di inizio.");
+            return false;
+        }
+        if (end_hour.value === "") {
+            insertErrorMessage(end_hour, "Selezionare un'ora di fine.");
+            return false;
+        }
+        if (start_hour.value >= end_hour.value) {
+            insertErrorMessage(end_hour, "L'orario di fine deve essere successivo a quello di inizio.");
+            return false;
+        }
+        availabilityTimes.push({
+            months: Array.from(months_checked).map(e => e.value),
+            days: Array.from(days_checked).map(e => e.value),
+            start: start_hour.value,
+            end: end_hour.value
+        });
+    }
+    for (let i = 0; i < availabilityTimes.length; i++) {
+        for (let j = i + 1; j < availabilityTimes.length; j++) {
+            if (checkOverlap(availabilityTimes[i], availabilityTimes[j])) {
+                insertErrorMessage(availability_divs[i], "Le disponibilità non possono essere sovrapposte.");
+                insertErrorMessage(availability_divs[j], "Le disponibilità non possono essere sovrapposte.");
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+function checkOverlap(time1, time2) {
+    // Controlla se i mesi e i giorni si sovrappongono
+    let monthsOverlap = time1.months.some(month => time2.months.includes(month));
+    let daysOverlap = time1.days.some(day => time2.days.includes(day));
+
+    if (monthsOverlap && daysOverlap) {
+        // Controlla se gli orari si sovrappongono
+        return (time1.start < time2.end && time1.end > time2.start);
+    }
+    return false;
+}
+
+function removeAvailability(divId) {
+    removeErrorDivs();
+    let availability_div = document.getElementById(divId);
+    if (availability_div) {
+        availability_div.remove();
+    }
+
+    let availability_divs = document.getElementsByClassName("availability");
+    availabilityCount = availability_divs.length;
+
+    for (let i = 0; i < availability_divs.length; i++) {
+        availability_divs[i].id = `availability_div_${i}`;
+        let month_div = availability_divs[i].querySelector('[id^="availability_month_"]');
+        let day_div = availability_divs[i].querySelector('[id^="availability_day_"]');
+        let start_hour = availability_divs[i].querySelector('[id^="availability_start_hour_"]');
+        let end_hour = availability_divs[i].querySelector('[id^="availability_end_hour_"]');
+        let remove_button = availability_divs[i].querySelector('input[type="button"]');
+
+        if (month_div) month_div.id = `availability_month_${i}`;
+        if (day_div) day_div.id = `availability_day_${i}`;
+        if (start_hour) start_hour.id = `availability_start_hour_${i}`;
+        if (end_hour) end_hour.id = `availability_end_hour_${i}`;
+
+        if (remove_button) {
+            remove_button.setAttribute('onclick', `removeAvailability('availability_div_${i}')`);
+        }
+    }
+}
+
+function addAvailability() {
+    if(!validateAvailability()) {
+        return;
+    }
+
+    let availability_div = document.createElement("div");
+
+    let availability_title = document.createElement("h3");
+    availability_title.innerHTML = "Disponibilità " + (availabilityCount + 1);
+    availability_div.appendChild(availability_title);
+
+    addMonth(availability_div);
+    addWeekDay(availability_div);
+    addHour(availability_div);
+
+    let remove_button = document.createElement("input");
+    remove_button.type = "button";
+    remove_button.value = "Rimuovi";
+    remove_button.onclick = function() {
+        removeAvailability(availability_div.id);
+    };
+    availability_div.appendChild(remove_button);
+
+    availability_div.id = `availability_div_${availabilityCount}`;
+    availability_div.className = "availability";
+    availabilityCount++;
+
+    let add_availability_button = document.getElementById("add_availability_button");
+
+    add_availability_button.parentNode.insertBefore(availability_div, add_availability_button);
 }
