@@ -12,7 +12,7 @@ class Page
 {
     protected $title = '';
     protected $titleBreadcrumb = '';
-    protected $keywords = ['ricette', 'gustose', 'cucina', 'italiana'];
+    protected $keywords = ['Grigo-verde', 'Liceo scientifico Grigoletti', 'Spazi', 'Area verde', 'Area ricreativa'];
     protected $path = '/';
     protected $breadcrumb = [];
     private $nav;
