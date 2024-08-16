@@ -372,6 +372,9 @@ function showEditPassword() {
     let fieldset = document.getElementById("password-fields");
     fieldset.classList.remove("hidden");
     fieldset.disabled = false;
+    // Hide the button
+    let button = document.getElementById("edit_password_button");
+    button.classList.add("hidden");
 }
 
 function validatePassword() {
