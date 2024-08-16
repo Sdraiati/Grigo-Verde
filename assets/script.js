@@ -358,7 +358,7 @@ function validateNewUser() {
     let nome_element = document.getElementsByName("nome")[0];
     let cognome_element = document.getElementsByName("cognome")[0];
 
-    let isUsernameValid = validateString(username_element, username, 4, 50, true, true);
+    let isUsernameValid = validateString(username_element, username, 4, 12, true, true);
 
     let isNomeValid = validateString(nome_element, nome, 2, 70, true, false);
     let isCognomeValid = validateString(cognome_element, cognome, 2, 70, true, false);
