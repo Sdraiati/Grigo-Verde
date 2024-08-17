@@ -39,7 +39,7 @@ class VisualizzazioneUtentiPage extends Page
         parent::setBreadcrumb([
             '<span lang="en">Home</span>' => '',
         ]);
-        $this->addKeywords([""]);
+        $this->addKeywords(["lista utenti"]);
         $this->setPath('utenti');
 
         $this->ruolo = $ruolo;

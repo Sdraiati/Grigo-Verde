@@ -24,7 +24,7 @@ class DettaglioUtentePage extends Page
             'Utenti' => 'utenti'
         ]);
         $this->setPath('/utenti/utente');
-        $this->addKeywords([""]);
+        $this->addKeywords(["dettaglio utente"]);
 
         $this->prenotazione = new Prenotazione();
         $this->spazio = new Spazio();
