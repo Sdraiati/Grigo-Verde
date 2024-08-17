@@ -23,7 +23,7 @@ class editUserPage extends Page
             'Utenti' => 'utenti',
             'Utenti' => 'utenti/utente?username=' . $username,
         ]);
-        $this->addKeywords([""]);
+        $this->addKeywords(["modifica utente, amministratore, docente"]);
 
         $this->username = $username;
         $this->nome = $nome;
