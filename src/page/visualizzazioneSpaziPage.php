@@ -45,7 +45,7 @@ class VisualizzazioneSpaziPage extends Page
         parent::setBreadcrumb([
             '<span lang="en">Home</span>' => '',
         ]);
-        $this->addKeywords([""]);
+        $this->addKeywords(["Lista spazi, Filtri"]);
         $this->setPath('/spazi');
 
         $this->tipo = $tipo;

@@ -26,6 +26,7 @@ class DettaglioSpazioPage extends Page
         $this->addKeywords([]);
 
         $this->spazio_nome = $spazio_nome;
+        $this->addKeywords([$spazio_nome]);
     }
 
     public function render()
