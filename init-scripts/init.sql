@@ -58,8 +58,8 @@ INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('username'
 INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (1, 'tiglio', "un' aula verde vicino alle palestre di ginnastica", 'verde', 20);
 INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (2, 'ginepro', "un' aula verde vicino alle palestre di ginnastica", 'verde', 20);
 INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (3, 'acero', "un' aula verde vicino alla statua", 'verde', 20);
-INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (4, 'pino', '', 'grigio', 10);
-INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (5, 'aceri', '', 'grigio', 10);
+INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (4, 'ping-pong', '', 'ricreativo', 10);
+INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (5, 'pallavolo', '', 'ricreativo', 10);
 INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (6, 'magnolie', '', 'verde', 10);
 INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (7, 'osmanto', '', 'verde', 10);
 INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (8, 'ligustri', '', 'verde', 10);
