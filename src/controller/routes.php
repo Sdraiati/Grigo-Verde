@@ -37,6 +37,8 @@ include_once $project_root . '/controller/reservations.php';
 include_once $project_root . '/controller/delete_user.php';
 include_once $project_root . '/controller/utenti.php';
 include_once $project_root . '/controller/home.php';
+include_once $project_root . '/page/availabilityPage.php';
+include_once $project_root . '/controller/availability.php';
 
 $router = new Router();
 
@@ -69,3 +71,5 @@ $router->add(new DeleteUser());
 $router->add(new LoginGet());
 $router->add(new UtenteEndpoint());
 $router->add(new Home());
+$router->add(new StaticPage('spazi/disponibilita', new AvailabilityPage()));
+$router->add(new Availability());

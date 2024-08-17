@@ -50,6 +50,16 @@ class Disponibilita extends Model
         return $this->exec($query, $params);
     }
 
+    public function elimina_tutte($spazio)
+    {
+        $query = "DELETE FROM " . $this->table . " WHERE Spazio = ?";
+        $params = [
+            ['type' => 'i', 'value' => $spazio]
+        ];
+
+        return $this->exec($query, $params);
+    }
+
     public function prendi_per_giorno($spazio)
     {
         $query = "SELECT * FROM " . $this->table . " 

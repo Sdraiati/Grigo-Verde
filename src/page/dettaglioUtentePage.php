@@ -70,7 +70,7 @@ class DettaglioUtentePage extends Page
             $row .= '<tr>';
 
             $nome_spazio = $this->spazio->prendi($prenotazione['Spazio'])['Nome'];
-            $row .= '<td headers="spazio" data-title="nome spazio">' . $nome_spazio . '</td>';
+            $row .= '<td data-title="nome spazio">' . $nome_spazio . '</td>';
 
             $startDateInfo = $this->getDateInfo($prenotazione['DataInizio']);
             $endDateInfo = $this->getDateInfo($prenotazione['DataFine']);
@@ -118,7 +118,10 @@ class DettaglioUtentePage extends Page
         $prenotazioni = $this->prenotazione->prendi_per_utente($this->username);
 
         if (empty($prenotazioni)) {
-            $content = str_replace("{{ table-rows }}", "Nessuna prenotazione trovata", $content);
+            // remove p with id "descrizione tabella"
+            $content = preg_replace('/<p\s+id="descrizione tabella"[^>]*>.*?<\/p>/is', '', $content);
+            // remove the table
+            $content = preg_replace('/<table.*?>(.*?)<\/table>/s', '<p>Nessuna prenotazione trovata.</p>', $content);
         } else {
             $content = str_replace("{{ table-rows }}", $this->setRowTable($prenotazioni), $content);
         }

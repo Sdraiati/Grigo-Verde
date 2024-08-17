@@ -1,0 +1,14 @@
+<div class="container">
+    <h1>Modifica Disponibilità</h1>
+    <form action="spazi/disponibilita" method="post" onsubmit="return validateAvailability()">
+        {{ availability }}
+        <fieldset>
+            <legend id="add_availability">Aggiungi disponibilità</legend>
+            <input type="button" id="add_availability_button" value="Aggiungi disponibilità" onclick="return addAvailability()">
+            <input type="hidden" id="nome_spazio" name="nome_spazio" value="{{ nome_spazio }}">
+        </fieldset>
+        <div>
+            <input type="submit" value="Modifica disponibilità">
+        </div>
+    </form>
+</div>

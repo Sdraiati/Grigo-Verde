@@ -127,7 +127,6 @@ class DettaglioSpazioPage extends Page
 
         for ($i = 0; $i < $count; $i++) {
             $prenotazione = $prenotazioni_data[$i];
-            $prenotazione = $prenotazioni_data[$i];
             $start_date_time = new DateTime($prenotazione['DataInizio']);
             $end_date_time = new DateTime($prenotazione['DataFine']);
             $giorno = $start_date_time->format('d/m/Y');
