@@ -146,13 +146,14 @@ a:visited {
     left: -999em;
 }
 
+/*
 .helper:focus {
     top: 0;
     left: 0;
     color: var(--oneColor);
     background-color: var(--backgroundColor);
 }
-
+*/
 
 header {
     padding-top: 0.2rem;
