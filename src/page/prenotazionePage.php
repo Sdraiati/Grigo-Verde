@@ -9,12 +9,12 @@ class PrenotazionePage extends Page
 {
     private $row_template = '
         <tr>
-            <td scope="col">{{ spazio }}</td>
-            <td scope="col">{{ nome }} {{ cognome }}</td>
-            <td scope="col"><time datetime="{{ data }}">{{ data }}</time></td>
-            <td scope="col"><time>{{ inizio }}</time></td>
-            <td scope="col"><time>{{ fine }}</time></td>
-            <td scope="col"><a href="prenotazioni/dettaglio?prenotazione={{ id }}">dettaglio</a></td>
+            <td>{{ spazio }}</td>
+            <td>{{ nome }} {{ cognome }}</td>
+            <td><time datetime="{{ data }}">{{ data }}</time></td>
+            <td><time>{{ inizio }}</time></td>
+            <td><time>{{ fine }}</time></td>
+            <td><a href="prenotazioni/dettaglio?prenotazione={{ id }}">dettaglio</a></td>
         </tr>';
 
     public function __construct()
