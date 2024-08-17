@@ -687,3 +687,15 @@ table tbody .passed {
 #lista img {
     height: 8rem;
 }
+
+.availability{
+    border-bottom: 0.125rem solid #ccc;
+    padding-bottom: 0.625rem;
+    margin-bottom: 1.25rem;
+}
+
+.availability div{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
