@@ -61,14 +61,7 @@ a[href^="/"]:not([href*="://"])::after {
   
   content: " [" attr(href) "]";
 }
-/*
-a::after{
-    content: " [" var(--base-url) "]";
-}*/
 
-.hidden {
-    display: none;
-}
 
 .helper {
     position: absolute;
@@ -82,9 +75,6 @@ a::after{
     background-color: var(--backgroundColor);
 }
 
-header {
-    display: none;
-}
 
 #logo-login {
     display: flex;
@@ -163,11 +153,7 @@ body {
 /* --------- MAIN --------- */
 
 main {
-    display: flex;
-    justify-content: center;
-    align-items: start;
-    text-align: center;
-    margin: auto;
+    margin: 0 auto;
     min-height: 100vh;
     padding: 0 1rem;
     width: var(--content);
@@ -220,10 +206,6 @@ main p {
     grid-area: title;
 }
 
-aside{
-    display: none;
-}
-
 .actions-content .content {
     grid-area: content;
     padding: 0;
@@ -249,19 +231,6 @@ aside{
     border: 0.1rem var(--border);
 }
 
-footer {
-    bottom: 0;
-    display: none;
-}
-
-/* --------- FORMS --------- */
-
-form {
-    padding: 1.5rem;
-    /*border-radius: var(--round-radius);
-    box-shadow: var(--shadow);*//******************************************************************************************************************/
-    margin: 0 auto;
-}
 
 fieldset {
     border: none;
@@ -295,7 +264,10 @@ textarea,
 select,
 input[type="password"],
 img,
-aside {
+aside,
+footer,
+.hidden,  
+header{
     display: none;
 }
 
