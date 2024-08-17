@@ -22,7 +22,7 @@ class newUserPage extends Page
             'Cruscotto' => 'cruscotto'
         ]);
         $this->setPath('/utenti/nuovo');
-        $this->addKeywords([""]);
+        $this->addKeywords(["crea utente, amministratore"]);
 
         $this->username = $username;
         $this->password = $password;

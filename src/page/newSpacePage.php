@@ -23,7 +23,7 @@ class newSpacePage extends Page
             'Cruscotto' => 'cruscotto'
         ]);
         $this->setPath('/spazi/nuovo');
-        $this->addKeywords([""]);
+        $this->addKeywords(["crea spazio, amministratore"]);
 
         $this->posizione = $posizione;
         $this->nome = $nome;

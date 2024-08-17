@@ -23,7 +23,7 @@ class PrenotazioneFormPage extends Page
             '<span lang="en">Home</span>' => '',
             'Cruscotto' => 'cruscotto',
         ]);
-        $this->addKeywords(['']);
+        $this->addKeywords(["crea prenotazione, modifica prenotazione"]);
 
         $this->reservation_id = $reservation_id;
         $this->giorno = $giorno;

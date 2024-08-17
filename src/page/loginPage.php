@@ -13,7 +13,7 @@ class loginPage extends Page
         $this->setBreadcrumb([
             '<span lang="en">Home</span>' => '',
         ]);
-        $this->addKeywords([""]);
+        $this->addKeywords(["Autenticazione, Docente, Admin"]);
         $this->setPath('login');
 
         $this->username = $username;

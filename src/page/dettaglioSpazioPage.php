@@ -26,6 +26,7 @@ class DettaglioSpazioPage extends Page
         $this->addKeywords([]);
 
         $this->spazio_nome = $spazio_nome;
+        $this->addKeywords([$spazio_nome]);
     }
 
     public function render()
@@ -125,7 +126,6 @@ class DettaglioSpazioPage extends Page
         $count = count($prenotazioni_data);
 
         for ($i = 0; $i < $count; $i++) {
-            $prenotazione = $prenotazioni_data[$i];
             $prenotazione = $prenotazioni_data[$i];
             $start_date_time = new DateTime($prenotazione['DataInizio']);
             $end_date_time = new DateTime($prenotazione['DataFine']);

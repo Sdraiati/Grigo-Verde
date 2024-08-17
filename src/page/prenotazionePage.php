@@ -24,6 +24,7 @@ class PrenotazionePage extends Page
         parent::setBreadcrumb([
             '<span lang="en">Home</span>' => '',
         ]);
+        $this->addKeywords(["Prenotazioni"]);
     }
 
     private function render_row($reservation)

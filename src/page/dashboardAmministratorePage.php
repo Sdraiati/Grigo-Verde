@@ -20,7 +20,7 @@ class DashboardAmministratorePage extends Page
             '<span lang="en">Home</span>' => '',
         ]);
         $this->setPath('cruscotto');
-        $this->addKeywords([]);
+        $this->addKeywords(["cruscotto amministratore, admin"]);
 
         $this->amministratore_nome = $amministratore_nome;
     }

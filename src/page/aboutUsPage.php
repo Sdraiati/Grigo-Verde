@@ -11,7 +11,7 @@ class AboutUsPage extends Page
         $this->setBreadcrumb([
             '<span lang="en">Home</span>' => '',
         ]);
-        $this->addKeywords([""]);
+        $this->addKeywords(["Pordenone, agenda 2030, WWF, progetto, CAD"]);
         $this->setPath('/about_us');
     }
 
