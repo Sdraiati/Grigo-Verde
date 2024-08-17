@@ -5,8 +5,10 @@ require_once 'autenticazione.php';
 $project_root = dirname(__FILE__, 2);
 include_once $project_root . '/model/spazio.php';
 include_once $project_root . '/page/unauthorized.php';
+// include message
+include_once $project_root . '/controller/message.php';
 
-class DeleteUser extends Endpoint
+class DeleteSpace extends Endpoint
 {
     private string $posizione;
 
@@ -39,6 +41,7 @@ class DeleteUser extends Endpoint
             $spazio->elimina($this->posizione);
         } catch (Exception $e) {
         }
-        $this->redirect('cruscotto');
+        Message::set("Spazio eliminato con successo");
+        $this->redirect('spazi');
     }
 }

@@ -39,6 +39,7 @@ include_once $project_root . '/controller/utenti.php';
 include_once $project_root . '/controller/home.php';
 include_once $project_root . '/page/availabilityPage.php';
 include_once $project_root . '/controller/availability.php';
+include_once $project_root . '/controller/space_delete.php';
 
 $router = new Router();
 
@@ -68,6 +69,7 @@ $router->add(new EditPassword());
 $router->add(new StaticPage('utenti/utente', new DettaglioUtentePage()));
 $router->add(new Reservations());
 $router->add(new DeleteUser());
+$router->add(new DeleteSpace());
 $router->add(new LoginGet());
 $router->add(new UtenteEndpoint());
 $router->add(new Home());
