@@ -82,6 +82,23 @@ class Disponibilita extends Model
         return $this->get_all($query, $params);
     }
 
+    public function prendi_per_data_ora($month, $day, $start_time, $end_time) 
+    {
+        $query = "SELECT DISTINCT(Spazio) FROM DISPONIBILITA WHERE 
+	                Mese = ? AND 
+	                Giorno_settimana = ? AND 
+                    Orario_apertura <= ? AND
+                    Orario_chiusura >= ?;";
+        $params = [
+            ['type' => 's', 'value' => $month],
+            ['type' => 's', 'value' => $day],
+            ['type' => 's', 'value' => $start_time],
+            ['type' => 's', 'value' => $end_time]
+        ];
+        
+        return $this->get_all($query, $params);
+    }
+
     public function is_open($spazio, $day, $begin_time, $end_time)
     {
         $aperture = $this->prendi_per_giorno($spazio);

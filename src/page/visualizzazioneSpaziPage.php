@@ -56,7 +56,23 @@ class VisualizzazioneSpaziPage extends Page
     }
 
     private function filtra_per_disponibilita($filtered, $data_inizio, $data_fine) {
+        
+        $new_filtered = [];
+        $month = get_month($data_inizio);
+        $day = get_weekday($data_inizio);
 
+        $model_disponibilita = new Disponibilita();
+        $start = explode(" ", $data_inizio)[1];
+        $end = explode(" ", $data_fine)[1];
+        $result = $model_disponibilita->prendi_per_data_ora();
+    
+        for ($i=0; $i < count($filtered); $i++) { 
+            if (in_array($filtered[$i]["Posizione"], $result)) {
+                array_push($new_filtered, $filtered[$i]);
+            }
+        }
+
+        return $new_filtered;
     }
 
     private function filtra_per_ora($prenotazioni, $filtered, $data_inizio, $data_fine)
@@ -123,8 +139,12 @@ class VisualizzazioneSpaziPage extends Page
 
                     try {
 
+                        // prima si fa la disponibilita
+                        $this->filtra_per_disponibilita($filtered, $data_inizio, $data_fine);
+
                         $model_prenotazione = new Prenotazione();
                         $prenotazioni = $model_prenotazione->prendi_per_intervallo($diq, $dfq);
+
 
                         if (count($prenotazioni) > 0) {
                             $filtered = $this->filtra_per_ora($prenotazioni, $filtered, $data_inizio, $data_fine);
