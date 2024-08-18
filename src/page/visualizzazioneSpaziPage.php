@@ -3,6 +3,7 @@
 include_once 'model/database.php';
 include_once 'page.php';
 include_once 'model/spazio.php';
+include_once 'model/disponibilità.php';
 include_once 'model/prenotazione.php';
 
 // classe item
@@ -52,6 +53,10 @@ class VisualizzazioneSpaziPage extends Page
         $this->data_inizio = $data_inizio;
         $this->data_fine = $data_fine;
         $this->error = $error;
+    }
+
+    private function filtra_per_disponibilita($filtered, $data_inizio, $data_fine) {
+
     }
 
     private function filtra_per_ora($prenotazioni, $filtered, $data_inizio, $data_fine)
