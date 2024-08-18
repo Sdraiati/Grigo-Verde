@@ -140,11 +140,11 @@ class VisualizzazioneSpaziPage extends Page
                     try {
 
                         // prima si fa la disponibilita
-                        $this->filtra_per_disponibilita($filtered, $data_inizio, $data_fine);
+                        $filtered = $this->filtra_per_disponibilita($filtered, $data_inizio, $data_fine);
 
+                        // filtrare poi per prenotazioni
                         $model_prenotazione = new Prenotazione();
                         $prenotazioni = $model_prenotazione->prendi_per_intervallo($diq, $dfq);
-
 
                         if (count($prenotazioni) > 0) {
                             $filtered = $this->filtra_per_ora($prenotazioni, $filtered, $data_inizio, $data_fine);
