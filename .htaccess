@@ -16,7 +16,6 @@
    # If the above condition is not met, redirect to index.php
 	RewriteRule ^ src/index.php [L]
 
-    RewriteBase /
     RewriteRule ^(.*)$ /$1 [L]
     
 </IfModule>
