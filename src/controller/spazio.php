@@ -26,8 +26,10 @@ class SpazioEndpoint extends Endpoint
             $data = $_GET['data'];
             $start = $_GET['orario_inizio'];
             $end = $_GET['orario_fine'];
-            $data_inizio = $data . " " . $start . "";
-            $data_fine = $data . " " . $end. "";
+            if ($data != "" && $start != "" && $end != "") {
+                $data_inizio = $data . " " . $start . "";
+                $data_fine = $data . " " . $end. "";
+            }
         }
 
         $page = new VisualizzazioneSpaziPage($tipo, $data_inizio, $data_fine, $error);
