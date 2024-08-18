@@ -189,8 +189,10 @@ class VisualizzazioneSpaziPage extends Page
         }
 
         // lista degli spazi
-        $data_inizio_filtro = ($this->data_inizio != " " && $this->data_inizio != "") ? $this->data_inizio . ":00" : ""; 
-        $data_fine_filtro = ($this->data_fine != " " && $this->data_fine != "") ? $this->data_fine . ":00" : ""; 
+        var_dump($this->data_inizio);
+        var_dump($this->data_fine);
+        $data_inizio_filtro = ($this->data_inizio != "") ? $this->data_inizio . ":00" : ""; 
+        $data_fine_filtro = ($this->data_fine != "") ? $this->data_fine . ":00" : ""; 
         $query_result = $this->filtra_spazi($this->tipo, $data_inizio_filtro, $data_fine_filtro);
 
         if ($query_result) {
