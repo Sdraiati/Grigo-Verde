@@ -146,17 +146,21 @@ function validateNewSpace() {
     let tipo = document.getElementsByName("tipo")[0].value;
     let n_tavoli = document.getElementsByName("n_tavoli")[0].value;
 
-    let fieldset_element = document.getElementsByTagName("fieldset")[0];
+    let position_element = document.getElementsByName("posizione")[0];
+    let tipo_element = document.getElementsByName("tipo")[0];
+    let n_tavoli_element = document.getElementsByName("n_tavoli")[0];
+    let nome_element = document.getElementsByName("nome")[0];
+    let description_element = document.getElementsByName("descrizione")[0];
 
     removeErrorDivs();
 
     if (posizione < 0 || !Number.isInteger(parseInt(posizione))) {
-        insertErrorMessage(fieldset_element, "La posizione deve essere un numero intero positivo.");
+        insertErrorMessage(position_element, "La posizione deve essere un numero intero positivo.");
         return false;
     }
 
     if (tipo !== "Aula verde" && tipo !== "Spazio ricreativo") {
-        insertErrorMessage(fieldset_element, "Il tipo deve essere Amministratore o Docente.");
+        insertErrorMessage(tipo_element, "Il tipo deve essere Amministratore o Docente.");
         return false;
     }
 
@@ -165,18 +169,18 @@ function validateNewSpace() {
             n_tavoli = 0;
         }
         else {
-            insertErrorMessage(fieldset_element, "Il numero di tavoli deve essere un numero intero positivo.");
+            insertErrorMessage(n_tavoli_element, "Il numero di tavoli deve essere un numero intero positivo.");
             return false;
         }
     }
 
     let limit = 65534;
     if (descrizione.length > limit) {
-        insertErrorMessage(fieldset_element, "La descrizione non può contenere più di " + limit + " caratteri.");
+        insertErrorMessage(description_element, "La descrizione non può contenere più di " + limit + " caratteri.");
         return false;
     }
 
-    let isNomeValid = validateString(fieldset_element, nome, 2, 70, true, true);
+    let isNomeValid = validateString(nome_element, nome, 2, 25, true, true);
     let isImageValid = true;
     if (imgCount > 0) {
         isImageValid = validateImage();
@@ -366,7 +370,7 @@ function validateNewUser() {
     let isNomeValid = validateString(nome_element, nome, 2, 70, true, false);
     let isCognomeValid = validateString(cognome_element, cognome, 2, 70, true, false);
 
-    isPasswordValid = validatePassword();
+    let isPasswordValid = validatePassword();
 
     return isUsernameValid && isPasswordValid && isNomeValid && isCognomeValid;
 }
@@ -522,8 +526,6 @@ function addHour(div) {
 }
 
 function validateAvailability() {
-    removeErrorDivs();
-
     let availability_divs = document.getElementsByClassName("availability");
     if (availability_divs.length === 0) {
         return true;
