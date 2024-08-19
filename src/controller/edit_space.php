@@ -46,6 +46,12 @@ class EditSpace extends Endpoint
         return true;
     }
 
+    public function good_return()
+    {
+        Message::set("Spazio modificato con successo");
+        $this->redirect("spazi/spazio?spazio_nome=" . $this->nome);
+    }
+
     public function handle(): void
     {
         $this->posizione = $this->post('posizione');
@@ -106,6 +112,7 @@ class EditSpace extends Endpoint
         if (!empty($uploadedFiles)) {
             foreach ($uploadedFiles as $key => $file) {
                 if ($file['size'] === 0) {
+                    $this->good_return();
                     return;
                 }
                 if ($file['error'] !== UPLOAD_ERR_OK) {

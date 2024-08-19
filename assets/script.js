@@ -177,7 +177,10 @@ function validateNewSpace() {
     }
 
     let isNomeValid = validateString(fieldset_element, nome, 2, 70, true, true);
-    let isImageValid = validateImage();
+    let isImageValid = true;
+    if (imgCount > 0) {
+        isImageValid = validateImage();
+    }
     let isAvailabilityValid = validateAvailability();
     return isNomeValid && isImageValid && isAvailabilityValid;
 }
