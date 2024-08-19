@@ -53,13 +53,13 @@ function prendi_disponibilita()
 {
     global $disponibilita, $spazio;
 
-    $spazio->nuovo(1, 'Sala Conferenze', 'Una grande sala per conferenze', 'Conferenza', 20);
-    $disponibilita->nuovo(1, 'Gennaio', 'Lunedì', '09:00:00', '17:00:00');
+    $spazio->nuovo(10, 'Sala Conferenze', 'Una grande sala per conferenze', 'Conferenza', 20);
+    $disponibilita->nuovo(10, 'Gennaio', 'Lunedì', '09:00:00', '17:00:00');
 
-    $disponibilitaList = $disponibilita->prendi(1);
+    $disponibilitaList = $disponibilita->prendi(10);
 
-    $disponibilita->elimina(1, 'Gennaio', 'Lunedì');
-    $spazio->elimina(1);
+    $disponibilita->elimina(10, 'Gennaio', 'Lunedì');
+    $spazio->elimina(10);
 
     return is_array($disponibilitaList) && count($disponibilitaList) > 0;
 }
