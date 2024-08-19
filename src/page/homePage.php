@@ -11,6 +11,7 @@ class HomePage extends Page
         $this->setBreadcrumb([]);
         $this->addKeywords([]);
         $this->setPath('');
+        $this->setDescription("Benevnuto in Grigo-verde, la piattaforma per accedere agli spazi del liceo scientifico Grigoletti.");
     }
 
     public function render()

@@ -13,6 +13,7 @@ class AboutUsPage extends Page
         ]);
         $this->addKeywords(["Pordenone, agenda 2030, WWF, progetto, CAD"]);
         $this->setPath('/about_us');
+        $this->setDescription("Il liceo scientifico Grigoletti offre ai docenti una piattaforma per prenotare gli spazi interni della scuola.");
     }
 
     public function render()

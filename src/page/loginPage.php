@@ -15,6 +15,7 @@ class loginPage extends Page
         ]);
         $this->addKeywords(["Autenticazione, Docente, Admin"]);
         $this->setPath('login');
+        $this->setDescription("Accedi per usufruire di tutte le funzionalità disponibili.");
 
         $this->username = $username;
         $this->password = $password;

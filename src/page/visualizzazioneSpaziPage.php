@@ -48,6 +48,7 @@ class VisualizzazioneSpaziPage extends Page
         ]);
         $this->addKeywords(["Lista spazi, Filtri"]);
         $this->setPath('/spazi');
+        $this->setDescription("Scopri gli spazi disponibili nel liceo scientifico Grigoletti.");
 
         $this->tipo = $tipo;
         $this->data_inizio = $data_inizio;
