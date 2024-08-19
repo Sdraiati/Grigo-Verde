@@ -58,7 +58,7 @@ function insertErrorMessage(element, msg) {
 
 function removeErrorDivs() {
     let error_divs = document.getElementsByClassName("errore");
-    for (let i = 0; i < error_divs.length; i++) {
+    for (let i = error_divs.length - 1; i >= 0; i--) {
         error_divs[i].remove();
     }
 }
@@ -253,7 +253,7 @@ function addImage() {
 
             // Rimuovi gli errori associati all'immagine
             let error_divs = document.getElementsByClassName("errore");
-            for (let i = 0; i < error_divs.length; i++) {
+            for (let i = error_divs.length - 1; i >= 0; i--) {
                 if (error_divs[i].previousSibling === image_input) {
                     error_divs[i].remove();
                 }
