@@ -2,6 +2,7 @@
 require_once 'endpoint.php';
 $project_root = dirname(__FILE__, 2);
 include_once $project_root . '/model/utente.php';
+require_once 'message.php';
 
 class DeleteUser extends Endpoint
 {
@@ -24,6 +25,17 @@ class DeleteUser extends Endpoint
 
     public function handle(): void
     {
+        if (!Autenticazione::isLogged()) {
+            $page = new LoginPage(
+                "",
+                "",
+                'Devi effettuare il login per accedere a questa pagina'
+            );
+            $page->setPath("login");
+            echo $page->render();
+            return;
+        }
+
         if (!$this->validate() || !Autenticazione::is_amministratore()) {
             $page = new UnauthorizedPage();
             $page->setPath($this->path);
@@ -35,6 +47,7 @@ class DeleteUser extends Endpoint
             $utente->elimina($this->username);
         } catch (Exception $e) {
         }
-        $this->redirect('cruscotto');
+        Message::set('Utente eliminato con successo');
+        $this->redirect('utenti');
     }
 }

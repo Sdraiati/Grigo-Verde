@@ -29,6 +29,17 @@ class DeleteSpace extends Endpoint
 
     public function handle(): void
     {
+        if (!Autenticazione::isLogged()) {
+            $page = new LoginPage(
+                "",
+                "",
+                'Devi effettuare il login per accedere a questa pagina'
+            );
+            $page->setPath("login");
+            echo $page->render();
+            return;
+        }
+
         if (!$this->validate() || !Autenticazione::is_amministratore()) {
             $page = new UnauthorizedPage();
             $page->setPath($this->path);
