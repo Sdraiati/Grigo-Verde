@@ -13,13 +13,11 @@ function nuovo_prenotazione()
 {
     global $prenotazione, $spazio, $utente;
     $utente->nuovo('mario_rossi', 'Mario', 'Rossi', 'Amministratore', 'password123');
-    $spazio->nuovo(1, 'Sala Conferenze', 'Una grande sala per conferenze', 'Conferenza', 20);
+    $spazio->nuovo(10, 'Sala Conferenze', 'Una grande sala per conferenze', 'Conferenza', 20);
     $user = $utente->prendi('mario_rossi');
     $space = $spazio->prendi_per_nome('Sala Conferenze');
     $res = $prenotazione->nuovo('2024-08-05 14:00:00', '2024-08-05 16:00:00', $user['Username'], $space['Posizione'], 'Conferenza');
-
-
-    $reservation = $prenotazione->prendi_by('2024-08-05 14:00:00', '2024-08-05 16:00:00', 1);
+    $reservation = $prenotazione->prendi_by('2024-08-05 14:00:00', '2024-08-05 16:00:00', 10);
     $prenotazione->elimina($reservation['Id']);
     return $res;
 }
