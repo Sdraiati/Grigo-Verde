@@ -11,12 +11,12 @@ require_once 'message.php';
 
 class ReservationUpdatePost extends Endpoint
 {
-    private $reservation_id;
+    private int $reservation_id;
     private $giorno;
     private $dalle_ore;
     private $alle_ore;
-    private $posizione;
-    private $descrizione;
+    private int $posizione;
+    private string $descrizione;
 
     public function __construct()
     {
@@ -58,7 +58,7 @@ class ReservationUpdatePost extends Endpoint
 
     public function validate(): bool
     {
-        $reservation_id = $this->post('id');
+        $reservation_id = intval($this->post('id'));
         $giorno = $this->post('giorno');
         $dalle_ore = $this->post('dalle-ore');
         $alle_ore = $this->post('alle-ore');
@@ -139,12 +139,8 @@ class ReservationUpdatePost extends Endpoint
         $username = Autenticazione::getLoggedUser();
 
         // Check if the user has already booked something in the same time slot
-        if (!$prenotazione->user_already_booked($username, $data_inizio, $data_fine)) {
-            $prenotazione->nuovo($reservation['DataInizio'], $reservation['DataFine'], $reservation['Username'], $reservation['Spazio'], $reservation['Descrizione']);
-            $reservation_id = $prenotazione->prendi_by($reservation['DataInizio'], $reservation['DataFine'], $reservation['Spazio']);
-            $this->reservation_id = $reservation_id;
-            $this->render_with_error("Hai già prenotato un altro spazio nello stesso orario");
-            return;
+        if ($prenotazione->user_already_booked($username, $data_inizio, $data_fine)) {
+            $this->render_with_error("Hai già prenotato un altro spazio in questo orario");
         }
 
         if (!$prenotazione->nuovo($data_inizio, $data_fine, $username, $this->posizione, $this->descrizione)) {
