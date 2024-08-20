@@ -415,7 +415,7 @@ function validateDate() {
         if (data == "" || start == "" || end == "") { // se solo un campo dovesse essere vuoto
             error = "Nessun campo data o ora può essere lasciato vuoto.";
         } else if (start >= end) {
-            error = "Orario di inizio e di fine devono essere rispettivamente l'uno minore o uguale dell'altro.";
+            error = "Orario di inizio e di fine devono essere rispettivamente l'uno minore dell'altro.";
         } else {
             valid = true;
         }
