@@ -61,8 +61,14 @@ class PrenotazionePage extends Page
 
         $content = parent::render();
         $content = str_replace("{{ content }}", $this->getContent('prenotazioni'), $content);
-        $content = str_replace("{{ table-rows }}", $rows, $content);
-
+        if (empty($reservations)) {
+            // remove p with id "descrizione tabella"
+            $content = preg_replace('/<p\s+id="descrizione tabella"[^>]*>.*?<\/p>/is', '', $content);
+            // remove the table
+            $content = preg_replace('/<table.*?>(.*?)<\/table>/s', '<p>Nessuna prenotazione trovata.</p>', $content);
+        } else {
+            $content = str_replace("{{ table-rows }}", $rows, $content);
+        }
 
         return $content;
     }
