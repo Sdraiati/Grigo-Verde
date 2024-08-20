@@ -49,10 +49,10 @@ CREATE TABLE DISPONIBILITA (
 );
 
 INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('user', '$2y$10$jUmfsNGBXq5IUXDQ1fUSOuGAM7KIdwN6I.lxyJWNyysqns.pAP0pe', 'user', 'user', 'Docente');
-iNSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('admin', '$2y$10$K6wj8TJzSVeA6y9JeMriiOT3Fh9enThoTvKCSCh/n2P7xATNTD4fG', 'admin', 'admin', 'Amministratore');
-INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('mario', '$2y$10$5NafWjT2WSdbgXnyJGBOjugR9u25xyEWPVzLHysO2RTE47oYjBwpm', 'Mario', 'Rossi', 'Docente'); -- password = pass 
-INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('rossoAndrea', '$2y$10$GUEDKZ4JWU7as8JfjpORXutyGpgOCcyr36K2R9Vm2KFNhHGH6WJki', 'Andrea', 'Rosso', 'Docente'); -- password = pass
-INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('ernestino', '$2y$10$IUTnzyVhpHgJgtCd.1kkruW/hQuF/NaAZtHebyZxD1ZRgC8rWFko.', 'Ernesto', 'Gialli', 'Docente'); -- password = pass
+INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('admin', '$2y$10$K6wj8TJzSVeA6y9JeMriiOT3Fh9enThoTvKCSCh/n2P7xATNTD4fG', 'admin', 'admin', 'Amministratore');
+INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('mario', '$2y$10$5NafWjT2WSdbgXnyJGBOjugR9u25xyEWPVzLHysO2RTE47oYjBwpm', 'Mario', 'Rossi', 'Docente');
+INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('rossoAndrea', '$2y$10$GUEDKZ4JWU7as8JfjpORXutyGpgOCcyr36K2R9Vm2KFNhHGH6WJki', 'Andrea', 'Rosso', 'Docente');
+INSERT INTO UTENTE (Username, Password, Nome, Cognome, Ruolo) VALUES ('ernestino', '$2y$10$IUTnzyVhpHgJgtCd.1kkruW/hQuF/NaAZtHebyZxD1ZRgC8rWFko.', 'Ernesto', 'Gialli', 'Docente');
 
 -- SPAZIO 
 INSERT INTO SPAZIO (Posizione, Nome, Descrizione, Tipo, N_tavoli) VALUES (1, 'tiglio', "un' aula verde vicino alle palestre di ginnastica", 'Aula verde', 20);
