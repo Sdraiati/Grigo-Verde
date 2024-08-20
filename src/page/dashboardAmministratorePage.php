@@ -30,7 +30,7 @@ class DashboardAmministratorePage extends Page
         $content = parent::render();
         $prenotazione = new Prenotazione();
         $user = new Utente();
-        $prenotazioni = $prenotazione->prendi_all();
+        $prenotazioni = $prenotazione->prendi_per_utente_time($this->amministratore_nome);
         $utente = $user->prendi($this->amministratore_nome);
 
         $content_2 = $this->getContent('dashboard_amministratore');
@@ -56,13 +56,17 @@ class DashboardAmministratorePage extends Page
             <td scope="col"><time datetime="{{ data }}">{{ data }}</time></td>
             <td scope="col"><time>{{ inizio }}</time></td>
             <td scope="col"><time>{{ fine }}</time></td>
+            <td scope="col"><span>{{ spazio }}</span></td>
             <td scope="col"><a href="prenotazioni/dettaglio?prenotazione={{ id }}">dettaglio</a></td>
         </tr>';
 
         $rows = "";
         $count = count($prenotazioni_data);
+        $spazio = new Spazio();
         for ($i = 0; $i < $count; $i++) {
             $prenotazione = $prenotazioni_data[$i];
+            $spazio_id = $prenotazioni_data[$i]['Spazio'];
+            $nome_spazio = $spazio->prendi($spazio_id);
             $start_date_time = new DateTime($prenotazione['DataInizio']);
             $end_date_time = new DateTime($prenotazione['DataFine']);
             $giorno = $start_date_time->format('d/m/Y');
@@ -71,6 +75,7 @@ class DashboardAmministratorePage extends Page
             $row = str_replace('{{ data }}', $giorno, $rowTemplate);
             $row = str_replace('{{ inizio }}', $ora_inizio, $row);
             $row = str_replace('{{ fine }}', $ora_fine, $row);
+            $row = str_replace('{{ spazio }}', $nome_spazio['Nome'], $row);
             $row = str_replace('{{ id }}', $prenotazione['Id'], $row);
 
             $rows .= $row;
