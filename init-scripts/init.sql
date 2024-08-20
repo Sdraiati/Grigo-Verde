@@ -159,47 +159,47 @@ INSERT INTO DISPONIBILITA (Spazio, Mese, Giorno_settimana, Orario_apertura, Orar
 
 -- PRENOTAZIONI 
 -- INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-08-15 12:00:00', '2024-08-15 16:00:00', 'user', 1, 'descrizione relativa alla prenotazione');
-INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-01 12:00:00', '2024-09-01 16:00:00', 'user', 1, 'descrizione relativa alla prenotazione');
+INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-02 12:00:00', '2024-09-02 16:00:00', 'user', 1, 'descrizione relativa alla prenotazione');
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-05 11:00:00', '2024-09-05 13:00:00', 'admin', 1, 'descrizione relativa alla prenotazione');
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-22 14:00:00', '2024-09-22 16:00:00', 'ernestino', 1, 'descrizione relativa alla prenotazione');
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-25 14:00:00', '2024-09-25 16:00:00', 'mario', 1, 'descrizione relativa alla prenotazione');
 
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-23 12:00:00', '2024-09-23 16:00:00', 'mario', 2, 'descrizione relativa alla prenotazione');
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-24 14:00:00', '2024-09-24 15:00:00', 'user', 2, 'descrizione relativa alla prenotazione');
-INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-01 13:00:00', '2024-09-01 15:00:00', 'ernestino', 2, 'descrizione relativa alla prenotazione');
+INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-02 13:00:00', '2024-09-02 15:00:00', 'ernestino', 2, 'descrizione relativa alla prenotazione');
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-05 16:00:00', '2024-09-05 18:00:00', 'admin', 2, 'descrizione relativa alla prenotazione');
 
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-23 14:00:00', '2024-09-23 16:00:00', 'admin', 3, 'descrizione relativa alla prenotazione');
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-24 14:00:00', '2024-09-24 16:00:00', 'mario', 3, 'descrizione relativa alla prenotazione');
-INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-01 14:00:00', '2024-09-01 16:00:00', 'user', 3, 'descrizione relativa alla prenotazione');
+INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-02 14:00:00', '2024-09-02 16:00:00', 'user', 3, 'descrizione relativa alla prenotazione');
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-05 16:00:00', '2024-09-05 18:00:00', 'ernestino', 3, 'descrizione relativa alla prenotazione');
 
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-23 14:00:00', '2024-09-23 16:00:00', 'ernestino', 4, 'descrizione relativa alla prenotazione');
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-24 14:00:00', '2024-09-24 16:00:00', 'mario', 4, 'descrizione relativa alla prenotazione');
-INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-01 14:00:00', '2024-09-01 16:00:00', 'user', 4, 'descrizione relativa alla prenotazione');
+INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-02 14:00:00', '2024-09-02 16:00:00', 'user', 4, 'descrizione relativa alla prenotazione');
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-05 16:00:00', '2024-09-05 18:00:00', 'admin', 4, 'descrizione relativa alla prenotazione');
 
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-24 14:00:00', '2024-09-24 16:00:00', 'admin', 5, 'descrizione relativa alla prenotazione');
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-24 12:00:00', '2024-09-24 14:00:00', 'ernestino', 5, 'descrizione relativa alla prenotazione');
-INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-01 14:00:00', '2024-09-01 16:00:00', 'mario', 5, 'descrizione relativa alla prenotazione');
+INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-02 14:00:00', '2024-09-02 16:00:00', 'mario', 5, 'descrizione relativa alla prenotazione');
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-05 16:00:00', '2024-09-05 18:00:00', 'user', 5, 'descrizione relativa alla prenotazione');
 
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-23 11:00:00', '2024-09-23 13:00:00', 'mario', 6, 'descrizione relativa alla prenotazione');
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-24 14:00:00', '2024-09-24 16:00:00', 'user', 6, 'descrizione relativa alla prenotazione');
-INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-01 13:00:00', '2024-09-01 14:00:00', 'admin', 6, 'descrizione relativa alla prenotazione');
+INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-02 13:00:00', '2024-09-02 14:00:00', 'admin', 6, 'descrizione relativa alla prenotazione');
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-05 09:00:00', '2024-09-05 10:00:00', 'ernestino', 6, 'descrizione relativa alla prenotazione');
 
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-23 13:00:00', '2024-09-23 15:00:00', 'ernestino', 7, 'descrizione relativa alla prenotazione');
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-24 12:00:00', '2024-09-24 13:00:00', 'mario', 7, 'descrizione relativa alla prenotazione');
-INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-01 14:00:00', '2024-09-01 16:00:00', 'admin', 7, 'descrizione relativa alla prenotazione');
-INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-01 16:00:00', '2024-09-01 18:00:00', 'user', 7, 'descrizione relativa alla prenotazione');
+INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-02 14:00:00', '2024-09-02 16:00:00', 'admin', 7, 'descrizione relativa alla prenotazione');
+INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-02 16:00:00', '2024-09-02 18:00:00', 'user', 7, 'descrizione relativa alla prenotazione');
 
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-23 14:00:00', '2024-09-23 16:00:00', 'user', 8, 'descrizione relativa alla prenotazione');
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-24 14:00:00', '2024-09-24 16:00:00', 'ernestino', 8, 'descrizione relativa alla prenotazione');
-INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-01 11:00:00', '2024-09-01 16:00:00', 'admin', 8, 'descrizione relativa alla prenotazione');
+INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-02 11:00:00', '2024-09-02 16:00:00', 'admin', 8, 'descrizione relativa alla prenotazione');
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-05 16:00:00', '2024-09-05 17:00:00', 'mario', 8, 'descrizione relativa alla prenotazione');
 
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-23 14:00:00', '2024-09-23 16:00:00', 'mario', 9, 'descrizione relativa alla prenotazione');
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-24 16:00:00', '2024-09-24 19:00:00', 'user', 9, 'descrizione relativa alla prenotazione');
-INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-01 14:00:00', '2024-09-01 16:00:00', 'admin', 9, 'descrizione relativa alla prenotazione');
-INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-01 16:00:00', '2024-09-05 18:00:00', 'ernestino', 9, 'descrizione relativa alla prenotazione');
+INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-02 14:00:00', '2024-09-02 16:00:00', 'admin', 9, 'descrizione relativa alla prenotazione');
+INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-02 16:00:00', '2024-09-05 18:00:00', 'ernestino', 9, 'descrizione relativa alla prenotazione');
