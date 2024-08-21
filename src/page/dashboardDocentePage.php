@@ -51,10 +51,10 @@ class DashboardDocentePage extends Page
     protected function setRowTable($prenotazioni_data)
     {
         $rowTemplate = '<tr>
-            <td scope="col"><time datetime="{{ data }}">{{ data }}</time></td>
-            <td scope="col"><time>{{ inizio }}</time></td>
-            <td scope="col"><time>{{ fine }}</time></td>
-            <td scope="col"><a href="prenotazioni/dettaglio?prenotazione={{ id }}">dettaglio</a></td>
+            <td><time datetime="{{ data }}">{{ data }}</time></td>
+            <td><time>{{ inizio }}</time></td>
+            <td><time>{{ fine }}</time></td>
+            <td><a href="prenotazioni/dettaglio?prenotazione={{ id }}">dettaglio</a></td>
         </tr>';
 
         $rows = "";
