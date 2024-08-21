@@ -6,25 +6,19 @@
             <fieldset>
                 <legend>Tipo</legend>
                 <label for="tipo_verde">Verde</label>
-                <input type="radio" id="tipo_verde" name="tipo" value="Aula verde" aria-label="verde" {{ checked-Aula
+                <input type="radio" id="tipo_verde" name="tipo" value="Aula verde" {{ checked-Aula
                     verde }}>
-                <br>
                 <label for="tipo_ricreativo">Ricreativo</label>
-                <input type="radio" id="tipo_ricreativo" name="tipo" value="Spazio ricreativo" aria-label="ricreativo"
+                <input type="radio" id="tipo_ricreativo" name="tipo" value="Spazio ricreativo"
                     {{ checked-Spazio ricreativo }}>
             </fieldset>
             <fieldset>
-                <legend>Data</legend>
-                <br>
                 <label for="data">Prenotabile il giorno </label>
                 <input type="date" id="data" name="data" {{ data }}>
-                <br>
                 <label for="orario_inizio"> dalle </label>
                 <input type="time" id="orario_inizio" name="orario_inizio" {{ start }}>
-                <br>
                 <label for="orario_fine"> alle </label>
                 <input type="time" id="orario_fine" name="orario_fine" {{ end }}>
-                <br>
             </fieldset>
             <div id="error_msg" class="errore"> </div>
             <input type="submit" value="applica filtri">
