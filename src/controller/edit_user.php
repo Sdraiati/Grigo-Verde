@@ -58,7 +58,7 @@ class EditUser extends Endpoint
 
     public function handle(): void
     {
-        if (!$this->validate($this->username, $this->password, $this->nome, $this->cognome, $this->ruolo)) {
+        if (!$this->validate()) {
             $this->render_edit_page_with_error("Inserire tutti i campi");
             return;
         }
