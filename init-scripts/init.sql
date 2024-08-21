@@ -174,15 +174,15 @@ INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) V
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-02 14:00:00', '2024-09-02 16:00:00', 'user', 3, 'Lezione di Storia con la classe 2F.');
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-05 16:00:00', '2024-09-05 18:00:00', 'ernestino', 3, 'Lezione di Biologia con la classe 2F.');
 
-INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-23 14:00:00', '2024-09-23 16:00:00', 'ernestino', 4, 'Lezione di Ginnastica con la classe 3B.');
-INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-24 14:00:00', '2024-09-24 16:00:00', 'mario', 4, 'Lezione di Ginnastica con la classe 5B.');
-INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-02 14:00:00', '2024-09-02 16:00:00', 'user', 4, 'Lezione di Ginnastica con la classe 1A.');
-INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-05 16:00:00', '2024-09-05 18:00:00', 'admin', 4, 'Lezione di Ginnastica con la classe 2C.');
+INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-23 14:00:00', '2024-09-23 16:00:00', 'ernestino', 4, 'Attività di svago con la classe 3B.');
+INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-24 14:00:00', '2024-09-24 16:00:00', 'mario', 4, 'Attività di svago con la classe 5B.');
+INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-02 14:00:00', '2024-09-02 16:00:00', 'user', 4, 'Attività di svago con la classe 1A.');
+INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-05 16:00:00', '2024-09-05 18:00:00', 'admin', 4, 'Attività di svago con la classe 2C.');
 
-INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-24 14:00:00', '2024-09-24 16:00:00', 'admin', 5, 'Lezione di Ginnastica con la classe 4E.');
-INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-24 12:00:00', '2024-09-24 14:00:00', 'ernestino', 5, 'Lezione di Ginnastica con la classe 5C.');
-INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-02 14:00:00', '2024-09-02 16:00:00', 'mario', 5, 'Lezione di Ginnastica con la classe 5C.');
-INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-05 16:00:00', '2024-09-05 18:00:00', 'user', 5, 'Lezione di Ginnastica con la classe 1A.');
+INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-24 14:00:00', '2024-09-24 16:00:00', 'admin', 5, 'Attività di svago con la classe 4E.');
+INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-24 12:00:00', '2024-09-24 14:00:00', 'ernestino', 5, 'Attività di svago con la classe 5C.');
+INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-02 14:00:00', '2024-09-02 16:00:00', 'mario', 5, 'Attività di svago con la classe 5C.');
+INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-05 16:00:00', '2024-09-05 18:00:00', 'user', 5, 'Attività di svago con la classe 1A.');
 
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-23 11:00:00', '2024-09-23 13:00:00', 'mario', 6, 'Lezione di Italiano con la classe 2C.');
 INSERT INTO PRENOTAZIONE (DataInizio, DataFine, Username, Spazio, Descrizione) VALUES ('2024-09-24 14:00:00', '2024-09-24 16:00:00', 'user', 6, 'Lezione di Filosofia con la classe 3B.');
