@@ -11,7 +11,7 @@ class PrenotazionePage extends Page
         <tr>
             <td>{{ spazio }}</td>
             <td>{{ nome }} {{ cognome }}</td>
-            <td><time datetime="{{ data }}">{{ data }}</time></td>
+            <td><time datetime="{{ read-data }}">{{ data }}</time></td>
             <td><time>{{ inizio }}</time></td>
             <td><time>{{ fine }}</time></td>
             <td><a href="prenotazioni/dettaglio?prenotazione={{ id }}">dettaglio</a></td>
@@ -33,6 +33,7 @@ class PrenotazionePage extends Page
         $content = str_replace('{{ spazio }}', $reservation['NomeSpazio'], $this->row_template);
         $content = str_replace('{{ nome }}', $reservation['Nome'], $content);
         $content = str_replace('{{ cognome }}', $reservation['Cognome'], $content);
+        $content = str_replace('{{ read-data }}', $reservation['read-data'], $content);
         $content = str_replace('{{ data }}', $reservation['Giorno'], $content);
         $content = str_replace('{{ inizio }}', $reservation['Inizio'], $content);
         $content = str_replace('{{ fine }}', $reservation['Fine'], $content);
@@ -50,12 +51,10 @@ class PrenotazionePage extends Page
         foreach ($reservations as $res) {
             $start_date_time = new DateTime($res['DataInizio']);
             $end_date_time = new DateTime($res['DataFine']);
-            $giorno = $start_date_time->format('d/m/Y');
-            $ora_inizio = $start_date_time->format('H:i');
-            $ora_fine = $end_date_time->format('H:i');
-            $res['Giorno'] = $giorno;
-            $res['Inizio'] = $ora_inizio;
-            $res['Fine'] = $ora_fine;
+            $res['read-data'] = $start_date_time->format('Y-m-d');
+            $res['Giorno'] = $start_date_time->format('d/m/Y');
+            $res['Inizio'] = $start_date_time->format('H:i');
+            $res['Fine'] = $end_date_time->format('H:i');
             $rows .= $this->render_row($res) . PHP_EOL;
         }
 
@@ -63,7 +62,7 @@ class PrenotazionePage extends Page
         $content = str_replace("{{ content }}", $this->getContent('prenotazioni'), $content);
         if (empty($reservations)) {
             // remove p with id "descrizione tabella"
-            $content = preg_replace('/<p\s+id="descrizione tabella"[^>]*>.*?<\/p>/is', '', $content);
+            $content = preg_replace('/<p\s+id="descrizione-tabella"[^>]*>.*?<\/p>/is', '', $content);
             // remove the table
             $content = preg_replace('/<table.*?>(.*?)<\/table>/s', '<p>Nessuna prenotazione trovata.</p>', $content);
         } else {
