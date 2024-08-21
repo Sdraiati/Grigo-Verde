@@ -24,7 +24,6 @@ class Home extends Endpoint
         if (isset($uri['query'])) {
             $endpoint .= '?' . $uri['query'];
         }
-
         return parent::match($path, $method);
     }
 
@@ -33,8 +32,13 @@ class Home extends Endpoint
         $page = new HomePage();
         $page->setPath('');
         $html = $page->render();
-        $html = str_replace('href="#"', 'href="' . rtrim(BASE_URL, '/') . '#"', $html);
-        $html = str_replace('href="#content"', 'href="' . rtrim(BASE_URL, '/') . '#content"', $html);
+        if (str_ends_with($_SERVER['REQUEST_URI'], '/')) {
+            $html = str_replace('href="#"', 'href="' . BASE_URL . '#"', $html);
+            $html = str_replace('href="#content"', 'href="' . BASE_URL . '#content"', $html);
+        } else {
+            $html = str_replace('href="#"', 'href="' . rtrim(BASE_URL, '/') . '#"', $html);
+            $html = str_replace('href="#content"', 'href="' . rtrim(BASE_URL, '/') . '#content"', $html);
+        }
         echo $html;
     }
 }
