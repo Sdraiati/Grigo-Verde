@@ -54,24 +54,24 @@ class AvailabilityPage extends Page
             $output .= '<h3>Disponibilità ' . ($availabilityCount + 1) . '</h3>';
 
             // Selezione dei mesi
-            $output .= '<label for="availability_month_' . $availabilityCount . '">Seleziona i mesi</label>';
+            $output .= '<span>Seleziona i mesi</span>';
             $output .= '<div id="availability_month_' . $availabilityCount . '">';
             $months = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
             foreach ($months as $month) {
                 $checked = ($entry['Mese'] === $month) ? 'checked' : '';
-                $output .= '<input type="checkbox" name="availability_month_' . $availabilityCount . '[]" value="' . $month . '" ' . $checked . '>';
-                $output .= '<label for="' . $month . '">' . $month . '</label>';
+                $output .= '<input type="checkbox" name="availability_month_' . $availabilityCount . '[]" value="' . $month . '" ' . ' id="' . $month . $availabilityCount . '" ' . $checked . '>';
+                $output .= '<label for="' . $month . $availabilityCount . '">' . $month . '</label>';
             }
             $output .= '</div>';
 
             // Selezione dei giorni
-            $output .= '<label for="availability_day_' . $availabilityCount . '">Seleziona i giorni</label>';
+            $output .= '<span>Seleziona i giorni</span>';
             $output .= '<div id="availability_day_' . $availabilityCount . '">';
             $week_days = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"];
             foreach ($week_days as $day) {
                 $checked = ($entry['Giorno_settimana'] === $day) ? 'checked' : '';
-                $output .= '<input type="checkbox" name="availability_day_' . $availabilityCount . '[]" value="' . $day . '" ' . $checked . '>';
-                $output .= '<label for="' . $day . '">' . $day . '</label>';
+                $output .= '<input type="checkbox" name="availability_day_' . $availabilityCount . '[]" value="' . $day . '" ' . ' id="' . $day . $availabilityCount . '" ' . $checked . '>';
+                $output .= '<label for="' . $day . $availabilityCount . '">' . $day . '</label>';
             }
             $output .= '</div>';
 

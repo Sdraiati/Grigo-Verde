@@ -445,9 +445,8 @@ function validateFiltriUtente() {
 }
 
 function addMonth(div) {
-    let month_label = document.createElement("label");
-    month_label.htmlFor = `availability_month_${availabilityCount}`;
-    month_label.innerHTML = "Seleziona i mesi";
+    let month_span = document.createElement("span");
+    month_span.innerHTML = "Seleziona i mesi";
 
     let month_div = document.createElement("div");
     month_div.id = `availability_month_${availabilityCount}`;
@@ -459,24 +458,24 @@ function addMonth(div) {
         option.type = "checkbox";
         option.name = months[i] + '_' + availabilityCount;
         option.name = "availability_month_" + availabilityCount + "[]";
+        option.id = months[i] + availabilityCount;
         option.value = months[i];
 
         let label = document.createElement("label");
-        label.htmlFor = months[i];
+        label.htmlFor = months[i] + availabilityCount;
         label.innerHTML = months[i];
 
         month_div.appendChild(option);
         month_div.appendChild(label);
     }
 
-    div.appendChild(month_label);
+    div.appendChild(month_span);
     div.appendChild(month_div);
 }
 
 function addWeekDay(div) {
-    let day_label = document.createElement("label");
-    day_label.htmlFor = `availability_day_${availabilityCount}`;
-    day_label.innerHTML = "Seleziona i giorni";
+    let day_span = document.createElement("span");
+    day_span.innerHTML = "Seleziona i giorni";
 
     let day_div = document.createElement("div");
     day_div.id = `availability_day_${availabilityCount}`;
@@ -487,16 +486,17 @@ function addWeekDay(div) {
         option.type = "checkbox";
         option.name = "availability_day_" + availabilityCount + "[]";
         option.value = week_days[i];
+        option.id = week_days[i] + availabilityCount;
 
         let label = document.createElement("label");
-        label.htmlFor = week_days[i];
+        label.htmlFor = week_days[i] + availabilityCount;
         label.innerHTML = week_days[i];
 
         day_div.appendChild(option);
         day_div.appendChild(label);
     }
 
-    div.appendChild(day_label);
+    div.appendChild(day_span);
     div.appendChild(day_div);
 }
 
