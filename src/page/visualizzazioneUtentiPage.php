@@ -66,6 +66,20 @@ class VisualizzazioneUtentiPage extends Page
 
     public function render()
     {
+        if (!Autenticazione::isLogged()) {
+            $page = new LoginPage(
+                "",
+                "",
+                'Devi effettuare il login per accedere a questa pagina'
+            );
+            return $page->render();
+        }
+        if (!Autenticazione::is_amministratore()) {
+            $page = new UnauthorizedPage();
+            $page->setPath($this->path);
+            return $page->render();
+        }
+
         $content = parent::render();
         $intestazione_pagina = $this->getContent('lista_utenti');
 
