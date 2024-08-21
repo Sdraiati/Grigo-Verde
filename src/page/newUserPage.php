@@ -57,7 +57,7 @@ class newUserPage extends Page
             "{{ normal_input }}",
             '<label for="username">Nome utente <span class="required" aria-hidden="true">*</span></label>
             <input type="text" id="username" name="username" placeholder="Inserire un nome utente" 
-            value="{{ username }}"',
+            value="{{ username }}">',
             $content
         );
         $content = str_replace("{{ hidden_input }}", '', $content);
