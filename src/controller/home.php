@@ -32,7 +32,7 @@ class Home extends Endpoint
         $page = new HomePage();
         $page->setPath('');
         $html = $page->render();
-        if ($_SERVER['REQUEST_URI'] === BASE_URL) {
+        if (str_ends_with($_SERVER['REQUEST_URI'], '/')) {
             $html = str_replace('href="#"', 'href="' . BASE_URL . '#"', $html);
             $html = str_replace('href="#content"', 'href="' . BASE_URL . '#content"', $html);
         } else {
