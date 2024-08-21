@@ -75,10 +75,10 @@ class DettaglioUtentePage extends Page
             $startDateInfo = $this->getDateInfo($prenotazione['DataInizio']);
             $endDateInfo = $this->getDateInfo($prenotazione['DataFine']);
 
-            $row .= '<td data-title="giorno">' . $startDateInfo['day'] . '</td>';
-            $row .= '<td data-title="ora di inizio"><time>' . $startDateInfo['time'] . '</time></td>';
-            $row .= '<td data-title="ora di fine"><time>' . $endDateInfo['time'] . '</time></td>';
-            $row .= '<td data-title="descrizione"><a href="prenotazioni/dettaglio?prenotazione=' .
+            $row .= '<td><time datetime="' . $startDateInfo['day'] . '">' . $startDateInfo['day'] . '</td>';
+            $row .= '<td><time>' . $startDateInfo['time'] . '</time></td>';
+            $row .= '<td ><time>' . $endDateInfo['time'] . '</time></td>';
+            $row .= '<td><a href="prenotazioni/dettaglio?prenotazione=' .
                 $prenotazione['Spazio'] . '" aria-label="dettaglio prenotazione dello spazio ' . $nome_spazio .
                 '">dettaglio</a></td>';
             $row .= '</tr>';
