@@ -4,15 +4,17 @@
     <aside id="form_filtri">
         <form action="spazi" method="get" onsubmit="return validateDate()">
             <fieldset>
-                <legend>Filtri</legend>
-                <fieldset>
-                    <legend>Tipo</legend>
-                    <label for="tipo_verde">Verde</label>
-                    <input type="radio" id="tipo_verde" name="tipo" value="Aula verde" aria-label="verde" {{ checked-Aula verde }}>
-                    <br>
-                    <label for="tipo_ricreativo">Ricreativo</label>
-                    <input type="radio" id="tipo_ricreativo" name="tipo" value="Spazio ricreativo" aria-label="ricreativo" {{ checked-Spazio ricreativo }}>
-                </fieldset>
+                <legend>Tipo</legend>
+                <label for="tipo_verde">Verde</label>
+                <input type="radio" id="tipo_verde" name="tipo" value="Aula verde" aria-label="verde" {{ checked-Aula
+                    verde }}>
+                <br>
+                <label for="tipo_ricreativo">Ricreativo</label>
+                <input type="radio" id="tipo_ricreativo" name="tipo" value="Spazio ricreativo" aria-label="ricreativo"
+                    {{ checked-Spazio ricreativo }}>
+            </fieldset>
+            <fieldset>
+                <legend>Data</legend>
                 <br>
                 <label for="data">Prenotabile il giorno </label>
                 <input type="date" id="data" name="data" {{ data }}>
@@ -23,8 +25,8 @@
                 <label for="orario_fine"> alle </label>
                 <input type="time" id="orario_fine" name="orario_fine" {{ end }}>
                 <br>
-                <div id="error_msg" class="errore"> </div>
             </fieldset>
+            <div id="error_msg" class="errore"> </div>
             <input type="submit" value="applica filtri">
         </form>
 
