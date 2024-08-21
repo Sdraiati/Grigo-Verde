@@ -79,7 +79,7 @@ class DettaglioUtentePage extends Page
             $row .= '<td><time>' . $startDateInfo['time'] . '</time></td>';
             $row .= '<td ><time>' . $endDateInfo['time'] . '</time></td>';
             $row .= '<td><a href="prenotazioni/dettaglio?prenotazione=' .
-                $prenotazione['Spazio'] . '" aria-label="dettaglio prenotazione dello spazio ' . $nome_spazio .
+                $prenotazione['Id'] . '" aria-label="dettaglio prenotazione dello spazio ' . $nome_spazio .
                 '">dettaglio</a></td>';
             $row .= '</tr>';
         }
