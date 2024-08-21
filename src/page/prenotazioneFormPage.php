@@ -39,15 +39,13 @@ class PrenotazioneFormPage extends Page
         $spazio = new Spazio();
         $result = $spazio->prendi_tutti();
         $options = '';
-        if ($this->posizione == -1) {
-            $options .= '<option value="-1" selected disabled>Seleziona uno spazio</option>\n';
-        }
+        $options .= '<option value="" ' . ($this->posizione === -1 ? 'selected' : '') . ' disabled>Seleziona uno spazio</option>' . PHP_EOL;
         foreach ($result as $row) {
             if ($this->posizione == $row['Posizione']) {
-                $options .= '<option value="' . $row['Posizione'] . '" selected>' . $row['Nome'] . '</option>\n';
+                $options .= '<option value="' . $row['Posizione'] . '" selected>' . $row['Nome'] . '</option>' . PHP_EOL;
                 continue;
             }
-            $options .= '<option value="' . $row['Posizione'] . '">' . $row['Nome'] . '</option>\n';
+            $options .= '<option value="' . $row['Posizione'] . '">' . $row['Nome'] . '</option>' . PHP_EOL;
         }
         return $options;
     }

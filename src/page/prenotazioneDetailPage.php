@@ -34,12 +34,14 @@ class PrenotazioneDetailPage extends Page
         $start_date_time = new DateTime($reservation['DataInizio']);
         $end_date_time = new DateTime($reservation['DataFine']);
         $giorno = $start_date_time->format('d/m/Y');
+        $read_data = $start_date_time->format('Y-m-d');
         $ora_inizio = $start_date_time->format('H:i');
         $ora_fine = $end_date_time->format('H:i');
 
         $content = parent::render();
         $content = str_replace("{{ content }}", $this->getContent('prenotazione_dettaglio'), $content);
 
+        $content = str_replace("{{ read-data }}", $read_data, $content);
         $content = str_replace("{{ giorno }}", $giorno, $content);
         $content = str_replace("{{ ora_inizio }}", $ora_inizio, $content);
         $content = str_replace("{{ ora_fine }}", $ora_fine, $content);
