@@ -17,15 +17,12 @@ class SpazioItem
 
     public function render($values)
     {
-        $link = "";
-        
+        $link = $values["Nome"];
         $item = str_replace('{{ Nome }}', $values["Nome"], self::$template);
-        if (str_contains($values["Nome"], " ")) {
-            $link = str_replace(" ", "%20", $values["Nome"]);
-            $item = str_replace('{{ Link }}', $link, $item);
-        } else {
-            $item = str_replace('{{ Link }}', $values["Nome"], $item);
+        if (str_contains($link, " ")) {
+            $link = str_replace(" ", "%20", $link);
         }
+        $item = str_replace('{{ Link }}', $link, $item);
         if ($values["Byte"]) {
             $mime_type = $values['Mime_type'];
             $src = 'data:' . $mime_type . ';base64,' . $values['Byte'];
