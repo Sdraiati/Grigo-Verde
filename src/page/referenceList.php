@@ -38,7 +38,7 @@ class ReferenceItem
             $content = '<li>';
             $content .= '<a href="' . $this->path . '">' . $this->title . '</a>';
             if ($divider !== '') {
-                $content .= '<span>' . $divider . '</span>';
+                $content .= '<span aria-label="successivo">' . $divider . '</span>';
             }
             $content .= '</li>';
             return  $content;
