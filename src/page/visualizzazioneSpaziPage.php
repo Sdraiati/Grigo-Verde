@@ -46,9 +46,9 @@ class VisualizzazioneSpaziPage extends Page
         parent::setBreadcrumb([
             '<span lang="en">Home</span>' => '',
         ]);
-        $this->addKeywords(["Lista spazi, Filtri"]);
+        $this->addKeywords(["Lista spazi, Spazi disponibili"]);
         $this->setPath('/spazi');
-        $this->setDescription("Scopri gli spazi disponibili nel liceo scientifico Grigoletti.");
+        $this->setDescription("Scopri le aree all'aperto disponibili nel Liceo Grigoletti di Pordenone.");
 
         $this->tipo = $tipo;
         $this->data_inizio = $data_inizio;
@@ -56,8 +56,9 @@ class VisualizzazioneSpaziPage extends Page
         $this->error = $error;
     }
 
-    private function filtra_per_disponibilita($filtered, $data_inizio, $data_fine) {
-        
+    private function filtra_per_disponibilita($filtered, $data_inizio, $data_fine)
+    {
+
         $new_filtered = [];
         $month = get_month($data_inizio);
         $day = get_weekday($data_inizio);
@@ -68,11 +69,11 @@ class VisualizzazioneSpaziPage extends Page
         $result = $model_disponibilita->prendi_per_data_ora($month, $day, $start, $end);
         $array_spazi = [];
 
-        for ($i=0; $i < count($result); $i++) { 
+        for ($i = 0; $i < count($result); $i++) {
             array_push($array_spazi, $result[$i]["Spazio"]);
         }
 
-        for ($i=0; $i < count($filtered); $i++) { 
+        for ($i = 0; $i < count($filtered); $i++) {
             if (in_array($filtered[$i]["Posizione"], $array_spazi)) {
                 array_push($new_filtered, $filtered[$i]);
             }
@@ -190,8 +191,8 @@ class VisualizzazioneSpaziPage extends Page
         }
 
         // lista degli spazi
-        $data_inizio_filtro = ($this->data_inizio != "") ? $this->data_inizio . ":00" : ""; 
-        $data_fine_filtro = ($this->data_fine != "") ? $this->data_fine . ":00" : ""; 
+        $data_inizio_filtro = ($this->data_inizio != "") ? $this->data_inizio . ":00" : "";
+        $data_fine_filtro = ($this->data_fine != "") ? $this->data_fine . ":00" : "";
         $query_result = $this->filtra_spazi($this->tipo, $data_inizio_filtro, $data_fine_filtro);
 
         if ($query_result) {

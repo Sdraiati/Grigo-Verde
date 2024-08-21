@@ -17,7 +17,7 @@ class PrenotazioneDetailPage extends Page
             '<span lang="en">Home</span>' => '',
             'Prenotazioni' => 'prenotazioni',
         ]);
-        $this->addKeywords(["Dettaglio Prenotazione"]);
+        $this->addKeywords(["Prenotazione", "Dettaglio"]);
 
         $this->reservation_id = $reservation_id;
     }
@@ -28,6 +28,8 @@ class PrenotazioneDetailPage extends Page
 
         $reservation = $prenotazioni->prendi_by_id($this->reservation_id);
         $this->addKeywords([$reservation['NomeSpazio']]);
+
+        $this->setDescription("Visualizza i dettagli di una prenotazione dello spazio " . $reservation['NomeSpazio'] . " del Liceo Grigoletti di Pordenone.");
 
         $start_date_time = new DateTime($reservation['DataInizio']);
         $end_date_time = new DateTime($reservation['DataFine']);

@@ -11,9 +11,9 @@ class AboutUsPage extends Page
         $this->setBreadcrumb([
             '<span lang="en">Home</span>' => '',
         ]);
-        $this->addKeywords(["Pordenone, agenda 2030, WWF, progetto, CAD"]);
+        $this->addKeywords(["Pordenone", "agenda 2030", "WWF", "progetto", "CAD", "About Us", "Informazioni", "Info"]);
         $this->setPath('/about_us');
-        $this->setDescription("Il liceo scientifico Grigoletti offre ai docenti una piattaforma per prenotare gli spazi interni della scuola.");
+        $this->setDescription("Il Liceo Grigoletti di Pordenone offre ai docenti una piattaforma per prenotare gli spazi all'aperto della scuola.");
     }
 
     public function render()

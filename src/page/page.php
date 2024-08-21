@@ -12,7 +12,7 @@ class Page
 {
     protected $title = '';
     protected $titleBreadcrumb = '';
-    protected $keywords = ['Grigo-verde', 'Liceo Grigoletti', 'Spazi', 'Area verde', 'Area ricreativa'];
+    protected $keywords = ['Grigo Verde', 'Liceo Grigoletti', 'spazi', 'area verde', 'area ricreativa', 'Pordenone', 'Liceo Scientifico', 'Liceo Linguistico', 'scuola', 'scuola superiore', 'liceo'];
     protected $path = '/';
     protected $breadcrumb = [];
     private $nav;

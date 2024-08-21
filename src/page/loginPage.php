@@ -13,9 +13,10 @@ class loginPage extends Page
         $this->setBreadcrumb([
             '<span lang="en">Home</span>' => '',
         ]);
-        $this->addKeywords(["Autenticazione, Docente, Admin"]);
+        $this->addKeywords(["Autenticazione, Login, Docente, Amministratore"]);
         $this->setPath('login');
-        $this->setDescription("Accedi per usufruire di tutte le funzionalità disponibili.");
+        $this->setDescription("Portale di autenticazione di Grigo Verde, accedi 
+            per usufruire di tutte le funzionalità disponibili.");
 
         $this->username = $username;
         $this->password = $password;

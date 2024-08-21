@@ -25,7 +25,7 @@ class PrenotazionePage extends Page
             '<span lang="en">Home</span>' => '',
         ]);
         $this->addKeywords(["Prenotazioni"]);
-        $this->setDescription("Visualizza tutte le prenotazioni degli spazi del liceo scientifico Grigoletti.");
+        $this->setDescription("Visualizza tutte le prenotazioni delle aree all'aperto del Liceo Grigoletti di Pordenone.");
     }
 
     private function render_row($reservation)

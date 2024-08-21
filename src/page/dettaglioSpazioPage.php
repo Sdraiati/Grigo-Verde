@@ -23,7 +23,7 @@ class DettaglioSpazioPage extends Page
             'Spazi' => 'spazi'
         ]);
         $this->setPath('/spazi/spazio');
-        $this->addKeywords([]);
+        $this->addKeywords(['Spazio', 'Dettaglio', 'Prenotazioni', 'Disponibilità']);
 
         $this->spazio_nome = $spazio_nome;
         $this->addKeywords([$spazio_nome]);
@@ -39,8 +39,11 @@ class DettaglioSpazioPage extends Page
 
         if (empty($spazio_data)) {
             $content = str_replace('{{ content }}', "<h1>Questo spazio non esiste</h1>", $content);
+            $this->setDescription("Il dettaglio dello spazio non è disponibile.");
             return $content;
         }
+
+        $this->setDescription("Dettaglio dello spazio " . $spazio_data['Nome'] . " del Liceo Grigoletti di Pordenone.");
 
         $anteprima = $image->prendi($spazio_data['Posizione']);
 
