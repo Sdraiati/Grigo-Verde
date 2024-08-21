@@ -4,11 +4,11 @@
     <aside>
         <h2> Operazioni </h2>
         <form action="spazi/modifica" method="GET">
-            <input type="numeric" name="posizione" value="{{ posizione }}" class="hidden">
+            <input type="number" name="posizione" value="{{ posizione }}" class="hidden">
             <input type="submit" value="Modifica spazio">
         </form>
         <form action="spazi/elimina" method="POST">
-            <input type="numeric" name="posizione" value="{{ posizione }}" class="hidden">
+            <input type="number" name="posizione" value="{{ posizione }}" class="hidden">
             <input type="submit" value="Elimina spazio">
         </form>
         <form action="spazi/disponibilita" method="GET">
@@ -16,7 +16,7 @@
             <input type="submit" value="Modifica disponibilità">
         </form>
         <form action="prenotazioni/nuovo" method="GET">
-            <input type="numeric" name="posizione" value="{{ posizione }}" class="hidden">
+            <input type="number" name="posizione" value="{{ posizione }}" class="hidden">
             <input type="submit" value="Nuova prenotazione">
         </form>
     </aside>

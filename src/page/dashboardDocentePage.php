@@ -51,7 +51,7 @@ class DashboardDocentePage extends Page
     protected function setRowTable($prenotazioni_data)
     {
         $rowTemplate = '<tr>
-            <td><time datetime="{{ data }}">{{ data }}</time></td>
+            <td><time datetime="{{ read-data }}">{{ data }}</time></td>
             <td><time>{{ inizio }}</time></td>
             <td><time>{{ fine }}</time></td>
             <td><a href="prenotazioni/dettaglio?prenotazione={{ id }}">dettaglio</a></td>
@@ -64,9 +64,11 @@ class DashboardDocentePage extends Page
             $start_date_time = new DateTime($prenotazione['DataInizio']);
             $end_date_time = new DateTime($prenotazione['DataFine']);
             $giorno = $start_date_time->format('d/m/Y');
+            $read_data = $start_date_time->format('Y-m-d');
             $ora_inizio = $start_date_time->format('H:i');
             $ora_fine = $end_date_time->format('H:i');
             $row = str_replace('{{ data }}', $giorno, $rowTemplate);
+            $row = str_replace('{{ read-data }}', $read_data, $row);
             $row = str_replace('{{ inizio }}', $ora_inizio, $row);
             $row = str_replace('{{ fine }}', $ora_fine, $row);
             $row = str_replace('{{ id }}', $prenotazione['Id'], $row);
