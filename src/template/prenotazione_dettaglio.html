@@ -15,12 +15,12 @@
 
     <section id="right">
         <ul>
-            <li>Giorno: <strong><time datetime="{{ giorno }}">{{ giorno }}</time></strong></li>
-            <li>Dalle ore: <strong><time>{{ ora_inizio }}</time></strong></li>
-            <li>Alle ore: <strong><time>{{ ora_fine }}<time></strong></li>
-            <li>A nome di: <strong> {{ nome }} {{ cognome }}</strong></li>
-            <li>Nome dell'aula prenotata: <strong> {{ nome_aula }} </strong></li>
-            <li>Nota: <strong> {{ descrizione }} </strong></li>
+            <li>Giorno: <time datetime="{{ giorno }}">{{ giorno }}</time></li>
+            <li>Dalle ore: <time>{{ ora_inizio }}</time></li>
+            <li>Alle ore: <time>{{ ora_fine }}</time></li>
+            <li>A nome di: {{ nome }} {{ cognome }}</li>
+            <li>Nome dell'aula prenotata: {{ nome_aula }}</li>
+            <li>Nota: {{ descrizione }}</li>
         </ul>
 
     </section>
